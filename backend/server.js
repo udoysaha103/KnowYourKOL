@@ -1,22 +1,10 @@
 require('dotenv').config()
 
 const express = require('express')
-const {MongoClient} = require('mongodb')
+const mongoose = require('mongoose')
+const userRoutes = require('./routes/users')
 
-const client = new MongoClient(process.env.MONGO_URI);
-client.connect()
-  .then(() => {
-    console.log('connected to database')
-    app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-module.exports = client
-
-
+// express app
 const app = express()
 
 // middleware
@@ -28,5 +16,17 @@ app.use((req, res, next) => {
 })
 
 // routes
-// app.use('/api/workouts', workoutRoutes)
-app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/users', userRoutes)
+
+// connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('connected to database')
+    // listen to port
+    app.listen(process.env.PORT, () => {
+      console.log('listening for requests on port', process.env.PORT)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  }) 
