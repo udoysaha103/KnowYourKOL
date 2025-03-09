@@ -1,9 +1,38 @@
-POST http://localhost:5000/api/users/add
+POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "admin"
+    "username": "Md Faisal",
+    "email": "faisalhawlader04@gmail.com",
+    "password": "Test@321"
 }
 
 ###
-GET http://localhost:5000/api/users
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email": "faisalhawlader04@gmail.com",
+    "password": "Test@321"
+}
+
+###
+GET http://localhost:5000/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2NkNWU1NzE1YTNmZTU1MjY1OGMxNjEiLCJpYXQiOjE3NDE1MTIyODMsImV4cCI6MTc0MTk0NDI4M30.EaVfqYlm9UQYiriNgKUiJCyiZMji6iMrwq6GHlUUmYs
+###
+POST http://localhost:5000/user/getVerificationMail 
+Content-Type: application/json
+
+{
+    "email": "faisalhawlader04@gmail.com"
+}
+###
+POST http://localhost:5000/user/verify 
+Content-Type: application/json
+
+{
+    "email": "faisalhawlader04@gmail.com", 
+    "code": "807220"
+}
+

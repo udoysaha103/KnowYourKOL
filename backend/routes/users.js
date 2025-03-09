@@ -1,10 +1,25 @@
-const express = require('express')
+const express = require("express");
+const router = express.Router();
+const { registerUser, loginUser, getAllUsers, getVerificationMail, getNumberOfTries, verifyUser } = require("../controllers/userControllers");
+const requireAuth = require("../middlewares/requireAuth");
 
-const { getUsers, addUser } = require('../controllers/userControllers')
+// signup route
+router.post("/register", registerUser);
 
-const router = express.Router()
+// login route
+router.post("/login", loginUser);
 
-router.get('/', getUsers)
-router.post('/add', addUser)    
+// get all users
+router.get("/", requireAuth, getAllUsers);
 
-module.exports = router
+// get verification mail
+router.post("/getVerificationMail", getVerificationMail);
+// get number of tires
+router.get("/getNumberOfTries/:email", getNumberOfTries);
+
+// verify user
+router.post("/verify", verifyUser);
+
+
+
+module.exports = router;
