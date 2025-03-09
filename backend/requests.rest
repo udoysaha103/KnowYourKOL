@@ -2,8 +2,8 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "Md Faisal",
-    "email": "faisalhawlader04@gmail.com",
+    "username": "Udoy Shaha",
+    "email": "udoysaha103@gmail.com",
     "password": "Test@321"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "faisalhawlader04@gmail.com",
+    "email": "udoysaha103@gmail.com",
     "password": "Test@321"
 }
 
@@ -25,14 +25,14 @@ POST http://localhost:5000/user/getVerificationMail
 Content-Type: application/json
 
 {
-    "email": "faisalhawlader04@gmail.com"
+    "email": "udoysaha103@gmail.com"
 }
 ###
 POST http://localhost:5000/user/verify 
 Content-Type: application/json
 
 {
-    "email": "faisalhawlader04@gmail.com", 
-    "code": "807220"
+    "email": "udoysaha103@gmail.com", 
+    "code": "198765"
 }
 

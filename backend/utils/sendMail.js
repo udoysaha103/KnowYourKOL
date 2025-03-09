@@ -33,8 +33,8 @@ const sendMail = async (name, email, code) => {
     const MailGenerator = new Mailgen({
         theme: "default",
         product: {
-            name: "BRACU Community",
-            link: 'https://www.bracu.ac.bd/'
+            name: "Know Your KOL",
+            link: 'https://knowyourkol.io/'
         }
     })
 
@@ -51,7 +51,7 @@ const sendMail = async (name, email, code) => {
     const message = {
         from: EMAIL,
         to: email,
-        subject: "Your verification code for BRACU Community is " + code,
+        subject: "Your verification code for Know Your KOL is " + code,
         html: mail
     }
 
