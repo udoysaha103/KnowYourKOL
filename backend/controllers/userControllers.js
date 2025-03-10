@@ -2,6 +2,7 @@ const userModel = require("../models/userModel"); // user schema and model impor
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const codeModel = require("../models/code");
+const googleUserModel = require("../models/googleUser");
 const config = require("../utils/config");
 
 const registerUser = (req, res) => {
@@ -120,4 +121,23 @@ const verifyUser = async (req, res) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getAllUsers, getVerificationMail, getNumberOfTries, verifyUser}
+const googleCallback = async (accessToken, refreshToken, data, done) => {
+  // passport callback function
+  const { id, displayName, name, emails, photos } = data;
+  const user = await googleUserModel.findOne({ googleId: id });
+  if (user) {
+    done(null, user);
+  }
+  else {
+    // create new user
+    googleUserModel.signup(id, displayName, name, emails, photos)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => {
+        done(err, null);
+      });
+  }
+}
+
+module.exports = { registerUser, loginUser, getAllUsers, getVerificationMail, getNumberOfTries, verifyUser, googleCallback }
