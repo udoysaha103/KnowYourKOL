@@ -1,0 +1,88 @@
+#bodyWrapper{
+    width: 100%;
+    height: 100vh;
+    background-color: #111315;
+    background-image: url('/dot_bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#King{
+  width: 100%;
+  height: 211px;
+  background-color: #1e1f26;
+  border-radius: 8px;
+  border: 0.1px solid #ffffff;
+  box-shadow: -1px 10px 20px #0f8d07;
+  margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+
+#KingIcon{
+    width: 25%;
+    margin-left: -20px;
+}
+
+#KingImg{
+    width: 15%;
+    padding-bottom: 40px;
+    margin-left: -30px;
+}
+
+#KingInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+}
+
+#KingName{
+    font-family: "Source Code Pro", 'Poppins';
+    font-weight: 500;
+    font-size: 40px;
+    margin: 0px;
+}
+
+#KingAddr{
+    font-family: "Source Code Pro", 'Roboto';
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0px 0px 10px 0px;
+}
+#KingAddr img{
+    height: 24px;
+    margin-left: 10px;
+}
+
+#verificationText{
+    font-family: "Source Code Pro", 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    color: #3164f4;
+}
+
+.kingElement{
+    width: 100px;
+    height: 100px;
+    background-color: #bcc4ff;
+}
+
+.KingStats{
+    width: 15%;
+    font-family: "Source Code Pro", 'Work Sans';
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.KingStats p span{
+    color: #06c022;
+    font-family: "Source Code Pro", 'Roboto';
+    font-weight: bold;
+}
