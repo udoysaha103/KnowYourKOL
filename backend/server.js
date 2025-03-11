@@ -7,7 +7,7 @@ const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
-const googleUserModel = require("./models/googleUser");
+const userModel = require("./models/userModel");
 const { googleCallback } = require("./controllers/userControllers");
 
 const mongoose = require("mongoose");
@@ -15,16 +15,19 @@ const mongoose = require("mongoose");
 const app = express();
 
 // middlewares
-app.use(cors({
-  origin: "*",
-  credentials: true,
-}));
+app.use(cors(
+  {
+    origin: process.env.CLIENT_URL,
+    credentials: true
+  }
+));
 
 app.use(express.json());
 // set up session cookies
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: [process.env.JWT_SECRET]
+  keys: [process.env.JWT_SECRET],
+  httpOnly: false
 }));
 // register regenerate & save after the cookieSession middleware initialization
 app.use((req, res, next) => {
@@ -50,7 +53,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  googleUserModel.findById(id).then((user) => {
+  userModel.findById(id).then((user) => {
     done(null, user);
   });
 });
@@ -68,7 +71,7 @@ passport.use(
     // options for google strategy
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/redirect'
+    callbackURL: '/google/redirect'
   }, googleCallback)
 );
 
@@ -83,8 +86,8 @@ const userRouter = require("./routes/users");
 const twitterAuthRouter = require("./routes/twitterAuth");
 const googleAuthRouter = require("./routes/googleAuth"); 
 app.use("/user", userRouter);
-app.use("/auth", twitterAuthRouter);
-app.use("/auth", googleAuthRouter);
+app.use("/twitter", twitterAuthRouter);
+app.use("/google", googleAuthRouter);
 
 // connect to the database
 mongoose

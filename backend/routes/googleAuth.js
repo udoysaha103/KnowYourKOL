@@ -19,8 +19,7 @@ router.get("/login", (req, res) => {
         const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
             expiresIn: config.token.expairsIn,
         });
-
-        res.status(200).json({ email: req.user.emails[0].value, token });
+        res.status(200).json({ email: req.user.email, token });
     } else {
         res.redirect("http://localhost:5000/user/login");
     }
@@ -35,9 +34,9 @@ router.get("/googleLogin", passport.authenticate('google', {
 }));
 
 // google callback
-router.get('/google/redirect', passport.authenticate('google', {
-    successRedirect: "http://localhost:5000/auth/login",
-    failureRedirect: "http://localhost:5000/auth/failure"
+router.get('/redirect', passport.authenticate('google', {
+    successRedirect: process.env.CLIENT_URL,
+    failureRedirect: "http://localhost:5000/google/failure"
 }));
 
 

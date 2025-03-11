@@ -2,42 +2,45 @@ const userModel = require("../models/userModel"); // user schema and model impor
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const codeModel = require("../models/code");
-const googleUserModel = require("../models/googleUser");
 const config = require("../utils/config");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const registerUser = (req, res) => {
-  // none of the fields can be empty
   const { username, email, password } = req.body;
-
-  // trying to create an user. if failed, it will throw an error
-  userModel
-    .signup(username, email, password)
-    .then(() => {
-      res.status(200).json({ email: email });
-    })
-    .catch((err) => {
-      res.status(400).json({ error: err.message });
-    });
+  userModel.findOne({ email }).then(async (user) => {
+    if (user) {
+      throw Error("User already exists");
+    }
+    if(!validator.isEmail(email)){
+      throw Error("Invalid email");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return userModel.create({ username, email, password:hashedPassword, verificationStatus: false });
+  }).then(() => {
+    res.status(200).json({ email });
+  }).catch((err) => {
+    res.status(400).json({ error: err.message });
+  });
 }
 
 const loginUser = (req, res) => {
-  // none of the fields can be empty
   const { email, password } = req.body;
-
-  // trying to login. if failed, it will throw an error
-  userModel
-    .login(email, password)
-    .then((user) => {
-      // creating the token
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: config.token.expairsIn,
-      });
-
-      res.status(200).json({ email: email, token: token });
-    })
-    .catch((err) => {
-      res.status(400).json({ error: err.message });
+  userModel.findOne({ email }).then(async (user) => {
+    if (!user) {
+      throw Error("Incorrect email");
+    }
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw Error("Incorrect password");
+    }
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: config.token.expairsIn,
     });
+    res.status(200).json({ email, token });
+  }).catch((err) => {
+    res.status(400).json({ error: err.message });
+  })
 }
 
 const getAllUsers = (req, res) => {
@@ -68,7 +71,7 @@ const getVerificationMail = async (req, res) => {
     // 6 digit random code
     const code = Math.floor(100000 + Math.random() * 899999);
     const result = await sendMail(user.firstName, email, code);
-    const tries = codeData ? codeData.tries+1 : 1;
+    const tries = codeData ? codeData.tries + 1 : 1;
     await codeModel.deleteOne({ email })
     await codeModel.create({ email, code,  tries});
     res.status(200).json({...result, tries});
@@ -76,15 +79,15 @@ const getVerificationMail = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 }
-const getNumberOfTries = async (req, res) => {
-  const { email } = req.params;
-  try{
-    const { tries } = await codeModel.findOne({ email });
-    res.status(200).json({ tries });
-  }catch({ message }){
-    res.status(400).json({ error: message });
-  }
-}
+// const getNumberOfTries = async (req, res) => {
+//   const { email } = req.params;
+//   try{
+//     const { tries } = await codeModel.findOne({ email });
+//     res.status(200).json({ tries });
+//   }catch({ message }){
+//     res.status(400).json({ error: message });
+//   }
+// }
 
 const verifyUser = async (req, res) => {
   const { email, code } = req.body;
@@ -123,21 +126,16 @@ const verifyUser = async (req, res) => {
 
 const googleCallback = async (accessToken, refreshToken, data, done) => {
   // passport callback function
-  const { id, displayName, name, emails, photos } = data;
-  const user = await googleUserModel.findOne({ googleId: id });
+  const { displayName, emails } = data;
+  const user = await userModel.findOne({ email: emails[0].value });
   if (user) {
     done(null, user);
   }
   else {
     // create new user
-    googleUserModel.signup(id, displayName, name, emails, photos)
-      .then((user) => {
-        done(null, user);
-      })
-      .catch((err) => {
-        done(err, null);
-      });
+    const newUser = await userModel.create({ username:displayName, email: emails[0].value, verificationStatus: true })
+    done(null, newUser);
   }
 }
 
-module.exports = { registerUser, loginUser, getAllUsers, getVerificationMail, getNumberOfTries, verifyUser, googleCallback }
+module.exports = { registerUser, loginUser, getAllUsers, getVerificationMail, verifyUser, googleCallback };

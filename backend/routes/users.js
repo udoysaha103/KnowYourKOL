@@ -15,7 +15,7 @@ router.get("/", requireAuth, getAllUsers);
 // get verification mail
 router.post("/getVerificationMail", getVerificationMail);
 // get number of tires
-router.get("/getNumberOfTries/:email", getNumberOfTries);
+// router.get("/getNumberOfTries/:email", getNumberOfTries);
 
 // verify user
 router.post("/verify", verifyUser);
