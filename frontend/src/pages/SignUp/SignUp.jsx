@@ -19,7 +19,7 @@ const SignUp = () => {
             <>
             <div className={styles.logo}></div>
             <div className={styles.container}>
-                <div className={styles.header}>Login to KnowYourKOL</div>
+                <div className={styles.header}>Sign up to KnowYourKOL</div>
                 <div className={styles.dividerHorizontal}></div>
                 <br />
                 <input className={styles.input} type="text" placeholder='Username' onChange={(e)=>setUsername(e.target.value)}/>
