@@ -9,10 +9,10 @@ export const useGoogleLogin = () => {
   const googleLogin = async () => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch("http://localhost:5000/auth/login", {
+    const response = await fetch("http://localhost:5000/google/login", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        credentials: "include"
     });
     const json = await response.json();
 

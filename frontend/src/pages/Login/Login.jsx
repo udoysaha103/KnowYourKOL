@@ -13,7 +13,7 @@ const Login = () => {
         await login(email, password)
     }
     const handleGoogleLogin = () => {
-        window.open("http://localhost:5000/auth/googleLogin", "_self")
+        window.open("http://localhost:5000/google/googleLogin", "_self")
     }
     return (
             <>
