@@ -14,6 +14,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+require("./cron/SolanaCron"); // start the cron job to update the SOL to USD rate
+
+
 // middlewares
 app.use(cors({
   origin: "*",
@@ -82,9 +85,11 @@ app.use((req, res, next) => {
 const userRouter = require("./routes/users");
 const twitterAuthRouter = require("./routes/twitterAuth");
 const googleAuthRouter = require("./routes/googleAuth"); 
+const KOLregistrationRouter = require("./routes/KOLregistration");
 app.use("/user", userRouter);
 app.use("/auth", twitterAuthRouter);
 app.use("/auth", googleAuthRouter);
+app.use("/KOLregister", KOLregistrationRouter);
 
 // connect to the database
 mongoose
