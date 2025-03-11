@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel"); // user schema and model imported
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
+const generateRandom = require("../utils/randomChar");
 const codeModel = require("../models/code");
 const config = require("../utils/config");
 const bcrypt = require("bcrypt");
@@ -19,7 +20,10 @@ const registerUser = (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     return userModel.create({ username, email, password:hashedPassword, verificationStatus: false });
   }).then(() => {
-    res.status(200).json({ email });
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: config.token.expairsIn,
+    });
+    res.status(200).json({ email, token });
   }).catch((err) => {
     res.status(400).json({ error: err.message });
   });
@@ -65,12 +69,17 @@ const getVerificationMail = async (req, res) => {
     if (user.verificationStatus) {
       throw Error("Already verified");
     }
-    if (codeData && (Date.now() - codeData.timestamp) < 1 * 60000) {
-      // throw Error("Wait for some time to get another mail");
+    if (codeData && (Date.now() - codeData.timestamp) < config.code.waitTimeInMinutes * 60000) {
+      throw Error("Wait for some time to get another mail");
     }
-    // 6 digit random code
-    const code = Math.floor(100000 + Math.random() * 899999);
-    const result = await sendMail(user.firstName, email, code);
+    // 8 digit random code
+    const code = generateRandom(8);
+    const token = jwt.sign({ email, code }, process.env.JWT_SECRET, {
+      expiresIn: config.code.expiryTimeInMinuits * 60,
+    });
+    const body = `<h1>Click <a href="http://localhost:5000/user/verify/${token}">here</a> to verify your account</h1>
+    <p>This link will expire in ${config.code.expiryTimeInMinuits}</p>`;
+    const result = await sendMail(email, "Your verification link for KnowYourKOL", body);
     const tries = codeData ? codeData.tries + 1 : 1;
     await codeModel.deleteOne({ email })
     await codeModel.create({ email, code,  tries});
@@ -90,7 +99,8 @@ const getVerificationMail = async (req, res) => {
 // }
 
 const verifyUser = async (req, res) => {
-  const { email, code } = req.body;
+  const token = req.params.token;
+  const { email, code } = jwt.verify(token, process.env.JWT_SECRET);
   const user = await userModel.findOne({ email });
   try {
     if (!user) {
@@ -112,10 +122,7 @@ const verifyUser = async (req, res) => {
       await userModel.updateOne({ email }, { verificationStatus: true });
       await codeModel.deleteOne({ email });
       // creating the token
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: config.token.expairsIn,
-      });
-      res.status(200).json({ email: email, token: token });
+      res.status(200).redirect("http://localhost:5173");
     } else {
       res.status(400).json({ error: "Wrong code" });
     }

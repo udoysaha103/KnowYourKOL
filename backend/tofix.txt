@@ -1,0 +1,1 @@
+When user logins using sso, handle the error when sso given username and a username of saved users are the same.

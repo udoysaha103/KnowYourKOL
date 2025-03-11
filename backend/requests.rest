@@ -27,14 +27,7 @@ POST http://localhost:5000/user/getVerificationMail
 Content-Type: application/json
 
 {
-    "email": "udoysaha103@gmail.com"
+    "email": "xyz@xasdjfiasdfasdy.xyz"
 }
 ###
-POST http://localhost:5000/user/verify 
-Content-Type: application/json
-
-{
-    "email": "udoysaha103@gmail.com", 
-    "code": "198765"
-}
-
+GET http://localhost:5000/user/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXNhbGhhd2xhZGVyLm9iQGdtYWlsLmNvbSIsImNvZGUiOiIzYUxsNHJndCIsImlhdCI6MTc0MTcyNjA0NCwiZXhwIjoxNzQxNzI2MzQ0fQ.0Ji7PSWdvivtSA8bjhBRmlVJCAWxy7YdcjnV7kGSo78

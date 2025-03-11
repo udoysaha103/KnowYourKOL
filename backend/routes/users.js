@@ -18,7 +18,7 @@ router.post("/getVerificationMail", getVerificationMail);
 // router.get("/getNumberOfTries/:email", getNumberOfTries);
 
 // verify user
-router.post("/verify", verifyUser);
+router.get("/verify/:token", verifyUser);
 
 
 
