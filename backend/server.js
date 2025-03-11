@@ -5,9 +5,10 @@ const express = require("express");
 const cors = require("cors");
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
-const User = require('./models/userModel')
-// const { twitterCallback } = require("./controllers/userController");
+const googleUserModel = require("./models/googleUser");
+const { googleCallback } = require("./controllers/userControllers");
 
 const mongoose = require("mongoose");
 
@@ -25,6 +26,20 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [process.env.JWT_SECRET]
 }));
+// register regenerate & save after the cookieSession middleware initialization
+app.use((req, res, next) => {
+    if (req.session && !req.session.regenerate) {
+        req.session.regenerate = (cb) => {
+            cb()
+        }
+    }
+    if (req.session && !req.session.save) {
+        req.session.save = (cb) => {
+            cb()
+        }
+    }
+    next()
+})
 
 // initialize passport
 app.use(passport.initialize());
@@ -42,12 +57,20 @@ passport.deserializeUser((id, done) => {
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: "http://127.0.0.1:5000/auth/twitter/callback"
+  callbackURL: "/auth/twitter/callback"
 },
 function(token, tokenSecret, profile, cb) {
   console.log(token, tokenSecret, profile)
 }
 ));
+passport.use(
+  new GoogleStrategy({
+    // options for google strategy
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/auth/google/redirect'
+  }, googleCallback)
+);
 
 
 app.use((req, res, next) => {
@@ -57,9 +80,11 @@ app.use((req, res, next) => {
 
 // all the API routes
 const userRouter = require("./routes/users");
-const authRouter = require("./routes/twitterAuth");
+const twitterAuthRouter = require("./routes/twitterAuth");
+const googleAuthRouter = require("./routes/googleAuth"); 
 app.use("/user", userRouter);
-app.use("/auth", authRouter);
+app.use("/auth", twitterAuthRouter);
+app.use("/auth", googleAuthRouter);
 
 // connect to the database
 mongoose
