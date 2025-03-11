@@ -16,7 +16,7 @@ const app = express();
 
 // middlewares
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: "*",
   credentials: true,
 }));
 
@@ -57,7 +57,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: "/auth/twitter/callback"
+  callbackURL: "/auth/twitter/redirect"
 },
 function(token, tokenSecret, profile, cb) {
   console.log(token, tokenSecret, profile)

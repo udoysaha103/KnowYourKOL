@@ -22,7 +22,7 @@ router.get("/login", (req, res) => {
 
         res.status(200).json({ email: req.user.emails[0].value, token });
     } else {
-        res.redirect(process.env.CLIENT_URL);
+        res.redirect("http://localhost:5000/user/login");
     }
 })
 router.get("/failure", (req, res) => {
@@ -36,7 +36,7 @@ router.get("/googleLogin", passport.authenticate('google', {
 
 // google callback
 router.get('/google/redirect', passport.authenticate('google', {
-    successRedirect: process.env.CLIENT_URL,
+    successRedirect: "http://localhost:5000/auth/login",
     failureRedirect: "http://localhost:5000/auth/failure"
 }));
 

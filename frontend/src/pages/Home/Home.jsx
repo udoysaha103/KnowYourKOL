@@ -2,10 +2,11 @@ import "./Home.css"
 import Navbar from "../../Components/Navbar/Navbar"
 
 
-function Home() {
+const Home = () => {
   return (
     <>
-        <Navbar />
+      <Navbar />
+      <h1>Home</h1>
     </>
   )
 }
