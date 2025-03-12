@@ -30,4 +30,38 @@ Content-Type: application/json
     "email": "xyz@xasdjfiasdfasdy.xyz"
 }
 ###
-GET http://localhost:5000/user/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXNhbGhhd2xhZGVyLm9iQGdtYWlsLmNvbSIsImNvZGUiOiIzYUxsNHJndCIsImlhdCI6MTc0MTcyNjA0NCwiZXhwIjoxNzQxNzI2MzQ0fQ.0Ji7PSWdvivtSA8bjhBRmlVJCAWxy7YdcjnV7kGSo78
+POST http://localhost:5000/user/verify 
+Content-Type: application/json
+
+{
+    "email": "udoysaha103@gmail.com", 
+    "code": "198765"
+}
+
+
+###
+POST http://localhost:5000/KOLregister/submitVerificationRequest
+Content-Type: application/json
+
+{
+    "twitterName": "udoysaha103",
+    "IRLname": "Udoy Shaha",
+    "country": "Bangladesh",
+    "photoPath": "https://pbs.twimg.com/profile_images/1441160340136827393/1J9J9J9J_400x400.jpg",
+    "walletAddress": "CyaE1VxvBrahnPWkqm5VsdCvyS2QmNht2UFrKJHga54o",
+    "showAddress": "true",
+    "signID": "1234567890",
+    "twitterLink": "https://twitter.com/udoysaha103",
+    "discordLink": "https://discord.gg/udoysaha103",
+    "telegramLink": "https://t.me/udoysaha103",
+    "youtubeLink": "https://youtube.com/udoysaha103",
+    "generatedCode": "123456"
+}
+###
+
+POST http://localhost:5000/KOLregister/verifyKOL
+Content-Type: application/json
+
+{
+    "KOL_id" : "67d0a8f6afff95227ae284c7"
+}
