@@ -28,14 +28,14 @@ function Navbar() {
 
                 <div id="NavButtons">
                     <div>
-                        <Link to="/" id="AddKOL">
+                        <Link to="/add-kol" id="AddKOL">
                             <img src="add_KOL.svg" alt="Add KOL" id="AddKOLicon"/>
                             Add KOL
                         </Link>
                     </div>
 
                     <div>
-                        <Link to="/" id="Profile">
+                        <Link to="/profile" id="Profile">
                             <img src="account_box.svg" alt="Profile" id="ProfileIcon"/>
                         </Link>
                     </div>

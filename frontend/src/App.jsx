@@ -8,6 +8,8 @@ import {
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import Profile from "./pages/Profile/Profile";
+import AddKOL from "./pages/AddKOL/AddKOL";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
 import Cookies from "js-cookie";
@@ -15,6 +17,7 @@ import Cookies from "js-cookie";
 const App = () => {
   const { user } = useAuthContext();
   const { googleLogin, isLoading, error } = useGoogleLogin();
+  console.log(user)
   useEffect(() => {
     if (Cookies.get("session") && Cookies.get("session.sig")) {
       googleLogin();
@@ -25,7 +28,11 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={user ? <Home /> : <Navigate to="/login" />}
+          element={<Home />}
+        ></Route>
+        <Route
+          path="/profile"
+          element={user ? <Profile />: <Navigate to="/login" />}
         ></Route>
         <Route
           path="/login"
@@ -33,7 +40,11 @@ const App = () => {
         ></Route>
         <Route
           path="/signup"
-          element={user ? <Navigate to="/" /> : <SignUp />}
+          element={<SignUp />}
+        ></Route>
+        <Route
+          path="/add-kol"
+          element={<AddKOL />}
         ></Route>
       </Routes>
     </>
