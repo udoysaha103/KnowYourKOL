@@ -1,6 +1,6 @@
-import puppeteer from 'puppeteer';
+const puppeteer = require('puppeteer');
 
-import SOLconversionModel from '../models/SOLconversionModel.js';
+const SOLconversionModel =  require('../models/SOLconversionModel.js');
 
 const scrapData = async (accountAddress) => {
     const GMGN_API_URL = `https://gmgn.ai/sol/address/${accountAddress}`;
@@ -80,4 +80,4 @@ const scrapData = async (accountAddress) => {
     }
 }
 
-export { scrapData };
+module.exports =  { scrapData };

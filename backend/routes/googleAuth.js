@@ -20,9 +20,7 @@ router.get("/login", (req, res) => {
             expiresIn: config.token.expairsIn,
         });
         res.status(200).json({ email: req.user.email, token });
-    } else {
-        res.redirect("http://localhost:5000/user/login");
-    }
+    } 
 })
 router.get("/failure", (req, res) => {
     res.send("Failed to login");

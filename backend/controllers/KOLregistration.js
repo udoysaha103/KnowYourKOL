@@ -1,6 +1,6 @@
-import unverifiedKOLmodel from "../models/unverifiedKOLmodel.js";
-import verifiedKOLmodel from "../models/verifiedKOLmodel.js";
-import { scrapData } from "./scraper.js";
+const unverifiedKOLmodel = require("../models/unverifiedKOLmodel.js");
+const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
+const { scrapData } =  require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
     const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, generatedCode } = req.body;
@@ -61,4 +61,4 @@ const verifyKOL = async (req, res) => {
     }
 }
 
-export { submitVerificationRequest, verifyKOL };
+module.exports = { submitVerificationRequest, verifyKOL };

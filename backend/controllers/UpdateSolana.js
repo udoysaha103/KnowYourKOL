@@ -1,5 +1,5 @@
-import SOLconversionmodel from '../models/SOLconversionModel.js';
-import axios from 'axios';
+const SOLconversionmodel = require('../models/SOLconversionModel.js');
+const axios = require('axios');
 
 const updateSolanaRate = async () => {
     const BirdEye_API_SOL_2_USD = "https://public-api.birdeye.so/defi/price?address=So11111111111111111111111111111111111111112";
@@ -38,4 +38,4 @@ const updateSolanaRate = async () => {
     }
 }
 
-export { updateSolanaRate };
+module.exports = { updateSolanaRate };
