@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Star from "../../Components/Star/Star";
 import ListKOL from "../../Components/ListKOL/ListKOL";
+import Footer from "../../Components/Footer/Footer";
 
 function Home() {
   // copy the address to clipboard
@@ -14,11 +15,22 @@ function Home() {
       document.getElementById("addr4cpy").innerHTML = "726....589";
     }, 1000);
   };
+
   const KOLlist = [
     {
       avatar: "https://picsum.photos/200/300",
+      name: "MoneyMaykah",
+      address: "796....589",
+      roi: "110%",
+      pnl: "+1k Sol",
+      cooker: "50",
+      farmer: "10",
+      review: "5"
+    },
+    {
+      avatar: "https://picsum.photos/200/300",
       name: "John Doe",
-      address: "726....589",
+      address: "026....589",
       roi: "110%",
       pnl: "+1k Sol",
       cooker: "50",
@@ -45,8 +57,28 @@ function Home() {
       farmer: "10",
       review: "5"
     },
-
+    {
+      avatar: "https://picsum.photos/200/300",
+      name: "John Doe",
+      address: "726....589",
+      roi: "110%",
+      pnl: "+1k Sol",
+      cooker: "50",
+      farmer: "10",
+      review: "5"
+    },
+    {
+      avatar: "https://picsum.photos/200/300",
+      name: "John Doe",
+      address: "72675837537636589",
+      roi: "110%",
+      pnl: "+1k Sol",
+      cooker: "50",
+      farmer: "10",
+      review: "5"
+    },
   ]
+
   return (
     <div id="bodyWrapper">
       <Navbar />
@@ -84,17 +116,21 @@ function Home() {
             </p>
           </div>
         </Link>
+
         <div id="starContainer">
           <div id="starHeader" />
           <div id="starBody">
-            <Star name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
           </div>
         </div>
+
         <ListKOL KOLlist={KOLlist}/>
       </div>
+
+      <Footer />
     </div>
   );
 }

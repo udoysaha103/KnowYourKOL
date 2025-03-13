@@ -1,0 +1,16 @@
+.footerText{
+    text-align: center;
+    font-family: "Source Code Pro", "Open Sans";
+    font-size: 16px;
+    padding: 60px 0px 20px 0px;
+}
+
+.footerLink{
+    text-decoration: underline;
+    color: #f8f8f8;
+    padding: 0px 20px;
+}
+
+.footerLink img{
+    height: 20px;
+}

@@ -3,9 +3,9 @@ const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
 const { scrapData } =  require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
-    const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, generatedCode } = req.body;
+    const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode } = req.body;
 
-    const unverifiedKOL = new unverifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, generatedCode });
+    const unverifiedKOL = new unverifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode });
 
     try {
         await unverifiedKOL.save();
@@ -31,7 +31,7 @@ const verifyKOL = async (req, res) => {
         // Need these info from unverified KOL -> twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink
         // Need to add these info -> ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore, sentimentScore
         // Need to add a timestamp
-        const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink } = KOL;
+        const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = KOL;
         const scrapedData = await scrapData(walletAddress);
         if (!scrapedData) {
             return res.status(404).json({ message: "Failed to scrape data" });
@@ -44,7 +44,7 @@ const verifyKOL = async (req, res) => {
         const sentimentScore = 0;
 
         // create a new verifiedKOL document
-        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore, sentimentScore });
+        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore, sentimentScore });
 
 
         // if the KOL exists, delete the KOL from the unverifiedKOL collection
