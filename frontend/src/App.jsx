@@ -10,6 +10,10 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Profile from "./pages/Profile/Profile";
 import AddKOL from "./pages/AddKOL/AddKOL";
+import FAQ from "./pages/FAQ/FAQ";
+import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
+import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
+
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
 import Cookies from "js-cookie";
@@ -46,6 +50,18 @@ const App = () => {
         <Route
           path="/add-kol"
           element={<AddKOL />}
+        ></Route>
+        <Route
+          path="/FAQ"
+          element={<FAQ />}
+        ></Route>
+        <Route
+          path="/termsOfUse"
+          element={<TermsOfUse />}
+        ></Route>
+        <Route
+          path="/privacyPolicies"
+          element={<PrivacyPolicies />}
         ></Route>
       </Routes>
     </>

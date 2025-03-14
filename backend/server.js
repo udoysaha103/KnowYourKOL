@@ -91,11 +91,13 @@ const twitterAuthRouter = require("./routes/twitterAuth");
 const googleAuthRouter = require("./routes/googleAuth"); 
 const KOLregistrationRouter = require("./routes/KOLregistration");
 const getKOLRouter = require("./routes/getKOL");
+const reviewRouter = require("./routes/review");
 app.use("/user", userRouter);
 app.use("/twitter", twitterAuthRouter);
 app.use("/google", googleAuthRouter);
 app.use("/KOLregister", KOLregistrationRouter);
 app.use("/getKOL", getKOLRouter);
+app.use("/review", reviewRouter);
 
 // connect to the database
 mongoose

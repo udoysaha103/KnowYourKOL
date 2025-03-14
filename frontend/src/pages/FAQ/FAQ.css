@@ -1,0 +1,64 @@
+.FAQwrapper h1 {
+  color: #eeeef3;
+  font-size: 41px;
+  font-family: "Source Code Pro", "Montserrat";
+  font-weight: 800;
+  line-height: 68px;
+  text-align: center;
+  margin: 100px 0 0px 0;
+}
+
+.headerP {
+  color: #6f8591;
+  font-size: 13px;
+  font-family: "Source Code Pro", "Montserrat";
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+}
+
+.faqList {
+  margin: auto;
+  width: 825px;
+  margin-top: 80px;
+}
+
+.faqItem {
+  margin: 20px 0px;
+  padding: 25px;
+  background-color: #0f0f18;
+  color: #f8f8f8;
+  border-radius: 21px;
+  height: fit-content;
+}
+
+.faqQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: #d9e0ec;
+  font-size: 15px;
+  font-family: "Source Code Pro", "Montserrat";
+  font-weight: 800;
+  line-height: 25px;
+}
+
+.faqToggleBtn {
+  background-color: transparent;
+  border: none;
+  height: 23px;
+}
+
+.faqToggleBtn:hover {
+  height: 25px;
+}
+
+.faqAnswer {
+  margin-top: 20px;
+  text-align: left;
+
+  color: #f7f7f7;
+  font-size: 14px;
+  font-family: "Source Code Pro", "Roboto";
+}
