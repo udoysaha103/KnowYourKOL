@@ -182,6 +182,7 @@
   justify-content: space-between;
   background-color: #363f43;
   align-items: center;
+  padding: 10px;
 }
 .btnContainer{
   display: flex;
@@ -224,6 +225,9 @@ input[type="radio"]{
 }
 .selected{
   background-color: #3164f4;
+}
+.selected:hover{
+  background-color: #3165f4ee;
 }
 .submitBtn{
   cursor: pointer;

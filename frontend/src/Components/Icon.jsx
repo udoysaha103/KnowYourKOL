@@ -94,6 +94,14 @@ const Copy = ({ color, width, height, onClick }) => (
     <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
   </svg>
 );
+const FolderUpload = ({ color, width, height }) => (
+  <svg style={{ color, fill: color, maxWidth: width, height }}  viewBox="0 0 24 24">
+    <path fill="none" d="M0 0h24v24H0z">
+    </path>
+    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zM9.41 14.42 11 12.84V17h2v-4.16l1.59 1.59L16 13.01 12.01 9 8 13.01l1.41 1.41z">
+    </path>
+  </svg>
+);
 const Icon = ({ name, color, width, height, onClick }) => {
   switch (name) {
     case "ThumbsUp":
@@ -116,6 +124,8 @@ const Icon = ({ name, color, width, height, onClick }) => {
       return <Telegram color={color} width={width} height={height} />;
     case "YouTube":
       return <YouTube color={color} width={width} height={height} />;
+    case "FolderUpload":
+      return <FolderUpload color={color} width={width} height={height} />;
     case "Copy":
       return (
         <Copy color={color} width={width} height={height} onClick={onClick} />

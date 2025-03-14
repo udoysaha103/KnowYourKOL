@@ -62,7 +62,10 @@
   background-color: #505050;
 }
 .selected{
-  background-color: #505050;
+  background-color: #3164f4;
+}
+.selected:hover{
+  background-color: #3165f4ee;
 }
 input[type="radio"]{
   opacity: 0;

@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Icon from "../../Components/Icon";
 import Review from "../../Components/Review/Review";
+import Footer from "../../Components/Footer/Footer";
 
 const Profile = () => {
   const reviews = [
@@ -38,17 +39,23 @@ const Profile = () => {
     },
   ];
   const [review, setReview] = useState("");
-  const [reviewText, setReviewText] = useState("");
   const isVerified = true;
   const handleRadio = (e) => {
     setReview(e.target.value);
+    if(e.target.value === review) {
+      e.target.checked = false;
+      setReview("");
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const text = document.querySelector("textarea").value;
     if (review === "") {
       alert("Please select a review type");
-    } else {
-      setReviewText(document.querySelector("textarea").value);
+    } else if (text === "") {
+      alert("Please write a review");
+    }else{
+      // API call to submit review
     }
   };
 
@@ -145,7 +152,7 @@ const Profile = () => {
                     type="radio"
                     name="review"
                     value="cooker"
-                    onChange={(e) => handleRadio(e)}
+                    onClick={(e) => handleRadio(e)}
                   />
                   <Icon name="ThumbsUp" color="#3ebf3b" height="24px" /> &nbsp;
                   <div>Cooker</div>
@@ -159,7 +166,7 @@ const Profile = () => {
                     type="radio"
                     name="review"
                     value="farmer"
-                    onChange={(e) => handleRadio(e)}
+                    onClick={(e) => handleRadio(e)}
                   />
                   <Icon name="ThumbsDown" color="#d41e27" height="24px" />
                   &nbsp;

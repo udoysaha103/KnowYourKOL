@@ -54,20 +54,19 @@ const ListKOL = ({KOLlist}) => {
           </tr>
         </thead>
         <tbody>
-          {KOLlist.map((kol, index) => (
+          {KOLlist && KOLlist.map((kol, index) => (
             <tr key={index}>
-              <Link to="" style={{textDecoration: "none"}}>
                 <td className={styles.nameField}>
                   <div className={styles.avatarContainer}>
                     <img
                       className={styles.avatar}
-                      src={kol.avatar}
+                      src={kol.photoPath}
                       alt="avatar"
                     />
                   </div>
                   <div className={styles.nameContainer}>
                     <div className={styles.name}>
-                      <p style={{textDecoration: "none"}}>{index + 1}.{kol.name}</p>
+                      <p style={{textDecoration: "none"}}>{index + 1}.{kol.twitterName}</p>
                     </div>
                     <div className={styles.icon}>
                       {(index === 0) ? (
@@ -80,41 +79,40 @@ const ListKOL = ({KOLlist}) => {
                     </div>
                   </div>
                 </td>
-              </Link>
 
               <td>
-                <div className={styles.addrContainer} ref={e => copyRefs.current.push(e)} onClick={(e) => copyText(e, index, kol.address)}>
-                  <span id={index+"text"}>{truncateText(kol.address)}&nbsp;</span>
+                <div className={styles.addrContainer} ref={e => copyRefs.current.push(e)} onClick={(e) => copyText(e, index, kol.walletAddress)}>
+                  <span id={index+"text"}>{truncateText(kol.walletAddress)}&nbsp;</span>
                   <Icon name="Copy" color="#f8f8f8" height="24px"/>
                 </div>
               </td>
               <td className="emptySpace"></td>
               <td>
-                <div className={styles.roiContainer}>{kol.roi}</div>
+                <div className={styles.roiContainer} style={{padding:"10px"}}>{(kol.ROI1D*100).toFixed(2)}%</div>
               </td>
               <td>
-                <div className={styles.pnlContainer}>{kol.pnl}</div>
+                <div className={styles.pnlContainer}>+{(kol.PnLtotal1D).toFixed(2)} Sol</div>
               </td>
               <td className="emptySpace"></td>
               <td>
                 <div className={styles.cookerContainer}>
                   <Icon name="RocketLaunch" color="#f8f8f8" height="24px" /> &nbsp;
-                  {kol.cooker}
+                  {kol.cookerCount}
                 </div>
               </td>
               <td>
                 <div className={styles.farmerContainer}>
                   <Icon name="Skull" color="#f8f8f8" height="21px" /> &nbsp;
-                  {kol.farmer}
+                  {kol.farmerCount}
                 </div>
               </td>
               <td>
-                <div className={styles.reviewContainer}>{kol.review}</div>
+                <div className={styles.reviewContainer}>{kol.cookerCount+kol.farmerCount}</div>
               </td>
               <td>
-                <Link to="" className={styles.review}>
+                <button className={styles.review}>
                   Review
-                </Link>
+                </button>
               </td>
             </tr>
           ))}

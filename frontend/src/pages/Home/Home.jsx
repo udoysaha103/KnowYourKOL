@@ -1,4 +1,5 @@
 import "./Home.css";
+import {useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Star from "../../Components/Star/Star";
@@ -15,8 +16,19 @@ function Home() {
       document.getElementById("addr4cpy").innerHTML = "726....589";
     }, 1000);
   };
+  const [KOLlist, setKOLlist] = useState(null);
 
-  const KOLlist = [
+  useEffect(() => {
+    fetch('http://localhost:5000/getKOL/getKOLoverall')
+      .then(response => response.json())
+      .then(data => {
+        setKOLlist(data)
+        console.log(data)
+  });
+  }
+  , []);
+
+  const KOLlist_prime = [
     {
       avatar: "https://picsum.photos/200/300",
       name: "MoneyMaykah",
@@ -120,10 +132,10 @@ function Home() {
         <div id="starContainer">
           <div id="starHeader" />
           <div id="starBody">
-            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
-            <Star pic_path="" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="https://picusm.photos/200/300" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="https://picusm.photos/200/300" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="https://picusm.photos/200/300" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
+            <Star pic_path="https://picusm.photos/200/300" name="XYZ" roi="11.2k%" pnl="+9.5 Sol" />
           </div>
         </div>
 
