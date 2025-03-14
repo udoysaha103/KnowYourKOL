@@ -13,6 +13,7 @@ const verifiedKOLschema = new mongoose.Schema({
     discordLink: { type: String, required: false},
     telegramLink: { type: String, required: false},
     youtubeLink: { type: String, required: false},
+    streamLink: { type: String, required: false},
 
     ROI1D: { type: Number, required: true},
     ROI7D: { type: Number, required: true},

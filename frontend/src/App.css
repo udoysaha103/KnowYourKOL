@@ -2,6 +2,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  color: #f8f8f8;
 }
 
 body, html, #root{
@@ -9,7 +10,7 @@ body, html, #root{
   width: 100%;
   background-image: url("/dot_bg.png");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center;
 }

@@ -14,6 +14,7 @@ const unverifiedKOLschema = new mongoose.Schema({
     discordLink: { type: String, required: false},
     telegramLink: { type: String, required: false},
     youtubeLink: { type: String, required: false},
+    streamLink: { type: String, required: false},
 
     generatedCode: { type: String, required: true},
 

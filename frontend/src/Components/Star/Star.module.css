@@ -16,24 +16,34 @@
   box-sizing: border-box;
   border-radius: 50%;
   margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .name {
   color: #f8f8f8;
   font-size: 24px;
-  font-family: "Work Sans";
+  font-family: "Source Code Pro", "Work Sans";
   font-weight: 500;
   line-height: 31px;
   text-align: center;
 }
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
   width: 100%;
   padding: 0 20px;
   margin-bottom: 10px;
+  font-family: "Source Code Pro", "Work Sans";
 }
+
+.footer div{
+  text-align: center;
+}
+
 .key {
-  display: inline;
   color: #f8f8f8;
   font-size: 14px;
   font-family: "Work Sans";
@@ -44,7 +54,7 @@
   display: inline;
   color: #06c022;
   font-size: 14px;
-  font-family: "Roboto";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   line-height: 18px;
 }
