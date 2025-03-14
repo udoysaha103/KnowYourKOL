@@ -69,3 +69,34 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:5000/getKOL/getKOLoverall
+
+###
+POST http://localhost:5000/review/submitReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3YTAwNTM4YWU3YjAwNTUxMTAiLCJpYXQiOjE3NDE5NDgzMDYsImV4cCI6MTc0MjM4MDMwNn0.dLto094SUR9H7SoYg-M1O5jVVXPSl1r8sVJmOy2DhZM
+
+{
+    "reviewDescription": "This is a test review",
+    "reviewType": true,
+    "reviewReceiver": "67d358b644a502c24a2bee27"
+}
+
+###
+PUT http://localhost:5000/review/likeReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3YTAwNTM4YWU3YjAwNTUxMTAiLCJpYXQiOjE3NDE5NDgzMDYsImV4cCI6MTc0MjM4MDMwNn0.dLto094SUR9H7SoYg-M1O5jVVXPSl1r8sVJmOy2DhZM
+
+{
+    "reviewId": "67d4074ce5ea28c3ae0f03e5",
+    "reviewReceiverID": "67d358b644a502c24a2bee27"
+}
+
+###
+PUT http://localhost:5000/review/dislikeReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3YTAwNTM4YWU3YjAwNTUxMTAiLCJpYXQiOjE3NDE5NDgzMDYsImV4cCI6MTc0MjM4MDMwNn0.dLto094SUR9H7SoYg-M1O5jVVXPSl1r8sVJmOy2DhZM
+
+{
+    "reviewId": "67d4074ce5ea28c3ae0f03e5",
+    "reviewReceiverID": "67d358b644a502c24a2bee27"
+}

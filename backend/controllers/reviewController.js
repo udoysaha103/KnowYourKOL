@@ -1,6 +1,6 @@
-import reviewModel from "../models/reviewModel";
-import verifiedKOLModel from "../models/verifiedKOLModel";
-
+const reviewModel = require("../models/reviewModel");
+const verifiedKOLmodel = require("../models/verifiedKOLmodel");
+const mongoose = require("mongoose");
 const getReview = async (req, res) => {
     try {
         const review = await reviewModel.find();
@@ -11,24 +11,24 @@ const getReview = async (req, res) => {
 }
 
 const submitReview = async (req, res) => {
-    const {reviewDescription, reviewType, reviewGiver, reviewReceiver} = req.body;
+    const {reviewDescription, reviewType, reviewReceiver} = req.body;
     const likedBy = [];
     const dislikedBy = [];
 
-    const review = { reviewDescription, reviewType, reviewGiver, reviewReceiver, likedBy, dislikedBy };
+    const review = { reviewDescription, reviewType, reviewGiver:req.user._id, reviewReceiver, likedBy, dislikedBy };
     const newReview = new reviewModel(review);
     try {
         await newReview.save();
         
         // add +1 to the sentiment score of the user who received the review if the review is positive
         if (reviewType) {
-            const user = await verifiedKOLModel.findById(reviewReceiver);
+            const user = await verifiedKOLmodel.findById(reviewReceiver);
             user.sentimentScore += 1;
             await user.save();
         }
         // subtract -1 to the sentiment score of the user who received the review if the review is negative
         else {
-            const user = await verifiedKOLModel.findById(reviewReceiver);
+            const user = await verifiedKOLmodel.findById(reviewReceiver);
             user.sentimentScore -= 1;
             await user.save();
         }
@@ -41,10 +41,11 @@ const submitReview = async (req, res) => {
 
 
 const likeReview = async (req, res) => {
-    const { reviewId, reviewGiverID, reviewReceiverID } = req.body;
+    const reviewGiverID = req.user._id;
+    const { reviewId, reviewReceiverID } = req.body;
     try {
         const review = await reviewModel.findById(reviewId);
-        const reviewReceiver = await verifiedKOLModel.findById(reviewReceiverID);
+        const reviewReceiver = await verifiedKOLmodel.findById(reviewReceiverID);
 
         if (!review.likedBy.includes(reviewGiverID)) {  // not liked yet
             if (review.dislikedBy.includes(reviewGiverID)) {// remove the dislike if any
@@ -82,7 +83,7 @@ const likeReview = async (req, res) => {
             await reviewReceiver.save();
 
             // remove the like
-            review.likedBy = review.likedBy.filter((id) => id !== reviewGiverID);
+            review.likedBy = review.likedBy.filter((id) => id.toString() !== reviewGiverID.toString());
         }
 
         await review.save();
@@ -95,10 +96,11 @@ const likeReview = async (req, res) => {
 
 
 const dislikeReview = async (req, res) => {
-    const { reviewId, reviewGiverID, reviewReceiverID } = req.body;
+    const reviewGiverID = req.user._id;
+    const { reviewId, reviewReceiverID } = req.body;
     try {
         const review = await reviewModel.findById(reviewId);
-        const reviewReceiver = await verifiedKOLModel.findById(reviewReceiverID);
+        const reviewReceiver = await verifiedKOLmodel.findById(reviewReceiverID);
 
         if (!review.dislikedBy.includes(reviewGiverID)) {  // not disliked yet
             if (review.likedBy.includes(reviewGiverID)) {// remove the like if any
@@ -136,7 +138,7 @@ const dislikeReview = async (req, res) => {
             await reviewReceiver.save();
 
             // remove the dislike
-            review.dislikedBy = review.likedBy.filter((id) => id !== reviewGiverID);
+            review.dislikedBy = review.likedBy.filter((id) => id.toString() !== reviewGiverID.toString());
         }
 
         await review.save();
