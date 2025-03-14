@@ -1,0 +1,67 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "header2 header2 header2 header2"
+    "key input input info";
+  /* "key input input info"
+    "key input button info"; */
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  gap: 10px;
+  padding: 30px 10%;
+}
+.header {
+  width: 100%;
+  color: #f8f8f8;
+  font-size: 40px;
+  font-family: "Work Sans";
+  font-weight: 700;
+  line-height: 52px;
+  grid-area: header;
+}
+.header2 {
+  color: #f8f8f8;
+  font-size: 24px;
+  font-family: "Work Sans";
+  font-weight: 500;
+  line-height: 18px;
+  grid-area: header2;
+}
+.dividerHorizontal {
+  left: 90px;
+  width: 100%;
+  height: 4px;
+  background-color: #c2c2c2;
+  border-radius: 2px;
+}
+
+.key {
+  color: #f8f8f8;
+  font-size: 16px;
+  font-family: "Roboto";
+  line-height: 21px;
+  text-align: right;
+  grid-area: key;
+}
+.input {
+  width: 100%;
+  height: 42px;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  background-color: #1e1f26;
+  color: #858585;
+  font-size: 13px;
+  font-family: "Red Hat Display";
+  font-weight: 500;
+  line-height: 18px;
+  outline: none;
+  grid-area: input;
+}
+.info {
+  grid-area: info;
+  text-align: center;
+  vertical-align: middle;
+}

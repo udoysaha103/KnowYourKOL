@@ -44,6 +44,7 @@ th {
 .nameField{
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .nameField:hover, .nameField:visited, .nameField:link, .nameField:active
 {
@@ -70,7 +71,8 @@ th {
 }
 
 .roiContainer {
-  width: 80px;
+  width: fit-content;
+  padding: 10px;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
@@ -78,7 +80,8 @@ th {
   padding: 0px;
 }
 .pnlContainer {
-  width: 105px;
+  width: fit-content;
+  padding: 10px;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";

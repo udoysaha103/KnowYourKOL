@@ -1,0 +1,254 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    "top top link bio"
+    "avatar card1 card2 card3"
+    "review review review review";
+  grid-template-columns: 1fr 2fr 2fr 2fr;
+  gap: 10px;
+  padding: 30px 10%;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #363f43;
+    border-radius: 10px;
+    height: 53px;
+    padding: 20px;
+    grid-area: top;
+}
+.name{
+  color: #f8f8f8;
+  font-size: 32px;
+  font-family: "Work Sans";
+  font-weight: 500;
+  line-height: 38px;
+}
+.addr{
+  color: #f8f8f8;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 28px;
+}
+.link {
+  display: flex;
+  justify-content: space-around;
+  grid-area: link;
+}
+.avatarContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f8f8f8;
+  font-size: 14px;
+  font-family: "Roboto";
+}
+.avatar {
+  width: 171px;
+  height: 160px;
+  background-color: #c2c2c2;
+  box-sizing: border-box;
+  border-radius: 50%;
+  grid-area: avatar;
+}
+.avatarVerified {
+  width: 171px;
+  height: 160px;
+  background-color: #c2c2c2;
+  border: 4px solid #3164f4;
+  box-sizing: border-box;
+  border-radius: 50%;
+  grid-area: avatar;
+}
+.card1 {
+  text-align: left;
+  composes: card from "./Profile.common.css";
+  grid-area: card1;
+}
+.card2 {
+  composes: card from "./Profile.common.css";
+  grid-area: card2;
+}
+.card3 {
+  text-align: center;
+  justify-content: space-around;
+  composes: card from "./Profile.common.css";
+  grid-area: card3;
+}
+.bio {
+  display: flex;
+  flex-direction: column;
+  grid-area: bio;
+}
+.bioBtn{
+  align-self: flex-end;
+  height: 100%;
+  padding: 10px;
+  background-color: #919ba1;
+  border-radius: 8px;
+  border: 2px solid #505050;
+  box-sizing: border-box;
+  color: #111315;
+  font-size: 18px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 23px;
+  text-align: center;
+}
+.info1{
+  /* max-width: 214px; */
+  width: fit-content;
+  composes: info from "./Profile.common.css";
+}
+.info2{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  composes: info from "./Profile.common.css";
+}
+.info3{
+  width: 100%;
+  composes: info from "./Profile.common.css";
+}
+.switches{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.switch{
+  cursor: pointer;
+  padding: 0px 8px;
+  margin: 0 5px;
+  border: 1px solid #858594;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Roboto";
+  line-height: 24px;
+  outline: none;
+}
+.infoValue{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.value{
+  color: #f8f8f8;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  line-height: 28px;
+}
+.value_1{
+  color: #06c022;
+  font-size: 18px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 22px;
+}
+.value_2{
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 22px;
+}
+.reviews{
+  grid-area: review;
+}
+.textarea{
+  height: 132px;
+  width: 100%; 
+  padding: 10px;
+  background-color: #363f43;
+  grid-area: review;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: "Roboto";
+  line-height: 24px;
+  border: none;
+  outline: none;
+  resize: none;
+}
+.inputContainer{
+  display: flex;
+  justify-content: space-between;
+  background-color: #363f43;
+  align-items: center;
+  padding: 10px;
+}
+.btnContainer{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.btnContainer > *{
+  margin: 5px;
+}
+
+.header{
+  color: #f8f8f8;
+  font-size: 24px;
+  font-family: "Work Sans";
+  font-weight: 500;
+  line-height: 28px;
+}
+label{
+  color: #f8f8f8;
+  font-size: 18px;
+  font-family: "Work Sans";
+  font-weight: 500;
+  line-height: 22px;
+  cursor: pointer;
+}
+.radioContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.radioContainer:hover{
+  background-color: #212327;
+}
+input[type="radio"]{
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.selected{
+  background-color: #3164f4;
+}
+.selected:hover{
+  background-color: #3165f4ee;
+}
+.submitBtn{
+  cursor: pointer;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background-color: #4369ee;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Red Hat Display";
+  font-weight: 500;
+  line-height: 23px;
+  outline: none;
+}
+.submitBtn:hover{
+  background-color: #3164f4;
+}
+.dividerHorizontal {
+  width: 100%;
+  height: 3px;
+  background-color: #c2c2c2;
+  border-radius: 76px;
+}
