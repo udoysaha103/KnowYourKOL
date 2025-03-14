@@ -3,3 +3,13 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
+body, html, #root{
+  height: 100%;
+  width: 100%;
+  background-image: url("/dot_bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}

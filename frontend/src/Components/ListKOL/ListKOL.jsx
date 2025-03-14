@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 const truncateText = (text) => {

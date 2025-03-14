@@ -13,6 +13,7 @@ import AddKOL from "./pages/AddKOL/AddKOL";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
 import Cookies from "js-cookie";
+import './App.css'
 
 const App = () => {
   const { user } = useAuthContext();
