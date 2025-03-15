@@ -1,5 +1,6 @@
 .info{
   cursor: pointer;
+  margin: 5px 0;
   min-height: 30px;
   padding: 0px 8px;
   border: 1px solid #858594;
@@ -14,9 +15,6 @@
   outline: none;
 }
 .card{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 10px;
   background-color: #363f43;
   border-radius: 10px;

@@ -1,6 +1,6 @@
 import "./TermsOfUse.css"
-import Navbar from "../../components/Navbar/Navbar"
-import Footer from "../../components/Footer/Footer"
+import Navbar from "../../Components/Navbar/Navbar"
+import Footer from "../../Components/Footer/Footer"
 
 function TermsOfUse() {
   // first, scroll to the top of the page

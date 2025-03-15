@@ -1,5 +1,6 @@
 import "./Navbar.css"
 import { Link } from "react-router-dom"
+import Icon from "../Icon";
 
 function Navbar() {
   return (
@@ -8,7 +9,7 @@ function Navbar() {
             <div className="container" id="NavbarContainer">
                 <div>
                     <Link className="navbar-brand" to="/" id="LogoMenu">
-                        <img src="KOL logo.png" alt="Logo" id="LogoPic" />
+                        <img src="../../public/KOL logo.png" alt="Logo" id="LogoPic" />
                         <div id="VerticalBar"></div>
                         <span id="LogoName">Know Your KOL</span>
                     </Link>
@@ -29,14 +30,14 @@ function Navbar() {
                 <div id="NavButtons">
                     <div>
                         <Link to="/add-kol" id="AddKOL">
-                            <img src="add_KOL.svg" alt="Add KOL" id="AddKOLicon"/>
+                            <Icon name="AddKOL" color="#f8f8f8" height="32px"/>&nbsp;
                             Add KOL
                         </Link>
                     </div>
 
                     <div>
                         <Link to="/profile" id="Profile">
-                            <img src="account_box.svg" alt="Profile" id="ProfileIcon"/>
+                            <Icon name="AccountBox" color="#f8f8f8" height="51px"/>&nbsp;
                         </Link>
                     </div>
                 </div>

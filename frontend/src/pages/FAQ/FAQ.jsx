@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./FAQ.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
-
 const faqs = [
   {
     question: "What are the criteria to be a KOL?",

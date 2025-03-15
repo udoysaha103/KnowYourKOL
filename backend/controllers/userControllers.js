@@ -47,17 +47,6 @@ const loginUser = (req, res) => {
   })
 }
 
-const getAllUsers = (req, res) => {
-  userModel.find({}).then((data) => {
-    const users = data.map(({ username, email }) => {
-      return { username, email }
-    });
-    res.status(200).json(users);
-  }).catch((err) => {
-    res.status(400).json(err);
-  })
-}
-
 const getVerificationMail = async (req, res) => {
   const { email } = req.body;
   try {
@@ -145,4 +134,4 @@ const googleCallback = async (accessToken, refreshToken, data, done) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getAllUsers, getVerificationMail, verifyUser, googleCallback };
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser,  googleCallback};

@@ -79,14 +79,64 @@ const Telegram = ({ color, width, height }) => (
   </svg>
 );
 const YouTube = ({ color, width, height }) => (
-  <svg style={{ color, fill: color, maxWidth: width, height }}  viewBox="0 0 576 512">
-    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
-    </path>
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 576 512"
+  >
+    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
+  </svg>
+);
+const Verified = ({ color, width, height }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 24 24"
+  >
+    <path fill="none" d="M0 0h24v24H0z"></path>
+    <path d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"></path>
+  </svg>
+);
+const Check = ({ color, width, height }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 64 64"
+  >
+    <path
+      d="M32,2C15.431,2,2,15.432,2,32c0,16.568,13.432,30,30,30c16.568,0,30-13.432,30-30C62,15.432,48.568,2,32,2z M25.025,50
+	l-0.02-0.02L24.988,50L11,35.6l7.029-7.164l6.977,7.184l21-21.619L53,21.199L25.025,50z"
+    />
+  </svg>
+);
+const Error = ({ color, width, height }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 512 512"
+  >
+    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
+  </svg>
+);
+
+const AccountBox = ({ color, width, height }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 24 24"
+  >
+    <path fill="none" d="M0 0h24v24H0z"></path>
+    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"></path>
+  </svg>
+);
+
+const AddKOL = ({ color, width, height }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 24 24"
+  >
+    <path fill="none" d="M0 0h24v24H0z"></path>
+    <path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"></path>
   </svg>
 );
 const Copy = ({ color, width, height, onClick }) => (
   <svg
-    style={{ color, fill: color, maxWidth: width, height }}
+    style={{ color, fill: color, maxWidth: width, height, cursor: "pointer" }}
     viewBox="0 0 24 24"
     onClick={onClick}
   >
@@ -95,11 +145,12 @@ const Copy = ({ color, width, height, onClick }) => (
   </svg>
 );
 const FolderUpload = ({ color, width, height }) => (
-  <svg style={{ color, fill: color, maxWidth: width, height }}  viewBox="0 0 24 24">
-    <path fill="none" d="M0 0h24v24H0z">
-    </path>
-    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zM9.41 14.42 11 12.84V17h2v-4.16l1.59 1.59L16 13.01 12.01 9 8 13.01l1.41 1.41z">
-    </path>
+  <svg
+    style={{ color, fill: color, maxWidth: width, height }}
+    viewBox="0 0 24 24"
+  >
+    <path fill="none" d="M0 0h24v24H0z"></path>
+    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zM9.41 14.42 11 12.84V17h2v-4.16l1.59 1.59L16 13.01 12.01 9 8 13.01l1.41 1.41z"></path>
   </svg>
 );
 const Icon = ({ name, color, width, height, onClick }) => {
@@ -126,6 +177,16 @@ const Icon = ({ name, color, width, height, onClick }) => {
       return <YouTube color={color} width={width} height={height} />;
     case "FolderUpload":
       return <FolderUpload color={color} width={width} height={height} />;
+    case "Verified":
+      return <Verified color={color} width={width} height={height} />;
+    case "Check":
+      return <Check color={color} width={width} height={height} />;
+    case "Error":
+      return <Error color={color} width={width} height={height} />;
+    case "AccountBox":
+      return <AccountBox color={color} width={width} height={height} />;
+    case "AddKOL":
+      return <AddKOL color={color} width={width} height={height} />;
     case "Copy":
       return (
         <Copy color={color} width={width} height={height} onClick={onClick} />

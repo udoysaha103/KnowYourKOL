@@ -52,6 +52,9 @@ const likeReview = async (req, res) => {
                 // calculate the current weight contribution of the review to the entire sentiment score of the receiver
                 const reviewWeight = (review.likedBy.length - review.dislikedBy.length) * ((review.likedBy.length + 1) / (review.likedBy.length + review.dislikedBy.length + 1));
                 const newWeight = (review.likedBy.length - review.dislikedBy.length) * ((review.likedBy.length + 2) / (review.likedBy.length + review.dislikedBy.length + 1));
+                reviewReceiver.cookerCount += 1;
+                reviewReceiver.farmerCount -= 1;
+                review.dislikedBy = review.dislikedBy.filter((id) => id.toString() !== reviewGiverID.toString());
 
                 // update the sentiment score of the receiver
                 reviewReceiver.sentimentScore -= reviewWeight;
@@ -66,6 +69,7 @@ const likeReview = async (req, res) => {
                 // update the sentiment score of the receiver
                 reviewReceiver.sentimentScore -= reviewWeight;
                 reviewReceiver.sentimentScore += newWeight;
+                reviewReceiver.cookerCount += 1;
                 await reviewReceiver.save();
             }
 
@@ -80,6 +84,7 @@ const likeReview = async (req, res) => {
             // update the sentiment score of the receiver
             reviewReceiver.sentimentScore -= reviewWeight;
             reviewReceiver.sentimentScore += newWeight;
+            reviewReceiver.cookerCount -= 1;
             await reviewReceiver.save();
 
             // remove the like
@@ -111,6 +116,9 @@ const dislikeReview = async (req, res) => {
                 // update the sentiment score of the receiver
                 reviewReceiver.sentimentScore -= reviewWeight;
                 reviewReceiver.sentimentScore += newWeight;
+                reviewReceiver.cookerCount -= 1;
+                reviewReceiver.farmerCount += 1;
+                review.likedBy = review.likedBy.filter((id) => id.toString() !== reviewGiverID.toString());
                 await reviewReceiver.save();
             }
             else { // no like was found
@@ -121,6 +129,7 @@ const dislikeReview = async (req, res) => {
                 // update the sentiment score of the receiver
                 reviewReceiver.sentimentScore -= reviewWeight;
                 reviewReceiver.sentimentScore += newWeight;
+                reviewReceiver.farmerCount += 1;
                 await reviewReceiver.save();
             }
 
@@ -135,6 +144,7 @@ const dislikeReview = async (req, res) => {
             // update the sentiment score of the receiver
             reviewReceiver.sentimentScore -= reviewWeight;
             reviewReceiver.sentimentScore += newWeight;
+            reviewReceiver.farmerCount -= 1;
             await reviewReceiver.save();
 
             // remove the dislike
