@@ -52,10 +52,13 @@
   align-items: center;
   justify-content: space-between;
 }
-.navButtons * {
+.navButtons > *{
   margin: 0px 10px;
 }
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   height: 40px;
   padding: 0px 8px;
