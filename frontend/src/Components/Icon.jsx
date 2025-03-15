@@ -134,6 +134,9 @@ const AddKOL = ({ color, width, height }) => (
     <path d="M14 10H3v2h11v-2zm0-4H3v2h11V6zm4 8v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM3 16h7v-2H3v2z"></path>
   </svg>
 );
+const KOLlogo = ({ color, width, height }) => (
+  <svg/>
+);
 const Copy = ({ color, width, height, onClick }) => (
   <svg
     style={{ color, fill: color, maxWidth: width, height, cursor: "pointer" }}
@@ -187,6 +190,8 @@ const Icon = ({ name, color, width, height, onClick }) => {
       return <AccountBox color={color} width={width} height={height} />;
     case "AddKOL":
       return <AddKOL color={color} width={width} height={height} />;
+    case "KOLlogo":
+      return <KOLlogo color={color} width={width} height={height} />;
     case "Copy":
       return (
         <Copy color={color} width={width} height={height} onClick={onClick} />
