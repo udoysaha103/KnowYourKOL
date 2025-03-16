@@ -18,7 +18,7 @@ const updatePnLdata = async () => {
         }
 
         const { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration } = scrapedData;
-        const PnLscore = (0.5 * ROI1D + 0.3 * ROI7D + 0.1 * ROI30D + 0.5 * (PnLtotal1D / 100) + 0.3 * (PnLtotal7D / 100) + 0.1 * (PnLtotal30D / 100)) / 2;
+        const PnLscore = (0.6 * ROI1D + 0.3 * ROI7D + 0.1 * ROI30D + 0.6 * (PnLtotal1D / 100) + 0.3 * (PnLtotal7D / 100) + 0.1 * (PnLtotal30D / 100)) / 2;
 
         // Now save the scrapped data and the derived PnLscore to the verifiedKOL collection
         try {

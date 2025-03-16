@@ -33,6 +33,18 @@ const Profile = () => {
     }
     return text;
   };
+  const timeConvert = (time) => {
+    if(time < 60){
+      return time.toFixed(1) + "s";
+    }
+    if(time < 3600){
+      return (time/60).toFixed(1)+"m";
+    }
+    if(time < 86400){
+      return (time/3600).toFixed(1)+"h";
+    }
+    return (time/86400).toFixed(1)+"d"; 
+  }
   const copyAddress = () => {
     navigator.clipboard.writeText(kol.walletAddress);
     copyRef.current.children[0].innerText = "Copied!";
@@ -309,14 +321,14 @@ const Profile = () => {
           {kol.avgHoldingDuration && (
             <div className={styles.info2}>
               <div>Avg. Holding Duration:</div>
-              <div className={styles.value_2}>{kol.avgHoldingDuration}</div>
+              <div className={styles.value_2}>{timeConvert(kol.avgHoldingDuration)}</div>
             </div>
           )}
           {kol.walletBalance && (
             <div className={styles.info2}>
               <div>Wallet Balance:</div>
               <div className={styles.value_2}>
-                {kol.walletBalance.toFixed(digit)}
+                {kol.walletBalance.toFixed(digit)} Sol
               </div>
             </div>
           )}
