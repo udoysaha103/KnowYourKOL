@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./Review.module.css";
 import Icon from "../Icon";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Review = ({
   reviewId,
@@ -13,6 +14,7 @@ const Review = ({
   farmerCount,
 }) => {
   const [ureview, setUReview] = useState(u_review);
+  const { user } = useAuthContext();
   const handleChange = (e) => {
     setUReview(e.target.value);
     if(e.target.value === ureview) {
@@ -46,7 +48,7 @@ const Review = ({
         <div className={`${styles.count} ${u_review === "farmer" && styles.selected}`}>
           <Icon name="ThumbsDown" color="#d41e27" height="24px" /> {farmerCount}
         </div> */}
-        <label className={`${styles.count} ${ureview === "cooker" && styles.selected}`}>
+        <label className={`${user ? styles.count : styles.count_disabled} ${user && ureview === "cooker" && styles.selected}`}>
           <input
             type="radio"
             name="review"
@@ -55,7 +57,7 @@ const Review = ({
           />
           <Icon name="ThumbsUp" color="#3ebf3b" height="24px" /> {cookerCount}
         </label>
-        <label className={`${styles.count} ${ureview === "farmer" && styles.selected}`}>
+        <label className={`${user ? styles.count : styles.count_disabled} ${user && ureview === "farmer" && styles.selected}`}>
           <input
             type="radio"
             name="review"

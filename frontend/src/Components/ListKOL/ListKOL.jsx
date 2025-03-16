@@ -58,11 +58,13 @@ const ListKOL = ({KOLlist}) => {
             <tr key={index}>
                 <td className={styles.nameField}>
                   <div className={styles.avatarContainer}>
-                    <img
-                      className={styles.avatar}
-                      src={kol.photoPath}
-                      alt="avatar"
-                    />
+                    <Link to={`/profile/${kol._id}`}>
+                      <img
+                        className={styles.avatar}
+                        src={kol.photoPath}
+                        alt="avatar"
+                      />
+                    </Link>
                   </div>
                   <div className={styles.nameContainer}>
                     <div className={styles.name}>

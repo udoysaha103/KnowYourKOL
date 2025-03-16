@@ -1,16 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, getAllUsers, getVerificationMail, getNumberOfTries, verifyUser } = require("../controllers/userControllers");
-const requireAuth = require("../middlewares/requireAuth");
+const { registerUser, loginUser, getVerificationMail, verifyUser} = require("../controllers/userControllers");
 
 // signup route
 router.post("/register", registerUser);
 
 // login route
 router.post("/login", loginUser);
-
-// get all users
-router.get("/", requireAuth, getAllUsers);
 
 // get verification mail
 router.post("/getVerificationMail", getVerificationMail);

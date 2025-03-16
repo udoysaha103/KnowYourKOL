@@ -3,10 +3,14 @@
   grid-template-areas:
     "top top link bio"
     "avatar card1 card2 card3"
+    "null null null null"
+    "null null null null"
+    "null null null null"
     "review review review review";
   grid-template-columns: 1fr 2fr 2fr 2fr;
   gap: 10px;
-  padding: 30px 10%;
+
+  padding: 30px 5%;
 }
 .top {
     display: flex;
@@ -26,6 +30,9 @@
   line-height: 38px;
 }
 .addr{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #f8f8f8;
   font-size: 24px;
   font-family: "Roboto";
@@ -34,8 +41,12 @@
 }
 .link {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items: center;
   grid-area: link;
+}
+.link > a{
+  margin: 0 10px;
 }
 .avatarContainer{
   display: flex;
@@ -73,8 +84,6 @@
   grid-area: card2;
 }
 .card3 {
-  text-align: center;
-  justify-content: space-around;
   composes: card from "./Profile.common.css";
   grid-area: card3;
 }
@@ -111,6 +120,7 @@
   composes: info from "./Profile.common.css";
 }
 .info3{
+  text-align: center;
   width: 100%;
   composes: info from "./Profile.common.css";
 }
@@ -133,6 +143,9 @@
   font-family: "Roboto";
   line-height: 24px;
   outline: none;
+}
+.switch:hover{
+  background-color: #363f43;
 }
 .infoValue{
   display: flex;
@@ -201,19 +214,17 @@
   font-weight: 500;
   line-height: 28px;
 }
-label{
+.radioContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
   color: #f8f8f8;
   font-size: 18px;
   font-family: "Work Sans";
   font-weight: 500;
   line-height: 22px;
   cursor: pointer;
-}
-.radioContainer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
 }
 .radioContainer:hover{
   background-color: #212327;
@@ -231,7 +242,7 @@ input[type="radio"]{
 }
 .submitBtn{
   cursor: pointer;
-  padding: 0px 8px;
+  padding: 8px;
   border: 0;
   box-sizing: border-box;
   border-radius: 100px;
@@ -251,4 +262,47 @@ input[type="radio"]{
   height: 3px;
   background-color: #c2c2c2;
   border-radius: 76px;
+}
+
+.successMessage{
+  position:absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #06c022;
+  background-color: #363f43;
+  color: #06c022;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 28px;
+}
+.failedMessage{
+  position:absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #ff0000;
+  background-color: #363f43;
+  color: #ff0000;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 28px;
 }

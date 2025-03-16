@@ -1,7 +1,6 @@
 import "./Footer.css"
 import { Link } from "react-router-dom";
-
-import Star from "../Star/Star";
+import Icon from "../../Components/Icon";
 
 function Footer() {
   return (
@@ -11,7 +10,7 @@ function Footer() {
         <Link to="/privacyPolicies" className="footerLink">Privacy</Link> 
         <Link to="/FAQ" className="footerLink">FAQ</Link>  
         <Link to="https://x.com/KnowYourKOL" target="_blank" className="footerLink">
-            <img src="./x.png" alt="Twitter" />
+          <Icon name="X" height="22px" color="#f8f8f8" />
         </Link>
     </div>
   )

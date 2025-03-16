@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 79px;
+  padding: 0px 20px;
+  background-color: #1e1f26;
+  box-shadow: 0px 1px 12px rgba(3, 3, 3, 0.32);
+}
+.logoMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoMenu img {
+  height: 57px;
+}
+.link {
+  text-decoration: none;
+}
+.dividerVertical {
+  width: 2px;
+  height: 45px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+.header {
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Montserrat";
+  font-weight: 500;
+  line-height: 23px;
+  margin: 10px;
+}
+.searchBar {
+  width: 296px;
+  height: 40px;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #3d3d3d;
+  color: #a8a8a8;
+  font-size: 14px;
+  font-family: "Poppins";
+  line-height: 18px;
+  outline: none;
+}
+.navButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navButtons > *{
+  margin: 0px 10px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 40px;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  background-color: #3e3e3f;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Work Sans";
+  font-weight: 600;
+  line-height: 23px;
+  text-align: left;
+  outline: none;
+}

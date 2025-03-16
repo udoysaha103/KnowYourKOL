@@ -1,5 +1,23 @@
 const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
+const unverifiedKOLmodel = require("../models/unverifiedKOLmodel.js");
 
+const getKOL = async (req, res) => {
+    const { id } = req.params;
+    try {
+        let KOL = await verifiedKOLmodel.findById(id);
+        if(KOL){
+            res.status(200).json({...KOL._doc, verified: true});
+            return;
+        }
+        KOL = await unverifiedKOLmodel.findById(id);
+        if(!KOL){
+            throw Error("KOL not found");
+        }
+        res.status(200).json({...KOL._doc, verified: false});
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 // get the KOLs (Verified) sorted by PnL
 const getKOLpnl = async (req, res) => {
     try {
@@ -35,4 +53,4 @@ const getKOLoverall = async (req, res) => {
     }
 };
 
-module.exports = { getKOLpnl, getKOLsentiment, getKOLoverall };
+module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall };

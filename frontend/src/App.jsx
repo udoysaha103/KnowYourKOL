@@ -22,7 +22,6 @@ import "./App.css";
 const App = () => {
   const { user } = useAuthContext();
   const { googleLogin, isLoading, error } = useGoogleLogin();
-  console.log(user)
   useEffect(() => {
     if (Cookies.get("session") && Cookies.get("session.sig")) {
       googleLogin();
@@ -36,8 +35,8 @@ const App = () => {
           element={<Home />}
         ></Route>
         <Route
-          path="/profile"
-          element={user ? <Profile />: <Navigate to="/login" />}
+          path="/profile/:id"
+          element={<Profile />}
         ></Route>
         <Route
           path="/login"
