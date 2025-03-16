@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL } = require("../controllers/getKOLcontroller");
+const { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL, getPnLrank, getSentimentRank } = require("../controllers/getKOLcontroller");
 
 
 // get the overall sorted KOL list
@@ -17,5 +17,11 @@ router.get("/:id", getKOL);
 
 // search for a KOL by twitterName or walletAddress or IRLname
 router.get("/search/:query", searchKOL);
+
+// get the PnL based rank
+router.get("/getPnLRank", getPnLrank);
+
+// get the sentiment based rank
+router.get("/getSentimentRank", getSentimentRank);
 
 module.exports = router;
