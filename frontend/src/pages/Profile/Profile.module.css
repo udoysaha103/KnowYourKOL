@@ -42,9 +42,10 @@
 .link {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   grid-area: link;
 }
-.link a{
+.link > a{
   margin: 0 10px;
 }
 .avatarContainer{
@@ -213,19 +214,17 @@
   font-weight: 500;
   line-height: 28px;
 }
-label{
+.radioContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
   color: #f8f8f8;
   font-size: 18px;
   font-family: "Work Sans";
   font-weight: 500;
   line-height: 22px;
   cursor: pointer;
-}
-.radioContainer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
 }
 .radioContainer:hover{
   background-color: #212327;

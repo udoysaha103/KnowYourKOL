@@ -44,6 +44,14 @@ const Profile = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!user){
+      setFailedMessage("You must be logged in to submit a review.");
+      setShowFailedMessage(true);
+      setTimeout(() => {
+        setShowFailedMessage(false);
+      }, 1000);
+      return;
+    }
     const text = document.querySelector("textarea").value;
     if (review === "") {
       alert("Please select a review type");
@@ -65,6 +73,7 @@ const Profile = () => {
           }),
         }
       );
+      const data = await response.json();
       setLoading(false);
       setReview("");
       textRef.current.value = "";
@@ -74,11 +83,7 @@ const Profile = () => {
           setShowSuccessMessage(false);
         }, 1000);
       } else {
-        setFailedMessage(
-          response.status === 401
-            ? "Login to submit review."
-            : "Something went wrong."
-        );
+        setFailedMessage(data.message||data.error);
         setShowFailedMessage(true);
         setTimeout(() => {
           setShowFailedMessage(false);
@@ -120,13 +125,16 @@ const Profile = () => {
   ];
   useEffect(() => {
     // API call to get KOL data
-    const getKOL = async (id) => {
-      const response = await fetch(`http://localhost:5000/getKOL/${id}`);
-      const data = await response.json();
-      console.log(data);
-      setKOL(data);
+    const fetchData = async (id) => {
+      const response1 = await fetch(`http://localhost:5000/getKOL/${id}`);
+      const kolData = await response1.json();
+      const response2 = await fetch(`http://localhost:5000/review/getReviews/${id}`);
+      const reviewData = await response2.json();
+      console.log(reviewData);
+      console.log(kolData);
+      setKOL(kolData);
     };
-    getKOL(id);
+    fetchData(id);
   }, []);
   return (
     <>
@@ -193,7 +201,12 @@ const Profile = () => {
           )}
           {kol.youtubeLink && (
             <a href={kol.youtubeLink}>
-              <Icon name="Youtube" color="#f8f8f8" height="40px" />
+              <Icon name="YouTube" color="#f8f8f8" height="40px" />
+            </a>
+          )}
+          {kol.streamLink && (
+            <a href={kol.streamLink}>
+              <Icon name="VideoCamera" color="#f8f8f8" height="40px" />
             </a>
           )}
         </div>
@@ -276,8 +289,8 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.card3}>
-          <div className={styles.info3}>Upvote Received: 50</div>
-          <div className={styles.info3}>Downvote Received: 15</div>
+          {kol.cookerCount!==undefined && <div className={styles.info3}>Upvote Received: {kol.cookerCount}</div>}
+          {kol.farmerCount!==undefined && <div className={styles.info3}>Downvote Received: {kol.farmerCount}</div>}
           <div className={styles.info3}>Review Received: 12</div>
         </div>
         <div className={styles.reviews}>

@@ -162,6 +162,14 @@ const FolderUpload = ({ color, width, height }) => (
     <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10zM9.41 14.42 11 12.84V17h2v-4.16l1.59 1.59L16 13.01 12.01 9 8 13.01l1.41 1.41z"></path>
   </svg>
 );
+const VideoCamera = ({ color, width, height }) => (
+<svg style={{ color, fill: color, maxWidth: width, height }}  viewBox="0 0 24 24">
+    <path fill="none" d="M0 0h24v24H0z">
+    </path>
+    <path d="M18 10.48V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4.48l4 3.98v-11l-4 3.98zM10 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 8H6v-.57c0-.81.48-1.53 1.22-1.85a6.95 6.95 0 0 1 5.56 0A2.01 2.01 0 0 1 14 15.43V16z">
+    </path>
+  </svg>
+);
 const Icon = ({ name, color, width, height, onClick }) => {
   switch (name) {
     case "ThumbsUp":
@@ -200,6 +208,8 @@ const Icon = ({ name, color, width, height, onClick }) => {
       return <X color={color} width={width} height={height} />;
     case "KOLlogo":
       return <KOLlogo color={color} width={width} height={height} />;
+    case "VideoCamera":
+      return <VideoCamera color={color} width={width} height={height} />;
     case "Copy":
       return (
         <Copy color={color} width={width} height={height} onClick={onClick} />

@@ -1,10 +1,27 @@
 const reviewModel = require("../models/reviewModel");
 const verifiedKOLmodel = require("../models/verifiedKOLmodel");
+const userModel = require('../models/userModel');
 const mongoose = require("mongoose");
-const getReview = async (req, res) => {
+const getReviews = async (req, res) => {
+    const { id } = req.params;
     try {
-        const review = await reviewModel.find();
-        res.status(200).json(review);
+        const reviewsWithUsers = await reviewModel.aggregate([
+            {
+                $match: { reviewReceiver: mongoose.Types.ObjectId.createFromHexString(id) }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "reviewGiver",
+                    foreignField: "_id",
+                    as: "reviewGiverDetails"
+                }
+            },
+            {
+                $unwind: "$reviewGiverDetails"
+            }
+        ]);
+        res.status(200).json(reviewsWithUsers);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -15,9 +32,12 @@ const submitReview = async (req, res) => {
     const likedBy = [];
     const dislikedBy = [];
 
-    const review = { reviewDescription, reviewType, reviewGiver:req.user._id, reviewReceiver, likedBy, dislikedBy };
-    const newReview = new reviewModel(review);
     try {
+        if(!req.user.verificationStatus){
+            throw new Error("You are not verified yet");
+        }
+        const review = { reviewDescription, reviewType, reviewGiver:req.user._id, reviewReceiver, likedBy, dislikedBy };
+        const newReview = new reviewModel(review);
         await newReview.save();
         
         // add +1 to the sentiment score of the user who received the review if the review is positive
@@ -35,6 +55,10 @@ const submitReview = async (req, res) => {
 
         res.status(201).json(newReview);
     } catch (error) {
+        if(error.message.includes("E11000")){
+            res.status(409).json({ message: "You have already submitted a review" });
+            return;
+        }
         res.status(409).json({ message: error.message });
     }
 }
@@ -160,4 +184,4 @@ const dislikeReview = async (req, res) => {
 }
 
 
-module.exports = { getReview, submitReview, likeReview, dislikeReview };
+module.exports = { getReviews, submitReview, likeReview, dislikeReview };

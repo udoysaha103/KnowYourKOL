@@ -67,6 +67,9 @@ Content-Type: application/json
 GET http://localhost:5000/getKOL/67d562f8603c63eb9995b909
 
 ###
+GET http://localhost:5000/review/getReviews/67d0abd444de3ae484be6f74
+
+###
 GET  http://localhost:5000/getKOL/getKOLoverall
 
 ###

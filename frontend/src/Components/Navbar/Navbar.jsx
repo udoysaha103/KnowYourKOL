@@ -32,7 +32,7 @@ function Navbar() {
         </div>
 
         <div>
-          <Link to="/profile" className={styles.link}>
+          <Link to="/login" className={styles.link}>
             <Icon name="AccountBox" color="#f8f8f8" height="51px" />
             &nbsp;
           </Link>
