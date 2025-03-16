@@ -64,10 +64,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/getKOL/67d562f8603c63eb9995b909
+GET http://localhost:5000/getKOL/67d0ad8f44de3ae484be6f81
 
 ###
-GET http://localhost:5000/review/getReviews/67d0abd444de3ae484be6f74
+GET http://localhost:5000/review/getReviews/67d358b644a502c24a2bee27
 
 ###
 GET  http://localhost:5000/getKOL/getKOLoverall
@@ -75,7 +75,8 @@ GET  http://localhost:5000/getKOL/getKOLoverall
 ###
 POST http://localhost:5000/review/submitReview
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIwNTk5ODUsImV4cCI6MTc0MjQ5MTk4NX0.e-MELjnJb-kl9FRDsBG_NWNRXw4-sCs2fZzcXAE8W-0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIxMTUyMTksImV4cCI6MTc0MjU0NzIxOX0.1nUi3dZ_zAMC-tzePUvgFxIBIft65GQnE2fdlRocKDI
+
 
 {
     "reviewDescription": "",
@@ -86,11 +87,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y
 ###
 PUT http://localhost:5000/review/likeReview
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3YTAwNTM4YWU3YjAwNTUxMTAiLCJpYXQiOjE3NDE5NDgzMDYsImV4cCI6MTc0MjM4MDMwNn0.dLto094SUR9H7SoYg-M1O5jVVXPSl1r8sVJmOy2DhZM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIxMTUyMTksImV4cCI6MTc0MjU0NzIxOX0.1nUi3dZ_zAMC-tzePUvgFxIBIft65GQnE2fdlRocKDI
 
 {
-    "reviewId": "67d430f1e4a7ab6f6eda5cbb",
-    "reviewReceiverID": "67d358b644a502c24a2bee27"
+    "reviewId": "67d68896488f58ece514c0fd",
+    "reviewReceiverId": "67d0abd444de3ae484be6f74"
 }
 
 ###
@@ -100,7 +101,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3Y
 
 {
     "reviewId": "67d430f1e4a7ab6f6eda5cbb",
-    "reviewReceiverID": "67d358b644a502c24a2bee27"
+    "reviewReceiverId": "67d358b644a502c24a2bee27"
 }
 ###
 GET http://localhost:5000/user/profile

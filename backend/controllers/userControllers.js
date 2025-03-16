@@ -19,8 +19,8 @@ const registerUser = (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     return userModel.create({ username, email, password:hashedPassword, verificationStatus: false });
-  }).then(() => {
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+  }).then((user) => {
+    const token = jwt.sign({ email, _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: config.token.expairsIn,
     });
     res.status(200).json({ email, token });
