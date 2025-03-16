@@ -30,6 +30,9 @@ function FAQ() {
   // first, scroll to the top of the page
   window.scrollTo(0, 0);
 
+  // change the titile of the page
+  document.title = "FAQ - Know Your KOL";
+
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAnswer = (index) => {

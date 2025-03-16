@@ -1,10 +1,13 @@
 import "./PrivacyPolicies.css"
-import Navbar from "../../components/Navbar/Navbar"
-import Footer from "../../components/Footer/Footer"
+import Navbar from "../../Components/Navbar/Navbar"
+import Footer from "../../Components/Footer/Footer"
 
 function PrivacyPolicies() {
   // first, scroll to the top of the page
   window.scrollTo(0, 0);
+
+  // change the titile of the page
+  document.title = "Privacy Policies - Know Your KOL";
   
   return (
     <div id="touWrapper">
