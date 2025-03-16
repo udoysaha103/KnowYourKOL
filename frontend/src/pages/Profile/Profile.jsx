@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
@@ -8,6 +8,10 @@ import Footer from "../../Components/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Profile = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [time, setTime] = useState("1D");
   const [review, setReview] = useState(null);
   const [reviews, setReviews] = useState([]);

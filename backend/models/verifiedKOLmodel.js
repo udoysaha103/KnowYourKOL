@@ -6,7 +6,7 @@ const verifiedKOLschema = new mongoose.Schema({
     country: { type: String, required: true},
     photoPath: { type: String, required: false},
 
-    walletAddress: { type: String, required: true},
+    walletAddress: { type: String, required: true, unique: true},
     showAddress: { type: Boolean, required: true},
 
     twitterLink: { type: String, required: true},

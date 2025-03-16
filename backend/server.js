@@ -19,12 +19,14 @@ require("./cron/GMGN_cron"); // start the cron job to update the PnL data
 
 
 // middlewares
-app.use(cors(
-  {
-    origin: process.env.CLIENT_URL,
-    credentials: true
-  }
-));
+app.use(cors({
+    origin: "http://localhost:5173", // Ensure this matches exactly (no extra `/`)
+    credentials: true, // Allow cookies or auth headers if needed
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+  })
+);
+
 
 app.use(express.json());
 // set up session cookies

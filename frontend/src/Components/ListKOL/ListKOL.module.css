@@ -1,6 +1,11 @@
 .InfoWrapper {
-  width: 10%;
-  display: flex;
+  width: 90%;
+}
+
+#options {
+  font-size: "24px";
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: 500;
 }
 
 table{
@@ -8,7 +13,7 @@ table{
 }
 
 th td {
-  margin: 0px;
+  margin: 10px;
 }
 
 th {
@@ -39,6 +44,7 @@ th {
   font-family: "Source Code Pro", "Roboto";
   line-height: 38px;
   margin-left: 40px;
+  letter-spacing: -2px;
 }
 
 .nameField{
@@ -51,7 +57,11 @@ th {
     text-decoration: none;
 }
 .avatarContainer {
-  z-index: 100;
+  z-index: -100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 .avatar {
   width: 82px;
@@ -61,6 +71,7 @@ th {
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: -50px;
+  z-index: 1000;
 }
 .addrContainer {
   width: 140px;
@@ -71,7 +82,7 @@ th {
 }
 
 .roiContainer {
-  width: fit-content;
+  width: 100%;
   padding: 10px;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
@@ -80,7 +91,7 @@ th {
   padding: 0px;
 }
 .pnlContainer {
-  width: fit-content;
+  width: 100%;
   padding: 10px;
   color: #06c022;
   composes: text from "./ListKOL.common.css";

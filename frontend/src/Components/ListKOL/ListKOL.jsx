@@ -2,10 +2,13 @@ import React, {useEffect, useRef} from "react";
 import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const ListKOL = ({KOLlist}) => {
     const copyRefs= useRef([]);
+
+    const Navigate = useNavigate();
 
     const copyText = (event, idx, text) => {
       event.preventDefault();
@@ -20,6 +23,16 @@ const ListKOL = ({KOLlist}) => {
       , 1000);
     };
 
+    const formatSOL = (sol) => {
+      if (sol < 1000) {
+        return sol.toFixed(2);
+      } else if (sol < 1000000) {
+        return (sol / 1000).toFixed(2) + "k";
+      } else {
+        return (sol / 1000000).toFixed(2) + "M";
+      }
+    }
+
     const truncateText = (text) => {
       if (text.length >= 10) {
           return text.slice(0, 3) + "..." + text.slice(-3);
@@ -28,8 +41,12 @@ const ListKOL = ({KOLlist}) => {
   };
 
   return(
-  <div className="InfoWrapper">
-    <div className="container">
+  <div className={styles.InfoWrapper}>
+    <div id="options">
+      Ranking Based on: 
+      <Icon name="Sort" color="#f8f8f8" height="24px"></Icon>
+    </div>
+    <div className="">
       <table>
         <thead>
           <tr>
@@ -56,28 +73,26 @@ const ListKOL = ({KOLlist}) => {
         <tbody>
           {KOLlist && KOLlist.map((kol, index) => (
             <tr key={index}>
-                <td className={styles.nameField}>
-                  <div className={styles.avatarContainer}>
-                    <Link to={`/profile/${kol._id}`}>
-                      <img
-                        className={styles.avatar}
-                        src={kol.photoPath}
-                        alt="avatar"
-                      />
-                    </Link>
-                  </div>
-                  <div className={styles.nameContainer}>
-                    <div className={styles.name}>
-                      <p style={{textDecoration: "none"}}>{index + 1}.{kol.twitterName}</p>
-                    </div>
-                    <div className={styles.icon}>
-                      {(index === 0) ? (
-                        <Icon name="Crown" color="#fcb434" height="24px" />
-                      ) : (index === 1) ? (
-                        <Icon name="Crown" color="#c0c0c0" height="24px" />
-                      ) : (index === 2) ? (
-                        <Icon name="Crown" color="#a77044" height="24px" />
-                      ) : null}
+                <td className={styles.nameField} onClick={() => Navigate("/profile/"+kol._id)}>
+                  <div className={styles.avatarContainer} >
+                    <img
+                      className={styles.avatar}
+                      src={kol.photoPath}
+                      alt="avatar"
+                    />
+                    <div className={styles.nameContainer}>
+                      <div className={styles.name}>
+                        <p style={{textDecoration: "none"}}>{index + 1}.{kol.twitterName}</p>
+                      </div>
+                      <div className={styles.icon}>
+                        {(index === 0) ? (
+                          <Icon name="Crown" color="#fcb434" height="24px" />
+                        ) : (index === 1) ? (
+                          <Icon name="Crown" color="#c0c0c0" height="24px" />
+                        ) : (index === 2) ? (
+                          <Icon name="Crown" color="#a77044" height="24px" />
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -88,12 +103,14 @@ const ListKOL = ({KOLlist}) => {
                   <Icon name="Copy" color="#f8f8f8" height="24px"/>
                 </div>
               </td>
+
               <td className="emptySpace"></td>
+
               <td>
                 <div className={styles.roiContainer} style={{padding:"10px"}}>{(kol.ROI1D*100).toFixed(2)}%</div>
               </td>
               <td>
-                <div className={styles.pnlContainer}>+{(kol.PnLtotal1D).toFixed(2)} Sol</div>
+                <div className={styles.pnlContainer}>+{formatSOL(kol.PnLtotal1D)} Sol</div>
               </td>
               <td className="emptySpace"></td>
               <td>

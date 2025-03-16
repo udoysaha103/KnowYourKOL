@@ -14,6 +14,17 @@ function Home() {
     }
     return text;
   };
+
+  const formatSOL = (sol) => {
+    if (sol < 1000) {
+      return sol.toFixed(2);
+    } else if (sol < 1000000) {
+      return (sol / 1000).toFixed(2) + "k";
+    } else {
+      return (sol / 1000000).toFixed(2) + "M";
+    }
+  }
+
   const copyAddress = (event) => {
     event.preventDefault();
     navigator.clipboard.writeText(firstUser.walletAddress);
@@ -36,75 +47,13 @@ function Home() {
       });
   }, []);
 
-  const KOLlist_prime = [
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "MoneyMaykah",
-      address: "796....589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "John Doe",
-      address: "026....589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "John Doe",
-      address: "726....589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "John Doe",
-      address: "726....589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "John Doe",
-      address: "726....589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-    {
-      avatar: "https://picsum.photos/200/300",
-      name: "John Doe",
-      address: "72675837537636589",
-      roi: "110%",
-      pnl: "+1k Sol",
-      cooker: "50",
-      farmer: "10",
-      review: "5",
-    },
-  ];
 
   return (
     <div id="bodyWrapper">
       <Navbar />
 
       <div id="homeContent">
-        <Link id="King">
+        <Link id="King" to={"/profile/" + (firstUser && firstUser._id)}>
           <img src="/king.png" alt="KING" id="KingIcon" />
           <div id="KingImg" >
             <img src="/King_of_KOLs.gif" alt="KING OF KOLS" id="KingImgSvg"/>
@@ -112,7 +61,11 @@ function Home() {
           </div>
 
           <div id="KingInfo">
-            <p id="KingName">{firstUser && firstUser.twitterName}</p>
+            
+            <div id="KingName">
+              <div id="KingCrown"><img src="/king_crown.png" alt="King Crown" /></div>
+              <div id="nameOfKing">{firstUser && firstUser.twitterName}</div>
+            </div>
             <p id="KingAddr" onClick={(e) => copyAddress(e)}>
               <span id="addr4cpy">{firstUser && truncateText(firstUser.walletAddress)}</span>
               <img src="content_copy.svg" alt="copy" />
@@ -123,15 +76,15 @@ function Home() {
           <div className="KingStats">
             <p>
               ROI:{" "}
-              <span>{firstUser && (firstUser.ROI7D * 100).toFixed(2)}%</span>
+              <span>{firstUser && (firstUser.ROI1D * 100).toFixed(2)}%</span>
             </p>
             <p>
               PnL:{" "}
-              <span>{firstUser && firstUser.PnLtotal7D.toFixed(2)} Sol</span>
+              <span>{firstUser && formatSOL(firstUser.PnLtotal7D)} Sol</span>
             </p>
           </div>
 
-          <div className="KingStats">
+          <div className="KingStats KingStats2">
             <p>
               Upvotes: <strong>{firstUser && firstUser.cookerCount}</strong>
             </p>
