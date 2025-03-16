@@ -107,4 +107,26 @@ const searchKOL = async (req, res) => {
     }
 };
 
-module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL };
+const getPnLrank = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const KOLs = await verifiedKOLmodel.find().sort({ PnLscore: -1 });
+        const rank = KOLs.findIndex(KOL => KOL._id == id) + 1;
+        res.status(200).json({ rank });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+const getSentimentRank = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const KOLs = await verifiedKOLmodel.find().sort({ sentimentScore: -1 });
+        const rank = KOLs.findIndex(KOL => KOL._id == id) + 1;
+        res.status(200).json({ rank });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL, getPnLrank, getSentimentRank };
