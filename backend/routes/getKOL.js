@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall } = require("../controllers/getKOLcontroller");
+const { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL } = require("../controllers/getKOLcontroller");
 
 
 // get the overall sorted KOL list
@@ -14,5 +14,8 @@ router.get("/getKOLsentiment", getKOLsentiment);
 
 // get a specific KOL by id
 router.get("/:id", getKOL);
+
+// search for a KOL by twitterName or walletAddress or IRLname
+router.get("/search/:query", searchKOL);
 
 module.exports = router;

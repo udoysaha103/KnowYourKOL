@@ -16,12 +16,17 @@ function Home() {
   };
 
   const formatSOL = (sol) => {
-    if (sol < 1000) {
-      return sol.toFixed(2);
-    } else if (sol < 1000000) {
-      return (sol / 1000).toFixed(2) + "k";
+    let sign = "";
+    if (sol >= 0) {
+      sign = "+";
+    }
+
+    if (Math.abs(sol) < 1000) {
+      return sign + sol.toFixed(2);
+    } else if (Math.abs(sol) < 1000000) {
+      return sign + (sol / 1000).toFixed(2) + "k";
     } else {
-      return (sol / 1000000).toFixed(2) + "M";
+      return sign + (sol / 1000000).toFixed(2) + "M";
     }
   }
 
@@ -42,8 +47,6 @@ function Home() {
       .then((data) => {
         setKOLlist(data);
         setFirstUser(data[0]);
-        console.log("First user is: ", firstUser);
-        console.log("Data received: ", data);
       });
   }, []);
 
@@ -124,7 +127,7 @@ function Home() {
           </div>
         </div>
 
-        <ListKOL KOLlist={KOLlist} />
+        <ListKOL KOLlist={KOLlist} setKOLlist={setKOLlist}/>
       </div>
 
       <Footer />

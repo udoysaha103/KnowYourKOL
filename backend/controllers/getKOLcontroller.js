@@ -6,6 +6,11 @@ const getKOL = async (req, res) => {
     try {
         let KOL = await verifiedKOLmodel.findById(id);
         if(KOL){
+            // if the KOL doesnt want to show his/her wallet address, we dont show it
+            if(KOL.showAddress === false){
+                KOL.walletAddress = "[Hidden]";
+            }
+
             res.status(200).json({...KOL._doc, verified: true});
             return;
         }
@@ -22,6 +27,13 @@ const getKOL = async (req, res) => {
 const getKOLpnl = async (req, res) => {
     try {
         const KOLs = await verifiedKOLmodel.find().sort({ PnLscore: -1 });
+        // if a KOL doesnt want to show his/her wallet address, we dont show it
+        KOLs.forEach(KOL => {
+            if(KOL.showAddress === false){
+                KOL.walletAddress = "[Hidden]";
+            }
+        });
+
         res.status(200).json(KOLs);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -32,6 +44,14 @@ const getKOLpnl = async (req, res) => {
 const getKOLsentiment = async (req, res) => {
     try {
         const KOLs = await verifiedKOLmodel.find().sort({ sentimentScore: -1 });
+
+        // if a KOL doesnt want to show his/her wallet address, we dont show it
+        KOLs.forEach(KOL => {
+            if(KOL.showAddress === false){
+                KOL.walletAddress = "[Hidden]";
+            }
+        });
+
         res.status(200).json(KOLs);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -42,6 +62,14 @@ const getKOLsentiment = async (req, res) => {
 const getKOLoverall = async (req, res) => {
     try {
         const KOLs = await verifiedKOLmodel.find();
+
+        // if a KOL doesnt want to show his/her wallet address, we dont show it
+        KOLs.forEach(KOL => {
+            if(KOL.showAddress === false){
+                KOL.walletAddress = "[Hidden]";
+            }
+        });
+
         const sortedKOLs = KOLs.sort((a, b) => {
             const avgA = (a.PnLscore + a.sentimentScore) / 2;
             const avgB = (b.PnLscore + b.sentimentScore) / 2;
@@ -53,4 +81,30 @@ const getKOLoverall = async (req, res) => {
     }
 };
 
-module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall };
+const searchKOL = async (req, res) => {
+    const searchQuery = req.params.query;
+
+    // look for twitterName or walletAddress or IRLname of verified KOLs
+    try {
+        const KOLs = await verifiedKOLmodel.find({
+            $or: [
+                { twitterName: { $regex: searchQuery, $options: "i" } },
+                { walletAddress: { $regex: searchQuery, $options: "i" } },
+                { IRLname: { $regex: searchQuery, $options: "i" } }
+            ]
+        });
+
+        // if a KOL doesnt want to show his/her wallet address, we dont show it
+        KOLs.forEach(KOL => {
+            if(KOL.showAddress === false){
+                KOL.walletAddress = "[Hidden]";
+            }
+        });
+
+        res.status(200).json(KOLs);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL };

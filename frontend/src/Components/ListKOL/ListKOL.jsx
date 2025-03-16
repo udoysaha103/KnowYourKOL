@@ -1,12 +1,13 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef, useState} from "react";
 import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-const ListKOL = ({KOLlist}) => {
+const ListKOL = ({KOLlist, setKOLlist}) => {
     const copyRefs= useRef([]);
+    const [duration, setDuration] = useState(1);
+    const [sortMethod, setSortMethod] = useState("Overall");
 
     const Navigate = useNavigate();
 
@@ -23,39 +24,84 @@ const ListKOL = ({KOLlist}) => {
       , 1000);
     };
 
-    const formatSOL = (sol) => {
-      if (sol < 1000) {
-        return sol.toFixed(2);
-      } else if (sol < 1000000) {
-        return (sol / 1000).toFixed(2) + "k";
-      } else {
-        return (sol / 1000000).toFixed(2) + "M";
-      }
+  const formatSOL = (sol) => {
+    let sign = "";
+    if (sol >= 0) {
+      sign = "+";
     }
 
-    const truncateText = (text) => {
-      if (text.length >= 10) {
-          return text.slice(0, 3) + "..." + text.slice(-3);
-      }
-      return text;
+    if (Math.abs(sol) < 1000) {
+      return sign + sol.toFixed(2);
+    } else if (Math.abs(sol) < 1000000) {
+      return sign + (sol / 1000).toFixed(2) + "k";
+    } else {
+      return sign + (sol / 1000000).toFixed(2) + "M";
+    }
+  }
+
+  const truncateText = (text) => {
+    if (text.length >= 10) {
+        return text.slice(0, 3) + "..." + text.slice(-3);
+    }
+    return text;
+  };
+
+  const handleSort = (strategy) => {
+    setSortMethod(strategy);
+
+    if (strategy === "Overall") {
+      fetch("http://localhost:5000/getKOL/getKOLoverall")
+        .then((response) => response.json())
+        .then((data) => {
+          setKOLlist(data);
+        });
+    }
+    else if (strategy === "PnL") {
+      fetch("http://localhost:5000/getKOL/getKOLpnl")
+        .then((response) => response.json())
+        .then((data) => {
+          setKOLlist(data);
+        });
+    }
+    else if (strategy === "Sentiment") {
+      fetch("http://localhost:5000/getKOL/getKOLsentiment")
+        .then((response) => response.json())
+        .then((data) => {
+          setKOLlist(data);
+        });
+    }
+
   };
 
   return(
   <div className={styles.InfoWrapper}>
-    <div id="options">
-      Ranking Based on: 
-      <Icon name="Sort" color="#f8f8f8" height="24px"></Icon>
+    <div id={styles.options}>
+      <div id={styles.sortBy}>
+        <div>Ranking Based on:</div>
+        <div id={styles.sortButton}><Icon name="Sort" color="#f8f8f8" height="24px"></Icon></div>
+        <div className={styles.sortOverall} id={sortMethod === "Overall" ? styles.activeDuration : ""} onClick={() => handleSort("Overall")}>Overall</div>
+        <div className={styles.sortPnL} id={sortMethod === "PnL" ? styles.activeDuration : ""} onClick={() => handleSort("PnL")}>PnL</div>
+        <div className={styles.sortPnL} id={sortMethod === "Sentiment" ? styles.activeDuration : ""} onClick={() => handleSort("Sentiment")}>Follower's Seniment</div>
+      </div>
+      <div id={styles.filter}>
+        <div>PnL</div>
+        <div className={styles.filterButtons}>
+          <div id={(duration === 1 ? styles.activeDuration : "")} onClick={() => setDuration(1)}>1D</div>
+          <div id={duration === 7 ? styles.activeDuration : ""} onClick={() => setDuration(7)}>7D</div>
+          <div id={duration === 30 ? styles.activeDuration : ""} onClick={() => setDuration(30)}>30D</div>
+        </div>
+      </div>
     </div>
-    <div className="">
+    <div className={styles.tableWrapper}>
       <table>
         <thead>
           <tr>
             <th />
             <th>Wallet Address</th>
-            <th className="emptySpace">&nbsp;</th>
+            <th className={styles.emptySpace}>&nbsp;</th>
             <th>ROI</th>
             <th>PnL Total</th>
-            <th className="emptySpace">&nbsp;</th>
+            <th className={styles.emptySpace}>&nbsp;</th>
             <th>
               <Icon name="ThumbsUp" color="#3ebf3b" height="24px" />
               &nbsp;Cooker
@@ -107,10 +153,10 @@ const ListKOL = ({KOLlist}) => {
               <td className="emptySpace"></td>
 
               <td>
-                <div className={styles.roiContainer} style={{padding:"10px"}}>{(kol.ROI1D*100).toFixed(2)}%</div>
+                <div className={styles.roiContainer} style={{padding:"10px"}}>{((duration === 1 ? kol.ROI1D : (duration === 7 ? kol.ROI7D : (duration === 30 ? kol.ROI30D : "")))*100).toFixed(2)}%</div>
               </td>
               <td>
-                <div className={styles.pnlContainer}>+{formatSOL(kol.PnLtotal1D)} Sol</div>
+                <div className={styles.pnlContainer}>{formatSOL(duration === 1 ? kol.PnLtotal1D : (duration === 7 ? kol.PnLtotal7D : (duration === 30 ? kol.PnLtotal30D : "")))} Sol</div>
               </td>
               <td className="emptySpace"></td>
               <td>
@@ -129,7 +175,7 @@ const ListKOL = ({KOLlist}) => {
                 <div className={styles.reviewContainer}>{kol.cookerCount+kol.farmerCount}</div>
               </td>
               <td>
-                <button className={styles.review}>
+                <button className={styles.review} onClick={() => Navigate("/profile/"+kol._id)}>
                   Review
                 </button>
               </td>

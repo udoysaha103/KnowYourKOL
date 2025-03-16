@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
@@ -40,6 +40,20 @@ const Profile = () => {
       copyRef.current.children[0].innerText = truncateText(kol.walletAddress);
     }, 1000);
   };
+  const formatSOL = (sol) => {
+    let sign = "";
+    if (sol >= 0) {
+      sign = "+";
+    }
+
+    if (Math.abs(sol) < 1000) {
+      return sign + sol.toFixed(2);
+    } else if (Math.abs(sol) < 1000000) {
+      return sign + (sol / 1000).toFixed(2) + "k";
+    } else {
+      return sign + (sol / 1000000).toFixed(2) + "M";
+    }
+  }
   const handleRadio = (e) => {
     setReview(e.target.value === "cooker");
     if ((e.target.value === "cooker") === review) {
@@ -152,6 +166,9 @@ const Profile = () => {
     };
     fetchData(id);
   }, [showSuccessMessage]);
+
+  document.title = "KOL Profile";
+
   return (
     <>
       <Navbar />
@@ -284,7 +301,7 @@ const Profile = () => {
             <div className={styles.info2}>
               <div>P&L Total:</div>
               <div className={styles.value_1}>
-                {kol[`PnLtotal${time}`].toFixed(digit)} Sol
+                {formatSOL(kol[`PnLtotal${time}`])} Sol
               </div>
             </div>
           )}
