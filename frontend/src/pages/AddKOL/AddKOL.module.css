@@ -34,6 +34,7 @@
     "key input button info"; */
   grid-template-columns: 1fr 2fr 1fr 1fr;
   align-items: center;
+  /* justify-items: center; */
   gap: 10px;
   padding: 30px 10%;
 }
@@ -64,7 +65,7 @@
   grid-area: key;
 }
 .input {
-  composes: input from "./AddKOL.common.css"; 
+  composes: input from "./AddKOL.common.css";
   grid-area: input;
 }
 .info {
@@ -72,13 +73,12 @@
   grid-area: info;
 }
 
-
 .key {
   composes: key from "./AddKOL.common.css";
   grid-area: key;
 }
 .input {
-  composes: input from "./AddKOL.common.css"; 
+  composes: input from "./AddKOL.common.css";
   grid-area: input;
 }
 .info {
@@ -86,13 +86,12 @@
   grid-area: info;
 }
 
-
 .key {
   composes: key from "./AddKOL.common.css";
   grid-area: key;
 }
 .input {
-  composes: input from "./AddKOL.common.css"; 
+  composes: input from "./AddKOL.common.css";
   grid-area: input;
 }
 .info {
@@ -105,7 +104,7 @@
   grid-area: key1;
 }
 .input1 {
-  composes: input from "./AddKOL.common.css"; 
+  composes: input from "./AddKOL.common.css";
   grid-area: input1;
 }
 .info1 {
@@ -118,7 +117,7 @@
   grid-area: key2;
 }
 .input2 {
-  composes: input from "./AddKOL.common.css"; 
+  composes: input from "./AddKOL.common.css";
   grid-area: input2;
 }
 .info2 {
@@ -134,11 +133,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  composes: input from "./AddKOL.common.css"; 
-  cursor:pointer;
+  composes: input from "./AddKOL.common.css";
+  cursor: pointer;
   grid-area: input3;
 }
-.active{
+.active {
   border: 2px dashed #3164f4;
 }
 .btn1 {
@@ -156,13 +155,13 @@
   outline: none;
   grid-area: button1;
 }
-.btn1:hover{
+.btn1:hover {
   background-color: #013de2;
 }
-.dropzoneText{
+.dropzoneText {
   margin-inline: auto;
 }
-.info3{
+.info3 {
   composes: info from "./AddKOL.common.css";
   grid-area: info3;
 }
@@ -188,8 +187,28 @@
   grid-area: key5;
 }
 .input5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  width: fit-content;
   composes: input from "./AddKOL.common.css";
   grid-area: input5;
+}
+.input5 > label > input {
+  margin: 10px;
+}
+.input5 > label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: #f8f8f8;
+  font-size: 16px;
+  font-family: "Roboto";
+  line-height: 21px;
+  text-align: right;
 }
 .info5 {
   composes: info from "./AddKOL.common.css";
@@ -271,13 +290,13 @@
   composes: info from "./AddKOL.common.css";
   grid-area: info11;
 }
-.btn2_container{
+.btn2_container {
   display: flex;
   justify-content: center;
   align-items: center;
   grid-area: button2;
 }
-.btn2{
+.btn2 {
   cursor: pointer;
   height: 42px;
   padding: 0px 8px;
@@ -294,10 +313,10 @@
   line-height: 26px;
   outline: none;
 }
-.btn2:hover{
+.btn2:hover {
   background-color: #013de2;
 }
-.msg{
+.msg {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -307,7 +326,7 @@
   line-height: 16px;
   grid-area: msg;
 }
-.msg2{
+.msg2 {
   display: flex;
   justify-content: center;
   align-items: center;

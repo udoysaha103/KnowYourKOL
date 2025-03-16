@@ -19,9 +19,9 @@ router.get("/:id", getKOL);
 router.get("/search/:query", searchKOL);
 
 // get the PnL based rank
-router.get("/getPnLRank", getPnLrank);
+router.get("/getPnLRank/:id", getPnLrank);
 
 // get the sentiment based rank
-router.get("/getSentimentRank", getSentimentRank);
+router.get("/getSentimentRank/:id", getSentimentRank);
 
 module.exports = router;

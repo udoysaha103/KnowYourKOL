@@ -10,7 +10,6 @@ const AddKOL = () => {
   const twitterNameRef = useRef();
   const irlNameRef = useRef();
   const locationRef = useRef();
-  const profilePhotoRef = useRef();
   const solanaWalletRef = useRef();
   const walletPublicRef = useRef();
   const signatureIdRef = useRef();
@@ -23,7 +22,6 @@ const AddKOL = () => {
     const twitterName = twitterNameRef.current.value;
     const IRLname = irlNameRef.current.value;
     const country = locationRef.current.value;
-    const photoPath = profilePhotoRef.current.value;
     const walletAddress = solanaWalletRef.current.value;
     const showAddress = walletPublicRef.current.value;
     const signID = signatureIdRef.current.value;
@@ -94,7 +92,6 @@ const AddKOL = () => {
             {...getInputProps()}
             accept="image/*"
             multiple={false}
-            ref={profilePhotoRef}
           />
           <div className={styles.dropzoneText}>
             {file
@@ -123,11 +120,15 @@ const AddKOL = () => {
           will hide your wallet address but still include you on the
           leaderboard.
         </div>
-        <input
-          className={styles.input5}
-          placeholder="Type your answer..."
-          ref={walletPublicRef}
-        />
+        <div className={styles.input5}>
+            <label>
+              <input 
+                type="checkbox"
+                ref={walletPublicRef}
+              />
+              Show my wallet address?
+            </label>
+        </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
           Please send 1 dollar or any amount worth of Solana to our donation

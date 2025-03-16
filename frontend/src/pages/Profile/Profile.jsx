@@ -19,6 +19,8 @@ const Profile = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailedMessage, setShowFailedMessage] = useState(false);
   const [failedMessage, setFailedMessage] = useState("");
+  const [PnLRank, setPnLRank] = useState(0);
+  const [sentimentRank, setSentimentRank] = useState(0);
   const [kol, setKOL] = useState({});
   const { id } = useParams();
   const copyRef = useRef(null);
@@ -165,6 +167,12 @@ const Profile = () => {
       const kolData = await response1.json();
       const response2 = await fetch(`http://localhost:5000/review/getReviews/${id}`);
       const reviewData = await response2.json();
+      const response3 = await fetch(`http://localhost:5000/getKOL/getPnLRank/${id}`);
+      const response4 = await fetch(`http://localhost:5000/getKOL/getSentimentRank/${id}`);
+      const data3 = await response3.json();
+      const data4 = await response4.json();
+      setPnLRank(data3.rank);
+      setSentimentRank(data4.rank);
       setReviews(reviewData);
       setKOL(kolData);
     };
@@ -271,11 +279,11 @@ const Profile = () => {
           </div>
           <div className={styles.infoValue}>
             <div className={styles.info1}>Ranking by P&L:</div>
-            <div className={styles.value}>#1</div>
+            <div className={styles.value}># {PnLRank}</div>
           </div>
           <div className={styles.infoValue}>
             <div className={styles.info1}>Ranking by Follwer's Review:</div>
-            <div className={styles.value}>#1</div>
+            <div className={styles.value}># {sentimentRank}</div>
           </div>
         </div>
         <div className={styles.card2}>

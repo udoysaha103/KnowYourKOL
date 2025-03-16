@@ -109,3 +109,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3Y
 ###
 GET http://localhost:5000/user/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIwMjQ4MjIsImV4cCI6MTc0MjQ1NjgyMn0.wLX64ltzlnDUlJ4MnvOomjqR-Ktm1MhjKJp_2DLlpkE
+
+###
+GET http://localhost:5000/getKOL/getSentimentRank/67d72f9367dfc1b3f9a10c31
+
+###
+GET http://localhost:5000/getKOL/search/tre
