@@ -3,10 +3,37 @@
   grid-template-areas:
     "header header header header"
     "header2 header2 header2 header2"
-    "key input input info";
+    "key input input info"
+    "key1 input1 input1 info1"
+    "key2 input2 input2 info2"
+    "key3 input3 button1 info3"
+    "null1 null1 null1 null1"
+    "null1 null1 null1 null1"
+    "null1 null1 null1 null1"
+    "header3 header3 header3 header3"
+    "key4 input4 input4 info4"
+    "key5 input5 input5 info5"
+    "key6 input6 input6 info6"
+    "null2 null2 null2 null2"
+    "null2 null2 null2 null2"
+    "null2 null2 null2 null2"
+    "header4 header4 header4 header4"
+    "key7 input7 input7 info7"
+    "key8 input8 input8 info8"
+    "key9 input9 input9 info9"
+    "key10 input10 input10 info10"
+    "key11 input11 input11 info11"
+    "null3 null3 null3 null3"
+    "null3 null3 null3 null3"
+    "null3 null3 null3 null3"
+    "msg msg msg button2"
+    "null4 null4 null4 null4"
+    "null4 null4 null4 null4"
+    "msg2 msg2 msg2 msg2";
   /* "key input input info"
     "key input button info"; */
   grid-template-columns: 1fr 2fr 1fr 1fr;
+  align-items: center;
   gap: 10px;
   padding: 30px 10%;
 }
@@ -18,13 +45,10 @@
   font-weight: 700;
   line-height: 52px;
   grid-area: header;
+  margin-bottom: 50px;
 }
 .header2 {
-  color: #f8f8f8;
-  font-size: 24px;
-  font-family: "Work Sans";
-  font-weight: 500;
-  line-height: 18px;
+  composes: header from "./AddKOL.common.css";
   grid-area: header2;
 }
 .dividerHorizontal {
@@ -36,32 +60,260 @@
 }
 
 .key {
-  color: #f8f8f8;
-  font-size: 16px;
-  font-family: "Roboto";
-  line-height: 21px;
-  text-align: right;
+  composes: key from "./AddKOL.common.css";
   grid-area: key;
 }
 .input {
-  width: 100%;
-  height: 42px;
-  padding: 0px 8px;
+  composes: input from "./AddKOL.common.css"; 
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+
+.key {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key;
+}
+.input {
+  composes: input from "./AddKOL.common.css"; 
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+
+.key {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key;
+}
+.input {
+  composes: input from "./AddKOL.common.css"; 
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+.key1 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key1;
+}
+.input1 {
+  composes: input from "./AddKOL.common.css"; 
+  grid-area: input1;
+}
+.info1 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info1;
+}
+
+.key2 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key2;
+}
+.input2 {
+  composes: input from "./AddKOL.common.css"; 
+  grid-area: input2;
+}
+.info2 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info2;
+}
+
+.key3 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key3;
+}
+.input3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  composes: input from "./AddKOL.common.css"; 
+  cursor:pointer;
+  grid-area: input3;
+}
+.active{
+  border: 2px dashed #3164f4;
+}
+.btn1 {
+  cursor: pointer;
   border: 0;
+  height: 38px;
   box-sizing: border-box;
-  border-radius: 6px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-  background-color: #1e1f26;
-  color: #858585;
+  border-radius: 100px;
+  background-color: #04247d;
+  color: #ffffff;
   font-size: 13px;
   font-family: "Red Hat Display";
   font-weight: 500;
   line-height: 18px;
   outline: none;
-  grid-area: input;
+  grid-area: button1;
 }
-.info {
-  grid-area: info;
-  text-align: center;
-  vertical-align: middle;
+.btn1:hover{
+  background-color: #013de2;
+}
+.dropzoneText{
+  margin-inline: auto;
+}
+.info3{
+  composes: info from "./AddKOL.common.css";
+  grid-area: info3;
+}
+
+.header3 {
+  composes: header from "./AddKOL.common.css";
+  grid-area: header3;
+}
+.key4 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key4;
+}
+.input4 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input4;
+}
+.info4 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info4;
+}
+.key5 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key5;
+}
+.input5 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input5;
+}
+.info5 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info5;
+}
+.key6 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key6;
+}
+.input6 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input6;
+}
+.info6 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info6;
+}
+.header4 {
+  composes: header from "./AddKOL.common.css";
+  grid-area: header4;
+}
+.key7 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key7;
+}
+.input7 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input7;
+}
+.info7 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info7;
+}
+.key8 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key8;
+}
+.input8 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input8;
+}
+.info8 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info8;
+}
+.key9 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key9;
+}
+.input9 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input9;
+}
+.info9 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info9;
+}
+.key10 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key10;
+}
+.input10 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input10;
+}
+.info10 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info10;
+}
+.key11 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key11;
+}
+.input11 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input11;
+}
+.info11 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info11;
+}
+.btn2_container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: button2;
+}
+.btn2{
+  cursor: pointer;
+  height: 42px;
+  padding: 0px 8px;
+  width: 146px;
+  height: 42px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background-color: #3164f4;
+  color: #ffffff;
+  font-size: 20px;
+  font-family: "Red Hat Display";
+  font-weight: 500;
+  line-height: 26px;
+  outline: none;
+}
+.btn2:hover{
+  background-color: #013de2;
+}
+.msg{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #f8f8f8;
+  font-size: 14px;
+  font-family: "Roboto";
+  line-height: 16px;
+  grid-area: msg;
+}
+.msg2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Roboto";
+  line-height: 16px;
+  grid-area: msg2;
 }

@@ -265,7 +265,7 @@ input[type="radio"]{
 }
 
 .successMessage{
-  position:absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,7 +286,7 @@ input[type="radio"]{
   line-height: 28px;
 }
 .failedMessage{
-  position:absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
