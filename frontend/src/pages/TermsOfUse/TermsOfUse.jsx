@@ -5,6 +5,9 @@ import Footer from "../../Components/Footer/Footer"
 function TermsOfUse() {
   // first, scroll to the top of the page
   window.scrollTo(0, 0);
+
+  // change the titile of the page
+  document.title = "Terms of Use - Know Your KOL";
   
   return (
     <div id="touWrapper">

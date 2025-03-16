@@ -23,7 +23,7 @@
 .name {
   color: #f8f8f8;
   font-size: 24px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   line-height: 31px;
   text-align: center;
@@ -36,7 +36,7 @@
   width: 100%;
   padding: 0 20px;
   margin-bottom: 10px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
 }
 
 .footer div{

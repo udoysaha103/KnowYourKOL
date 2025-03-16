@@ -9,25 +9,34 @@
   background-attachment: fixed;
 }
 
-#King {
+#homeContent{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+}
+
+#King {
+  width: 90%;
   height: 211px;
   background-color: #1e1f26;
   border-radius: 8px;
   border: 0.1px solid #ffffff;
   box-shadow: -1px 10px 20px #0f8d07;
-  margin: 40px 0;
+  /* margin: 40px 0; */
+  margin-top: 50px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-around;
+  gap: 30px;
   text-decoration: none;
   color: #ffffff;
+  padding: 20px 40px;
 }
 
 #KingIcon {
-  width: 25%;
-  margin-left: -20px;
+  width: 200px;
+  margin: auto 5px;
 }
 
 #KingImg {
@@ -36,6 +45,7 @@
   justify-content: center;
   align-items: center;
   width: 15%;
+  margin: 0px 10px;
 }
 #KingImgSvg{
   height: 250px;
@@ -54,21 +64,38 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 20%;
+  width: 40%;
 }
 
 #KingName {
-  font-family: "Source Code Pro", "Poppins";
-  font-weight: 500;
-  font-size: 40px;
-  margin: 0px;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: bolder;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+}
+
+#KingCrown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#KingCrown img{
+  width: 70px;
+}
+
+#nameOfKing {
+  letter-spacing: -2px;
 }
 
 #KingAddr {
   font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   font-size: 24px;
-  margin: 0px 0px 10px 0px;
 }
 #KingAddr img {
   height: 24px;
@@ -81,12 +108,13 @@
   font-size: 16px;
   color: #3164f4;
 }
+
 #starContainer {
   padding: 10px;
   width: fit-content;
   background-color: #1e1f26;
   border-radius: 26px;
-  margin: 70px auto;
+  /* margin: 70px auto; */
 }
 #starHeader{
   width: 248px;
@@ -109,12 +137,17 @@
 }
 
 .KingStats {
-  width: 15%;
-  font-family: "Source Code Pro", "Work Sans";
+  width: 30%;
+  font-family: "Source Code Pro", "Roboto";
   font-size: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 40px;
+}
+
+.KingStats2 {
+  width: 25%;
 }
 
 .KingStats p span {

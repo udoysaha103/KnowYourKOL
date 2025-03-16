@@ -1,7 +1,7 @@
 .FAQwrapper h1 {
   color: #eeeef3;
   font-size: 41px;
-  font-family: "Source Code Pro", "Montserrat";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 800;
   line-height: 68px;
   text-align: center;
@@ -11,7 +11,7 @@
 .headerP {
   color: #6f8591;
   font-size: 13px;
-  font-family: "Source Code Pro", "Montserrat";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 700;
   line-height: 22px;
   text-align: center;
@@ -39,7 +39,7 @@
   cursor: pointer;
   color: #d9e0ec;
   font-size: 15px;
-  font-family: "Source Code Pro", "Montserrat";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 800;
   line-height: 25px;
 }

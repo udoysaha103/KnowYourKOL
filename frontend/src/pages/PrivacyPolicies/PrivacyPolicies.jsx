@@ -5,6 +5,9 @@ import Footer from "../../Components/Footer/Footer"
 function PrivacyPolicies() {
   // first, scroll to the top of the page
   window.scrollTo(0, 0);
+
+  // change the titile of the page
+  document.title = "Privacy Policies - Know Your KOL";
   
   return (
     <div id="touWrapper">

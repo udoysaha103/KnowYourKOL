@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./FAQ.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
@@ -26,8 +26,15 @@ const faqs = [
 ];
 
 function FAQ() {
-  // first, scroll to the top of the page
-  window.scrollTo(0, 0);
+  const [loading] = useState(true);
+  // first, scroll to the top of the page only while loading for the first time, for no state change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }
+  , [loading]);
+
+  // change the titile of the page
+  document.title = "FAQ - Know Your KOL";
 
   const [openIndex, setOpenIndex] = useState(null);
 

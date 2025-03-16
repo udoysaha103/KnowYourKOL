@@ -1,20 +1,117 @@
 .InfoWrapper {
-  width: 10%;
+  width: 90%;
+  font-family: "Source Code Pro", "Roboto";
+}
+
+#options{
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+#sortBy {
+  font-size: "24px";
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+#sortButton{
+  margin: 0px 10px;
+}
+
+.sortOverall{
+  cursor: pointer;
+  width: 220px;
+  height: 30px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sortPnL{
+  cursor: pointer;
+  width: 158px;
+  height: 30px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 0px 10px;
+  letter-spacing: -1px;
+}
+
+#filter{
+  width: 215px;
+  height: 36px;
+  background-color: #272b2f;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-family: "Source Code Pro", "Roboto";
+  font-size: 16px;
+}
+
+.filterButtons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.filterButtons div{
+  cursor: pointer;
+  width: 39px;
+  height: 21px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 4px;
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#activeDuration{
+  background-color: #3165f4ee;
+  font-weight: bold;
+}
+
+#tableWrapper {
+  width: 100%;
 }
 
 table{
   margin: auto;
 }
 
-th td {
-  margin: 0px;
+th tr td {
+  height: fit-content;
 }
 
 th {
   color: #f8f8f8;
   font-size: 16px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 400;
   line-height: 22px;
   text-align: center;
@@ -36,9 +133,10 @@ th {
 .name {
   color: #f8f8f8;
   font-size: 25px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   line-height: 38px;
   margin-left: 40px;
+  letter-spacing: -2px;
 }
 
 .nameField{
@@ -51,7 +149,11 @@ th {
     text-decoration: none;
 }
 .avatarContainer {
-  z-index: 100;
+  z-index: -100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 .avatar {
   width: 82px;
@@ -61,6 +163,7 @@ th {
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: -50px;
+  z-index: 1000;
 }
 .addrContainer {
   width: 140px;
@@ -71,20 +174,20 @@ th {
 }
 
 .roiContainer {
-  width: fit-content;
-  padding: 10px;
+  width: 100%;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
   margin: 0px;
   padding: 0px;
+  font-size: 22px;
 }
 .pnlContainer {
-  width: fit-content;
-  padding: 10px;
+  width: 100%;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
+  font-size: 22px;
 }
 .cookerContainer {
   width: 100px;
