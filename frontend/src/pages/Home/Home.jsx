@@ -31,8 +31,6 @@ function Home() {
       .then((data) => {
         setKOLlist(data);
         setFirstUser(data[0]);
-        console.log(firstUser);
-        console.log(data);
       });
   }, []);
 

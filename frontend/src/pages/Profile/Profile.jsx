@@ -9,7 +9,8 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Profile = () => {
   const [time, setTime] = useState("1D");
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailedMessage, setShowFailedMessage] = useState(false);
@@ -36,10 +37,10 @@ const Profile = () => {
     }, 1000);
   };
   const handleRadio = (e) => {
-    setReview(e.target.value);
-    if (e.target.value === review) {
+    setReview(e.target.value === "cooker");
+    if ((e.target.value === "cooker") === review) {
       e.target.checked = false;
-      setReview("");
+      setReview(null);
     }
   };
   const handleSubmit = async (e) => {
@@ -53,7 +54,7 @@ const Profile = () => {
       return;
     }
     const text = document.querySelector("textarea").value;
-    if (review === "") {
+    if (review === null) {
       alert("Please select a review type");
     } else {
       // API call to submit review
@@ -68,21 +69,25 @@ const Profile = () => {
           },
           body: JSON.stringify({
             reviewDescription: text,
-            reviewType: review === "cooker",
+            reviewType: review,
             reviewReceiver: id,
           }),
         }
       );
       const data = await response.json();
-      setLoading(false);
-      setReview("");
       textRef.current.value = "";
       if (response.ok) {
+        kol.cookerCount += review ? 1 : 0;
+        kol.farmerCount += review ? 0 : 1;
+        setLoading(false);
+        setReview(null);
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
         }, 1000);
       } else {
+        setLoading(false);
+        setReview(null);
         setFailedMessage(data.message||data.error);
         setShowFailedMessage(true);
         setTimeout(() => {
@@ -91,38 +96,38 @@ const Profile = () => {
       }
     }
   };
-  const reviews = [
-    {
-      reviewId: "1",
-      name: "John Doe",
-      review: "farmer",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-      u_review: "cooker",
-      date: "Mar 20, 2025",
-      cookerCount: 10,
-      farmerCount: 20,
-    },
-    {
-      reviewId: "2",
-      name: "John Doe",
-      review: "cooker",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-      u_review: null,
-      date: "Mar 20, 2025",
-      cookerCount: 10,
-      farmerCount: 20,
-    },
-    {
-      reviewId: "3",
-      name: "John Doe",
-      review: "farmer",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-      u_review: "farmer",
-      date: "Mar 20, 2025",
-      cookerCount: 10,
-      farmerCount: 20,
-    },
-  ];
+  // const reviews = [
+  //   {
+  //     reviewId: "1",
+  //     username: "John Doe",
+  //     review: false,
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
+  //     u_review: true,
+  //     date: "Mar 20, 2025",
+  //     cookerCount: 10,
+  //     farmerCount: 20,
+  //   },
+  //   {
+  //     reviewId: "2",
+  //     username: "John Doe",
+  //     review: true,
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
+  //     u_review: null,
+  //     date: "Mar 20, 2025",
+  //     cookerCount: 10,
+  //     farmerCount: 20,
+  //   },
+  //   {
+  //     reviewId: "3",
+  //     username: "John Doe",
+  //     review: false,
+  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
+  //     u_review: false,
+  //     date: "Mar 20, 2025",
+  //     cookerCount: 10,
+  //     farmerCount: 20,
+  //   },
+  // ];
   useEffect(() => {
     // API call to get KOL data
     const fetchData = async (id) => {
@@ -130,12 +135,19 @@ const Profile = () => {
       const kolData = await response1.json();
       const response2 = await fetch(`http://localhost:5000/review/getReviews/${id}`);
       const reviewData = await response2.json();
-      console.log(reviewData);
-      console.log(kolData);
+      setReviews(reviewData);
       setKOL(kolData);
     };
     fetchData(id);
   }, []);
+  useEffect(() => {
+    const fetchData = async (id) => {
+    const response = await fetch(`http://localhost:5000/review/getReviews/${id}`);
+    const reviewData = await response.json();
+    setReviews(reviewData);
+    };
+    fetchData(id);
+  }, [showSuccessMessage]);
   return (
     <>
       <Navbar />
@@ -288,11 +300,13 @@ const Profile = () => {
             </div>
           )}
         </div>
-        <div className={styles.card3}>
-          {kol.cookerCount!==undefined && <div className={styles.info3}>Upvote Received: {kol.cookerCount}</div>}
-          {kol.farmerCount!==undefined && <div className={styles.info3}>Downvote Received: {kol.farmerCount}</div>}
-          <div className={styles.info3}>Review Received: 12</div>
-        </div>
+        {kol.cookerCount !== undefined && kol.farmerCount !== undefined && (
+          <div className={styles.card3}>
+            <div className={styles.info3}>Upvote Received: {kol.cookerCount}</div>
+            <div className={styles.info3}>Downvote Received: {kol.farmerCount}</div>
+            <div className={styles.info3}>Review Received: {kol.cookerCount + kol.farmerCount}</div>
+          </div>
+        )}
         <div className={styles.reviews}>
           <div className={styles.reviewInputContainer}>
             <div className={styles.header}>Write a Review</div>
@@ -306,7 +320,7 @@ const Profile = () => {
               <div className={styles.btnContainer}>
                 <label
                   className={`${styles.radioContainer} ${
-                    review === "cooker" && styles.selected
+                    review === true  && styles.selected
                   }`}
                 >
                   <input
@@ -320,7 +334,7 @@ const Profile = () => {
                 </label>
                 <label
                   className={`${styles.radioContainer} ${
-                    review === "farmer" && styles.selected
+                    review===false && styles.selected
                   }`}
                 >
                   <input
@@ -350,7 +364,7 @@ const Profile = () => {
           {reviews.map((review) => (
             <Review
               key={review.reviewId}
-              name={review.name}
+              username={review.username}
               review={review.review}
               text={review.text}
               u_review={review.u_review}
@@ -358,6 +372,7 @@ const Profile = () => {
               cookerCount={review.cookerCount}
               farmerCount={review.farmerCount}
               reviewId={review.reviewId}
+              reviewReceiverId={review.reviewReceiverId}
             />
           ))}
         </div>
