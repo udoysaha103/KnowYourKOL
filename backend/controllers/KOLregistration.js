@@ -1,8 +1,9 @@
 const unverifiedKOLmodel = require("../models/unverifiedKOLmodel.js");
 const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
-const { scrapData } =  require("./scraper.js");
+const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
+    console.log(req.file);
     const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode } = req.body;
 
     const unverifiedKOL = new unverifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode });
