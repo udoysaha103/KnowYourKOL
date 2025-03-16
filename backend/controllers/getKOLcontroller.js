@@ -8,7 +8,7 @@ const getKOL = async (req, res) => {
         if(KOL){
             // if the KOL doesnt want to show his/her wallet address, we dont show it
             if(KOL.showAddress === false){
-                KOL.walletAddress = "[Hidden]";
+                KOL.walletAddress = "Hidden by the request of KOL";
             }
 
             res.status(200).json({...KOL._doc, verified: true});
@@ -30,7 +30,7 @@ const getKOLpnl = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "[Hidden]";
+                KOL.walletAddress = "Hidden by the request of KOL";
             }
         });
 
@@ -48,7 +48,7 @@ const getKOLsentiment = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "[Hidden]";
+                KOL.walletAddress = "Hidden by the request of KOL";
             }
         });
 
@@ -66,7 +66,7 @@ const getKOLoverall = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "[Hidden]";
+                KOL.walletAddress = "Hidden by the request of KOL";
             }
         });
 
@@ -97,7 +97,7 @@ const searchKOL = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "[Hidden]";
+                KOL.walletAddress = "Hidden by the request of KOL";
             }
         });
 
@@ -129,4 +129,32 @@ const getSentimentRank = async (req, res) => {
     }
 }
 
-module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL, getPnLrank, getSentimentRank };
+const getRisingStars = async (req, res) => {
+    // 1. get the overall sorted KOL list
+    // 2. get the top 20 KOLs
+    // 3. get the only ROI1D sorted KOL list
+    // 4. exclude the top 20 KOLs from the ROI1D sorted KOL list
+    // 5. get the top 4 from the remaining KOLs
+
+    try {
+        const KOLs = await verifiedKOLmodel.find();
+        const sortedKOLs = KOLs.sort((a, b) => {
+            const avgA = (a.PnLscore + a.sentimentScore) / 2;
+            const avgB = (b.PnLscore + b.sentimentScore) / 2;
+            return avgB - avgA;
+        });
+        const top20KOLs = sortedKOLs.slice(0, 20);
+
+        const ROI1DsortedKOLs = KOLs.sort((a, b) => b.ROI1D - a.ROI1D);
+        const remainingKOLs = ROI1DsortedKOLs.filter(KOL => !top20KOLs.includes(KOL));
+
+        const top4RisingStars = remainingKOLs.slice(0, 4);
+
+        res.status(200).json(top4RisingStars);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+
+}
+
+module.exports = { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL, getPnLrank, getSentimentRank, getRisingStars };
