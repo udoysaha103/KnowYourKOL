@@ -9,14 +9,23 @@
   background-attachment: fixed;
 }
 
-#King {
+#homeContent{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+}
+
+#King {
+  width: 90%;
   height: 211px;
   background-color: #1e1f26;
   border-radius: 8px;
   border: 0.1px solid #ffffff;
   box-shadow: -1px 10px 20px #0f8d07;
-  margin: 40px 0;
+  /* margin: 40px 0; */
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +67,7 @@
 }
 
 #KingName {
-  font-family: "Source Code Pro", "Poppins";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   font-size: 40px;
   margin: 0px;
@@ -81,12 +90,13 @@
   font-size: 16px;
   color: #3164f4;
 }
+
 #starContainer {
   padding: 10px;
   width: fit-content;
   background-color: #1e1f26;
   border-radius: 26px;
-  margin: 70px auto;
+  /* margin: 70px auto; */
 }
 #starHeader{
   width: 248px;
@@ -110,7 +120,7 @@
 
 .KingStats {
   width: 15%;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   font-size: 16px;
   display: flex;
   flex-direction: column;

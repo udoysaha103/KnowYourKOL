@@ -31,8 +31,8 @@ function Home() {
       .then((data) => {
         setKOLlist(data);
         setFirstUser(data[0]);
-        console.log(firstUser);
-        console.log(data);
+        console.log("First user is: ", firstUser);
+        console.log("Data received: ", data);
       });
   }, []);
 
@@ -103,7 +103,7 @@ function Home() {
     <div id="bodyWrapper">
       <Navbar />
 
-      <div className="container">
+      <div id="homeContent">
         <Link id="King">
           <img src="/king.png" alt="KING" id="KingIcon" />
           <div id="KingImg" >

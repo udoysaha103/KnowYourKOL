@@ -14,7 +14,7 @@ th td {
 th {
   color: #f8f8f8;
   font-size: 16px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   font-weight: 400;
   line-height: 22px;
   text-align: center;
@@ -36,7 +36,7 @@ th {
 .name {
   color: #f8f8f8;
   font-size: 25px;
-  font-family: "Source Code Pro", "Work Sans";
+  font-family: "Source Code Pro", "Roboto";
   line-height: 38px;
   margin-left: 40px;
 }
