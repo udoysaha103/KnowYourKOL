@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import {useLogout} from "../../hooks/useLogout";
 import Icon from "../Icon";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
   const [search, setSearch] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
+  const { user } = useAuthContext();
+  const { logout } = useLogout();
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       setSearch([]);
     }
-  }
-  );
+  });
   const handleSearch = (e) => {
     const searchValue = e.target.value;
     if (searchValue.length > 0) {
@@ -52,25 +56,41 @@ function Navbar() {
             </Link>
           </div>
 
-          <div>
-            <Link to="/login" className={styles.link}>
+          <div onClick={() => {if(user) setShowMenu(!showMenu)}}>
+            <Link to={user ? "" : "/login"} className={styles.link}>
               <Icon name="AccountBox" color="#f8f8f8" height="51px" />
               &nbsp;
             </Link>
           </div>
         </div>
       </nav>
-      {search.length > 0 && <div className={styles.searchResult}>
-        {search.map((searchItem, idx)=> <Link to={`/profile/${searchItem._id}`}><div key={idx} className={styles.searchResultItem}>
-          <img
-            src={searchItem.photoPath}
-            className={styles.searchResultImg}
-          />
-          <div className={styles.searchResultText}>
-            <span className={styles.searchResultTitle}>{searchItem.twitterName}</span>
+      {search.length > 0 && (
+        <div className={styles.searchResult}>
+          {search.map((searchItem, idx) => (
+            <Link to={`/profile/${searchItem._id}`}>
+              <div key={idx} className={styles.searchResultItem}>
+                <img
+                  src={searchItem.photoPath}
+                  className={styles.searchResultImg}
+                />
+                <div className={styles.searchResultText}>
+                  <span className={styles.searchResultTitle}>
+                    {searchItem.twitterName}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+      {showMenu && (
+        <div className={styles.menu}>
+          <div className={styles.menuItem} onClick={() => logout()}>
+            <Icon name="Login" color="#f8f8f8" height="32px" />
+            &nbsp; Logout
           </div>
-        </div></Link>)}
-      </div>}
+        </div>
+      )}
     </>
   );
 }

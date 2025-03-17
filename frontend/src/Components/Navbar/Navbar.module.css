@@ -135,3 +135,24 @@
   line-height: 18px;
   flex-grow: 1;
 }
+.menu{
+  position: fixed;
+  background-color: #1e1f26;
+  right: 0;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  margin-inline: 30px;
+  margin-top: 6px;
+}
+.menuItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+
+  cursor: pointer;
+}
+.menuItem:hover{
+  background-color: #3e3e3f;
+  border-radius: 6px;
+}

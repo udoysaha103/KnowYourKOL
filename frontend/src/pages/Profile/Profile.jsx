@@ -57,7 +57,7 @@ const Profile = () => {
     });
     const data = await response.json();
     if (response.ok) {
-      alert("Request submitted successfully!");
+      alert("Your profile change request has been submitted successfully. It will be shown like this after approval.");
       setRequest(false);
     } else {
       alert(data.message || data.error);

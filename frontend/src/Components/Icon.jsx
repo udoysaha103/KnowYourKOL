@@ -206,7 +206,37 @@ const Sort = ({ color, width, height, style, ...props }) => (
     <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
   </svg>
 );
-
+const Login = ({ color, width, height, style, ...props }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height, ...style }}
+    viewBox="0 0 499.1 499.1"
+    xml:space="preserve"
+    {...props}
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <g>
+        {" "}
+        <g>
+          {" "}
+          <g>
+            {" "}
+            <path d="M0,249.6c0,9.5,7.7,17.2,17.2,17.2h327.6l-63.9,63.8c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5 l93.1-93.1c6.7-6.7,6.7-17.6,0-24.3l-93.1-93.1c-6.7-6.7-17.6-6.7-24.3,0c-6.7,6.7-6.7,17.6,0,24.3l63.8,63.8H17.2 C7.7,232.5,0,240.1,0,249.6z"></path>{" "}
+            <path d="M396.4,494.2c56.7,0,102.7-46.1,102.7-102.8V107.7C499.1,51,453,4.9,396.4,4.9H112.7C56,4.9,10,51,10,107.7V166 c0,9.5,7.7,17.1,17.1,17.1c9.5,0,17.2-7.7,17.2-17.1v-58.3c0-37.7,30.7-68.5,68.4-68.5h283.7c37.7,0,68.4,30.7,68.4,68.5v283.7 c0,37.7-30.7,68.5-68.4,68.5H112.7c-37.7,0-68.4-30.7-68.4-68.5v-57.6c0-9.5-7.7-17.2-17.2-17.2S10,324.3,10,333.8v57.6 c0,56.7,46.1,102.8,102.7,102.8H396.4L396.4,494.2z"></path>{" "}
+          </g>{" "}
+        </g>{" "}
+        <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g>{" "}
+        <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
 const Icon = ({ name, color, width, height, ...props }) => {
   switch (name) {
     case "ThumbsUp":
@@ -269,6 +299,8 @@ const Icon = ({ name, color, width, height, ...props }) => {
       return <Copy color={color} width={width} height={height} {...props} />;
     case "Sort":
       return <Sort color={color} width={width} height={height} {...props} />;
+    case "Login":
+      return <Login color={color} width={width} height={height} {...props} />;
     default:
       return null;
   }
