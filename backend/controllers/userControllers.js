@@ -66,8 +66,78 @@ const getVerificationMail = async (req, res) => {
     const token = jwt.sign({ email, code }, process.env.JWT_SECRET, {
       expiresIn: config.code.expiryTimeInMinuits * 60,
     });
-    const body = `<h1>Click <a href="http://localhost:5000/user/verify/${token}">here</a> to verify your account</h1>
-    <p>This link will expire in ${config.code.expiryTimeInMinuits} minuits</p>`;
+    const body = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            background: #000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #ffff;
+        }
+        p {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.5;
+        }
+        a{
+            color: #bbdff2;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://assets.api.uizard.io/api/cdn/stream/c2ac1e01-964e-431a-b068-47421fdc98ae.png" alt="Logo" class="logo">
+        <h1>Verify Your Account</h1>
+        <p>Thank you for signing up! Click the button below to verify your account and get started.</p>
+        <a href="http://localhost:5000/user/verify/${token}" class="button" style="color: #fff;">Verify My Account</a>
+        <p>This link will expire in <strong>${config.code.expiryTimeInMinuits} minutes</strong>. If you did not request this, please ignore this email.</p>
+        <p class="footer">Need help? Contact us at <a href="mailto:info@knowyourkol.io" style="color: #fff;">info@knowyourkol.io</a></p>
+    </div>
+
+</body>
+</html>`;
     const result = await sendMail(email, "Your verification link for KnowYourKOL", body);
     const tries = codeData ? codeData.tries + 1 : 1;
     await codeModel.deleteOne({ email })

@@ -48,6 +48,13 @@ function Navbar() {
         />
         <div className={styles.navButtons}>
           <div>
+            <Link to="/meme-bubble" className={styles.link}>
+              <button className={styles.btn}>
+                Meme Bubble
+              </button>
+            </Link>
+          </div>
+          <div>
             <Link to="/add-kol" className={styles.link}>
               <button className={styles.btn}>
                 <Icon name="AddKOL" color="#f8f8f8" height="32px" />

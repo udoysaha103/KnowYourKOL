@@ -183,7 +183,6 @@ const AddKOL = () => {
         <div className={styles.header3}>
           <div>Wallet</div>
           <br />
-          <div className={styles.dividerHorizontal}></div>
         </div>
         <div className={styles.key4}>Your Solana Wallet Address</div>
         <input
@@ -200,7 +199,7 @@ const AddKOL = () => {
         <div className={styles.input5}>
           <label>
             <input type="checkbox" ref={walletPublicRef} />
-            Show my wallet address?
+            Show my wallet address
           </label>
         </div>
         <div className={styles.info5}>*Required</div>

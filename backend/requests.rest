@@ -25,7 +25,7 @@ POST http://localhost:5000/user/getVerificationMail
 Content-Type: application/json
 
 {
-    "email": "xyz@xasdjfiasdfasdy.xyz"
+    "email": "udoysaha103@gmail.com"
 }
 ###
 POST http://localhost:5000/user/verify 
@@ -125,3 +125,5 @@ Content-Type: application/json
     "twitterLink": "https://x.com/pr6spr",
     "discordLink": "discord.gg/solmafia"
 }
+###
+GET http://localhost:5000/getKOL/getPnLRank/67d73fa4d41fdc30ed6a3e20/7

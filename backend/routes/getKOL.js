@@ -4,10 +4,10 @@ const { getKOL, getKOLpnl, getKOLsentiment, getKOLoverall, searchKOL, getPnLrank
 
 
 // get the overall sorted KOL list
-router.get("/getKOLoverall", getKOLoverall);
+router.get("/getKOLoverall/:duration", getKOLoverall);
 
 // get the KOL list by pnl
-router.get("/getKOLpnl", getKOLpnl);
+router.get("/getKOLpnl/:duration", getKOLpnl);
 
 // get the KOL list by sentiment
 router.get("/getKOLsentiment", getKOLsentiment);
@@ -16,7 +16,7 @@ router.get("/getKOLsentiment", getKOLsentiment);
 router.get("/search/:query", searchKOL);
 
 // get the PnL based rank
-router.get("/getPnLRank/:id", getPnLrank);
+router.get("/getPnLRank/:id/:duration", getPnLrank);
 
 // get the sentiment based rank
 router.get("/getSentimentRank/:id", getSentimentRank);

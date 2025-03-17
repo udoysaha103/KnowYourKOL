@@ -30,7 +30,10 @@ const verifiedKOLschema = new mongoose.Schema({
     cookerCount: { type: Number, required: true},
     farmerCount: { type: Number, required: true},
 
-    PnLscore: { type: Number, required: true},
+    PnLscore1D: { type: Number, required: true},
+    PnLscore7D: { type: Number, required: true},
+    PnLscore30D: { type: Number, required: true},
+
     sentimentScore: { type: Number, required: true},
     
     timestamp: { type: Date, default: Date.now },

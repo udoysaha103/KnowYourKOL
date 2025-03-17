@@ -98,6 +98,7 @@
 
 
 table{
+  margin-left: 30px;
   width: 100%;
 }
 th tr td {
@@ -155,11 +156,20 @@ th {
   width: 82px;
   height: 82px;
   background-color: #f8f8f8;
-  border: 4px solid #fcb434;
+  border: 4px solid #000;
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: -50px;
   z-index: 1000;
+}
+.avatar_0{
+  border: 4px solid #fcb434;
+}
+.avatar_1{
+  border: 4px solid #c0c0c0;
+}
+.avatar_2{
+  border: 4px solid #a77044;
 }
 .addrContainer {
   width: 100%;
@@ -176,15 +186,19 @@ th {
   composes: domainContainer from "./ListKOL.common.css";
   margin: 0px;
   padding: 0px;
-  font-size: 22px;
+  font-size: 20px;
 }
 .pnlContainer {
   width: 100%;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
-  font-size: 22px;
+  font-size: 20px;
 }
+.negative{
+  color: #c10004;
+}
+
 .cookerContainer {
   width: 100%;
   background-color: #0c6906;

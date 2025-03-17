@@ -43,7 +43,7 @@ function Home() {
   const [firstUser, setFirstUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/getKOL/getKOLoverall")
+    fetch("http://localhost:5000/getKOL/getKOLoverall/1")
       .then((response) => response.json())
       .then((data) => {
         setKOLlist(data);
@@ -85,11 +85,11 @@ function Home() {
           <div className="KingStats">
             <p>
               ROI:{" "}
-              <span>{firstUser && (firstUser.ROI1D * 100).toFixed(2)}%</span>
+              <span className={firstUser && firstUser.ROI1D < 0 ? styles.negative : ""}>{firstUser && (firstUser.ROI1D * 100).toFixed(2)}%</span>
             </p>
             <p>
               PnL:{" "}
-              <span>{firstUser && formatSOL(firstUser.PnLtotal7D)} Sol</span>
+              <span className={firstUser && firstUser.PnLtotal7D < 0 ? styles.negative : ""}>{firstUser && formatSOL(firstUser.PnLtotal7D)} Sol</span>
             </p>
           </div>
 

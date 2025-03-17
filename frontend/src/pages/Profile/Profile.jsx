@@ -64,7 +64,7 @@ const Profile = () => {
     }
   };
 
-  const [time, setTime] = useState("1D");
+  const [duration, setDuration] = useState(1);
   const [request, setRequest] = useState(false);
   const [review, setReview] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -98,17 +98,17 @@ const Profile = () => {
     }
     return text;
   };
-  const timeConvert = (time) => {
-    if (time < 60) {
-      return time.toFixed(1) + "s";
+  const timeConvert = (duration) => {
+    if (duration < 60) {
+      return duration.toFixed(1) + "s";
     }
-    if (time < 3600) {
-      return (time / 60).toFixed(1) + "m";
+    if (duration < 3600) {
+      return (duration / 60).toFixed(1) + "m";
     }
-    if (time < 86400) {
-      return (time / 3600).toFixed(1) + "h";
+    if (duration < 86400) {
+      return (duration / 3600).toFixed(1) + "h";
     }
-    return (time / 86400).toFixed(1) + "d";
+    return (duration / 86400).toFixed(1) + "d";
   };
   const copyAddress = () => {
     navigator.clipboard.writeText(kol.walletAddress);
@@ -233,12 +233,13 @@ const Profile = () => {
       );
       const reviewData = await response2.json();
       const response3 = await fetch(
-        `http://localhost:5000/getKOL/getPnLRank/${id}`
+        `http://localhost:5000/getKOL/getPnLRank/${id}/${duration}`
       );
       const response4 = await fetch(
         `http://localhost:5000/getKOL/getSentimentRank/${id}`
       );
       const data3 = await response3.json();
+      console.log(data3)
       const data4 = await response4.json();
       setPnLRank(data3.rank);
       setSentimentRank(data4.rank);
@@ -246,7 +247,7 @@ const Profile = () => {
       setKOL(kolData);
     };
     fetchData(id);
-  }, [id]);
+  }, [id, duration]);
   useEffect(() => {
     const fetchData = async (id) => {
       const response = await fetch(
@@ -433,39 +434,39 @@ const Profile = () => {
         <div className={styles.card2}>
           <div className={styles.switches}>
             <button
-              className={`${styles.switch} ${time === "1D" && styles.selected}`}
-              onClick={() => setTime("1D")}
+              className={`${styles.switch} ${duration === 1 && styles.selected}`}
+              onClick={() => setDuration(1)}
             >
               1D
             </button>
             <button
-              className={`${styles.switch} ${time === "7D" && styles.selected}`}
-              onClick={() => setTime("7D")}
+              className={`${styles.switch} ${duration === 7 && styles.selected}`}
+              onClick={() => setDuration(7)}
             >
               7D
             </button>
             <button
               className={`${styles.switch} ${
-                time === "30D" && styles.selected
+                duration === 30 && styles.selected
               }`}
-              onClick={() => setTime("30D")}
+              onClick={() => setDuration(30)}
             >
               30D
             </button>
           </div>
-          {kol[`ROI${time}`] !== undefined && (
+          {kol[`ROI${duration}D`] !== undefined && (
             <div className={styles.info2}>
               <div>ROI:</div>
-              <div className={styles.value_1}>
-                {(kol[`ROI${time}`] * 100).toFixed(digit)}%
+              <div className={`${styles.value_1} ${kol[`ROI${duration}D`] < 0 ? styles.negative : ""}`}>
+                {(kol[`ROI${duration}D`] * 100).toFixed(digit)}%
               </div>
             </div>
           )}
-          {kol[`PnLtotal${time}`] !== undefined && (
+          {kol[`PnLtotal${duration}D`] !== undefined && (
             <div className={styles.info2}>
               <div>P&L Total:</div>
-              <div className={styles.value_1}>
-                {formatSOL(kol[`PnLtotal${time}`])} Sol
+              <div className={`${styles.value_1} ${kol[`PnLtotal${duration}D`] < 0 ? styles.negative : ""}`} >
+                {formatSOL(kol[`PnLtotal${duration}D`])} Sol
               </div>
             </div>
           )}

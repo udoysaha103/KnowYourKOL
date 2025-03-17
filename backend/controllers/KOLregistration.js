@@ -42,11 +42,13 @@ const verifyKOL = async (req, res) => {
 
         const cookerCount = 0;
         const farmerCount = 0;
-        const PnLscore = 0;
+        const PnLscore1D = 0;
+        const PnLscore7D = 0;
+        const PnLscore30D = 0;
         const sentimentScore = 0;
 
         // create a new verifiedKOL document
-        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore, sentimentScore });
+        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore1D, PnLscore7D, PnLscore30D, sentimentScore });
 
 
         // if the KOL exists, delete the KOL from the unverifiedKOL collection

@@ -25,8 +25,9 @@ const getKOL = async (req, res) => {
 }
 // get the KOLs (Verified) sorted by PnL
 const getKOLpnl = async (req, res) => {
+    const {duration} = req.params;
     try {
-        const KOLs = await verifiedKOLmodel.find().sort({ PnLscore: -1 });
+        const KOLs = await verifiedKOLmodel.find().sort({ [`PnLscore${duration}D`]: -1 });
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
@@ -60,6 +61,7 @@ const getKOLsentiment = async (req, res) => {
 
 // get the overall sorted KOL list by first averaging the PnLscore and sentimentScore and then sorting by the average
 const getKOLoverall = async (req, res) => {
+    const { duration } = req.params;
     try {
         const KOLs = await verifiedKOLmodel.find();
 
@@ -71,8 +73,8 @@ const getKOLoverall = async (req, res) => {
         });
 
         const sortedKOLs = KOLs.sort((a, b) => {
-            const avgA = (a.PnLscore + a.sentimentScore) / 2;
-            const avgB = (b.PnLscore + b.sentimentScore) / 2;
+            const avgA = 0.3*a[`PnLscore${duration}D`] + 0.7*a.sentimentScore;
+            const avgB = 0.3*b[`PnLscore${duration}D`] + 0.7*b.sentimentScore;
             return avgB - avgA;
         });
         res.status(200).json(sortedKOLs);
@@ -108,9 +110,9 @@ const searchKOL = async (req, res) => {
 };
 
 const getPnLrank = async (req, res) => {
-    const { id } = req.params;
+    const { id, duration } = req.params;
     try {
-        const KOLs = await verifiedKOLmodel.find().sort({ PnLscore: -1 });
+        const KOLs = await verifiedKOLmodel.find().sort({ [`PnLscore${duration}D`]: -1 });
         const rank = KOLs.findIndex(KOL => KOL._id == id) + 1;
         res.status(200).json({ rank });
     } catch (error) {
@@ -139,8 +141,8 @@ const getRisingStars = async (req, res) => {
     try {
         const KOLs = await verifiedKOLmodel.find();
         const sortedKOLs = KOLs.sort((a, b) => {
-            const avgA = (a.PnLscore + a.sentimentScore) / 2;
-            const avgB = (b.PnLscore + b.sentimentScore) / 2;
+            const avgA = 0.3*a.PnLscore1D + 0.7*a.sentimentScore;
+            const avgB = 0.3*b.PnLscore1D + 0.7*b.sentimentScore;
             return avgB - avgA;
         });
         const top20KOLs = sortedKOLs.slice(0, 20);
