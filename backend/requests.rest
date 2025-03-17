@@ -60,7 +60,7 @@ POST http://localhost:5000/KOLregister/verifyKOL
 Content-Type: application/json
 
 {
-    "KOL_id" : "67d6df43dd97520ea195da20"
+    "KOL_id" : "67d7e9d44c23f365fee064e5"
 }
 
 ###
@@ -109,3 +109,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3Y
 ###
 GET http://localhost:5000/user/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIwMjQ4MjIsImV4cCI6MTc0MjQ1NjgyMn0.wLX64ltzlnDUlJ4MnvOomjqR-Ktm1MhjKJp_2DLlpkE
+
+###
+GET http://localhost:5000/getKOL/getRisingStars
+
+###
+POST http://localhost:5000/request-bio-update
+Content-Type: application/json
+
+{
+    "kol_id":"67d74033d41fdc30ed6a3e32",
+    "twitterName": "Ethan Prosper 2",
+    "irlName": "Ethan",
+    "location": "USA",
+    "twitterLink": "https://x.com/pr6spr",
+    "discordLink": "discord.gg/solmafia"
+}

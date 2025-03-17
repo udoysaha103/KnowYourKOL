@@ -10,9 +10,62 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 const Profile = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        setRequest(false);
+      }
+    });
   }, []);
 
+  const submitRequest = async () => {
+    const requestData = {
+      kol_id: id,
+    };
+
+    if (twitterNameRequest) {
+      requestData.twitterName = twitterNameRequest;
+    }
+    if (irlNameRequest) {
+      requestData.irlName = irlNameRequest;
+    }
+    if (locationRequst) {
+      requestData.location = locationRequst;
+    }
+    if (twitterLinkRequest) {
+      requestData.twitterLink = twitterLinkRequest;
+    }
+    if (discordLinkRequest) {
+      requestData.discordLink = discordLinkRequest;
+    }
+    if (telegramLinkRequest) {
+      requestData.telegramLink = telegramLinkRequest;
+    }
+    if (youtubeLinkRequest) {
+      requestData.youtubeLink = youtubeLinkRequest;
+    }
+    if (streamLinkRequest) {
+      requestData.streamLink = streamLinkRequest;
+    }
+    console.log(requestData);
+
+    const response = await fetch("http://localhost:5000/request-bio-update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      alert("Request submitted successfully!");
+      setRequest(false);
+    } else {
+      alert(data.message || data.error);
+    }
+  };
+
   const [time, setTime] = useState("1D");
+  const [request, setRequest] = useState(false);
   const [review, setReview] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,8 +74,18 @@ const Profile = () => {
   const [failedMessage, setFailedMessage] = useState("");
   const [PnLRank, setPnLRank] = useState(0);
   const [sentimentRank, setSentimentRank] = useState(0);
+  const [twitterNameRequest, setTwitterNameRequest] = useState("");
+  const [irlNameRequest, setIrlNameRequest] = useState("");
+  const [locationRequst, setLocationRequest] = useState("");
+  const [twitterLinkRequest, setTwitterLinkRequest] = useState("");
+  const [discordLinkRequest, setDiscordLinkRequest] = useState("");
+  const [telegramLinkRequest, setTelegramLinkRequest] = useState("");
+  const [youtubeLinkRequest, setYoutubeLinkRequest] = useState("");
+  const [streamLinkRequest, setStreamLinkRequest] = useState("");
+
   const [kol, setKOL] = useState({});
   const { id } = useParams();
+  
   const copyRef = useRef(null);
   const textRef = useRef(null);
   const { user } = useAuthContext();
@@ -36,17 +99,17 @@ const Profile = () => {
     return text;
   };
   const timeConvert = (time) => {
-    if(time < 60){
+    if (time < 60) {
       return time.toFixed(1) + "s";
     }
-    if(time < 3600){
-      return (time/60).toFixed(1)+"m";
+    if (time < 3600) {
+      return (time / 60).toFixed(1) + "m";
     }
-    if(time < 86400){
-      return (time/3600).toFixed(1)+"h";
+    if (time < 86400) {
+      return (time / 3600).toFixed(1) + "h";
     }
-    return (time/86400).toFixed(1)+"d"; 
-  }
+    return (time / 86400).toFixed(1) + "d";
+  };
   const copyAddress = () => {
     navigator.clipboard.writeText(kol.walletAddress);
     copyRef.current.children[0].innerText = "Copied!";
@@ -67,7 +130,7 @@ const Profile = () => {
     } else {
       return sign + (sol / 1000000).toFixed(2) + "M";
     }
-  }
+  };
   const handleRadio = (e) => {
     setReview(e.target.value === "cooker");
     if ((e.target.value === "cooker") === review) {
@@ -77,7 +140,7 @@ const Profile = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!user){
+    if (!user) {
       setFailedMessage("You must be logged in to submit a review.");
       setShowFailedMessage(true);
       setTimeout(() => {
@@ -120,7 +183,7 @@ const Profile = () => {
       } else {
         setLoading(false);
         setReview(null);
-        setFailedMessage(data.message||data.error);
+        setFailedMessage(data.message || data.error);
         setShowFailedMessage(true);
         setTimeout(() => {
           setShowFailedMessage(false);
@@ -165,10 +228,16 @@ const Profile = () => {
     const fetchData = async (id) => {
       const response1 = await fetch(`http://localhost:5000/getKOL/${id}`);
       const kolData = await response1.json();
-      const response2 = await fetch(`http://localhost:5000/review/getReviews/${id}`);
+      const response2 = await fetch(
+        `http://localhost:5000/review/getReviews/${id}`
+      );
       const reviewData = await response2.json();
-      const response3 = await fetch(`http://localhost:5000/getKOL/getPnLRank/${id}`);
-      const response4 = await fetch(`http://localhost:5000/getKOL/getSentimentRank/${id}`);
+      const response3 = await fetch(
+        `http://localhost:5000/getKOL/getPnLRank/${id}`
+      );
+      const response4 = await fetch(
+        `http://localhost:5000/getKOL/getSentimentRank/${id}`
+      );
       const data3 = await response3.json();
       const data4 = await response4.json();
       setPnLRank(data3.rank);
@@ -177,12 +246,14 @@ const Profile = () => {
       setKOL(kolData);
     };
     fetchData(id);
-  }, []);
+  }, [id]);
   useEffect(() => {
     const fetchData = async (id) => {
-    const response = await fetch(`http://localhost:5000/review/getReviews/${id}`);
-    const reviewData = await response.json();
-    setReviews(reviewData);
+      const response = await fetch(
+        `http://localhost:5000/review/getReviews/${id}`
+      );
+      const reviewData = await response.json();
+      setReviews(reviewData);
     };
     fetchData(id);
   }, [showSuccessMessage]);
@@ -192,6 +263,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
+      {request && <div className={styles.background} />}
       {showSuccessMessage && (
         <div className={styles.successMessage}>
           <Icon name="Check" color="#3ebf3b" height="100px" />
@@ -207,9 +279,20 @@ const Profile = () => {
         </div>
       )}
       <div className={styles.container}>
+        {request && (
+          <button className={styles.requestBtn} onClick={submitRequest}>
+            Submit
+          </button>
+        )}
         <div className={styles.top}>
-          <div className={styles.name}>
-            {kol.twitterName}{" "}
+          <div
+            className={`${styles.name} ${styles.request}`}
+            onClick={() => {
+              if (request)
+                setTwitterNameRequest(prompt("Enter new Twitter Name"));
+            }}
+          >
+            {!twitterNameRequest ? kol.twitterName : twitterNameRequest}{" "}
             {kol.verified && (
               <Icon name="Verified" color="#f8f8f8" height="24px" />
             )}
@@ -231,50 +314,111 @@ const Profile = () => {
             className={`${
               kol.verified ? styles.avatarVerified : styles.avatar
             }`}
-            src="https://picsum.photos/200/300"
+            src={kol.photoPath}
             alt=""
           />
           {kol.verified ? "Verified" : "Unverified"}
         </div>
         <div className={styles.link}>
           {kol.twitterLink && (
-            <a href={kol.twitterLink}>
+            <a
+              href={kol.twitterLink}
+              className={styles.request}
+              onClick={(e) => {
+                if (request) {
+                  e.preventDefault();
+                  setTwitterLinkRequest(prompt("Enter new Twitter Link"));
+                }
+              }}
+            >
               <Icon name="Twitter" color="#f8f8f8" height="40px" />
             </a>
           )}
           {kol.discordLink && (
-            <a href={kol.discordLink}>
+            <a
+              href={kol.discordLink}
+              className={styles.request}
+              onClick={(e) => {
+                if (request) {
+                  e.preventDefault();
+                  setDiscordLinkRequest(prompt("Enter new Discord Link"));
+                }
+              }}
+            >
               <Icon name="Discord" color="#f8f8f8" height="40px" />
             </a>
           )}
           {kol.telegramLink && (
-            <a href={kol.telegramLink}>
+            <a
+              href={kol.telegramLink}
+              className={styles.request}
+              onClick={(e) => {
+                if (request) {
+                  e.preventDefault();
+                  setTelegramLinkRequest(prompt("Enter new Telegram Link"));
+                }
+              }}
+            >
               <Icon name="Telegram" color="#f8f8f8" height="40px" />
             </a>
           )}
           {kol.youtubeLink && (
-            <a href={kol.youtubeLink}>
+            <a
+              href={kol.youtubeLink}
+              className={styles.request}
+              onClick={(e) => {
+                if (request) {
+                  e.preventDefault();
+                  setYoutubeLinkRequest(prompt("Enter new Youtube Link"));
+                }
+              }}
+            >
               <Icon name="YouTube" color="#f8f8f8" height="40px" />
             </a>
           )}
           {kol.streamLink && (
-            <a href={kol.streamLink}>
+            <a
+              href={kol.streamLink}
+              className={styles.request}
+              onClick={(e) => {
+                if (request) {
+                  e.preventDefault();
+                  setStreamLinkRequest(prompt("Enter new Stream Link"));
+                }
+              }}
+            >
               <Icon name="VideoCamera" color="#f8f8f8" height="40px" />
             </a>
           )}
         </div>
         <div className={styles.bio}>
-          <button className={styles.bioBtn}>Request Bio Update</button>
+          <button className={styles.bioBtn} onClick={() => setRequest(true)}>
+            Request Bio Update
+          </button>
         </div>
         <div className={styles.card1}>
           <div style={{ display: "flex" }}>
             {kol.IRLname && (
-              <div className={styles.info1}>Real Name: {kol.IRLname}</div>
+              <div
+                className={`${styles.info1} ${styles.request}`}
+                onClick={() => {
+                  if (request) setIrlNameRequest(prompt("Enter new IRL Name"));
+                }}
+              >
+                Real Name: {!irlNameRequest ? kol.IRLname : irlNameRequest}
+              </div>
             )}
           </div>
-          <div styles={{ display: "flex" }}>
+          <div
+            style={{ display: "flex" }}
+            onClick={() => {
+              if (request) setLocationRequest(prompt("Enter new Location"));
+            }}
+          >
             {kol.country && (
-              <div className={styles.info1}>Location: {kol.country}</div>
+              <div className={`${styles.info1} ${styles.request}`}>
+                Location: {!locationRequst ? kol.country : locationRequst}
+              </div>
             )}
           </div>
           <div className={styles.infoValue}>
@@ -309,7 +453,7 @@ const Profile = () => {
               30D
             </button>
           </div>
-          {kol[`ROI${time}`] && (
+          {kol[`ROI${time}`] !== undefined && (
             <div className={styles.info2}>
               <div>ROI:</div>
               <div className={styles.value_1}>
@@ -317,7 +461,7 @@ const Profile = () => {
               </div>
             </div>
           )}
-          {kol[`PnLtotal${time}`] && (
+          {kol[`PnLtotal${time}`] !== undefined && (
             <div className={styles.info2}>
               <div>P&L Total:</div>
               <div className={styles.value_1}>
@@ -326,13 +470,15 @@ const Profile = () => {
             </div>
           )}
 
-          {kol.avgHoldingDuration && (
+          {kol.avgHoldingDuration !== undefined && (
             <div className={styles.info2}>
               <div>Avg. Holding Duration:</div>
-              <div className={styles.value_2}>{timeConvert(kol.avgHoldingDuration)}</div>
+              <div className={styles.value_2}>
+                {timeConvert(kol.avgHoldingDuration)}
+              </div>
             </div>
           )}
-          {kol.walletBalance && (
+          {kol.walletBalance !== undefined && (
             <div className={styles.info2}>
               <div>Wallet Balance:</div>
               <div className={styles.value_2}>
@@ -343,9 +489,15 @@ const Profile = () => {
         </div>
         {kol.cookerCount !== undefined && kol.farmerCount !== undefined && (
           <div className={styles.card3}>
-            <div className={styles.info3}>Upvote Received: {kol.cookerCount}</div>
-            <div className={styles.info3}>Downvote Received: {kol.farmerCount}</div>
-            <div className={styles.info3}>Review Received: {kol.cookerCount + kol.farmerCount}</div>
+            <div className={styles.info3}>
+              Upvote Received: {kol.cookerCount}
+            </div>
+            <div className={styles.info3}>
+              Downvote Received: {kol.farmerCount}
+            </div>
+            <div className={styles.info3}>
+              Review Received: {kol.cookerCount + kol.farmerCount}
+            </div>
           </div>
         )}
         <div className={styles.reviews}>
@@ -361,7 +513,7 @@ const Profile = () => {
               <div className={styles.btnContainer}>
                 <label
                   className={`${styles.radioContainer} ${
-                    review === true  && styles.selected
+                    review === true && styles.selected
                   }`}
                 >
                   <input
@@ -375,7 +527,7 @@ const Profile = () => {
                 </label>
                 <label
                   className={`${styles.radioContainer} ${
-                    review===false && styles.selected
+                    review === false && styles.selected
                   }`}
                 >
                   <input
@@ -388,10 +540,7 @@ const Profile = () => {
                   &nbsp;
                   <div>Farmer</div>
                 </label>
-                <button
-                  className={styles.submitBtn}
-                  onClick={(e) => handleSubmit(e)}
-                >
+                <button className={styles.btn} onClick={(e) => handleSubmit(e)}>
                   {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>

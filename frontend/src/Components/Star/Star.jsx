@@ -1,11 +1,13 @@
 import React from 'react'
 import styles from "./Star.module.css"
+import { useNavigate } from "react-router-dom";
 
-const Star = ({pic_path, name, roi, pnl}) => {
+const Star = ({pic_path, name, roi, pnl, id}) => {
+    const navigate = useNavigate();
     return (
-        <div className={styles.card}>
-            <div className={styles.circle}>
-                <img src={pic_path} alt={name} />
+        <div className={styles.card} onClick={() => navigate(`/profile/${id}`)}>
+            <div>
+                <img className={styles.circle} src={pic_path} alt={name} />
             </div>
             <div className={styles.name}>
                 <p>{name}</p>

@@ -39,6 +39,7 @@ function Home() {
     }, 1000);
   };
   const [KOLlist, setKOLlist] = useState(null);
+  const [risingStars, setRisingStars] = useState(null);
   const [firstUser, setFirstUser] = useState(null);
 
   useEffect(() => {
@@ -47,6 +48,11 @@ function Home() {
       .then((data) => {
         setKOLlist(data);
         setFirstUser(data[0]);
+      });
+    fetch("http://localhost:5000/getKOL/getRisingStars")
+      .then((response) => response.json())
+      .then((data) => {
+        setRisingStars(data);
       });
   }, []);
 
@@ -100,30 +106,14 @@ function Home() {
         <div id="starContainer">
           <div id="starHeader" />
           <div id="starBody">
-            <Star
-              pic_path="https://picusm.photos/200/300"
-              name="XYZ"
-              roi="11.2k%"
-              pnl="+9.5 Sol"
-            />
-            <Star
-              pic_path="https://picusm.photos/200/300"
-              name="XYZ"
-              roi="11.2k%"
-              pnl="+9.5 Sol"
-            />
-            <Star
-              pic_path="https://picusm.photos/200/300"
-              name="XYZ"
-              roi="11.2k%"
-              pnl="+9.5 Sol"
-            />
-            <Star
-              pic_path="https://picusm.photos/200/300"
-              name="XYZ"
-              roi="11.2k%"
-              pnl="+9.5 Sol"
-            />
+            {risingStars && risingStars.map((star, index) =><Star 
+              key={index}
+              pic_path={star.photoPath}
+              name={star.twitterName}
+              roi={(star.ROI1D * 100).toFixed(2) + "%"}
+              pnl={formatSOL(star.PnLtotal1D) + " Sol"}
+              id={star._id}
+            />)}
           </div>
         </div>
 

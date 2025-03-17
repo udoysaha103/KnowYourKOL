@@ -4,9 +4,12 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import Icon from "../../Components/Icon";
 import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 
 const AddKOL = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
+  const [code, setCode] = useState(null);
   const twitterNameRef = useRef();
   const irlNameRef = useRef();
   const locationRef = useRef();
@@ -18,18 +21,82 @@ const AddKOL = () => {
   const telegramInviteRef = useRef();
   const youtubeChannelRef = useRef();
   const streamRef = useRef();
-  const handleSubmit = () => {
-    const twitterName = twitterNameRef.current.value;
-    const IRLname = irlNameRef.current.value;
-    const country = locationRef.current.value;
-    const walletAddress = solanaWalletRef.current.value;
-    const showAddress = walletPublicRef.current.value;
-    const signID = signatureIdRef.current.value;
-    const twitterLink = twitterProfileRef.current.value;
-    const discordLink = discordInviteRef.current.value;
-    const telegramLink = telegramInviteRef.current.value;
-    const youtubeLink = youtubeChannelRef.current.value;
-    const streamLink = streamRef.current.value;
+  const copyRef = useRef();
+  const hyphen = (text) => text.toString().slice(0, text.toString().length / 2) + "-" + text.toString().slice(text.toString().length / 2);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    copyRef.current.innerText = "Copied!";
+    setTimeout(() => {
+      copyRef.current.innerText = hyphen(code);
+    }, 2000);
+  }
+  const handleSubmit = async () => {
+    if (!twitterNameRef.current.value) {
+      alert("Twitter Name is required");
+      return;
+    }
+    if (!locationRef.current.value) {
+      alert("Current Location Country is required");
+      return;
+    }
+    if (!solanaWalletRef.current.value) {
+      alert("Solana Wallet Address is required");
+      return;
+    }
+    if (!signatureIdRef.current.value) {
+      alert("Signature ID is required");
+      return;
+    }
+    if (!twitterProfileRef.current.value) {
+      alert("Twitter Profile URL is required");
+      return;
+    }
+    const twitterName = twitterNameRef.current.value; //required
+    const IRLname = irlNameRef.current.value; //optional
+    const country = locationRef.current.value; //required
+    const walletAddress = solanaWalletRef.current.value; //required
+    const showAddress = walletPublicRef.current.checked; //required
+    const signID = signatureIdRef.current.value; //required
+    const twitterLink = twitterProfileRef.current.value; //required
+    const discordLink = discordInviteRef.current.value; //optional
+    const telegramLink = telegramInviteRef.current.value; //optional
+    const youtubeLink = youtubeChannelRef.current.value; //optional
+    const streamLink = streamRef.current.value; //optional
+    const formData = new FormData();
+    formData.append("twitterName", twitterName);
+    formData.append("IRLname", IRLname);
+    formData.append("country", country);
+    formData.append("walletAddress", walletAddress);
+    formData.append("showAddress", showAddress);
+    formData.append("signID", signID);
+    formData.append("twitterLink", twitterLink);
+    formData.append("discordLink", discordLink);
+    formData.append("telegramLink", telegramLink);
+    formData.append("youtubeLink", youtubeLink);
+    formData.append("streamLink", streamLink);
+    formData.append("generatedCode", Math.floor(Math.random() * 1000000));
+    if (file) {
+      formData.append("imageFile", file);
+    } else {
+      alert("Please upload a profile photo");
+      return;
+    }
+
+    const response = await fetch(
+      "http://localhost:5000/KOLregister/submitVerificationRequest",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      alert("Verification request submitted successfully");
+      setCode(data.code);
+
+    } else {
+      alert(data.message);
+    }
   };
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length === 0) return;
@@ -52,6 +119,20 @@ const AddKOL = () => {
   return (
     <>
       <Navbar />
+      {code!==null && (
+        <div className={styles.codeContainer}>
+          <p>Below unique 6-digit code has been generated for you.</p>
+          <div className={styles.code}>
+            <div ref={copyRef}>{hyphen(code)}</div>
+          <Icon name="Copy" color="#111315" height="32px" className={styles.icon} onClick={handleCopy}/>
+          </div>
+
+          <p>
+            Please DM this code to our Twitter (X) page to verify your identity. <br/>
+          <small>*This is a mandatory step.</small>
+          </p>
+        </div>
+      )}
       <div className={styles.container}>
         <div className={styles.header}>KOL Application Form</div>
         <div className={styles.header2}>
@@ -88,11 +169,7 @@ const AddKOL = () => {
           {...getRootProps()}
         >
           <Icon name="FolderUpload" color="#3164f4" height="40px" />
-          <input
-            {...getInputProps()}
-            accept="image/*"
-            multiple={false}
-          />
+          <input {...getInputProps()} accept="image/*" multiple={false} />
           <div className={styles.dropzoneText}>
             {file
               ? file.name
@@ -121,13 +198,10 @@ const AddKOL = () => {
           leaderboard.
         </div>
         <div className={styles.input5}>
-            <label>
-              <input 
-                type="checkbox"
-                ref={walletPublicRef}
-              />
-              Show my wallet address?
-            </label>
+          <label>
+            <input type="checkbox" ref={walletPublicRef} />
+            Show my wallet address?
+          </label>
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
@@ -187,7 +261,9 @@ const AddKOL = () => {
           Policy.
         </div>
         <div className={styles.btn2_container}>
-          <button className={styles.btn2} onClick={handleSubmit}>Submit</button>
+          <button className={styles.btn2} onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
         <div className={styles.msg2}>
           *Once you click 'Submit,' a 6-digit code will be generated. Please DM

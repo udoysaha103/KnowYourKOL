@@ -3,14 +3,15 @@ const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
 const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
-    console.log(req.file);
-    const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode } = req.body;
+    const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
+    const photoPath = `http://localhost:5000/${req.file.path}`;
+    const generatedCode = Math.floor(100000 + Math.random() * 900000);
 
     const unverifiedKOL = new unverifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode });
 
     try {
         await unverifiedKOL.save();
-        res.status(201).json({ message: "Verification request submitted successfully" });
+        res.status(201).json({ message: "Verification request submitted successfully", code: generatedCode });
     } catch (error) {
         res.status(409).json({ message: error.message });
     }

@@ -8,6 +8,8 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
 const userModel = require("./models/userModel");
+const path = require("path");
+const requestBioController = require("./controllers/requestBioController");
 const { googleCallback } = require("./controllers/userControllers");
 
 const mongoose = require("mongoose");
@@ -100,6 +102,9 @@ app.use("/google", googleAuthRouter);
 app.use("/KOLregister", KOLregistrationRouter);
 app.use("/getKOL", getKOLRouter);
 app.use("/review", reviewRouter);
+app.post("/request-bio-update", requestBioController);
+app.use("/uploads",express.static(path.join(__dirname, "./uploads/")));
+
 
 // connect to the database
 mongoose

@@ -1,5 +1,8 @@
 .navbar {
   display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -7,6 +10,7 @@
   padding: 0px 20px;
   background-color: #1e1f26;
   box-shadow: 0px 1px 12px rgba(3, 3, 3, 0.32);
+  z-index: 100000;
 }
 .logoMenu {
   display: flex;
@@ -37,6 +41,10 @@
   margin-top: 20px;
 }
 .searchBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   width: 296px;
   height: 40px;
   padding: 0px 8px;
@@ -55,7 +63,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.navButtons > *{
+.navButtons > * {
   margin: 0px 10px;
 }
 .btn {
@@ -78,6 +86,52 @@
   text-align: left;
   outline: none;
 }
-.btn:hover{
+.btn:hover {
   background-color: #5a5a5b;
+}
+.searchResult {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 90px;
+  margin-inline: auto;
+  height: auto;
+  width: 296px;
+  background-color: #1e1f26;
+  border: 1px solid #ffffff;
+  padding: 10px;
+  border-radius: 6px;
+  z-index: 10000;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.searchResultItem:hover {
+  background-color: #3e3e3f;
+  border-radius: 6px;
+}
+
+.searchResultImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.searchResultText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Poppins";
+  line-height: 18px;
+  flex-grow: 1;
 }

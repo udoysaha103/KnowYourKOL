@@ -19,3 +19,17 @@
   background-color: #363f43;
   border-radius: 10px;
 }
+.btn{
+  cursor: pointer;
+  padding: 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background-color: #4369ee;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Red Hat Display";
+  font-weight: 500;
+  line-height: 23px;
+  outline: none;
+}
