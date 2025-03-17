@@ -67,12 +67,12 @@ const getVerificationMail = async (req, res) => {
       expiresIn: config.code.expiryTimeInMinuits * 60,
     });
     const body = `<h1>Click <a href="http://localhost:5000/user/verify/${token}">here</a> to verify your account</h1>
-    <p>This link will expire in ${config.code.expiryTimeInMinuits}</p>`;
+    <p>This link will expire in ${config.code.expiryTimeInMinuits} minuits</p>`;
     const result = await sendMail(email, "Your verification link for KnowYourKOL", body);
     const tries = codeData ? codeData.tries + 1 : 1;
     await codeModel.deleteOne({ email })
     await codeModel.create({ email, code,  tries});
-    res.status(200).json({...result, tries});
+    res.status(200).json({message:"success",...result, tries});
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

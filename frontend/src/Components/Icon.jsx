@@ -206,6 +206,16 @@ const Sort = ({ color, width, height, style, ...props }) => (
     <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"></path>
   </svg>
 );
+const Mail = ({ color, width, height, style, ...props }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height, ...style }}
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"></path>
+  </svg>
+);
 const Login = ({ color, width, height, style, ...props }) => (
   <svg
     style={{ color, fill: color, maxWidth: width, height, ...style }}
@@ -301,6 +311,8 @@ const Icon = ({ name, color, width, height, ...props }) => {
       return <Sort color={color} width={width} height={height} {...props} />;
     case "Login":
       return <Login color={color} width={width} height={height} {...props} />;
+    case "Mail":
+      return <Mail color={color} width={width} height={height} {...props} />;
     default:
       return null;
   }

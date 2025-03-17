@@ -44,7 +44,7 @@ const App = () => {
         ></Route>
         <Route
           path="/signup"
-          element={user ? <Navigate to="/" /> : <SignUp />}
+          element={<SignUp />}
         ></Route>
         <Route
           path="/add-kol"
