@@ -8,6 +8,7 @@
 body, html, #root{
   height: 100%;
   width: 100%;
+  margin: 0;
   background-image: url("/dot_bg.png");
   background-size: cover;
   background-position: center;
