@@ -70,6 +70,8 @@ const Canvas = (props) => {
       if (findDistance(this.x, this.y, mouse.x, mouse.y) < this.radius) {
         this.showBorder = true;
       }
+      this.x += this.dx;
+      this.y += this.dy;
       this.draw();
     }
   }
