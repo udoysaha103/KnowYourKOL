@@ -130,6 +130,7 @@
 }
 .info1 {
   /* max-width: 214px; */
+  margin-inline: 5px;
   width: fit-content;
   composes: info from "./Profile.common.css";
 }

@@ -10,11 +10,11 @@ const AddKOL = () => {
   // const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [code, setCode] = useState(null);
+  const [showAddress, setShowAddress] = useState(true);
   const twitterNameRef = useRef();
   const irlNameRef = useRef();
   const locationRef = useRef();
   const solanaWalletRef = useRef();
-  const walletPublicRef = useRef();
   const signatureIdRef = useRef();
   const twitterProfileRef = useRef();
   const discordInviteRef = useRef();
@@ -22,14 +22,17 @@ const AddKOL = () => {
   const youtubeChannelRef = useRef();
   const streamRef = useRef();
   const copyRef = useRef();
-  const hyphen = (text) => text.toString().slice(0, text.toString().length / 2) + "-" + text.toString().slice(text.toString().length / 2);
+  const hyphen = (text) =>
+    text.toString().slice(0, text.toString().length / 2) +
+    "-" +
+    text.toString().slice(text.toString().length / 2);
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     copyRef.current.innerText = "Copied!";
     setTimeout(() => {
       copyRef.current.innerText = hyphen(code);
     }, 2000);
-  }
+  };
 
   const copyAddress = (addr) => {
     event.preventDefault();
@@ -65,7 +68,6 @@ const AddKOL = () => {
     const IRLname = irlNameRef.current.value; //optional
     const country = locationRef.current.value; //required
     const walletAddress = solanaWalletRef.current.value; //required
-    const showAddress = walletPublicRef.current.checked; //required
     const signID = signatureIdRef.current.value; //required
     const twitterLink = twitterProfileRef.current.value; //required
     const discordLink = discordInviteRef.current.value; //optional
@@ -103,7 +105,6 @@ const AddKOL = () => {
     if (response.ok) {
       alert("Verification request submitted successfully");
       setCode(data.code);
-
     } else {
       alert(data.message);
     }
@@ -129,17 +130,24 @@ const AddKOL = () => {
   return (
     <>
       <Navbar />
-      {code!==null && (
+      {code !== null && (
         <div className={styles.codeContainer}>
           <p>Below unique 6-digit code has been generated for you.</p>
           <div className={styles.code}>
             <div ref={copyRef}>{hyphen(code)}</div>
-          <Icon name="Copy" color="#111315" height="32px" className={styles.icon} onClick={handleCopy}/>
+            <Icon
+              name="Copy"
+              color="#111315"
+              height="32px"
+              className={styles.icon}
+              onClick={handleCopy}
+            />
           </div>
 
           <p>
-            Please DM this code to our Twitter (X) page to verify your identity. <br/>
-          <small>*This is a mandatory step.</small>
+            Please DM this code to our Twitter (X) page to verify your identity.{" "}
+            <br />
+            <small>*This is a mandatory step.</small>
           </p>
         </div>
       )}
@@ -188,7 +196,9 @@ const AddKOL = () => {
               : "Drag and drop or choose a file from your computer"}
           </div>
         </div>
-        <button className={styles.btn1}>Upload</button>
+        <button className={styles.btn1} {...getRootProps()}>
+          Upload
+        </button>
         <div className={styles.info3}>*Optional</div>
         <div className={styles.header3}>
           <div>Wallet</div>
@@ -207,10 +217,8 @@ const AddKOL = () => {
           leaderboard.
         </div>
         <div className={styles.input5}>
-          <label>
-            <input type="checkbox" ref={walletPublicRef} />
-            Show my wallet address
-          </label>
+          <button onClick={() => setShowAddress(true)} id={showAddress && styles.selected}> Yes</button>
+          <button onClick={() => setShowAddress(false)} id={!showAddress && styles.selected}> No</button>
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
@@ -219,8 +227,15 @@ const AddKOL = () => {
           ownership.
         </div>
         <div className={styles.input6}>
-          <div className={styles.recipientAddress} onClick={()=>copyAddress("7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3")}>
-            <span id="addr4cpy">7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3</span>
+          <div
+            className={styles.recipientAddress}
+            onClick={() =>
+              copyAddress("7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3")
+            }
+          >
+            <span id="addr4cpy">
+              7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3
+            </span>
             <img src="content_copy.svg" alt="copy" />
           </div>
           <input
@@ -228,7 +243,7 @@ const AddKOL = () => {
             placeholder="Type your answer..."
             ref={signatureIdRef}
           />
-        </div>  
+        </div>
         <div className={styles.info6}>*Required</div>
         <br />
         <div className={styles.header4}>

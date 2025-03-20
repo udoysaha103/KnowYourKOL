@@ -93,15 +93,23 @@ const Canvas = (props) => {
     });
 
     let animationFrameId;
-    // const objects = [] //Our objects will be stored here
-    const circle1 = new Circle(canvas, context, 300, 300, 100, "0, 255, 0", "#fff");
-    const circle2 = new Circle(canvas, context, 600, 300, 100, "255, 0, 0", "#fff");
     //Our draw came here
+    const colors = ["255, 0, 0",  "0, 255, 0"];
+    const circles = [];
+    for (let i = 0; i < 10; i++) {
+      const radius = Math.random() * (100 - 10) + 10;
+      const x = Math.random() * (canvas.width - radius * 2) + radius;
+      const y = Math.random() * (canvas.height - radius * 2) + radius;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const borderColor = "#000000";
+      circles.push(new Circle(canvas, context, x, y, radius, color, borderColor));
+    }
+
+    circles.forEach(circle => circle.draw());
     const animate = () => {
       animationFrameId = window.requestAnimationFrame(animate);
       context.clearRect(0, 0, canvas.width, canvas.height);
-      circle1.update();
-      circle2.update();
+      circles.forEach(circle => circle.update());
       // objects.forEach(object => {
       //  object.draw()
       // })

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 import { Link } from "react-router-dom";
@@ -8,9 +8,25 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
   const copyRefs = useRef([]);
   const [duration, setDuration] = useState(1);
   const [sortMethod, setSortMethod] = useState("Overall");
-
+  const [paginatedKOLlist, setPaginatedKOLlist] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 100; // Number of items to display per page
   const Navigate = useNavigate();
 
+  const paginate = (list, itemsPerPage) => {
+    const paginatedList = [];
+    for (let i = 0; i < list.length; i += itemsPerPage) {
+      paginatedList.push(list.slice(i, i + itemsPerPage));
+    }
+    return paginatedList;
+  };
+  useEffect(() => {
+    if (KOLlist && KOLlist.length > 0) {
+      setPaginatedKOLlist(paginate(KOLlist, itemsPerPage));
+    } else {
+      setPaginatedKOLlist([]);
+    }
+  }, [KOLlist]);
   const copyText = (event, idx, text) => {
     event.preventDefault();
     navigator.clipboard.writeText(text);
@@ -31,6 +47,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
+          console.log(paginatedKOLlist);
         });
     } else {
       fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLoverall/${duration}`)
@@ -95,22 +112,25 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
             <Icon name="Sort" color="#f8f8f8" height="24px"></Icon>
           </div>
           <div
-            className={styles.sortOverall}
-            id={sortMethod === "Overall" ? styles.activeDuration : ""}
+            className={`${styles.sortOverall} ${
+              sortMethod === "Overall" ? styles.active : ""
+            }`}
             onClick={() => handleSort("Overall")}
           >
             Overall
           </div>
           <div
-            className={styles.sortPnL}
-            id={sortMethod === "PnL" ? styles.activeDuration : ""}
+            className={`${styles.sortPnL} ${
+              sortMethod === "PnL" ? styles.active : ""
+            }`}
             onClick={() => handleSort("PnL")}
           >
             PnL
           </div>
           <div
-            className={`${styles.sortPnL} ${styles.sortSentiment}`}
-            id={sortMethod === "Sentiment" ? styles.activeDuration : ""}
+            className={`${styles.sortPnL} ${styles.sortSentiment} ${
+              sortMethod === "Sentiment" ? styles.active : ""
+            }`}
             onClick={() => handleSort("Sentiment")}
           >
             Follower's Sentiment
@@ -120,19 +140,19 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
           <div>Sort by</div>
           <div className={styles.filterButtons}>
             <div
-              id={duration === 1 ? styles.activeDuration : ""}
+              className={duration === 1 ? styles.active : ""}
               onClick={() => handleDuration(1)}
             >
               1D
             </div>
             <div
-              id={duration === 7 ? styles.activeDuration : ""}
+              className={duration === 7 ? styles.active : ""}
               onClick={() => handleDuration(7)}
             >
               7D
             </div>
             <div
-              id={duration === 30 ? styles.activeDuration : ""}
+              className={duration === 30 ? styles.active : ""}
               onClick={() => handleDuration(30)}
             >
               30D
@@ -170,8 +190,8 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
             </tr>
           </thead>
           <tbody>
-            {KOLlist &&
-              KOLlist.map((kol, index) => (
+            {paginatedKOLlist[currentPage - 1] &&
+              paginatedKOLlist[currentPage - 1].map((kol, index) => (
                 <tr key={index}>
                   <td
                     className={styles.nameField}
@@ -179,7 +199,9 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                   >
                     <div className={styles.avatarContainer}>
                       <img
-                        className={`${styles.avatar} ${styles[`avatar_${index}`]}`}
+                        className={`${styles.avatar} ${
+                          styles[`avatar_${index}`]
+                        }`}
                         src={kol.photoPath}
                         alt="avatar"
                       />
@@ -203,8 +225,8 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                   </td>
 
                   <td>
-                    {kol.walletAddress !== "Hidden" ? 
-                      (<div
+                    {kol.walletAddress !== "Hidden" ? (
+                      <div
                         className={styles.addrContainer}
                         ref={(e) => copyRefs.current.push(e)}
                         onClick={(e) => copyText(e, index, kol.walletAddress)}
@@ -213,8 +235,9 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                           {truncateText(kol.walletAddress)}&nbsp;
                         </span>
                         <Icon name="Copy" color="#f8f8f8" height="24px" />
-                      </div>) :
-                      (<div
+                      </div>
+                    ) : (
+                      <div
                         className={styles.addrContainer}
                         ref={(e) => copyRefs.current.push(e)}
                         style={{ cursor: "default" }}
@@ -222,8 +245,8 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                         <span id={index + "text"}>
                           {truncateText(kol.walletAddress)}&nbsp;
                         </span>
-                      </div>)
-                    }
+                      </div>
+                    )}
                   </td>
 
                   <td className={styles.emptySpace}></td>
@@ -266,7 +289,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                       {kol.reviewCount}
                     </div>
                   </td>
-                  <td>
+                  <td className={styles.reviewDomain}>
                     <button
                       className={styles.review}
                       onClick={() => Navigate("/profile/" + kol._id)}
@@ -279,6 +302,24 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
           </tbody>
         </table>
       </div>
+      {paginatedKOLlist && paginatedKOLlist.length > 1 && (
+        <div className={styles.pagination}>
+          Page # &nbsp;
+          {paginatedKOLlist && paginatedKOLlist.length > 1
+            ? paginatedKOLlist.map((_, index) => (
+                <div
+                  key={index}
+                  className={`${styles.pageNumber} ${
+                    currentPage === index + 1 ? styles.active : ""
+                  }`}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </div>
+              ))
+            : ""}
+        </div>
+      )}
     </div>
   );
 };

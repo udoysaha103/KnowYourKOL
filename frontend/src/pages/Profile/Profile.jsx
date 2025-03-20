@@ -48,16 +48,21 @@ const Profile = () => {
     }
     console.log(requestData);
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/request-bio-update`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/request-bio-update`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
     const data = await response.json();
     if (response.ok) {
-      alert("Your profile change request has been submitted successfully. It will be shown like this after approval.");
+      alert(
+        "Your profile change request has been submitted successfully. It will be shown like this after approval."
+      );
       setRequest(false);
     } else {
       alert(data.message || data.error);
@@ -85,7 +90,7 @@ const Profile = () => {
 
   const [kol, setKOL] = useState({});
   const { id } = useParams();
-  
+
   const copyRef = useRef(null);
   const textRef = useRef(null);
   const { user } = useAuthContext();
@@ -227,7 +232,9 @@ const Profile = () => {
   useEffect(() => {
     // API call to get KOL data
     const fetchData = async (id) => {
-      const response1 = await fetch(`${import.meta.env.VITE_API_URL}/getKOL/${id}`);
+      const response1 = await fetch(
+        `${import.meta.env.VITE_API_URL}/getKOL/${id}`
+      );
       const kolData = await response1.json();
       const response2 = await fetch(
         `${import.meta.env.VITE_API_URL}/review/getReviews/${id}`
@@ -240,7 +247,7 @@ const Profile = () => {
         `${import.meta.env.VITE_API_URL}/getKOL/getSentimentRank/${id}`
       );
       const data3 = await response3.json();
-      console.log(data3)
+      console.log(data3);
       const data4 = await response4.json();
       setPnLRank(data3.rank);
       setSentimentRank(data4.rank);
@@ -400,14 +407,26 @@ const Profile = () => {
         <div className={styles.card1}>
           <div style={{ display: "flex" }}>
             {kol.IRLname && (
-              <div
-                className={`${styles.info1} ${styles.request}`}
-                onClick={() => {
-                  if (request) setIrlNameRequest(prompt("Enter new IRL Name"));
-                }}
-              >
-                Real Name: {!irlNameRequest ? kol.IRLname : irlNameRequest}
-              </div>
+              <>
+                <div
+                  className={`${styles.info1} ${styles.request}`}
+                  onClick={() => {
+                    if (request)
+                      setIrlNameRequest(prompt("Enter new IRL Name"));
+                  }}
+                >
+                  Real Name:
+                </div>
+                <div
+                  className={`${styles.info1} ${styles.request}`}
+                  onClick={() => {
+                    if (request)
+                      setIrlNameRequest(prompt("Enter new IRL Name"));
+                  }}
+                >
+                  {!irlNameRequest ? kol.IRLname : irlNameRequest}
+                </div>
+              </>
             )}
           </div>
           <div
@@ -417,9 +436,14 @@ const Profile = () => {
             }}
           >
             {kol.country && (
-              <div className={`${styles.info1} ${styles.request}`}>
-                Location: {!locationRequst ? kol.country : locationRequst}
-              </div>
+              <>
+                <div className={`${styles.info1} ${styles.request}`}>
+                  Location:
+                </div>
+                <div className={`${styles.info1} ${styles.request}`}>
+                  {!locationRequst ? kol.country : locationRequst}
+                </div>
+              </>
             )}
           </div>
           <div className={styles.infoValue}>
@@ -434,13 +458,17 @@ const Profile = () => {
         <div className={styles.card2}>
           <div className={styles.switches}>
             <button
-              className={`${styles.switch} ${duration === 1 && styles.selected}`}
+              className={`${styles.switch} ${
+                duration === 1 && styles.selected
+              }`}
               onClick={() => setDuration(1)}
             >
               1D
             </button>
             <button
-              className={`${styles.switch} ${duration === 7 && styles.selected}`}
+              className={`${styles.switch} ${
+                duration === 7 && styles.selected
+              }`}
               onClick={() => setDuration(7)}
             >
               7D
@@ -457,7 +485,11 @@ const Profile = () => {
           {kol[`ROI${duration}D`] !== undefined && (
             <div className={styles.info2}>
               <div>ROI:</div>
-              <div className={`${styles.value_1} ${kol[`ROI${duration}D`] < 0 ? styles.negative : ""}`}>
+              <div
+                className={`${styles.value_1} ${
+                  kol[`ROI${duration}D`] < 0 ? styles.negative : ""
+                }`}
+              >
                 {(kol[`ROI${duration}D`] * 100).toFixed(digit)}%
               </div>
             </div>
@@ -465,7 +497,11 @@ const Profile = () => {
           {kol[`PnLtotal${duration}D`] !== undefined && (
             <div className={styles.info2}>
               <div>P&L Total:</div>
-              <div className={`${styles.value_1} ${kol[`PnLtotal${duration}D`] < 0 ? styles.negative : ""}`} >
+              <div
+                className={`${styles.value_1} ${
+                  kol[`PnLtotal${duration}D`] < 0 ? styles.negative : ""
+                }`}
+              >
                 {formatSOL(kol[`PnLtotal${duration}D`])} Sol
               </div>
             </div>
