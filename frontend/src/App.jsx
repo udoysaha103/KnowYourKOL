@@ -13,6 +13,7 @@ import AddKOL from "./pages/AddKOL/AddKOL";
 import FAQ from "./pages/FAQ/FAQ";
 import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
 import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
+import MemeBubble from "./pages/MemeBubble/MemeBubble";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
@@ -49,6 +50,10 @@ const App = () => {
         <Route
           path="/add-kol"
           element={<AddKOL />}
+        ></Route>
+        <Route
+          path="/meme-bubble"
+          element={<MemeBubble />}
         ></Route>
         <Route
           path="/FAQ"

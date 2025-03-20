@@ -2,9 +2,9 @@ import "./Footer.css"
 import { Link } from "react-router-dom";
 import Icon from "../../Components/Icon";
 
-function Footer() {
+const Footer = (props) => {
   return (
-    <div className="footerText">
+    <div className="footerText" {...props}>
         2025 © All rights reserved - Know Your KOL. 
         <Link to="/termsOfUse" className="footerLink">Terms of Use</Link> 
         <Link to="/privacyPolicies" className="footerLink">Privacy</Link> 
