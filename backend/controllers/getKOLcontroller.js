@@ -8,17 +8,17 @@ const getKOL = async (req, res) => {
         if(KOL){
             // if the KOL doesnt want to show his/her wallet address, we dont show it
             if(KOL.showAddress === false){
-                KOL.walletAddress = "Hidden by the request of KOL";
+                KOL.walletAddress = "Hidden";
             }
 
-            res.status(200).json({...KOL._doc, verified: true});
+            res.status(200).json({...KOL._doc});
             return;
         }
         KOL = await unverifiedKOLmodel.findById(id);
         if(!KOL){
             throw Error("KOL not found");
         }
-        res.status(200).json({...KOL._doc, verified: false});
+        res.status(200).json({...KOL._doc});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -31,7 +31,7 @@ const getKOLpnl = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "Hidden by the request of KOL";
+                KOL.walletAddress = "Hidden";
             }
         });
 
@@ -49,7 +49,7 @@ const getKOLsentiment = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "Hidden by the request of KOL";
+                KOL.walletAddress = "Hidden";
             }
         });
 
@@ -68,7 +68,7 @@ const getKOLoverall = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "Hidden by the request of KOL";
+                KOL.walletAddress = "Hidden";
             }
         });
 
@@ -99,7 +99,7 @@ const searchKOL = async (req, res) => {
         // if a KOL doesnt want to show his/her wallet address, we dont show it
         KOLs.forEach(KOL => {
             if(KOL.showAddress === false){
-                KOL.walletAddress = "Hidden by the request of KOL";
+                KOL.walletAddress = "Hidden";
             }
         });
 

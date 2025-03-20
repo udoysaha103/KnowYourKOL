@@ -7,13 +7,13 @@ import styles from './Login.module.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {login, isLoading, error} = useLogin();
+    const {login, error} = useLogin();  //isLoading is not used here
     const navigate = useNavigate();
     const handleLogin = async () => {
         await login(email, password)
     }
     const handleGoogleLogin = () => {
-        window.open("http://localhost:5000/google/googleLogin", "_self")
+        window.open(`${import.meta.env.VITE_API_URL}/google/googleLogin`, "_self")
     }
     return (
             <>

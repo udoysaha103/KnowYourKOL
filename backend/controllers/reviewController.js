@@ -59,20 +59,23 @@ const submitReview = async (req, res) => {
         const newReview = new reviewModel(review);
         await newReview.save();
 
+        const user = await verifiedKOLmodel.findById(reviewReceiver);
         // add +1 to the sentiment score of the user who received the review if the review is positive
         if (reviewType) {
-            const user = await verifiedKOLmodel.findById(reviewReceiver);
             user.cookerCount += 1;
             user.sentimentScore += 1;
-            await user.save();
         }
         // subtract -1 to the sentiment score of the user who received the review if the review is negative
         else {
-            const user = await verifiedKOLmodel.findById(reviewReceiver);
             user.farmerCount += 1;
             user.sentimentScore -= 1;
-            await user.save();
         }
+
+        if (reviewDescription !== "") {
+            user.reviewCount += 1;
+        }
+        
+        await user.save();
 
         res.status(201).json(newReview);
     } catch (error) {

@@ -12,7 +12,7 @@
   gap: 10px;
   padding: 30px 5%;
 }
-.background{
+.background {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -20,32 +20,35 @@
   z-index: 2;
 }
 .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #363f43;
-    border-radius: 10px;
-    height: 53px;
-    padding: 20px;
-    grid-area: top;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #363f43;
+  border-radius: 10px;
+  height: 53px;
+  padding: 20px;
+  grid-area: top;
 }
-.name{
+.name {
   color: #f8f8f8;
   font-size: 32px;
-  font-family: "Work Sans";
   font-weight: 500;
   line-height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
-.request{
+.request {
   z-index: 10;
 }
-.addr{
+.addr {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #f8f8f8;
   font-size: 24px;
-  font-family: "Roboto";
+
   font-weight: 500;
   line-height: 28px;
 }
@@ -55,21 +58,20 @@
   align-items: center;
   grid-area: link;
 }
-.link > a{
+.link > a {
   margin: 0 10px;
 }
-.avatarContainer{
+.avatarContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #f8f8f8;
   font-size: 14px;
-  font-family: "Roboto";
 }
 .avatar {
   width: 171px;
-  height: 160px;
+  height: 171px;
   background-color: #c2c2c2;
   box-sizing: border-box;
   border-radius: 50%;
@@ -96,171 +98,178 @@
 .card3 {
   composes: card from "./Profile.common.css";
   grid-area: card3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 .bio {
   display: flex;
   flex-direction: column;
   grid-area: bio;
+  justify-content: center;
+  align-items: flex-end;
 }
-.bioBtn{
-  align-self: flex-end;
-  height: 100%;
+.bioBtn {
+  height: 70%;
+  width: fit-content;
   padding: 10px;
   background-color: #919ba1;
   border-radius: 8px;
   border: 2px solid #505050;
   box-sizing: border-box;
   color: #111315;
-  font-size: 18px;
-  font-family: "Roboto";
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: bold;
   line-height: 23px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.info1{
+.info1 {
   /* max-width: 214px; */
   width: fit-content;
   composes: info from "./Profile.common.css";
 }
-.info2{
+.info2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   composes: info from "./Profile.common.css";
 }
-.info3{
+.info3 {
   text-align: center;
   width: 100%;
   composes: info from "./Profile.common.css";
 }
-.switches{
+.switches {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-.switch{
+.switch {
   cursor: pointer;
   padding: 0px 8px;
   margin: 0 5px;
   border: 1px solid #858594;
   box-sizing: border-box;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #212327;
   color: #ffffff;
   font-size: 14px;
-  font-family: "Roboto";
+
   line-height: 24px;
   outline: none;
 }
-.switch:hover{
+.switch:hover {
   background-color: #363f43;
 }
-.infoValue{
+.infoValue {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.value{
+.value {
   color: #f8f8f8;
   font-size: 24px;
-  font-family: "Roboto";
+
   font-weight: 400;
   line-height: 28px;
 }
-.value_1{
+.value_1 {
   color: #06c022;
   font-size: 18px;
-  font-family: "Roboto";
+
   font-weight: 500;
   line-height: 22px;
 }
-.value_2{
+.value_2 {
   color: #ffffff;
   font-size: 18px;
-  font-family: "Roboto";
+
   font-weight: 500;
   line-height: 22px;
 }
-.reviews{
+.reviews {
   grid-area: review;
 }
-.textarea{
+.textarea {
   height: 132px;
-  width: 100%; 
+  width: 100%;
   padding: 10px;
   background-color: #363f43;
   grid-area: review;
   color: #ffffff;
-  font-size: 24px;
-  font-family: "Roboto";
+  font-size: 19px;
+
   line-height: 24px;
   border: none;
   outline: none;
   resize: none;
 }
-.inputContainer{
+.inputContainer {
   display: flex;
   justify-content: space-between;
   background-color: #363f43;
   align-items: center;
   padding: 10px;
 }
-.btnContainer{
+.btnContainer {
   display: flex;
   height: 100%;
   flex-direction: column;
   justify-content: space-between;
 }
-.btnContainer > *{
+.btnContainer > * {
   margin: 5px;
 }
 
-.header{
+.header {
   color: #f8f8f8;
   font-size: 24px;
-  font-family: "Work Sans";
   font-weight: 500;
   line-height: 28px;
 }
-.radioContainer{
+.radioContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
   color: #f8f8f8;
   font-size: 18px;
-  font-family: "Work Sans";
   font-weight: 500;
   line-height: 22px;
   cursor: pointer;
+  border-radius: 10px;
 }
-.radioContainer:hover{
+.radioContainer:hover {
   background-color: #212327;
 }
-input[type="radio"]{
+input[type="radio"] {
   opacity: 0;
   position: absolute;
   cursor: pointer;
 }
-.selected{
-  background-color: #3164f4;
+.selected {
+  background-color: #212327;
+  border: 0.01px solid #858594;
+  border-radius: 10px;
 }
-.selected:hover{
-  background-color: #3165f4ee;
+.btn {
+  composes: btn from "./Profile.common.css";
 }
-.btn{
-  composes: btn from "./Profile.common.css"; 
-}
-.requestBtn{
+.requestBtn {
   composes: btn from "./Profile.common.css";
   width: 130px;
   margin-left: auto;
   z-index: 10;
   grid-area: button;
 }
-.submitBtn:hover{
+.submitBtn:hover {
   background-color: #3164f4;
 }
 .dividerHorizontal {
@@ -270,7 +279,7 @@ input[type="radio"]{
   border-radius: 76px;
 }
 
-.successMessage{
+.successMessage {
   position: fixed;
   display: flex;
   align-items: center;
@@ -287,11 +296,11 @@ input[type="radio"]{
   background-color: #363f43;
   color: #06c022;
   font-size: 24px;
-  font-family: "Roboto";
+
   font-weight: 500;
   line-height: 28px;
 }
-.failedMessage{
+.failedMessage {
   position: fixed;
   display: flex;
   align-items: center;
@@ -308,10 +317,10 @@ input[type="radio"]{
   background-color: #363f43;
   color: #c10004;
   font-size: 24px;
-  font-family: "Roboto";
+
   font-weight: 500;
   line-height: 28px;
 }
-.negative{
-  color: #c10004;
+.negative {
+  color: #be0215;
 }

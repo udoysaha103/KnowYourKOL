@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Review.module.css";
 import Icon from "../Icon";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -24,7 +24,7 @@ const Review = ({
     if (!user) return;
     try {
       const response = await fetch(
-        `http://localhost:5000/review/${
+        `${import.meta.env.VITE_API_URL}/review/${
           e.target.value === "cooker" ? "likeReview" : "dislikeReview"
         }`,
         {

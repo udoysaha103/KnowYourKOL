@@ -48,7 +48,7 @@ const Profile = () => {
     }
     console.log(requestData);
 
-    const response = await fetch("http://localhost:5000/request-bio-update", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/request-bio-update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -155,7 +155,7 @@ const Profile = () => {
       // API call to submit review
       setLoading(true);
       const response = await fetch(
-        "http://localhost:5000/review/submitReview",
+        `${import.meta.env.VITE_API_URL}/review/submitReview`,
         {
           method: "POST",
           headers: {
@@ -174,6 +174,7 @@ const Profile = () => {
       if (response.ok) {
         kol.cookerCount += review ? 1 : 0;
         kol.farmerCount += review ? 0 : 1;
+        kol.reviewCount += text ? 1 : 0;
         setLoading(false);
         setReview(null);
         setShowSuccessMessage(true);
@@ -226,17 +227,17 @@ const Profile = () => {
   useEffect(() => {
     // API call to get KOL data
     const fetchData = async (id) => {
-      const response1 = await fetch(`http://localhost:5000/getKOL/${id}`);
+      const response1 = await fetch(`${import.meta.env.VITE_API_URL}/getKOL/${id}`);
       const kolData = await response1.json();
       const response2 = await fetch(
-        `http://localhost:5000/review/getReviews/${id}`
+        `${import.meta.env.VITE_API_URL}/review/getReviews/${id}`
       );
       const reviewData = await response2.json();
       const response3 = await fetch(
-        `http://localhost:5000/getKOL/getPnLRank/${id}/${duration}`
+        `${import.meta.env.VITE_API_URL}/getKOL/getPnLRank/${id}/${duration}`
       );
       const response4 = await fetch(
-        `http://localhost:5000/getKOL/getSentimentRank/${id}`
+        `${import.meta.env.VITE_API_URL}/getKOL/getSentimentRank/${id}`
       );
       const data3 = await response3.json();
       console.log(data3)
@@ -251,7 +252,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async (id) => {
       const response = await fetch(
-        `http://localhost:5000/review/getReviews/${id}`
+        `${import.meta.env.VITE_API_URL}/review/getReviews/${id}`
       );
       const reviewData = await response.json();
       setReviews(reviewData);
@@ -294,7 +295,7 @@ const Profile = () => {
             }}
           >
             {!twitterNameRequest ? kol.twitterName : twitterNameRequest}{" "}
-            {kol.verified && (
+            {kol.verifiedByAdmin && (
               <Icon name="Verified" color="#f8f8f8" height="24px" />
             )}
           </div>
@@ -313,12 +314,11 @@ const Profile = () => {
         <div className={styles.avatarContainer}>
           <img
             className={`${
-              kol.verified ? styles.avatarVerified : styles.avatar
+              kol.verifiedByAdmin ? styles.avatarVerified : styles.avatar
             }`}
             src={kol.photoPath}
             alt=""
           />
-          {kol.verified ? "Verified" : "Unverified"}
         </div>
         <div className={styles.link}>
           {kol.twitterLink && (
@@ -423,11 +423,11 @@ const Profile = () => {
             )}
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by P&L:</div>
+            <div className={styles.info1}>Ranking by PnL:</div>
             <div className={styles.value}># {PnLRank}</div>
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by Follwer's Review:</div>
+            <div className={styles.info1}>Ranking by Follwer's Sentiment:</div>
             <div className={styles.value}># {sentimentRank}</div>
           </div>
         </div>
@@ -497,7 +497,7 @@ const Profile = () => {
               Downvote Received: {kol.farmerCount}
             </div>
             <div className={styles.info3}>
-              Review Received: {kol.cookerCount + kol.farmerCount}
+              Review Received: {kol.reviewCount}
             </div>
           </div>
         )}
@@ -508,7 +508,9 @@ const Profile = () => {
             <div className={styles.inputContainer}>
               <textarea
                 className={styles.textarea}
-                placeholder="Write an honest Review Based on Your Experience with This KOL If this KOL helped you win, spread the word! If they let you down, share that too. Your feedback empowers others and reclaims power for followers."
+                placeholder="Write an honest review based on your experience with this KOL
+If this KOL helped you win, spread the word! If they let you down, share that too.
+Your feedback empowers others and reclaims power for followers."
                 ref={textRef}
               ></textarea>
               <div className={styles.btnContainer}>

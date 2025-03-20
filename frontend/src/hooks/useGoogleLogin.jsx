@@ -9,7 +9,7 @@ export const useGoogleLogin = () => {
   const googleLogin = async () => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch("http://localhost:5000/google/login", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/google/login`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include"

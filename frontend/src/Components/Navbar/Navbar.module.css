@@ -6,8 +6,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 79px;
-  padding: 0px 20px;
+  height: fit-content;
+  padding: 5px 20px;
   background-color: #1e1f26;
   box-shadow: 0px 1px 12px rgba(3, 3, 3, 0.32);
   z-index: 100000;
@@ -18,7 +18,7 @@
   justify-content: space-between;
 }
 .logoMenu img {
-  height: 57px;
+  height: 40px;
 }
 .link {
   text-decoration: none;
@@ -26,19 +26,18 @@
 
 .dividerVertical {
   width: 2px;
-  height: 45px;
+  height: 37px;
   background-color: #ffffff;
   border-radius: 2px;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 .header {
   color: #ffffff;
   font-size: 18px;
-  font-family: "Montserrat";
   font-weight: 500;
   line-height: 23px;
   margin: 10px;
-  margin-top: 20px;
+  margin-top: 17px;
 }
 .searchBar {
   position: absolute;
@@ -54,7 +53,7 @@
   background-color: #3d3d3d;
   color: #a8a8a8;
   font-size: 14px;
-  font-family: "Poppins";
+  font-family: "Source Code Pro", "Roboto";
   line-height: 18px;
   outline: none;
 }
@@ -72,7 +71,7 @@
   justify-content: center;
   cursor: pointer;
   height: 40px;
-  padding: 0px 8px;
+  padding: 5px 8px;
   border: 0;
   box-sizing: border-box;
   border-radius: 6px;
@@ -80,7 +79,6 @@
   background-color: #3e3e3f;
   color: #ffffff;
   font-size: 18px;
-  font-family: "Work Sans";
   font-weight: 600;
   line-height: 23px;
   text-align: left;
@@ -131,7 +129,7 @@
   justify-content: center;
   color: #ffffff;
   font-size: 14px;
-  font-family: "Poppins";
+  font-family: "Source Code Pro", "Roboto";
   line-height: 18px;
   flex-grow: 1;
 }

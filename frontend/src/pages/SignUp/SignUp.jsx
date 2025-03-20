@@ -16,7 +16,7 @@ const SignUp = () => {
     await signup(username, email, password);
     if (error === null) {
         setShowVerification(true);
-        const response = await fetch("http://localhost:5000/user/getVerificationMail", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/user/getVerificationMail`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const SignUp = () => {
     }
   };
   const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/auth/googleLogin", "_self");
+    window.open(`${import.meta.env.VITE_API_URL}/auth/googleLogin`, "_self");
   };
   return (
     <>

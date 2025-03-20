@@ -27,13 +27,13 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
     if (sortMethod === "Sentiment") {
       setDuration(duration);
     } else if (sortMethod === "PnL") {
-      fetch(`http://localhost:5000/getKOL/getKOLpnl/${duration}`)
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLpnl/${duration}`)
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
         });
     } else {
-      fetch(`http://localhost:5000/getKOL/getKOLoverall/${duration}`)
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLoverall/${duration}`)
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
@@ -66,19 +66,19 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
     setSortMethod(strategy);
 
     if (strategy === "Overall") {
-      fetch(`http://localhost:5000/getKOL/getKOLoverall/${duration}`)
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLoverall/${duration}`)
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
         });
     } else if (strategy === "PnL") {
-      fetch(`http://localhost:5000/getKOL/getKOLpnl/${duration}`)
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLpnl/${duration}`)
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
         });
     } else if (strategy === "Sentiment") {
-      fetch("http://localhost:5000/getKOL/getKOLsentiment")
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/getKOLsentiment`)
         .then((response) => response.json())
         .then((data) => {
           setKOLlist(data);
@@ -109,7 +109,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
             PnL
           </div>
           <div
-            className={styles.sortPnL}
+            className={`${styles.sortPnL} ${styles.sortSentiment}`}
             id={sortMethod === "Sentiment" ? styles.activeDuration : ""}
             onClick={() => handleSort("Sentiment")}
           >
@@ -186,7 +186,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                       <div className={styles.nameContainer}>
                         <div className={styles.name}>
                           <p style={{ textDecoration: "none" }}>
-                            {index + 1}.{kol.twitterName}
+                            {index + 1}. {kol.twitterName}
                           </p>
                         </div>
                         <div className={styles.icon}>
@@ -203,16 +203,27 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                   </td>
 
                   <td>
-                    <div
-                      className={styles.addrContainer}
-                      ref={(e) => copyRefs.current.push(e)}
-                      onClick={(e) => copyText(e, index, kol.walletAddress)}
-                    >
-                      <span id={index + "text"}>
-                        {truncateText(kol.walletAddress)}&nbsp;
-                      </span>
-                      <Icon name="Copy" color="#f8f8f8" height="24px" />
-                    </div>
+                    {kol.walletAddress !== "Hidden" ? 
+                      (<div
+                        className={styles.addrContainer}
+                        ref={(e) => copyRefs.current.push(e)}
+                        onClick={(e) => copyText(e, index, kol.walletAddress)}
+                      >
+                        <span id={index + "text"}>
+                          {truncateText(kol.walletAddress)}&nbsp;
+                        </span>
+                        <Icon name="Copy" color="#f8f8f8" height="24px" />
+                      </div>) :
+                      (<div
+                        className={styles.addrContainer}
+                        ref={(e) => copyRefs.current.push(e)}
+                        style={{ cursor: "default" }}
+                      >
+                        <span id={index + "text"}>
+                          {truncateText(kol.walletAddress)}&nbsp;
+                        </span>
+                      </div>)
+                    }
                   </td>
 
                   <td className={styles.emptySpace}></td>
@@ -252,7 +263,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                   </td>
                   <td>
                     <div className={styles.reviewContainer}>
-                      {kol.cookerCount + kol.farmerCount}
+                      {kol.reviewCount}
                     </div>
                   </td>
                   <td>

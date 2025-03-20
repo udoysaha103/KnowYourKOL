@@ -4,10 +4,10 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import Icon from "../../Components/Icon";
 import { useDropzone } from "react-dropzone";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const AddKOL = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [code, setCode] = useState(null);
   const twitterNameRef = useRef();
@@ -30,6 +30,16 @@ const AddKOL = () => {
       copyRef.current.innerText = hyphen(code);
     }, 2000);
   }
+
+  const copyAddress = (addr) => {
+    event.preventDefault();
+    navigator.clipboard.writeText(addr);
+    document.getElementById("addr4cpy").innerHTML = "Copied!";
+    setTimeout(() => {
+      document.getElementById("addr4cpy").innerHTML = addr;
+    }, 1000);
+  };
+
   const handleSubmit = async () => {
     if (!twitterNameRef.current.value) {
       alert("Twitter Name is required");
@@ -83,7 +93,7 @@ const AddKOL = () => {
     }
 
     const response = await fetch(
-      "http://localhost:5000/KOLregister/submitVerificationRequest",
+      `${import.meta.env.VITE_API_URL}/KOLregister/submitVerificationRequest`,
       {
         method: "POST",
         body: formData,
@@ -208,11 +218,17 @@ const AddKOL = () => {
           wallet and submit the signature ID or URL for us to confirm wallet
           ownership.
         </div>
-        <input
-          className={styles.input6}
-          placeholder="Type your answer..."
-          ref={signatureIdRef}
-        />
+        <div className={styles.input6}>
+          <div className={styles.recipientAddress} onClick={()=>copyAddress("7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3")}>
+            <span id="addr4cpy">7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3</span>
+            <img src="content_copy.svg" alt="copy" />
+          </div>
+          <input
+            className={styles.inputSign}
+            placeholder="Type your answer..."
+            ref={signatureIdRef}
+          />
+        </div>  
         <div className={styles.info6}>*Required</div>
         <br />
         <div className={styles.header4}>
@@ -265,7 +281,7 @@ const AddKOL = () => {
           </button>
         </div>
         <div className={styles.msg2}>
-          *Once you click 'Submit,' a 6-digit code will be generated. Please DM
+          *Once you click 'Submit', a 6-digit code will be generated. Please DM
           it to our Twitter (X) page to verify your identity.
         </div>
       </div>

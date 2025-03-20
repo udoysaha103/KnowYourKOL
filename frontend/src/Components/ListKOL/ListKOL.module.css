@@ -23,7 +23,7 @@
 
 .sortOverall{
   cursor: pointer;
-  width: 220px;
+  width: 200px;
   height: 30px;
   padding: 0px 8px;
   border: 1px solid #858594;
@@ -52,11 +52,14 @@
   align-items: center;
   justify-content: center;
   margin: 0px 0px 0px 10px;
-  letter-spacing: -1px;
+}
+
+.sortSentiment{
+  width: fit-content;
 }
 
 #filter{
-  width: 215px;
+  width: 230px;
   height: 36px;
   background-color: #272b2f;
   border-radius: 6px;
@@ -177,6 +180,9 @@ th {
   composes: domainContainer from "./ListKOL.common.css";
   cursor: pointer;
   color: #f8f8f8;
+  font-size: 18px;
+  font-family: "Source Code Pro", "Roboto";
+  letter-spacing: -1px;
 }
 
 .roiContainer {
@@ -186,17 +192,21 @@ th {
   composes: domainContainer from "./ListKOL.common.css";
   margin: 0px;
   padding: 0px;
-  font-size: 20px;
+  font-size: 18px;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: bold;
 }
 .pnlContainer {
   width: 100%;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Source Code Pro", "Roboto";
 }
 .negative{
-  color: #c10004;
+  color: #be0215;
 }
 
 .cookerContainer {

@@ -131,7 +131,7 @@ const getVerificationMail = async (req, res) => {
         <img src="https://assets.api.uizard.io/api/cdn/stream/c2ac1e01-964e-431a-b068-47421fdc98ae.png" alt="Logo" class="logo">
         <h1>Verify Your Account</h1>
         <p>Thank you for signing up! Click the button below to verify your account and get started.</p>
-        <a href="http://localhost:5000/user/verify/${token}" class="button" style="color: #fff;">Verify My Account</a>
+        <a href="${process.env.SERVER_URL}/user/verify/${token}" class="button" style="color: #fff;">Verify My Account</a>
         <p>This link will expire in <strong>${config.code.expiryTimeInMinuits} minutes</strong>. If you did not request this, please ignore this email.</p>
         <p class="footer">Need help? Contact us at <a href="mailto:info@knowyourkol.io" style="color: #fff;">info@knowyourkol.io</a></p>
     </div>

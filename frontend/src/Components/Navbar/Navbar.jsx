@@ -18,7 +18,7 @@ function Navbar() {
   const handleSearch = (e) => {
     const searchValue = e.target.value;
     if (searchValue.length > 0) {
-      fetch(`http://localhost:5000/getKOL/search/${searchValue}`)
+      fetch(`${import.meta.env.VITE_API_URL}/getKOL/search/${searchValue}`)
         .then((res) => res.json())
         .then((data) => {
           setSearch(data);
@@ -50,7 +50,7 @@ function Navbar() {
           <div>
             <Link to="/meme-bubble" className={styles.link}>
               <button className={styles.btn}>
-                Meme Bubble
+                Meme Bubbles
               </button>
             </Link>
           </div>
@@ -58,7 +58,7 @@ function Navbar() {
             <Link to="/add-kol" className={styles.link}>
               <button className={styles.btn}>
                 <Icon name="AddKOL" color="#f8f8f8" height="32px" />
-                &nbsp; Add KOL
+                <span style={{marginLeft: "10px"}}>Add KOL</span>
               </button>
             </Link>
           </div>

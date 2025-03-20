@@ -29,12 +29,15 @@ const verifiedKOLschema = new mongoose.Schema({
 
     cookerCount: { type: Number, required: true},
     farmerCount: { type: Number, required: true},
+    reviewCount: { type: Number, required: true},
 
     PnLscore1D: { type: Number, required: true},
     PnLscore7D: { type: Number, required: true},
     PnLscore30D: { type: Number, required: true},
 
     sentimentScore: { type: Number, required: true},
+
+    verifiedByAdmin: { type: Boolean, required: true, default: false},
     
     timestamp: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
