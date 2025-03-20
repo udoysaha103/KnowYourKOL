@@ -32,7 +32,7 @@ function Navbar() {
       <nav className={styles.navbar}>
         <Link className={styles.link} to="/">
           <div className={styles.logoMenu}>
-            <img src="../../public/KOL logo.png" alt="Logo" />
+            <img src="/KOL logo.png" alt="Logo" />
             <div className={styles.dividerVertical}></div>
             <span className={styles.header}>Know Your KOL</span>
           </div>

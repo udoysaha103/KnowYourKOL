@@ -1,4 +1,5 @@
 import "./Home.css";
+import styles from "./Home.module.css";
 import { useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
