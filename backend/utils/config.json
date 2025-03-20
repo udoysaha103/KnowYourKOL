@@ -1,0 +1,9 @@
+{
+    "code": {
+        "waitTimeInMinuits": 1,
+        "expiryTimeInMinuits": 5
+    },
+    "token": {
+        "expairsIn": "5d"
+    }
+}

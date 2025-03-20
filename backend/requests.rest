@@ -1,0 +1,129 @@
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+    "username": "Udoy Shaha",
+    "email": "udoysaha103@gmail.com",
+    "password": "Test@321"
+}
+
+###
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email": "udoysaha103@gmail.com",
+    "password": "Test@321"
+}
+
+###
+GET http://localhost:5000/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2NkNWU1NzE1YTNmZTU1MjY1OGMxNjEiLCJpYXQiOjE3NDE1MTIyODMsImV4cCI6MTc0MTk0NDI4M30.EaVfqYlm9UQYiriNgKUiJCyiZMji6iMrwq6GHlUUmYs
+###
+POST http://localhost:5000/user/getVerificationMail 
+Content-Type: application/json
+
+{
+    "email": "udoysaha103@gmail.com"
+}
+###
+POST http://localhost:5000/user/verify 
+Content-Type: application/json
+
+{
+    "email": "udoysaha103@gmail.com", 
+    "code": "198765"
+}
+
+
+###
+POST http://localhost:5000/KOLregister/submitVerificationRequest
+Content-Type: application/json
+
+{
+    "twitterName": "Ethan Prosper 2",
+    "IRLname": "Ethan",
+    "country": "USA",
+    "photoPath": "https://pbs.twimg.com/profile_images/1441160340136827393/1J9J9J9J_400x400.jpg",
+    "walletAddress": "71PCu3E4JP5RDBoY6wJteqzxkKNXLyE1byg5BTAL9UtQ",
+    "showAddress": "true",
+    "signID": "1234567890",
+    "twitterLink": "https://x.com/pr6spr",
+    "discordLink": "discord.gg/solmafia",
+    "telegramLink": "https://t.me/prosperhq",
+    "generatedCode": "123456"
+}
+###
+
+POST http://localhost:5000/KOLregister/verifyKOL
+Content-Type: application/json
+
+{
+    "KOL_id" : "67d7e9d44c23f365fee064e5"
+}
+
+###
+GET http://localhost:5000/getKOL/67d0ad8f44de3ae484be6f81
+
+###
+GET http://localhost:5000/getKOL/search/tre
+
+###
+GET http://localhost:5000/review/getReviews/67d358b644a502c24a2bee27
+
+###
+GET  http://localhost:5000/getKOL/getKOLoverall
+
+###
+POST http://localhost:5000/review/submitReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIxMTUyMTksImV4cCI6MTc0MjU0NzIxOX0.1nUi3dZ_zAMC-tzePUvgFxIBIft65GQnE2fdlRocKDI
+
+
+{
+    "reviewDescription": "",
+    "reviewType": true,
+    "reviewReceiver": "67d358b644a502c24a2bee27"
+}
+
+###
+PUT http://localhost:5000/review/likeReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIxMTUyMTksImV4cCI6MTc0MjU0NzIxOX0.1nUi3dZ_zAMC-tzePUvgFxIBIft65GQnE2fdlRocKDI
+
+{
+    "reviewId": "67d68896488f58ece514c0fd",
+    "reviewReceiverId": "67d0abd444de3ae484be6f74"
+}
+
+###
+PUT http://localhost:5000/review/dislikeReview
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2QwNzI3YTAwNTM4YWU3YjAwNTUxMTAiLCJpYXQiOjE3NDE5NDgzMDYsImV4cCI6MTc0MjM4MDMwNn0.dLto094SUR9H7SoYg-M1O5jVVXPSl1r8sVJmOy2DhZM
+
+{
+    "reviewId": "67d430f1e4a7ab6f6eda5cbb",
+    "reviewReceiverId": "67d358b644a502c24a2bee27"
+}
+###
+GET http://localhost:5000/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Q1MzA2Y2NiMDZjYmVkODcwYTk4NGYiLCJpYXQiOjE3NDIwMjQ4MjIsImV4cCI6MTc0MjQ1NjgyMn0.wLX64ltzlnDUlJ4MnvOomjqR-Ktm1MhjKJp_2DLlpkE
+
+###
+GET http://localhost:5000/getKOL/getRisingStars
+
+###
+POST http://localhost:5000/request-bio-update
+Content-Type: application/json
+
+{
+    "kol_id":"67d74033d41fdc30ed6a3e32",
+    "twitterName": "Ethan Prosper 2",
+    "irlName": "Ethan",
+    "location": "USA",
+    "twitterLink": "https://x.com/pr6spr",
+    "discordLink": "discord.gg/solmafia"
+}
+###
+GET http://localhost:5000/getKOL/getPnLRank/67d73fa4d41fdc30ed6a3e20/7

@@ -1,0 +1,267 @@
+.InfoWrapper {
+  width: 90%;
+  font-family: "Source Code Pro", "Roboto";
+}
+
+#options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+#sortBy {
+  font-size: "24px";
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+#sortButton {
+  margin: 0px 10px;
+}
+
+.sortOverall {
+  cursor: pointer;
+  width: 200px;
+  height: 30px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sortPnL {
+  cursor: pointer;
+  width: 158px;
+  height: 30px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 0px 10px;
+}
+
+.sortSentiment {
+  width: fit-content;
+}
+
+#filter {
+  width: 230px;
+  height: 36px;
+  background-color: #272b2f;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-family: "Source Code Pro", "Roboto";
+  font-size: 16px;
+}
+
+.filterButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.filterButtons div {
+  cursor: pointer;
+  width: 39px;
+  height: 21px;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  border-radius: 4px;
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  background-color: #3165f4ee !important;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+}
+
+th tr td {
+  height: fit-content;
+}
+
+th {
+  color: #f8f8f8;
+  font-size: 16px;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
+}
+
+.emptySpace {
+  width: 15px;
+  background-color: transparent;
+  margin: 0px;
+  padding: 0px;
+}
+
+.nameContainer {
+  width: 100%;
+  padding: 0 20px;
+  justify-content: space-between;
+  composes: domainContainer from "./ListKOL.common.css";
+}
+.name {
+  color: #f8f8f8;
+  font-size: 25px;
+  font-family: "Source Code Pro", "Roboto";
+  line-height: 38px;
+  margin-left: 40px;
+  letter-spacing: -2px;
+}
+
+.nameField {
+  /* display: flex; */
+  align-items: center;
+  cursor: pointer;
+}
+.nameField:hover,
+.nameField:visited,
+.nameField:link,
+.nameField:active {
+  text-decoration: none;
+}
+.avatarContainer {
+  z-index: -100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+.avatar {
+  width: 82px;
+  height: 82px;
+  background-color: #f8f8f8;
+  border: 4px solid #000;
+  box-sizing: border-box;
+  border-radius: 50%;
+  margin-right: -50px;
+  z-index: 1000;
+}
+.avatar_0 {
+  border: 4px solid #fcb434;
+}
+.avatar_1 {
+  border: 4px solid #c0c0c0;
+}
+.avatar_2 {
+  border: 4px solid #a77044;
+}
+.addrContainer {
+  width: 100%;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+  cursor: pointer;
+  color: #f8f8f8;
+  font-size: 18px;
+  font-family: "Source Code Pro", "Roboto";
+  letter-spacing: -1px;
+}
+
+.roiContainer {
+  width: 100%;
+  color: #06c022;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+  margin: 0px;
+  padding: 0px;
+  font-size: 18px;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: bold;
+}
+.pnlContainer {
+  width: 100%;
+  color: #06c022;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Source Code Pro", "Roboto";
+}
+.negative {
+  color: #be0215;
+}
+
+.cookerContainer {
+  width: 100%;
+  background-color: #0c6906;
+  color: #f8f8f8;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+}
+.farmerContainer {
+  width: 100%;
+  background-color: #c10004;
+  color: #f8f8f8;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+}
+.reviewContainer {
+  width: 100%;
+  padding: 0 10px;
+  border-radius: 0 45% 45% 0;
+  color: #f7f8f8;
+  composes: text from "./ListKOL.common.css";
+  composes: domainContainer from "./ListKOL.common.css";
+}
+
+.review {
+  background-color: #919ba1;
+  border-radius: 26px;
+  border: 2px solid #505050;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: #111315;
+  padding: 13px 20px;
+  margin-left: 5px;
+}
+.reviewDomain {
+  width: 5%;
+}
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+.pageNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 25px;
+  background-color: #555761;
+  border-radius: 2.56px;
+  cursor: pointer;
+  margin-inline: 5px;
+}

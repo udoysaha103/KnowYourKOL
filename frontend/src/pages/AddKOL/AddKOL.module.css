@@ -1,0 +1,446 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "header2 header2 header2 header2"
+    "key input input info"
+    "key1 input1 input1 info1"
+    "key2 input2 input2 info2"
+    "key3 input3 button1 info3"
+    "null1 null1 null1 null1"
+    "null1 null1 null1 null1"
+    "null1 null1 null1 null1"
+    "header3 header3 header3 header3"
+    "key4 input4 input4 info4"
+    "key5 input5 input5 info5"
+    "key6 input6 input6 info6"
+    "null2 null2 null2 null2"
+    "null2 null2 null2 null2"
+    "null2 null2 null2 null2"
+    "header4 header4 header4 header4"
+    "key7 input7 input7 info7"
+    "key8 input8 input8 info8"
+    "key9 input9 input9 info9"
+    "key10 input10 input10 info10"
+    "key11 input11 input11 info11"
+    "null3 null3 null3 null3"
+    "null3 null3 null3 null3"
+    "null3 null3 null3 null3"
+    "msg msg msg button2"
+    "null4 null4 null4 null4"
+    "null4 null4 null4 null4"
+    "msg2 msg2 msg2 msg2";
+  /* "key input input info"
+    "key input button info"; */
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  align-items: center;
+  /* justify-items: center; */
+  gap: 10px;
+  padding: 30px 10%;
+}
+.codeContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+.code {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 504px;
+  height: 102px;
+  background-color: #d9d9d9;
+  border-radius: 26px;
+  margin: 65px;
+}
+.code > div {
+  color: #000000;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 62px;
+}
+.icon {
+  position: absolute;
+  right: 0;
+  margin-inline: 57px;
+}
+.codeContainer p {
+  color: #f8f8f8;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+}
+.codeContainer > p > small {
+  float: right;
+  color: #f8f8f8;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.header {
+  width: 100%;
+  color: #f8f8f8;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 52px;
+  grid-area: header;
+  margin-bottom: 50px;
+  margin-top: 70px;
+}
+.header2 {
+  composes: header from "./AddKOL.common.css";
+  grid-area: header2;
+}
+.dividerHorizontal {
+  left: 90px;
+  width: 100%;
+  height: 4px;
+  background-color: #c2c2c2;
+  border-radius: 2px;
+}
+
+.key {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key;
+}
+.input {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+.key {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key;
+}
+.input {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+.key {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key;
+}
+.input {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input;
+}
+.info {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info;
+}
+
+.key1 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key1;
+}
+.input1 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input1;
+}
+.info1 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info1;
+}
+
+.key2 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key2;
+}
+.input2 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input2;
+}
+.info2 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info2;
+}
+
+.key3 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key3;
+}
+.input3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  composes: input from "./AddKOL.common.css";
+  cursor: pointer;
+  grid-area: input3;
+}
+.active {
+  border: 2px dashed #3164f4;
+}
+.btn1 {
+  cursor: pointer;
+  border: 0;
+  height: 38px;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background-color: #04247d;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  outline: none;
+  grid-area: button1;
+}
+.btn1:hover {
+  background-color: #013de2;
+}
+.dropzoneText {
+  margin-inline: auto;
+}
+.info3 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info3;
+}
+
+.header3 {
+  composes: header from "./AddKOL.common.css";
+  grid-area: header3;
+}
+.key4 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key4;
+}
+.input4 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input4;
+}
+.info4 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info4;
+}
+.key5 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key5;
+}
+.input5 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  justify-self: center;
+  width: 100%;
+  composes: input from "./AddKOL.common.css";
+  grid-area: input5;
+}
+.input5 > button{
+  cursor: pointer;
+  margin-inline: 5px;
+  width: 50%;
+  height: 80%;
+  padding: 0px 8px;
+  border: 1px solid #858594;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  background-color: #212327;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Roboto";
+  line-height: 24px;
+  outline: none;
+}
+#selected {
+  background-color: #0037a5;
+}
+.input5 > label > input {
+  margin: 10px;
+}
+.input5 > label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: #f8f8f8;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: right;
+}
+.info5 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info5;
+}
+.key6 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key6;
+}
+.input6 {
+  /* composes: input from "./AddKOL.common.css"; */
+  grid-area: input6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 10px;
+}
+.recipientAddress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  /* padding: 10px 0px; */
+
+  width: 100%;
+  height: 42px;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  background-color: #1e1f26;
+  color: #f8f8f8;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  outline: none;
+}
+.recipientAddress img{
+  height: 18px;
+  margin-left: 10px;
+}
+.inputSign{
+  width: 100%;
+  height: 42px;
+  padding: 0px 8px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  background-color: #1e1f26;
+  color: #f8f8f8;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  outline: none;
+}
+.info6 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info6;
+}
+.header4 {
+  composes: header from "./AddKOL.common.css";
+  grid-area: header4;
+}
+.key7 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key7;
+}
+.input7 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input7;
+}
+.info7 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info7;
+}
+.key8 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key8;
+}
+.input8 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input8;
+}
+.info8 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info8;
+}
+.key9 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key9;
+}
+.input9 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input9;
+}
+.info9 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info9;
+}
+.key10 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key10;
+}
+.input10 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input10;
+}
+.info10 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info10;
+}
+.key11 {
+  composes: key from "./AddKOL.common.css";
+  grid-area: key11;
+}
+.input11 {
+  composes: input from "./AddKOL.common.css";
+  grid-area: input11;
+}
+.info11 {
+  composes: info from "./AddKOL.common.css";
+  grid-area: info11;
+}
+.btn2_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: button2;
+}
+.btn2 {
+  cursor: pointer;
+  height: 42px;
+  padding: 0px 8px;
+  width: 146px;
+  height: 42px;
+  border: 0;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background-color: #3164f4;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
+  outline: none;
+}
+.btn2:hover {
+  background-color: #013de2;
+}
+.msg {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #f8f8f8;
+  font-size: 14px;
+
+  line-height: 16px;
+  grid-area: msg;
+}
+.msg2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+
+  line-height: 16px;
+  grid-area: msg2;
+}

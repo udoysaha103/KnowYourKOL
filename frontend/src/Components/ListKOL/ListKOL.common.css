@@ -1,0 +1,13 @@
+.domainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  background-color: #363f43;
+  margin: 20px 2px;
+}
+.text {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+}
