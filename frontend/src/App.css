@@ -9,7 +9,8 @@ body, html, #root{
   height: 100%;
   width: 100%;
   margin: 0;
-  background-image: url("/dot_bg.png");
+  background-color: #111315;
+  background-image: url("/page_bg.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
