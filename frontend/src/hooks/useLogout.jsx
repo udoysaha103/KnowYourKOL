@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import Cookie from "js-cookie";
 
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
@@ -9,6 +10,8 @@ export const useLogout = () => {
     setError(null);
     try {
       localStorage.removeItem("user");
+      Cookie.remove("session");
+      Cookie.remove("session.sig");
       dispatch({ type: "LOGOUT" });
       window.location.reload();
     } catch (err) {

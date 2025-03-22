@@ -5,7 +5,7 @@ import styles from "./MemeBubble.module.css";
 import Canvas from "../../Components/Canvas/Canvas";
 const canvasStyle = {
   position: "absolute",
-  top: 80,
+  top: 60,
   left: 0,
   zIndex: 1
 };
@@ -20,8 +20,8 @@ const MemeBubble = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.blur}></div>
-      <div className={styles.header}>Coming Soon!</div>
+      {/* <div className={styles.blur}></div> */}
+      {/* <div className={styles.header}>Coming Soon!</div> */}
       <Canvas style={canvasStyle} />
       <Footer style={footerStyle} />
     </>
