@@ -63,7 +63,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div onClick={() => {if(user) setShowMenu(!showMenu)}}>
+          <div onClick={() => {if(user) setShowMenu(true)}}>
             <Link to={user ? "" : "/login"} className={styles.link}>
               <Icon name="AccountBox" color="#f8f8f8" height="51px" />
               &nbsp;

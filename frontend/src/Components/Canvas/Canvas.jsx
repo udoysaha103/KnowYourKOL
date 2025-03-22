@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
 const Canvas = (props) => {
   const canvasRef = useRef(null);
-  const navbarHeight = 80;
+  const navbarHeight = 60;
   const colors = ["255, 0, 0", "0, 255, 0"];
   const circles = [];
   const mouse = {
@@ -66,22 +66,22 @@ const Canvas = (props) => {
       );
       const isThisBubble =
         findDistance(this.x, this.y, mouse.x, mouse.y) <
-        this.currentRadius - 10;
+        this.currentRadius;
       if (this.currentRadius < this.radius) {
         this.currentRadius += this.growthRate;
       }
-      if (this.x + this.radius > this.canvas.width) {
-        this.x = this.canvas.width - this.radius;
+      if (this.x + this.currentRadius > this.canvas.width) {
+        this.x = this.canvas.width - this.currentRadius;
         this.dx = -this.dx;
-      } else if (this.x - this.radius < 0) {
-        this.x = this.radius;
+      } else if (this.x - this.currentRadius < 0) {
+        this.x = this.currentRadius;
         this.dx = -this.dx;
       }
-      if (this.y + this.radius > this.canvas.height) {
-        this.y = this.canvas.height - this.radius;
+      if (this.y + this.currentRadius > this.canvas.height) {
+        this.y = this.canvas.height - this.currentRadius;
         this.dy = -this.dy;
-      } else if (this.y - this.radius < 0) {
-        this.y = this.radius;
+      } else if (this.y - this.currentRadius < 0) {
+        this.y = this.currentRadius;
         this.dy = -this.dy;
       }
       if (isThisBubble) {
@@ -91,8 +91,8 @@ const Canvas = (props) => {
       if (mouse.onPress) {
         // click effect
         if (isThisBubble) {
-          this.x = mouse.x + 20;
-          this.y = mouse.y + 20;
+          this.x = mouse.x;
+          this.y = mouse.y;
         } else {
           const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
           const force = 0.1;
@@ -149,8 +149,8 @@ const Canvas = (props) => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight - navbarHeight;
     });
-    for (let i = 0; i < 10; i++) {
-      const radius = Math.random() * (100 - 10) + 10;
+    for (let i = 0; i < 50; i++) {
+      const radius = Math.random() * (50 - 10) + 10;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
       const color = colors[Math.floor(Math.random() * colors.length)];

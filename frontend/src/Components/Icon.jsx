@@ -220,14 +220,14 @@ const Login = ({ color, width, height, style, ...props }) => (
   <svg
     style={{ color, fill: color, maxWidth: width, height, ...style }}
     viewBox="0 0 499.1 499.1"
-    xml:space="preserve"
+    xmlSpace="preserve"
     {...props}
   >
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
     <g
       id="SVGRepo_tracerCarrier"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     ></g>
     <g id="SVGRepo_iconCarrier">
       {" "}
