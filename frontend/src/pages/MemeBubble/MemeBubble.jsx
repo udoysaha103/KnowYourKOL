@@ -48,7 +48,7 @@ const MemeBubble = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://localhost:5000/bubble/getBubblesData"
+        `${import.meta.env.VITE_API_URL}/bubble/getBubblesData`
       );
       const jsonData = await response.json();
       const loadedImages = await Promise.all(jsonData.map((e) => loadImage(e)));

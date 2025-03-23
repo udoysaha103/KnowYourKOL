@@ -129,4 +129,4 @@ Content-Type: application/json
 GET http://localhost:5000/getKOL/getPnLRank/67d73fa4d41fdc30ed6a3e20/7
 ###
 
-GET http://localhost:5000/bubble/getBubblesData
+GET http://46.202.176.110:5000/bubble/getBubblesData

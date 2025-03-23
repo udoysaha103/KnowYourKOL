@@ -4,7 +4,7 @@ const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
     const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
-    const photoPath = `http://localhost:5000/${req.file.path}`;
+    const photoPath = `${process.env.SERVER_URL}/${req.file.path}`;
     const generatedCode = Math.floor(100000 + Math.random() * 900000);
 
     const unverifiedKOL = new unverifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, generatedCode });

@@ -181,7 +181,7 @@ const verifyUser = async (req, res) => {
       await userModel.updateOne({ email }, { verificationStatus: true });
       await codeModel.deleteOne({ email });
       // creating the token
-      res.status(200).redirect("http://localhost:5173");
+      res.status(200).redirect(process.env.CLIENT_URL);
     } else {
       res.status(400).json({ error: "Wrong code" });
     }
