@@ -19,24 +19,24 @@ const scrapMemeCoins = async () => {
       });
 
       // 1. delete all the coins that do not have a photoURL
-      memeCoins = memeCoins.filter((coin) => coin.photoURL !== "");
+      memeCoins = memeCoins.filter((coin) => coin.photoURL !== null || coin.photoURL !== "");
       // 2. if any duplicate coins, keep the first one
       memeCoins = memeCoins.filter(
         (coin, index, self) =>
           index === self.findIndex((t) => t.bubbleName === coin.bubbleName)
       );
       //   there should be a vali name
-      memeCoins = memeCoins.filter((coin) => coin.bubbleName !== "");
+      memeCoins = memeCoins.filter((coin) => coin.bubbleName !== null);
       // there should be a valid market cap
-      memeCoins = memeCoins.filter((coin) => coin.mCap !== 0);
+      memeCoins = memeCoins.filter((coin) => coin.mCap !== null);
       // there should be a valid price change 1H
-      memeCoins = memeCoins.filter((coin) => coin.priceChange1H !== 0);
+      memeCoins = memeCoins.filter((coin) => coin.priceChange1H !== null);
       // there should be a valid price change 24H
-      memeCoins = memeCoins.filter((coin) => coin.priceChange24H !== 0);
+      memeCoins = memeCoins.filter((coin) => coin.priceChange24H !== null);
       // there should be a valid price change 7D
-      memeCoins = memeCoins.filter((coin) => coin.priceChange7D !== 0);
+      memeCoins = memeCoins.filter((coin) => coin.priceChange7D !== null);
 
-    //   console.log(memeCoins);
+      //   console.log(memeCoins);
 
       // make the bubbleModel collection empty
       bubbleModel.deleteMany({})
@@ -46,6 +46,7 @@ const scrapMemeCoins = async () => {
         .catch((err) => console.log(err));
 
       // insert the top 100 meme coins based on Market Cap into the bubbleModel collection
+      memeCoins.map((coin) => { if (!coin.priceChange7D || !coin.priceChange1H || !coin.priceChange24H || !coin.bubbleName || !coin.mCap || !coin.photoURL) console.log(coin) });
       bubbleModel.insertMany(memeCoins.slice(0, 100))
         .then(() => {
           console.log("✅ memeCoins inserted into bubbleModel!");

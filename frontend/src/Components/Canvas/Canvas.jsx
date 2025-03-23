@@ -106,7 +106,7 @@ const Canvas = ({data, topGap, ...rest}) => {
       this.top += this.currentRadius / 16;
       this.drawText(this.name, 0.25, "Arial", "white", true);
       this.top += this.currentRadius / 16;
-      this.drawText(this.content, 0.4, "Arial", this.content[0] === "-" ? "rgb(255, 0, 0)" : "rgb(0, 255, 0)");
+      this.drawText((this.content.toFixed(2)).toString()+"%", 0.4, "Arial", this.content < 0 ? "rgb(255, 0, 0)" : "rgb(0, 255, 0)");
       this.top += this.currentRadius / 32;
       const mcapText =
         this.mcap >= Math.pow(10, 9)
@@ -212,16 +212,16 @@ const Canvas = ({data, topGap, ...rest}) => {
       canvas.height = window.innerHeight - topGap - footerHeight;
     });
     if (!data) return;
-    const contents = data.map((e) => Math.abs(parseFloat(e.content)));
+    const contents = data.map((e) => Math.abs(e.content));
     const max = Math.max(...contents);
     const min = Math.min(...contents);
     data.map((e) => {
       const minRadius = 20;
       const maxRadius = 100;
-      const radius = (Math.abs((parseFloat(e.content)) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
+      const radius = ((Math.abs(e.content) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
-      const color = colors[e.content[0]==="-" ? 0 : 1];
+      const color = colors[e.content < 0 ? 0 : 1];
       const borderColor = "#fff";
       circles.push(
         new Circle(
