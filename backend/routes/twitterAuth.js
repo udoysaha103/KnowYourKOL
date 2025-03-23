@@ -2,40 +2,40 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
 
 
-// router.get("/logout", (req, res) => {
-//   if (req.user) {
-//     req.logout();
-//   }
-//   res.redirect(process.env.CLIENT_URL);
-// });
+router.get('/logout', (req, res, next) => {
+    req.logout(err => {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
+  
 
-// router.get("/success", (req, res) => {
-//  res.send("success");
-// });
+router.get("/login", (req, res) => {
+    if (req.user) {
+        const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
+            expiresIn: config.token.expairsIn,
+        });
+        res.status(200).json({ email: req.user.email, token });
+    } 
+})
+router.get("/failure", (req, res) => {
+    res.send("Failed to login");
+})
 
-// router.get("/login", (req, res) => {
-//   if (req.user) {
-//     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-//       expiresIn: "5d",
-//     });
+// login with twitter
+router.get("/twitterLogin", passport.authenticate('twitter', {
+ scope: ['tweet.read']
+}));
 
-//     res.status(200).json({ email: req.user.emails[0].value, token });
-//   } else {
-//     res.redirect(process.env.CLIENT_URL);
-//   }
-// })
+// twitter callback
+router.get('/redirect', passport.authenticate('twitter', {
+    successRedirect: process.env.CLIENT_URL,
+    failureRedirect: `${process.env.SERVER_URL}/twitter/failure`
+}));
 
-// // login with twitter
-// router.get("/twitterLogin", passport.authenticate('twitter'));
-
-// // twitter callback
-// router.get('/twitter/redirect', passport.authenticate('twitter', {
-//   successRedirect: process.env.CLIENT_URL,
-// }));
-
-// // above 2 requests are not added in requests.rest, test it in browser.
 
 module.exports = router;

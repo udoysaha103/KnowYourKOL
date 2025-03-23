@@ -190,7 +190,7 @@ const verifyUser = async (req, res) => {
   }
 }
 
-const googleCallback = async (accessToken, refreshToken, data, done) => {
+const callback = async (accessToken, refreshToken, data, done) => {
   // passport callback function
   const { displayName, emails } = data;
   const user = await userModel.findOne({ email: emails[0].value });
@@ -204,4 +204,4 @@ const googleCallback = async (accessToken, refreshToken, data, done) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getVerificationMail, verifyUser,  googleCallback};
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser,  callback};

@@ -4,13 +4,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const passport = require('passport');
-const TwitterStrategy = require('passport-twitter').Strategy;
+const TwitterStrategy = require("@superfaceai/passport-twitter-oauth2").Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session');
 const userModel = require("./models/userModel");
 const path = require("path");
 const requestBioController = require("./controllers/requestBioController");
-const { googleCallback } = require("./controllers/userControllers");
+const { callback } = require("./controllers/userControllers");
 
 const mongoose = require("mongoose");
 
@@ -22,7 +22,7 @@ require("./cron/GMGN_cron"); // start the cron job to update the PnL data
 
 // middlewares
 app.use(cors({
-    origin: "http://localhost:5173", // Ensure this matches exactly (no extra `/`)
+    origin: process.env.CLIENT_URL, // Ensure this matches exactly (no extra `/`)
     credentials: true, // Allow cookies or auth headers if needed
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
@@ -65,22 +65,22 @@ passport.deserializeUser((id, done) => {
     done(null, user);
   });
 });
-passport.use(new TwitterStrategy({
-  consumerKey: process.env.TWITTER_CONSUMER_KEY,
-  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: "/auth/twitter/redirect"
-},
-function(token, tokenSecret, profile, cb) {
-  console.log(token, tokenSecret, profile)
-}
-));
 passport.use(
   new GoogleStrategy({
     // options for google strategy
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/google/redirect'
-  }, googleCallback)
+  }, callback)
+);
+passport.use(
+  new TwitterStrategy(
+    {
+      clientType: "public",
+      clientID: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET,
+      callbackURL: '/twitter/redirect',
+    }, callback)
 );
 
 

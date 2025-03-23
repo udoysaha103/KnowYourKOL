@@ -12,15 +12,18 @@ const Canvas = (props) => {
   };
   const findDistance = (x1, y1, x2, y2) =>
     Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
   class Circle {
-    constructor(canvas, context, x, y, radius, color, borderColor) {
+    constructor(canvas, context, x, y, radius, color, borderColor, image) {
       this.canvas = canvas;
       this.c = context;
       this.x = x;
       this.y = y;
+      this.top = y - radius;
       this.radius = radius;
       this.color = color;
       this.borderColor = borderColor;
+      this.image = image;
       this.dx = 0;
       this.dy = 0;
       this.growthRate = 1;
@@ -28,6 +31,33 @@ const Canvas = (props) => {
       this.showBorder = false;
     }
 
+    drawImage(img, width, padding) {
+      this.top += padding * this.currentRadius;
+      this.c.drawImage(
+        img,
+        this.x - (width / 2) * this.currentRadius,
+        this.top,
+        width * this.currentRadius,
+        width * this.currentRadius
+      );
+      this.top += width * this.currentRadius;
+    }
+    drawText(text, size, fontFace, isBold = false) {
+      this.c.textBaseline = "middle";
+      this.c.textAlign = "center";
+      let fontSize = this.currentRadius * size;
+      this.c.font = `${isBold ? "bold " : ""}${fontSize}px ${fontFace}`;
+      while (
+        this.c.measureText(text).width > this.currentRadius * 2 &&
+        fontSize > 1
+      ) {
+        fontSize -= 1;
+        this.c.font = `${isBold ? "bold " : ""}${fontSize}px ${fontFace}`;
+      }
+      this.c.fillStyle = "white";
+      this.c.fillText(text, this.x, this.top + fontSize / 2);
+      this.top += fontSize;
+    }
     draw() {
       const grad = this.c.createRadialGradient(
         this.x,
@@ -57,6 +87,14 @@ const Canvas = (props) => {
       this.dy += j;
     }
     update() {
+      this.drawImage(this.image, 0.5, 0.1);
+      this.top += this.currentRadius / 16;
+      this.drawText("Pengu", 0.25, "Arial", true);
+      this.top += this.currentRadius / 16;
+      this.drawText("+11.02%", 0.4, "Arial");
+      this.top += this.currentRadius / 16;
+      this.drawText("Mcap: 127M", 0.2, "Arial");
+
       this.showBorder = false;
       const distancePointerToCenter = findDistance(
         this.x,
@@ -65,8 +103,7 @@ const Canvas = (props) => {
         mouse.y
       );
       const isThisBubble =
-        findDistance(this.x, this.y, mouse.x, mouse.y) <
-        this.currentRadius;
+        findDistance(this.x, this.y, mouse.x, mouse.y) < this.currentRadius;
       if (this.currentRadius < this.radius) {
         this.currentRadius += this.growthRate;
       }
@@ -101,7 +138,8 @@ const Canvas = (props) => {
           this.applyForce(-i, -j);
         }
       }
-      circles.forEach((otherCircle) => { // Repulsion force
+      circles.forEach((otherCircle) => {
+        // Repulsion force
         if (this === otherCircle) return;
         const distanceBetweenCircles = findDistance(
           this.x,
@@ -125,6 +163,7 @@ const Canvas = (props) => {
 
       this.x += this.dx;
       this.y += this.dy;
+      this.top = this.y - this.currentRadius;
       this.dx *= 0.99; // friction
       this.dy *= 0.99; // friction
       this.draw();
@@ -149,16 +188,27 @@ const Canvas = (props) => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight - navbarHeight;
     });
-    for (let i = 0; i < 50; i++) {
+    if (!props.data) return;
+    props.data.map((img) => {
       const radius = Math.random() * (50 - 10) + 10;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
       const color = colors[Math.floor(Math.random() * colors.length)];
       const borderColor = "#fff";
       circles.push(
-        new Circle(canvas, context, x, y, radius, color, borderColor)
+        new Circle(
+          canvas,
+          context,
+          x,
+          y,
+          radius,
+          color,
+          borderColor,
+          img,
+          "Pengu"
+        )
       );
-    }
+    });
 
     let animationFrameId;
     //Our draw came here
@@ -168,16 +218,13 @@ const Canvas = (props) => {
       animationFrameId = window.requestAnimationFrame(animate);
       context.clearRect(0, 0, canvas.width, canvas.height);
       circles.forEach((circle) => circle.update());
-      // objects.forEach(object => {
-      //  object.draw()
-      // })
     };
     animate();
 
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [props.data]);
 
   return <canvas className={styles.canvas} ref={canvasRef} {...props} />;
 };
