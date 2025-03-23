@@ -212,9 +212,7 @@ const AddKOL = () => {
         />
         <div className={styles.info4}>*Required</div>
         <div className={styles.key5}>
-          Do you want to make your wallet address public? If you choose "No," we
-          will hide your wallet address but still include you on the
-          leaderboard.
+          Do you want to make your wallet public?
         </div>
         <div className={styles.input5}>
           <button onClick={() => setShowAddress(true)} id={showAddress && styles.selected}> Yes</button>
@@ -222,9 +220,7 @@ const AddKOL = () => {
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
-          Please send 1 dollar or any amount worth of Solana to our donation
-          wallet and submit the signature ID or URL for us to confirm wallet
-          ownership.
+          Send $1 of SOL and submit signature ID or URL here to verify ownership.
         </div>
         <div className={styles.input6}>
           <div
