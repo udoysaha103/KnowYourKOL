@@ -23,13 +23,20 @@ require("./cron/memeCron"); // start the cron job to update the meme coin data
 
 
 // middlewares
+const allowedOrigins = ["http://knowyourkol.io", "http://localhost:5173", "https://knowyourkol.io", "http://www.knowyourkol.io", "https://www.knowyourkol.io"];
+
 app.use(cors({
-    origin: process.env.CLIENT_URL, // Ensure this matches exactly (no extra `/`)
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true, // Allow cookies or auth headers if needed
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
-  })
-);
+}));
 
 
 app.use(express.json());
