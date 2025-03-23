@@ -418,7 +418,7 @@ const Profile = () => {
                   Real Name:
                 </div>
                 <div
-                  className={`${styles.info1} ${styles.request}`}
+                  className={`${styles.info1} ${styles.request} ${styles.value1}`}
                   onClick={() => {
                     if (request)
                       setIrlNameRequest(prompt("Enter new IRL Name"));
@@ -438,20 +438,20 @@ const Profile = () => {
             {kol.country && (
               <>
                 <div className={`${styles.info1} ${styles.request}`}>
-                  Location:
+                  Location:&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-                <div className={`${styles.info1} ${styles.request}`}>
+                <div className={`${styles.info1} ${styles.request} ${styles.value1}`}>
                   {!locationRequst ? kol.country : locationRequst}
                 </div>
               </>
             )}
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by PnL:</div>
+            <p className={styles.info1}>PnL Ranking:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <div className={styles.value}># {PnLRank}</div>
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by Follwer's Sentiment:</div>
+            <p className={styles.info1}>Follwer's Sentiment Ranking:</p>
             <div className={styles.value}># {sentimentRank}</div>
           </div>
         </div>

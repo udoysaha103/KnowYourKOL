@@ -203,6 +203,7 @@ const AddKOL = () => {
         <div className={styles.header3}>
           <div>Wallet</div>
           <br />
+          <div className={styles.dividerHorizontal}></div>
         </div>
         <div className={styles.key4}>Your Solana Wallet Address</div>
         <input
@@ -215,8 +216,8 @@ const AddKOL = () => {
           Do you want to make your wallet public?
         </div>
         <div className={styles.input5}>
-          <button onClick={() => setShowAddress(true)} id={showAddress && styles.selected}> Yes</button>
-          <button onClick={() => setShowAddress(false)} id={!showAddress && styles.selected}> No</button>
+          <button onClick={() => setShowAddress(true)} className={showAddress && styles.selected}> Yes</button>
+          <button onClick={() => setShowAddress(false)} className={!showAddress && styles.selected}> No</button>
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>

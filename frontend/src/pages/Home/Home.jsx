@@ -49,6 +49,7 @@ function Home() {
       .then((response) => response.json())
       .then((data) => {
         setKOLlist(data);
+        console.log(data[0]);
         setFirstUser(data[0]);
       });
     fetch(`${import.meta.env.VITE_API_URL}/getKOL/getRisingStars`)
@@ -86,7 +87,7 @@ function Home() {
                 <span id="addr4cpy">{firstUser && firstUser.walletAddress}</span>
               </p>)
             }
-            <p id="verificationText">Verified KOL</p>
+            {firstUser && firstUser.verifiedByAdmin && <p id="verificationText">Verified KOL</p>}
           </div>
 
           <div className="KingStats">
@@ -98,6 +99,10 @@ function Home() {
               PnL:{" "}
               <span className={firstUser && firstUser.PnLtotal7D < 0 ? "negative" : ""}>{firstUser && formatSOL(firstUser.PnLtotal7D)} Sol</span>
             </p>
+            <p>
+              Balance:{" "}
+              <span className={firstUser && firstUser.walletBalance < 0 ? "negative" : ""}>{firstUser && firstUser.walletBalance.toFixed(2)} Sol</span>
+            </p>
           </div>
 
           <div className="KingStats KingStats2">
@@ -105,7 +110,10 @@ function Home() {
               Upvotes: <strong>{firstUser && firstUser.cookerCount}</strong>
             </p>
             <p>
-              Reviews: <strong>{firstUser && firstUser.farmerCount}</strong>
+              Downvotes: <strong>{firstUser && firstUser.farmerCount}</strong>
+            </p>
+            <p>
+              Reviews: <strong>{firstUser && firstUser.reviewCount}</strong>
             </p>
           </div>
         </Link>
