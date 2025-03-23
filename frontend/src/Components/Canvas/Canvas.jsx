@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
-const Canvas = (props) => {
+const Canvas = ({data, topGap, ...rest}) => {
   const canvasRef = useRef(null);
-  const navbarHeight = 60;
+  const footerHeight = 40;
   const colors = ["255, 0, 0", "0, 255, 0"];
   const circles = [];
   const mouse = {
@@ -14,7 +14,19 @@ const Canvas = (props) => {
     Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 
   class Circle {
-    constructor(canvas, context, x, y, radius, color, borderColor, image) {
+    constructor(
+      canvas,
+      context,
+      x,
+      y,
+      radius,
+      color,
+      borderColor,
+      image,
+      name,
+      content,
+      mcap
+    ) {
       this.canvas = canvas;
       this.c = context;
       this.x = x;
@@ -24,6 +36,9 @@ const Canvas = (props) => {
       this.color = color;
       this.borderColor = borderColor;
       this.image = image;
+      this.name = name;
+      this.content = content;
+      this.mcap = mcap;
       this.dx = 0;
       this.dy = 0;
       this.growthRate = 1;
@@ -42,7 +57,7 @@ const Canvas = (props) => {
       );
       this.top += width * this.currentRadius;
     }
-    drawText(text, size, fontFace, isBold = false) {
+    drawText(text, size, fontFace, color, isBold = false) {
       this.c.textBaseline = "middle";
       this.c.textAlign = "center";
       let fontSize = this.currentRadius * size;
@@ -54,7 +69,7 @@ const Canvas = (props) => {
         fontSize -= 1;
         this.c.font = `${isBold ? "bold " : ""}${fontSize}px ${fontFace}`;
       }
-      this.c.fillStyle = "white";
+      this.c.fillStyle = color;
       this.c.fillText(text, this.x, this.top + fontSize / 2);
       this.top += fontSize;
     }
@@ -89,11 +104,19 @@ const Canvas = (props) => {
     update() {
       this.drawImage(this.image, 0.5, 0.1);
       this.top += this.currentRadius / 16;
-      this.drawText("Pengu", 0.25, "Arial", true);
+      this.drawText(this.name, 0.25, "Arial", "white", true);
       this.top += this.currentRadius / 16;
-      this.drawText("+11.02%", 0.4, "Arial");
-      this.top += this.currentRadius / 16;
-      this.drawText("Mcap: 127M", 0.2, "Arial");
+      this.drawText(this.content, 0.4, "Arial", this.content[0] === "-" ? "rgb(255, 0, 0)" : "rgb(0, 255, 0)");
+      this.top += this.currentRadius / 32;
+      const mcapText =
+        this.mcap >= Math.pow(10, 9)
+          ? Math.floor(this.mcap / Math.pow(10, 9)) + "B"
+          : this.mcap >= Math.pow(10, 6)
+          ? Math.floor(this.mcap / Math.pow(10, 6)) + "M"
+          : this.mcap >= Math.pow(10, 3)
+          ? Math.floor(this.mcap / Math.pow(10, 3)) + "K"
+          : this.mcap;
+      this.drawText(`Mcap: ${mcapText}`, 0.2, "Arial", "white");
 
       this.showBorder = false;
       const distancePointerToCenter = findDistance(
@@ -174,11 +197,11 @@ const Canvas = (props) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - navbarHeight;
+    canvas.height = window.innerHeight - topGap - footerHeight;
     // Event Listeners
     window.addEventListener("mousemove", (event) => {
       mouse.x = event.clientX;
-      mouse.y = event.clientY - navbarHeight;
+      mouse.y = event.clientY - topGap;
     });
 
     window.addEventListener("mousedown", () => (mouse.onPress = true));
@@ -186,14 +209,19 @@ const Canvas = (props) => {
 
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight - navbarHeight;
+      canvas.height = window.innerHeight - topGap - footerHeight;
     });
-    if (!props.data) return;
-    props.data.map((img) => {
-      const radius = Math.random() * (50 - 10) + 10;
+    if (!data) return;
+    const contents = data.map((e) => Math.abs(parseFloat(e.content)));
+    const max = Math.max(...contents);
+    const min = Math.min(...contents);
+    data.map((e) => {
+      const minRadius = 20;
+      const maxRadius = 100;
+      const radius = (Math.abs((parseFloat(e.content)) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
-      const color = colors[Math.floor(Math.random() * colors.length)];
+      const color = colors[e.content[0]==="-" ? 0 : 1];
       const borderColor = "#fff";
       circles.push(
         new Circle(
@@ -204,8 +232,10 @@ const Canvas = (props) => {
           radius,
           color,
           borderColor,
-          img,
-          "Pengu"
+          e.image,
+          e.name,
+          e.content,
+          e.mcap
         )
       );
     });
@@ -224,9 +254,9 @@ const Canvas = (props) => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [props.data]);
+  }, [data]);
 
-  return <canvas className={styles.canvas} ref={canvasRef} {...props} />;
+  return <canvas className={styles.canvas} ref={canvasRef} {...rest} />;
 };
 
 export default Canvas;
