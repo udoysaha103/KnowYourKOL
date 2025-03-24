@@ -83,102 +83,104 @@ function Home() {
       <Navbar />
 
       <div id="homeContent">
-        <Link id="King" to={"/profile/" + (firstUser && firstUser._id)}>
-          <img src="/king.png" alt="KING" id="KingIcon" />
-          <div id="KingImg">
-            <img src="/King_of_KOLs.gif" alt="KING OF KOLS" id="KingImgSvg" />
-            <img
-              src={firstUser && firstUser.photoPath}
-              alt="KING OF KOLS"
-              id="avatar"
-            />
-          </div>
+        <div id="banner">
+          <Link id="King" to={"/profile/" + (firstUser && firstUser._id)}>
+            <img src="/king.png" alt="KING" id="KingIcon" />
 
-          <div id="KingInfo">
-            <div id="KingName">
-              <div id="KingCrown">
-                <img src="/king_crown.png" alt="King Crown" />
-              </div>
-              <div id="nameOfKing">
-                {firstUser && truncateName(firstUser.twitterName)}
-              </div>
+            <div id="KingImg">
+              {/* <img src="/King_of_KOLs.gif" alt="KING OF KOLS" id="KingImgSvg" /> */}
+              <img
+                src={firstUser && firstUser.photoPath}
+                alt="KING OF KOLS"
+                id="avatar"
+              />
             </div>
-            {firstUser && firstUser.walletAddress !== "Hidden" ? (
-              <p id="KingAddr" onClick={(e) => copyAddress(e)}>
-                <span id="addr4cpy">
-                  {firstUser && truncateText(firstUser.walletAddress)}
-                </span>
-                <img src="content_copy.svg" alt="copy" />
-              </p>
-            ) : (
-              <p id="KingAddr">
-                <span id="addr4cpy">
-                  {firstUser && firstUser.walletAddress}
-                </span>
-              </p>
-            )}
-            {firstUser && firstUser.verifiedByAdmin && (
-              <p id="verificationText">Verified KOL</p>
-            )}
-          </div>
 
-          <div className="KingStats">
-            {firstUser && firstUser.ROI1D !== 0 && (
-              <p>
-                ROI:{" "}
-                <span
-                  className={firstUser && firstUser.ROI1D < 0 ? "negative" : ""}
-                >
-                  {firstUser && (firstUser.ROI1D * 100).toFixed(1)}%
-                </span>
-              </p>
-            )}
-            {firstUser && firstUser.PnLtotal1D !== 0 && (
-              <p>
-                PnL:{" "}
-                <span
-                  className={
-                    firstUser && firstUser.PnLtotal7D < 0 ? "negative" : ""
-                  }
-                >
-                  {firstUser && formatSOL(firstUser.PnLtotal7D, 1)} Sol
-                </span>
-              </p>
-            )}
-            {firstUser && firstUser.buy1D !== 0 && firstUser.sell1D !== 0 && (
-              <p>
-                TXs: <span>{firstUser.buy1D}</span>/
-                <span className="negative">{firstUser.sell1D}</span>
-              </p>
-            )}
-          </div>
+            <div id="KingInfo">
+              <div id="KingName">
+                <div id="KingCrown">
+                  <img src="/king_crown.png" alt="King Crown" />
+                </div>
+                <div id="nameOfKing">
+                  {firstUser && truncateName(firstUser.twitterName)}
+                </div>
+              </div>
+              {firstUser && firstUser.walletAddress !== "Hidden" ? (
+                <p id="KingAddr" onClick={(e) => copyAddress(e)}>
+                  <span id="addr4cpy">
+                    {firstUser && truncateText(firstUser.walletAddress)}
+                  </span>
+                  <img src="content_copy.svg" alt="copy" />
+                </p>
+              ) : (
+                <p id="KingAddr">
+                  <span id="addr4cpy">
+                    {firstUser && firstUser.walletAddress}
+                  </span>
+                </p>
+              )}
+              {firstUser && firstUser.verifiedByAdmin && (
+                <p id="verificationText">Verified KOL</p>
+              )}
+            </div>
 
-          <div className="KingStats KingStats2">
-            {firstUser && firstUser.cookerCount !== undefined && (
-              <p>
-                Upvotes: <strong>{firstUser.cookerCount}</strong>
-              </p>
-            )}
-            {firstUser && firstUser.reviewCount !== undefined && (
-              <p>
-                Reviews: <strong>{firstUser && firstUser.reviewCount}</strong>
-              </p>
-            )}
-            {firstUser && firstUser.avgHoldingDuration !== undefined && (
-              <p>
-                Avg. Held:{" "}
-                <strong>{timeConvert(firstUser.avgHoldingDuration)}</strong>
-              </p>
-            )}
-          </div>
-        </Link>
+            <div className="KingStats">
+              {firstUser && firstUser.ROI1D !== 0 && (
+                <p>
+                  ROI:{" "}
+                  <span
+                    className={firstUser && firstUser.ROI1D < 0 ? "negative" : ""}
+                  >
+                    {firstUser && (firstUser.ROI1D * 100).toFixed(1)}%
+                  </span>
+                </p>
+              )}
+              {firstUser && firstUser.PnLtotal1D !== 0 && (
+                <p>
+                  PnL:{" "}
+                  <span
+                    className={
+                      firstUser && firstUser.PnLtotal7D < 0 ? "negative" : ""
+                    }
+                  >
+                    {firstUser && formatSOL(firstUser.PnLtotal7D, 1)} Sol
+                  </span>
+                </p>
+              )}
+              {firstUser && firstUser.buy1D !== 0 && firstUser.sell1D !== 0 && (
+                <p>
+                  TXs: <span>{firstUser.buy1D}</span>/
+                  <span className="negative">{firstUser.sell1D}</span>
+                </p>
+              )}
+            </div>
+
+            <div className="KingStats KingStats2">
+              {firstUser && firstUser.cookerCount !== undefined && 
+                <p>
+                  Upvotes: <strong>{firstUser.cookerCount}</strong>
+                </p>
+              }
+              {firstUser && firstUser.reviewCount !== undefined && 
+                <p>
+                  Reviews: <strong>{firstUser && firstUser.reviewCount}</strong>
+                </p>
+              }
+              {firstUser && firstUser.avgHoldingDuration !== undefined &&
+                <p>
+                  <p style={{fontSize: "13px", display: "inline"}}>Avg. Held:</p>{" "}
+                  <strong>{timeConvert(firstUser.avgHoldingDuration)}</strong>
+                </p>
+              }
+            </div>
+          </Link>
 
         <div id="starContainer">
           <div id="starHeader" />
           <div id="starBody">
             {risingStars && (
               <>
-                <div className="starRow">
+                <div className="starColumn">
                   {risingStars.slice(0, 2).map((star, index) => (
                     <Star
                       key={index}
@@ -192,7 +194,7 @@ function Home() {
                     />
                   ))}
                 </div>
-                <div className="starRow">
+                <div className="starColumn">
                   {risingStars.slice(2, 4).map((star, index) => (
                     <Star
                       key={index}
@@ -211,11 +213,12 @@ function Home() {
           </div>
         </div>
 
-        <ListKOL KOLlist={KOLlist} setKOLlist={setKOLlist} />
       </div>
+      <ListKOL KOLlist={KOLlist} setKOLlist={setKOLlist} />
 
       <Footer />
     </div>
+  </div>
   );
 }
 
