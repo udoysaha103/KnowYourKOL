@@ -154,39 +154,60 @@ function Home() {
           </div>
 
           <div className="KingStats KingStats2">
-            {firstUser && firstUser.cookerCount !== undefined && 
+            {firstUser && firstUser.cookerCount !== undefined && (
               <p>
                 Upvotes: <strong>{firstUser.cookerCount}</strong>
               </p>
-            }
-            {firstUser && firstUser.reviewCount !== undefined && 
+            )}
+            {firstUser && firstUser.reviewCount !== undefined && (
               <p>
                 Reviews: <strong>{firstUser && firstUser.reviewCount}</strong>
               </p>
-            }
-            {firstUser && firstUser.avgHoldingDuration !== undefined &&
+            )}
+            {firstUser && firstUser.avgHoldingDuration !== undefined && (
               <p>
                 Avg. Held:{" "}
                 <strong>{timeConvert(firstUser.avgHoldingDuration)}</strong>
               </p>
-            }
+            )}
           </div>
         </Link>
 
         <div id="starContainer">
           <div id="starHeader" />
           <div id="starBody">
-            {risingStars &&
-              risingStars.map((star, index) => (
-                <Star
-                  key={index}
-                  pic_path={star.photoPath}
-                  name={star.twitterName}
-                  roi={(star.ROI1D * 100).toFixed(2) + "%"}
-                  pnl={formatSOL(star.PnLtotal1D, 2) + " Sol"}
-                  id={star._id}
-                />
-              ))}
+            {risingStars && (
+              <>
+                <div className="starRow">
+                  {risingStars.slice(0, 2).map((star, index) => (
+                    <Star
+                      key={index}
+                      pic_path={star.photoPath}
+                      name={star.twitterName}
+                      roi={star.ROI1D}
+                      pnl={star.PnLtotal1D}
+                      buy={star.buy1D}
+                      sell={star.sell1D}
+                      id={star._id}
+                    />
+                  ))}
+                </div>
+                <div className="starRow">
+                  {risingStars.slice(2, 4).map((star, index) => (
+                    <Star
+                      key={index}
+                      pic_path={star.photoPath}
+                      name={star.twitterName}
+                      roi={star.ROI1D}
+                      pnl={star.PnLtotal1D}
+                      buy={star.buy1D}
+                      sell={star.sell1D}
+                      id={star._id}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
 
