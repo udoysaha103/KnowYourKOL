@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
 
-const SOLconversionModel =  require('../models/SOLconversionModel.js');
+const SOLconversionModel = require('../models/SOLconversionModel.js');
 
 const scrapData = async (accountAddress) => {
     const GMGN_API_URL = `https://gmgn.ai/sol/address/${accountAddress}`;
 
     let browser;
     try {
-        browser = await puppeteer.launch({ 
+        browser = await puppeteer.launch({
             headless: true, // Run with UI for debugging
             // args: ["--no-sandbox", "--disable-setuid-sandbox"]
         });
@@ -18,7 +18,7 @@ const scrapData = async (accountAddress) => {
         );
 
         // console.log("Navigating to GMGN...");
-        await page.goto(GMGN_API_URL, { 
+        await page.goto(GMGN_API_URL, {
             waitUntil: "domcontentloaded", // Faster load detection
             timeout: 60000 // Increase timeout to 60 seconds
         });
@@ -34,7 +34,7 @@ const scrapData = async (accountAddress) => {
             const scriptTag = document.querySelector('script#__NEXT_DATA__');
             return scriptTag ? JSON.parse(scriptTag.innerText) : null;
         });
-        
+
 
         if (!jsonData) {
             console.error("Failed to extract user data.");
@@ -43,7 +43,7 @@ const scrapData = async (accountAddress) => {
 
         // Extract relevant data
         const user_data = jsonData.props.pageProps.addressInfo;
-        let { pnl_1d, pnl_7d, pnl_30d, realized_profit_1d, realized_profit_7d, realized_profit_30d, balance, avg_holding_peroid } = user_data;
+        let { pnl_1d, pnl_7d, pnl_30d, realized_profit_1d, realized_profit_7d, realized_profit_30d, balance, avg_holding_peroid, buy_1d, buy_7d, buy_30d, sell_1d, sell_7d, sell_30d } = user_data;
 
         // Fetch SOL to USD conversion rate
         let SOL2USD_conversion_rate = null;
@@ -69,6 +69,12 @@ const scrapData = async (accountAddress) => {
             PnLtotal1D: pnl_total_1d,
             PnLtotal7D: pnl_total_7d,
             PnLtotal30D: pnl_total_30d,
+            buy1D: buy_1d,
+            buy7D: buy_7d,
+            buy30D: buy_30d,
+            sell1D: sell_1d,
+            sell7D: sell_7d,
+            sell30D: sell_30d,
             walletBalance: balance,
             avgHoldingDuration: avg_holding_peroid,
         };
@@ -80,4 +86,4 @@ const scrapData = async (accountAddress) => {
     }
 }
 
-module.exports =  { scrapData };
+module.exports = { scrapData };

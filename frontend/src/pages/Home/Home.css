@@ -47,6 +47,7 @@
   margin: 0px 10px;
 }
 #KingImgSvg{
+  /* position: absolute; */
   height: 250px;
   margin-bottom: 45px;
 }
@@ -63,6 +64,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 40%;
 }
 
@@ -141,7 +143,7 @@
   font-size: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .KingStats2 {
@@ -153,6 +155,9 @@
   font-family: "Source Code Pro", "Roboto";
   font-weight: bold;
 }
+.KingStats p{
+  text-wrap: nowrap;
+}
 .negative{
-  color: #be0215;
+  color: #be0215 !important;
 }

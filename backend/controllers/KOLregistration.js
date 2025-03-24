@@ -38,7 +38,7 @@ const verifyKOL = async (req, res) => {
         if (!scrapedData) {
             return res.status(404).json({ message: "Failed to scrape data" });
         }
-        const { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration } = scrapedData;
+        const { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D } = scrapedData;
 
         const cookerCount = 0;
         const farmerCount = 0;
@@ -50,7 +50,7 @@ const verifyKOL = async (req, res) => {
         const verifiedByAdmin = false;
 
         // create a new verifiedKOL document
-        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, reviewCount, PnLscore1D, PnLscore7D, PnLscore30D, sentimentScore, verifiedByAdmin });
+        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, reviewCount, PnLscore1D, PnLscore7D, PnLscore30D, sentimentScore, verifiedByAdmin, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D });
 
 
         // if the KOL exists, delete the KOL from the unverifiedKOL collection

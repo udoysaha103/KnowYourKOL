@@ -134,9 +134,12 @@
   justify-content: space-between;
   align-items: center;
   margin-inline: 5px;
-  text-wrap: nowrap;
-  width: fit-content;
+  text-wrap:nowrap;
+  width: 220px;
   composes: info from "./Profile.common.css";
+}
+.info1_prime {
+  width: 150px;
 }
 .value1{
   width: 100%;
@@ -149,7 +152,9 @@
   composes: info from "./Profile.common.css";
 }
 .info3 {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   composes: info from "./Profile.common.css";
 }
