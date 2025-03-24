@@ -155,7 +155,7 @@ const Canvas = ({data, topGap, ...rest}) => {
           this.y = mouse.y;
         } else {
           const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
-          const force = 0.1;
+          const force = 0.001;
           const i = Math.cos(angle) * force;
           const j = Math.sin(angle) * force;
           this.applyForce(-i, -j);

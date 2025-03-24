@@ -409,7 +409,7 @@ const Profile = () => {
             {kol.IRLname && (
               <>
                 <div
-                  className={`${styles.info1} ${styles.request}`}
+                  className={`${styles.info1} ${styles.request} ${styles.info1_prime}`}
                   onClick={() => {
                     if (request)
                       setIrlNameRequest(prompt("Enter new IRL Name"));
@@ -418,7 +418,7 @@ const Profile = () => {
                   Real Name:
                 </div>
                 <div
-                  className={`${styles.info1} ${styles.request}`}
+                  className={`${styles.info1} ${styles.request} ${styles.value1}`}
                   onClick={() => {
                     if (request)
                       setIrlNameRequest(prompt("Enter new IRL Name"));
@@ -437,21 +437,25 @@ const Profile = () => {
           >
             {kol.country && (
               <>
-                <div className={`${styles.info1} ${styles.request}`}>
+                <div
+                  className={`${styles.info1} ${styles.request} ${styles.info1_prime}`}
+                >
                   Location:
                 </div>
-                <div className={`${styles.info1} ${styles.request}`}>
+                <div
+                  className={`${styles.info1} ${styles.request} ${styles.value1}`}
+                >
                   {!locationRequst ? kol.country : locationRequst}
                 </div>
               </>
             )}
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by PnL:</div>
+            <p className={styles.info1}>PnL Ranking:</p>
             <div className={styles.value}># {PnLRank}</div>
           </div>
           <div className={styles.infoValue}>
-            <div className={styles.info1}>Ranking by Follwer's Sentiment:</div>
+            <p className={styles.info1}>Follower's Sentiment Ranking:</p>
             <div className={styles.value}># {sentimentRank}</div>
           </div>
         </div>
@@ -496,7 +500,7 @@ const Profile = () => {
           )}
           {kol[`PnLtotal${duration}D`] !== undefined && (
             <div className={styles.info2}>
-              <div>P&L Total:</div>
+              <div>PnL Total:</div>
               <div
                 className={`${styles.value_1} ${
                   kol[`PnLtotal${duration}D`] < 0 ? styles.negative : ""
@@ -515,28 +519,38 @@ const Profile = () => {
               </div>
             </div>
           )}
-          {kol.walletBalance !== undefined && (
-            <div className={styles.info2}>
-              <div>Wallet Balance:</div>
-              <div className={styles.value_2}>
-                {kol.walletBalance.toFixed(digit)} Sol
+          {kol[`buy${duration}D`] !== undefined &&
+            kol[`sell${duration}D`] !== undefined && (
+              <div className={styles.info2}>
+                <div>Transaction (W/L)</div>
+                <div className={styles.value_2}>
+                  <span style={{color:"#06c022"}}>{kol[`buy${duration}D`]}</span>/
+                  <span style={{color:"#be0215"}}>{kol[`sell${duration}D`]}</span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
-        {kol.cookerCount !== undefined && kol.farmerCount !== undefined && (
-          <div className={styles.card3}>
+        <div className={styles.card3}>
+          { kol.walletBalance !== undefined && (
+            <div className={styles.info3}>Wallet Balance: {kol.walletBalance.toFixed(2)} Sol</div>
+          )}
+          {kol.cookerCount !== undefined && (
             <div className={styles.info3}>
               Upvote Received: {kol.cookerCount}
             </div>
+          )}
+          {kol.farmerCount !== undefined && (
             <div className={styles.info3}>
               Downvote Received: {kol.farmerCount}
             </div>
+          )}
+          {kol.reviewCount !== undefined && (
             <div className={styles.info3}>
               Review Received: {kol.reviewCount}
             </div>
-          </div>
-        )}
+          )}
+          
+        </div>
         <div className={styles.reviews}>
           <div className={styles.reviewInputContainer}>
             <div className={styles.header}>Write a Review</div>

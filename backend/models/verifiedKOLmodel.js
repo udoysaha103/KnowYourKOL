@@ -23,6 +23,14 @@ const verifiedKOLschema = new mongoose.Schema({
     PnLtotal7D: { type: Number, required: true},
     PnLtotal30D: { type: Number, required: true},
 
+    buy1D: { type: Number, required: true},
+    buy7D: { type: Number, required: true},
+    buy30D: { type: Number, required: true},
+
+    sell1D: { type: Number, required: true},
+    sell7D: { type: Number, required: true},
+    sell30D: { type: Number, required: true},
+
     avgHoldingDuration: { type: Number, required: true},
 
     walletBalance: { type: Number, required: true},
