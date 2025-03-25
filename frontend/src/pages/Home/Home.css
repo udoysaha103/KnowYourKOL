@@ -53,10 +53,12 @@
   width: 18%;
   height: 180%;
 
-  background-image: url('/King_of_KOLs.gif');
   background-position: center;
   background-size: auto 100%;
   background-repeat: no-repeat;
+}
+.fire{
+  background-image: url('/King_of_KOLs.gif');
 }
 #avatar{
   /* position: absolute; */
@@ -183,4 +185,17 @@
 }
 .negative{
   color: #be0215 !important;
+}
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

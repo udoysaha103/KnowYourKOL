@@ -260,7 +260,7 @@ const Profile = () => {
             Submit
           </button>
         )}
-        <div className={`${styles.top} ${dataLoading && styles.loading}`}>
+        <div className={`${styles.top} ${dataLoading && "loading"}`}>
           <div
             className={`${styles.name} ${styles.request}`}
             onClick={() => {
@@ -373,7 +373,7 @@ const Profile = () => {
             Request Bio Update
           </button>
         </div>
-        <div className={`${styles.card1} ${dataLoading && styles.loading}`}>
+        <div className={`${styles.card1} ${dataLoading && "loading"}`}>
           <div style={{ display: "flex" }}>
             {kol.IRLname && (
               <>
@@ -432,7 +432,7 @@ const Profile = () => {
             </div>
           )}
         </div>
-        <div className={`${styles.card2} ${dataLoading && styles.loading}`}>
+        <div className={`${styles.card2} ${dataLoading && "loading"}`}>
           <div className={styles.switches}>
             <button
               className={`${styles.switch} ${
@@ -508,7 +508,7 @@ const Profile = () => {
               </div>
             )}
         </div>
-        <div className={`${styles.card3} ${dataLoading && styles.loading}`}>
+        <div className={`${styles.card3} ${dataLoading && "loading"}`}>
           {kol.walletBalance !== undefined && (
             <div className={styles.info3}>
               Wallet Balance: {kol.walletBalance.toFixed(2)} Sol
