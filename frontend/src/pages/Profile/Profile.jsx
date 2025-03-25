@@ -8,7 +8,6 @@ import Footer from "../../Components/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Profile = () => {
-  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -70,6 +69,8 @@ const Profile = () => {
   const [reviews, setReviews] = useState([]);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
+  const [pnlLoading, setPnLLoading] = useState(true);
+  const [sentimentLoading, setSentimentLoading] = useState(true);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailedMessage, setShowFailedMessage] = useState(false);
   const [failedMessage, setFailedMessage] = useState("");
@@ -214,12 +215,14 @@ const Profile = () => {
       );
       const data3 = await response3.json();
       setPnLRank(data3.rank);
+      setPnLLoading(false);
 
       const response4 = await fetch(
         `${import.meta.env.VITE_API_URL}/getKOL/getSentimentRank/${id}`
       );
       const data4 = await response4.json();
       setSentimentRank(data4.rank);
+      setSentimentLoading(false);
     };
     fetchData(id);
   }, [id, duration]);
@@ -238,7 +241,7 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar changeRequest={setRequest}/>
+      <Navbar changeRequest={setRequest} />
       {request && <div className={styles.background} />}
       {showSuccessMessage && (
         <div className={styles.successMessage}>
@@ -422,13 +425,21 @@ const Profile = () => {
           {PnLRank !== null && (
             <div className={styles.infoValue}>
               <p className={styles.info1}>PnL Ranking:</p>
-              <div className={styles.value}># {PnLRank}</div>
+              <div className={`${styles.value} ${pnlLoading ? "loading" : ""}`}>
+                # {PnLRank}
+              </div>
             </div>
           )}
           {sentimentRank !== null && (
             <div className={styles.infoValue}>
               <p className={styles.info1}>Follower's Sentiment Ranking:</p>
-              <div className={styles.value}># {sentimentRank}</div>
+              <div
+                className={`${styles.value} ${
+                  sentimentLoading ? "loading" : ""
+                }`}
+              >
+                # {sentimentRank}
+              </div>
             </div>
           )}
         </div>
