@@ -178,7 +178,7 @@ const Profile = () => {
       setShowFailedMessage(true);
       setTimeout(() => {
         setShowFailedMessage(false);
-      }, 1000);
+      }, 2000);
       return;
     }
     const text = document.querySelector("textarea").value;
@@ -213,7 +213,7 @@ const Profile = () => {
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
-        }, 1000);
+        }, 2000);
       } else {
         setSubmitLoading(false);
         setReview(null);
@@ -221,7 +221,7 @@ const Profile = () => {
         setShowFailedMessage(true);
         setTimeout(() => {
           setShowFailedMessage(false);
-        }, 1000);
+        }, 2000);
       }
     }
   };
@@ -412,9 +412,9 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.bio}>
-          <button className={styles.bioBtn} onClick={() => setRequest(true)}>
+          {/* <button className={styles.bioBtn} onClick={() => setRequest(true)}>
             Request Bio Update
-          </button>
+          </button> */}
         </div>
         <div className={`${styles.card1} ${dataLoading && "loading"}`}>
           <div style={{ display: "flex" }}>

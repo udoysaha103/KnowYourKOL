@@ -148,8 +148,12 @@ const Canvas = ({data, topGap, ...rest}) => {
         // click effect
         if (isThisBubble && circles.every(circle => !circle.selected) || this.selected) {
           this.selected = true;
-          this.x = mouse.x;
-          this.y = mouse.y;
+            const distanceToCenter = findDistance(mouse.x, mouse.y, this.canvas.width / 2, this.canvas.height / 2);
+            const force = 0.001 * distanceToCenter;
+            const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
+            const i = Math.cos(angle) * force;
+            const j = Math.sin(angle) * force;
+            this.applyForce(i/10, j/10);
         } else {
           const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
           const force = 0.001;
@@ -221,8 +225,8 @@ const Canvas = ({data, topGap, ...rest}) => {
     const max = Math.max(...contents);
     const min = Math.min(...contents);
     data.map((e) => {
-      const minRadius = 20;
-      const maxRadius = 100;
+      const minRadius = window.innerWidth * 0.03;
+      const maxRadius = window.innerWidth * 0.06;
       const radius = ((Math.abs(e.content) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;

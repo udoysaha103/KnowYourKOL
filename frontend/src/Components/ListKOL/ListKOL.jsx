@@ -29,13 +29,41 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
   }, [KOLlist]);
   const copyText = (event, idx, text) => {
     event.preventDefault();
-    navigator.clipboard.writeText(text);
-    console.log(copyRefs[idx]);
-    // copyRefs[idx].current.innerText = "Copied!";
-    document.getElementById(idx + "text").innerText = "Copied!";
+    // navigator.clipboard.writeText(kol.walletAddress);
+    const copyToClipboard = async (text) => {
+      try {
+        // Try modern Clipboard API first
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          const successful = document.execCommand("copy");
+          document.body.removeChild(textArea);
+          return successful;
+        } catch (err) {
+          document.body.removeChild(textArea);
+          return false;
+        }
+      } catch (err) {
+        console.error("Failed to copy:", err);
+        return false;
+      }
+    };
+
+    copyToClipboard(text);
+    document.getElementById(`${idx}text`).innerText = "Copied!";
     setTimeout(() => {
-      // copyRefs[idx].current.innerText = text;
-      document.getElementById(idx + "text").innerText = truncateText(text);
+      document.getElementById(`${idx}text`).innerText = truncateText(text);
     }, 1000);
   };
   const handleDuration = (duration) => {

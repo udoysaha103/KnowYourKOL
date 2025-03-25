@@ -8,6 +8,7 @@ const bubbleSchema = new mongoose.Schema({
     priceChange1H: { type: Number, required: true },
     priceChange24H: { type: Number, required: true },
     priceChange7D: { type: Number, required: true },
+    priceChange30D: { type: Number, required: true},
 
     timestamp: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

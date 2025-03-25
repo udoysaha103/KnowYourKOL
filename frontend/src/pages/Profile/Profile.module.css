@@ -312,6 +312,7 @@ input[type="radio"] {
   border-radius: 8px;
   font-weight: 500;
   line-height: 28px;
+  padding: 10px;
   z-index: 100;
 }
 .failedMessage {
@@ -334,6 +335,7 @@ input[type="radio"] {
   border-radius: 8px;
   font-weight: 500;
   line-height: 28px;
+  padding: 10px;
   z-index: 100;
 }
 .negative {

@@ -130,12 +130,18 @@ th {
   composes: domainContainer from "./ListKOL.common.css";
 }
 .name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #f8f8f8;
   font-size: 25px;
   font-family: "Source Code Pro", "Roboto";
   line-height: 38px;
   margin-left: 40px;
   letter-spacing: -2px;
+}
+.name p {
+  margin: 0;
 }
 
 .nameField {

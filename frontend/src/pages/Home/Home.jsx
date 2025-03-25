@@ -1,5 +1,5 @@
 import "./Home.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Star from "../../Components/Star/Star";
@@ -51,13 +51,42 @@ function Home() {
   };
 
   const copyAddress = (event) => {
+    // navigator.clipboard.writeText(kol.walletAddress);
     event.preventDefault();
-    navigator.clipboard.writeText(firstUser.walletAddress);
-    document.getElementById("addr4cpy").innerHTML = "Copied!";
+    const copyToClipboard = async (text) => {
+      try {
+        // Try modern Clipboard API first
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          const successful = document.execCommand("copy");
+          document.body.removeChild(textArea);
+          return successful;
+        } catch (err) {
+          document.body.removeChild(textArea);
+          return false;
+        }
+      } catch (err) {
+        console.error("Failed to copy:", err);
+        return false;
+      }
+    };
+
+    copyToClipboard(firstUser.walletAddress);
+    copyRef.current.innerText = "Copied!";
     setTimeout(() => {
-      document.getElementById("addr4cpy").innerHTML = truncateText(
-        firstUser.walletAddress
-      );
+      copyRef.current.innerText = truncateText(firstUser.walletAddress);
     }, 1000);
   };
   const [KOLlist, setKOLlist] = useState(null);
@@ -65,6 +94,7 @@ function Home() {
   const [firstUser, setFirstUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [kingImgLoading, setKingImgLaoading] = useState(true);
+  const copyRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -118,7 +148,7 @@ function Home() {
                   </div>
                   {firstUser.walletAddress !== "Hidden" ? (
                     <p id="KingAddr" onClick={(e) => copyAddress(e)}>
-                      <span id="addr4cpy">
+                      <span id="addr4cpy" ref={copyRef}>
                         {truncateText(firstUser.walletAddress)}
                       </span>
                       <img src="content_copy.svg" alt="copy" />

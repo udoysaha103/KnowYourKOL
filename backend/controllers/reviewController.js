@@ -49,7 +49,7 @@ const submitReview = async (req, res) => {
 
     try {
         if (!req.user.verificationStatus) {
-            throw new Error("You are not verified yet");
+            throw new Error("You are not verified yet, check your email for the verification link");
         }
         const existingReview = await reviewModel.findOne({ reviewGiver: req.user._id, reviewReceiver });
         if (existingReview) {

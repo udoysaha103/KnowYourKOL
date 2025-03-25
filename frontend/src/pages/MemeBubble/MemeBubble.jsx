@@ -44,7 +44,7 @@ const loadImage = (e) =>
   });
 const MemeBubble = () => {
   const [data, setData] = useState([]);
-  const [duration, setDuration] = useState("7D");
+  const [duration, setDuration] = useState("24H");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -93,6 +93,14 @@ const MemeBubble = () => {
           onClick={() => setDuration("7D")}
         >
           7D
+        </div>
+        <div
+          className={`${styles.selector} ${
+            duration === "30D" && styles.selected
+          }`}
+          onClick={() => setDuration("30D")}
+        >
+          30D
         </div>
       </div>
       <Canvas
