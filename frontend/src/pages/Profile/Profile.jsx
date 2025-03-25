@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { data, useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Icon from "../../Components/Icon";
@@ -73,12 +73,13 @@ const Profile = () => {
   const [request, setRequest] = useState(false);
   const [review, setReview] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailedMessage, setShowFailedMessage] = useState(false);
   const [failedMessage, setFailedMessage] = useState("");
-  const [PnLRank, setPnLRank] = useState(0);
-  const [sentimentRank, setSentimentRank] = useState(0);
+  const [PnLRank, setPnLRank] = useState(null);
+  const [sentimentRank, setSentimentRank] = useState(null);
   const [twitterNameRequest, setTwitterNameRequest] = useState("");
   const [irlNameRequest, setIrlNameRequest] = useState("");
   const [locationRequst, setLocationRequest] = useState("");
@@ -158,7 +159,7 @@ const Profile = () => {
       alert("Please select a review type");
     } else {
       // API call to submit review
-      setLoading(true);
+      setSubmitLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/review/submitReview`,
         {
@@ -180,14 +181,14 @@ const Profile = () => {
         kol.cookerCount += review ? 1 : 0;
         kol.farmerCount += review ? 0 : 1;
         kol.reviewCount += text ? 1 : 0;
-        setLoading(false);
+        setSubmitLoading(false);
         setReview(null);
         setShowSuccessMessage(true);
         setTimeout(() => {
           setShowSuccessMessage(false);
         }, 1000);
       } else {
-        setLoading(false);
+        setSubmitLoading(false);
         setReview(null);
         setFailedMessage(data.message || data.error);
         setShowFailedMessage(true);
@@ -197,62 +198,33 @@ const Profile = () => {
       }
     }
   };
-  // const reviews = [
-  //   {
-  //     reviewId: "1",
-  //     username: "John Doe",
-  //     review: false,
-  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-  //     u_review: true,
-  //     date: "Mar 20, 2025",
-  //     cookerCount: 10,
-  //     farmerCount: 20,
-  //   },
-  //   {
-  //     reviewId: "2",
-  //     username: "John Doe",
-  //     review: true,
-  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-  //     u_review: null,
-  //     date: "Mar 20, 2025",
-  //     cookerCount: 10,
-  //     farmerCount: 20,
-  //   },
-  //   {
-  //     reviewId: "3",
-  //     username: "John Doe",
-  //     review: false,
-  //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in turpis vel libero interdum tincidunt. Donec in lorem nec magna scelerisque scelerisque. Nulla facilisi. Sed nec nisl id turpis imperdiet fermentum",
-  //     u_review: false,
-  //     date: "Mar 20, 2025",
-  //     cookerCount: 10,
-  //     farmerCount: 20,
-  //   },
-  // ];
   useEffect(() => {
-    // API call to get KOL data
     const fetchData = async (id) => {
+      setDataLoading(true);
       const response1 = await fetch(
         `${import.meta.env.VITE_API_URL}/getKOL/${id}`
       );
       const kolData = await response1.json();
+      setKOL(kolData);
+      setDataLoading(false);
+
       const response2 = await fetch(
         `${import.meta.env.VITE_API_URL}/review/getReviews/${id}`
       );
       const reviewData = await response2.json();
+      setReviews(reviewData);
+
       const response3 = await fetch(
         `${import.meta.env.VITE_API_URL}/getKOL/getPnLRank/${id}/${duration}`
       );
+      const data3 = await response3.json();
+      setPnLRank(data3.rank);
+
       const response4 = await fetch(
         `${import.meta.env.VITE_API_URL}/getKOL/getSentimentRank/${id}`
       );
-      const data3 = await response3.json();
-      console.log(data3);
       const data4 = await response4.json();
-      setPnLRank(data3.rank);
       setSentimentRank(data4.rank);
-      setReviews(reviewData);
-      setKOL(kolData);
     };
     fetchData(id);
   }, [id, duration]);
@@ -293,7 +265,7 @@ const Profile = () => {
             Submit
           </button>
         )}
-        <div className={styles.top}>
+        <div className={`${styles.top} ${dataLoading && styles.loading}`}>
           <div
             className={`${styles.name} ${styles.request}`}
             onClick={() => {
@@ -306,17 +278,19 @@ const Profile = () => {
               <Icon name="Verified" color="#f8f8f8" height="24px" />
             )}
           </div>
-          <div className={styles.addr} ref={copyRef}>
-            <div style={{ margin: "0 10px" }}>
-              {kol.walletAddress && truncateText(kol.walletAddress)}
+          {kol.walletAddress && (
+            <div className={styles.addr} ref={copyRef}>
+              <div style={{ margin: "0 10px" }}>
+                {truncateText(kol.walletAddress)}
+              </div>
+              <Icon
+                name="Copy"
+                color="#f8f8f8"
+                height="24px"
+                onClick={copyAddress}
+              />
             </div>
-            <Icon
-              name="Copy"
-              color="#f8f8f8"
-              height="24px"
-              onClick={copyAddress}
-            />
-          </div>
+          )}
         </div>
         <div className={styles.avatarContainer}>
           <img
@@ -404,7 +378,7 @@ const Profile = () => {
             Request Bio Update
           </button>
         </div>
-        <div className={styles.card1}>
+        <div className={`${styles.card1} ${dataLoading && styles.loading}`}>
           <div style={{ display: "flex" }}>
             {kol.IRLname && (
               <>
@@ -450,16 +424,20 @@ const Profile = () => {
               </>
             )}
           </div>
-          <div className={styles.infoValue}>
-            <p className={styles.info1}>PnL Ranking:</p>
-            <div className={styles.value}># {PnLRank}</div>
-          </div>
-          <div className={styles.infoValue}>
-            <p className={styles.info1}>Follower's Sentiment Ranking:</p>
-            <div className={styles.value}># {sentimentRank}</div>
-          </div>
+          {PnLRank !== null && (
+            <div className={styles.infoValue}>
+              <p className={styles.info1}>PnL Ranking:</p>
+              <div className={styles.value}># {PnLRank}</div>
+            </div>
+          )}
+          {sentimentRank !== null && (
+            <div className={styles.infoValue}>
+              <p className={styles.info1}>Follower's Sentiment Ranking:</p>
+              <div className={styles.value}># {sentimentRank}</div>
+            </div>
+          )}
         </div>
-        <div className={styles.card2}>
+        <div className={`${styles.card2} ${dataLoading && styles.loading}`}>
           <div className={styles.switches}>
             <button
               className={`${styles.switch} ${
@@ -524,15 +502,22 @@ const Profile = () => {
               <div className={styles.info2}>
                 <div>Transaction (W/L)</div>
                 <div className={styles.value_2}>
-                  <span style={{color:"#06c022"}}>{kol[`buy${duration}D`]}</span>/
-                  <span style={{color:"#be0215"}}>{kol[`sell${duration}D`]}</span>
+                  <span style={{ color: "#06c022" }}>
+                    {kol[`buy${duration}D`]}
+                  </span>
+                  /
+                  <span style={{ color: "#be0215" }}>
+                    {kol[`sell${duration}D`]}
+                  </span>
                 </div>
               </div>
             )}
         </div>
-        <div className={styles.card3}>
-          { kol.walletBalance !== undefined && (
-            <div className={styles.info3}>Wallet Balance: {kol.walletBalance.toFixed(2)} Sol</div>
+        <div className={`${styles.card3} ${dataLoading && styles.loading}`}>
+          {kol.walletBalance !== undefined && (
+            <div className={styles.info3}>
+              Wallet Balance: {kol.walletBalance.toFixed(2)} Sol
+            </div>
           )}
           {kol.cookerCount !== undefined && (
             <div className={styles.info3}>
@@ -549,7 +534,6 @@ const Profile = () => {
               Review Received: {kol.reviewCount}
             </div>
           )}
-          
         </div>
         <div className={styles.reviews}>
           <div className={styles.reviewInputContainer}>
@@ -594,7 +578,7 @@ Your feedback empowers others and reclaims power for followers."
                   <div>Farmer</div>
                 </label>
                 <button className={styles.btn} onClick={(e) => handleSubmit(e)}>
-                  {loading ? "Submitting..." : "Submit"}
+                  {submitLoading ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </div>
