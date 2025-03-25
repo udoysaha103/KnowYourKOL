@@ -44,6 +44,10 @@
   line-height: 13px;
   margin: 5px;
 }
+.description > div{
+  margin: 5px;
+  margin-left: 3px;
+}
 #name{
   color: #f8f8f8;
   font-size: 18px;

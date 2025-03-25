@@ -33,16 +33,18 @@ const Star = ({ pic_path, name, roi, pnl, id, buy, sell }) => {
         />
       </div>
       <div className={styles.column}>
-        <div id={styles.name}>{name}</div>
-        <div>
-          ROI: <span className={roi >= 0 ? styles.green : styles.red }>{(roi*100).toFixed(2)}%</span>
-        </div>
-        <div>
-          PnL: <span className={pnl >= 0 ? styles.green : styles.red}>{formatSOL(pnl)} Sol</span>
-        </div>
-        <div>
-          TXs: <span className={styles.green}>{buy}</span>/
-          <span className={styles.red}>{sell}</span>
+        <div className={styles.description}>
+          <div id={styles.name}>{name}</div>
+          <div>
+            ROI: <span className={roi >= 0 ? styles.green : styles.red }>{(roi*100).toFixed(2)}%</span>
+          </div>
+          <div>
+            PnL: <span className={pnl >= 0 ? styles.green : styles.red}>{formatSOL(pnl)} Sol</span>
+          </div>
+          <div>
+            TXs: <span className={styles.green}>{buy}</span>/
+            <span className={styles.red}>{sell}</span>
+          </div>
         </div>
       </div>
     </div>

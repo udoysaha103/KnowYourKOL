@@ -64,7 +64,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/getKOL/67d0ad8f44de3ae484be6f81
+GET http://localhost:5000/getKOL/67e20f811abf93f7aae447f6
 
 ###
 GET http://localhost:5000/getKOL/search/tre
