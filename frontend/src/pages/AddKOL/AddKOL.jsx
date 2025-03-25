@@ -86,7 +86,6 @@ const AddKOL = () => {
     formData.append("telegramLink", telegramLink);
     formData.append("youtubeLink", youtubeLink);
     formData.append("streamLink", streamLink);
-    formData.append("generatedCode", Math.floor(Math.random() * 1000000));
     if (file) {
       formData.append("imageFile", file);
     } else {
