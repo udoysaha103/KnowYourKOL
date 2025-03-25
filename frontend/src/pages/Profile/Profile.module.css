@@ -309,9 +309,10 @@ input[type="radio"] {
   background-color: #363f43;
   color: #06c022;
   font-size: 24px;
-
+  border-radius: 8px;
   font-weight: 500;
   line-height: 28px;
+  z-index: 100;
 }
 .failedMessage {
   position: fixed;
@@ -330,9 +331,10 @@ input[type="radio"] {
   background-color: #363f43;
   color: #c10004;
   font-size: 24px;
-
+  border-radius: 8px;
   font-weight: 500;
   line-height: 28px;
+  z-index: 100;
 }
 .negative {
   color: #be0215;

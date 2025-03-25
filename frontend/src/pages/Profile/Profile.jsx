@@ -113,7 +113,38 @@ const Profile = () => {
     return (duration / 86400).toFixed(1) + "d";
   };
   const copyAddress = () => {
-    navigator.clipboard.writeText(kol.walletAddress);
+    // navigator.clipboard.writeText(kol.walletAddress);
+    const copyToClipboard = async (text) => {
+      try {
+        // Try modern Clipboard API first
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          const successful = document.execCommand("copy");
+          document.body.removeChild(textArea);
+          return successful;
+        } catch (err) {
+          document.body.removeChild(textArea);
+          return false;
+        }
+      } catch (err) {
+        console.error("Failed to copy:", err);
+        return false;
+      }
+    };
+
+    copyToClipboard(kol.walletAddress);
     copyRef.current.children[0].innerText = "Copied!";
     setTimeout(() => {
       copyRef.current.children[0].innerText = truncateText(kol.walletAddress);
@@ -209,6 +240,14 @@ const Profile = () => {
       );
       const reviewData = await response2.json();
       setReviews(reviewData);
+    };
+    fetchData(id);
+  }, [id]);
+
+  useEffect(() => {
+    const fetchData = async (id) => {
+      setPnLLoading(true);
+      setSentimentLoading(true);
 
       const response3 = await fetch(
         `${import.meta.env.VITE_API_URL}/getKOL/getPnLRank/${id}/${duration}`
@@ -225,7 +264,8 @@ const Profile = () => {
       setSentimentLoading(false);
     };
     fetchData(id);
-  }, [id, duration]);
+  }, [duration]);
+
   useEffect(() => {
     const fetchData = async (id) => {
       const response = await fetch(

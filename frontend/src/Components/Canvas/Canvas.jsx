@@ -8,6 +8,8 @@ const Canvas = ({data, topGap, ...rest}) => {
   const mouse = {
     x: innerWidth / 2,
     y: innerHeight / 2,
+    dx: 0,
+    dy: 0,
     onPress: false,
   };
   const findDistance = (x1, y1, x2, y2) =>
@@ -44,6 +46,7 @@ const Canvas = ({data, topGap, ...rest}) => {
       this.growthRate = 1;
       this.currentRadius = 0;
       this.showBorder = false;
+      this.selected = false;
     }
 
     drawImage(img, width, padding) {
@@ -119,14 +122,7 @@ const Canvas = ({data, topGap, ...rest}) => {
       this.drawText(`Mcap: ${mcapText}`, 0.2, "Arial", "white");
 
       this.showBorder = false;
-      const distancePointerToCenter = findDistance(
-        this.x,
-        this.y,
-        mouse.x,
-        mouse.y
-      );
-      const isThisBubble =
-        findDistance(this.x, this.y, mouse.x, mouse.y) < this.currentRadius;
+      const isThisBubble = findDistance(this.x, this.y, mouse.x, mouse.y) < this.currentRadius;
       if (this.currentRadius < this.radius) {
         this.currentRadius += this.growthRate;
       }
@@ -150,7 +146,8 @@ const Canvas = ({data, topGap, ...rest}) => {
       }
       if (mouse.onPress) {
         // click effect
-        if (isThisBubble) {
+        if (isThisBubble && circles.every(circle => !circle.selected) || this.selected) {
+          this.selected = true;
           this.x = mouse.x;
           this.y = mouse.y;
         } else {
@@ -160,6 +157,12 @@ const Canvas = ({data, topGap, ...rest}) => {
           const j = Math.sin(angle) * force;
           this.applyForce(-i, -j);
         }
+      }else{
+        if(this.selected){
+          this.dx = mouse.dx;
+          this.dy = mouse.dy;
+        }
+        this.selected = false;
       }
       circles.forEach((otherCircle) => {
         // Repulsion force
@@ -176,7 +179,7 @@ const Canvas = ({data, topGap, ...rest}) => {
             otherCircle.y - this.y,
             otherCircle.x - this.x
           );
-          const force = 0.05;
+          const force = 0.01;
           const i = Math.cos(angle) * force;
           const j = Math.sin(angle) * force;
           this.applyForce(-i, -j);
@@ -202,6 +205,8 @@ const Canvas = ({data, topGap, ...rest}) => {
     window.addEventListener("mousemove", (event) => {
       mouse.x = event.clientX;
       mouse.y = event.clientY - topGap;
+      mouse.dx = event.movementX;
+      mouse.dy = event.movementY;
     });
 
     window.addEventListener("mousedown", () => (mouse.onPress = true));
@@ -242,12 +247,14 @@ const Canvas = ({data, topGap, ...rest}) => {
 
     let animationFrameId;
     //Our draw came here
-
     circles.forEach((circle) => circle.draw());
     const animate = () => {
       animationFrameId = window.requestAnimationFrame(animate);
       context.clearRect(0, 0, canvas.width, canvas.height);
       circles.forEach((circle) => circle.update());
+      // context.fillStyle = "white";
+      // context.font = "16px Arial";
+      // context.fillText(`dx: ${mouse.dx.toFixed(2)}, dy: ${mouse.dy.toFixed(2)}`, mouse.x, mouse.y);
     };
     animate();
 

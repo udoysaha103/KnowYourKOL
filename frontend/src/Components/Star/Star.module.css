@@ -27,6 +27,7 @@
   border: 4px solid #b4b4b4;
   box-sizing: border-box;
   border-radius: 50%;
+  cursor: pointer;
 }
 .column{
   float: left;

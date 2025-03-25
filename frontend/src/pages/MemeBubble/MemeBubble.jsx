@@ -45,25 +45,25 @@ const loadImage = (e) =>
 const MemeBubble = () => {
   const [data, setData] = useState([]);
   const [duration, setDuration] = useState("7D");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/bubble/getBubblesData`
       );
       const jsonData = await response.json();
       const loadedImages = await Promise.all(jsonData.map((e) => loadImage(e)));
       setData(loadedImages);
+      setLoading(false);
     };
-    const fetchInterval = setInterval(() => {
-      fetchData();
-    }, 60000); // 1 minute interval
     fetchData();
-    return () => clearInterval(fetchInterval); // Cleanup the interval on component unmount
   }, []);
 
   return (
     <>
       <Navbar />
+      {loading && <div className={styles.loading}>Loading...</div>}
       <div style={timerStyle} />
       <div
         style={{ position: "absolute", top: topGap - 4 }}
