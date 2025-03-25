@@ -129,7 +129,9 @@ function Home() {
                 <p>
                   ROI:{" "}
                   <span
-                    className={firstUser && firstUser.ROI1D < 0 ? "negative" : ""}
+                    className={
+                      firstUser && firstUser.ROI1D < 0 ? "negative" : ""
+                    }
                   >
                     {firstUser && (firstUser.ROI1D * 100).toFixed(1)}%
                   </span>
@@ -156,69 +158,68 @@ function Home() {
             </div>
 
             <div className="KingStats KingStats2">
-              {firstUser && firstUser.cookerCount !== undefined && 
+              {firstUser && firstUser.cookerCount !== undefined && (
                 <p>
                   Upvotes: <strong>{firstUser.cookerCount}</strong>
                 </p>
-              }
-              {firstUser && firstUser.reviewCount !== undefined && 
+              )}
+              {firstUser && firstUser.reviewCount !== undefined && (
                 <p>
                   Reviews: <strong>{firstUser && firstUser.reviewCount}</strong>
                 </p>
-              }
-              {firstUser && firstUser.avgHoldingDuration !== undefined &&
-                <p>
-                  <p style={{fontSize: "13px", display: "inline"}}>Avg. Held:</p>{" "}
+              )}
+              {firstUser && firstUser.avgHoldingDuration !== undefined && (
+                <p style={{ fontSize: "13px", display: "inline" }}>
+                  Avg. Held:{" "}
                   <strong>{timeConvert(firstUser.avgHoldingDuration)}</strong>
                 </p>
-              }
+              )}
             </div>
           </Link>
 
-        <div id="starContainer">
-          <div id="starHeader" />
-          <div id="starBody">
-            {risingStars && (
-              <>
-                <div className="starColumn">
-                  {risingStars.slice(0, 2).map((star, index) => (
-                    <Star
-                      key={index}
-                      pic_path={star.photoPath}
-                      name={star.twitterName}
-                      roi={star.ROI1D}
-                      pnl={star.PnLtotal1D}
-                      buy={star.buy1D}
-                      sell={star.sell1D}
-                      id={star._id}
-                    />
-                  ))}
-                </div>
-                <div className="starColumn">
-                  {risingStars.slice(2, 4).map((star, index) => (
-                    <Star
-                      key={index}
-                      pic_path={star.photoPath}
-                      name={star.twitterName}
-                      roi={star.ROI1D}
-                      pnl={star.PnLtotal1D}
-                      buy={star.buy1D}
-                      sell={star.sell1D}
-                      id={star._id}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
+          <div id="starContainer">
+            <div id="starHeader" />
+            <div id="starBody">
+              {risingStars && (
+                <>
+                  <div className="starColumn">
+                    {risingStars.slice(0, 2).map((star, index) => (
+                      <Star
+                        key={index}
+                        pic_path={star.photoPath}
+                        name={star.twitterName}
+                        roi={star.ROI1D}
+                        pnl={star.PnLtotal1D}
+                        buy={star.buy1D}
+                        sell={star.sell1D}
+                        id={star._id}
+                      />
+                    ))}
+                  </div>
+                  <div className="starColumn">
+                    {risingStars.slice(2, 4).map((star, index) => (
+                      <Star
+                        key={index}
+                        pic_path={star.photoPath}
+                        name={star.twitterName}
+                        roi={star.ROI1D}
+                        pnl={star.PnLtotal1D}
+                        buy={star.buy1D}
+                        sell={star.sell1D}
+                        id={star._id}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
+        <ListKOL KOLlist={KOLlist} setKOLlist={setKOLlist} />
 
+        <Footer />
       </div>
-      <ListKOL KOLlist={KOLlist} setKOLlist={setKOLlist} />
-
-      <Footer />
     </div>
-  </div>
   );
 }
 

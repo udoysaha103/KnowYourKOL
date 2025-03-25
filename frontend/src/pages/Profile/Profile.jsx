@@ -8,13 +8,9 @@ import Footer from "../../Components/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Profile = () => {
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        setRequest(false);
-      }
-    });
   }, []);
 
   const submitRequest = async () => {
@@ -46,7 +42,6 @@ const Profile = () => {
     if (streamLinkRequest) {
       requestData.streamLink = streamLinkRequest;
     }
-    console.log(requestData);
 
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/request-bio-update`,
@@ -243,7 +238,7 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar changeRequest={setRequest}/>
       {request && <div className={styles.background} />}
       {showSuccessMessage && (
         <div className={styles.successMessage}>

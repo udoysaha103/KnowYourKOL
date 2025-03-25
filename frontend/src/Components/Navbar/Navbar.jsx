@@ -1,20 +1,27 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import {useLogout} from "../../hooks/useLogout";
+import { useLogout } from "../../hooks/useLogout";
 import Icon from "../Icon";
 import styles from "./Navbar.module.css";
 
-function Navbar() {
+function Navbar({changeRequest}) {
   const [search, setSearch] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const { user } = useAuthContext();
   const { logout } = useLogout();
-  document.addEventListener("keydown", (e) => {
+  const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       setSearch([]);
+      if(changeRequest) changeRequest(false);
     }
-  });
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
   const handleSearch = (e) => {
     const searchValue = e.target.value;
     if (searchValue.length > 0) {
@@ -49,21 +56,23 @@ function Navbar() {
         <div className={styles.navButtons}>
           <div>
             <Link to="/meme-bubble" className={styles.link}>
-              <button className={styles.btn}>
-                Meme Bubbles
-              </button>
+              <button className={styles.btn}>Meme Bubbles</button>
             </Link>
           </div>
           <div>
             <Link to="/add-kol" className={styles.link}>
               <button className={styles.btn}>
                 <Icon name="AddKOL" color="#f8f8f8" height="32px" />
-                <span style={{marginLeft: "10px"}}>Add KOL</span>
+                <span style={{ marginLeft: "10px" }}>Add KOL</span>
               </button>
             </Link>
           </div>
 
-          <div onClick={() => {if(user) setShowMenu(!showMenu)}}>
+          <div
+            onClick={() => {
+              if (user) setShowMenu(!showMenu);
+            }}
+          >
             <Link to={user ? "" : "/login"} className={styles.link}>
               <Icon name="AccountBox" color="#f8f8f8" height="51px" />
               &nbsp;
@@ -74,7 +83,7 @@ function Navbar() {
       {search.length > 0 && (
         <div className={styles.searchResult}>
           {search.map((searchItem, idx) => (
-            <Link to={`/profile/${searchItem._id}`}>
+            <Link key={idx} to={`/profile/${searchItem._id}`}>
               <div key={idx} className={styles.searchResultItem}>
                 <img
                   src={searchItem.photoPath}
