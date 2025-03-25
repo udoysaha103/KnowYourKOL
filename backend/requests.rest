@@ -56,11 +56,11 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:5000/KOLregister/verifyKOL
+POST http://46.202.176.110:5000/KOLregister/verifyKOL
 Content-Type: application/json
 
 {
-    "KOL_id" : "67e16ad72a57e55188aba680"
+    "KOL_id" : "67e20e383a3df2585294af7f"
 }
 
 ###

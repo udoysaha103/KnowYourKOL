@@ -25,7 +25,7 @@ const Star = ({ pic_path, name, roi, pnl, id, buy, sell }) => {
           className={styles.image}
           src={pic_path}
           alt={name}
-          onClick={() => navigate(`/star/${id}`)}
+          onClick={() => navigate(`/profile/${id}`)}
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "/profile-default.svg";
