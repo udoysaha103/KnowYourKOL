@@ -73,8 +73,8 @@ const Profile = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailedMessage, setShowFailedMessage] = useState(false);
   const [failedMessage, setFailedMessage] = useState("");
-  const [PnLRank, setPnLRank] = useState(null);
-  const [sentimentRank, setSentimentRank] = useState(null);
+  const [PnLRank, setPnLRank] = useState(0);
+  const [sentimentRank, setSentimentRank] = useState(0);
   const [twitterNameRequest, setTwitterNameRequest] = useState("");
   const [irlNameRequest, setIrlNameRequest] = useState("");
   const [locationRequst, setLocationRequest] = useState("");

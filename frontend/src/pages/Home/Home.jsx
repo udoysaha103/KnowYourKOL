@@ -97,7 +97,7 @@ function Home() {
               <>
                 <img src="/king.png" alt="KING" id="KingIcon" />
 
-                <div id="KingImg" className={!kingImgLoading && "fire"}>
+                <div id="KingImg" className={!kingImgLoading ? "fire" : ""}>
                   {/* <img src="/King_of_KOLs.gif" alt="KING OF KOLS" id="KingImgSvg" /> */}
                   <img
                     src={firstUser.photoPath}
