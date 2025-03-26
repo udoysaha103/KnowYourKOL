@@ -31,7 +31,7 @@ const SignUp = () => {
     }
   };
   const handleGoogleLogin = () => {
-    window.open(`${import.meta.env.VITE_API_URL}/auth/googleLogin`, "_self");
+    window.open(`${import.meta.env.VITE_API_URL}/google/googleLogin`, "_self");
   };
   return (
     <>

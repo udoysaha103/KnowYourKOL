@@ -198,6 +198,7 @@ const verifyUser = async (req, res) => {
 
 const callback = async (accessToken, refreshToken, data, done) => {
   // passport callback function
+  console.log("callback", data);
   const { displayName, emails } = data;
   const user = await userModel.findOne({ email: emails[0].value });
   if (user) {

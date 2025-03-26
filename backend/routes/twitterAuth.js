@@ -28,7 +28,7 @@ router.get("/failure", (req, res) => {
 
 // login with twitter
 router.get("/twitterLogin", passport.authenticate('twitter', {
- scope: ['tweet.read']
+ scope: ['users.read']
 }));
 
 // twitter callback

@@ -89,7 +89,7 @@ passport.use(
       clientType: "public",
       clientID: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      callbackURL: '/twitter/redirect',
+      callbackURL: `${process.env.SERVER_URL}/twitter/redirect`,
     }, callback)
 );
 
