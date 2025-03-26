@@ -91,7 +91,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 90px;
+  top: 70px;
   margin-inline: auto;
   height: auto;
   width: 296px;
@@ -102,6 +102,14 @@
   z-index: 10000;
   max-height: 400px;
   overflow-y: auto;
+}
+.searchResult::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+.searchResult::-webkit-scrollbar-thumb {
+  background-color: #3e3e3f;
+  border-radius: 10px;
 }
 
 .searchResultItem {

@@ -52,7 +52,7 @@ const App = () => {
           element={<AddKOL />}
         ></Route>
         <Route
-          path="/meme-bubble"
+          path="/memebubbles"
           element={<MemeBubble />}
         ></Route>
         <Route
@@ -60,11 +60,11 @@ const App = () => {
           element={<FAQ />}
         ></Route>
         <Route
-          path="/termsOfUse"
+          path="/termsofuse"
           element={<TermsOfUse />}
         ></Route>
         <Route
-          path="/privacyPolicies"
+          path="/privacypolicies"
           element={<PrivacyPolicies />}
         ></Route>
       </Routes>

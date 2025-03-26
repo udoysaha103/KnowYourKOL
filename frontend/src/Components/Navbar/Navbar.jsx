@@ -56,7 +56,7 @@ function Navbar({changeRequest}) {
         />
         <div className={styles.navButtons}>
           <div>
-            <Link to="/meme-bubble" className={styles.link}>
+            <Link to="/memebubbles" className={styles.link}>
               <button className={styles.btn}>Meme Bubbles</button>
             </Link>
           </div>

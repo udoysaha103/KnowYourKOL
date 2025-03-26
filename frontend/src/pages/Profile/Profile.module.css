@@ -268,9 +268,12 @@ input[type="radio"] {
   cursor: pointer;
 }
 .selected {
-  background-color: #212327;
+  background-color: #4369ee;
   border: 0.01px solid #858594;
   border-radius: 10px;
+}
+.selected:hover {
+  background-color: #718ae6;
 }
 .btn {
   composes: btn from "./Profile.common.css";

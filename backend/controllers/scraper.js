@@ -43,7 +43,6 @@ const scrapData = async (accountAddress) => {
 
         // Extract relevant data
         const user_data = jsonData.props.pageProps.addressInfo;
-        console.log(user_data);
         let { pnl_1d, pnl_7d, pnl_30d, realized_profit_1d, realized_profit_7d, realized_profit_30d, balance, avg_holding_peroid, buy_1d, buy_7d, buy_30d, sell_1d, sell_7d, sell_30d, total_value } = user_data;
 
         // Fetch SOL to USD conversion rate
@@ -85,5 +84,4 @@ const scrapData = async (accountAddress) => {
         if (browser) await browser.close();
     }
 }
-scrapData('BTf4A2exGK9BCVDNzy65b9dUzXgMqB4weVkvTMFQsadd')
 module.exports = { scrapData };
