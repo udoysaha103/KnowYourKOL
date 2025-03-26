@@ -79,7 +79,7 @@ passport.use(
     // options for google strategy
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/google/redirect'
+    callbackURL: `${process.env.SERVER_URL}/google/redirect`
   }, callback)
 );
 passport.use(
