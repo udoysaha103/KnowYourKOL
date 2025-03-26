@@ -133,9 +133,9 @@ const getSentimentRank = async (req, res) => {
 
 const getRisingStars = async (req, res) => {
     // 1. get the overall sorted KOL list
-    // 2. get the top 20 KOLs
+    // 2. get the top 5 KOLs
     // 3. get the only ROI1D sorted KOL list
-    // 4. exclude the top 20 KOLs from the ROI1D sorted KOL list
+    // 4. exclude the top 5 KOLs from the ROI1D sorted KOL list
     // 5. get the top 4 from the remaining KOLs
 
     try {
@@ -145,10 +145,10 @@ const getRisingStars = async (req, res) => {
             const avgB = 0.3*b.PnLscore1D + 0.7*b.sentimentScore;
             return avgB - avgA;
         });
-        const top20KOLs = sortedKOLs.slice(0, 20);
+        const top5KOLs = sortedKOLs.slice(0, 5);
 
         const ROI1DsortedKOLs = KOLs.sort((a, b) => b.ROI1D - a.ROI1D);
-        const remainingKOLs = ROI1DsortedKOLs.filter(KOL => !top20KOLs.includes(KOL));
+        const remainingKOLs = ROI1DsortedKOLs.filter(KOL => !top5KOLs.includes(KOL));
 
         const top4RisingStars = remainingKOLs.slice(0, 4);
 
