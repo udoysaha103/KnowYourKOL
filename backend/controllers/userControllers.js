@@ -7,26 +7,32 @@ const config = require("../utils/config");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 
-const registerUser = (req, res) => {
+const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
-  userModel.findOne({ email }).then(async (user) => {
-    if (user) {
-      throw Error("User already exists");
-    }
-    if(!validator.isEmail(email)){
-      throw Error("Invalid email");
-    }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    return userModel.create({ username, email, password:hashedPassword, verificationStatus: false });
-  }).then((user) => {
-    const token = jwt.sign({ email, _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: config.token.expairsIn,
-    });
-    res.status(200).json({ email, token });
-  }).catch((err) => {
-    res.status(400).json({ error: err.message });
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  if (password.length < 12) {
+    return res.status(400).json({ error: "Password must be at least 12 characters long" });
+  }
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({ error: "Invalid email" });
+  }
+  const existingUser = await userModel.findOne({ email })
+  if (existingUser) {
+    return res.status(400).json({ error: "Email already in use" });
+  }
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const newUser = userModel.create({ username, email, password: hashedPassword, verificationStatus: false });
+  const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
+    expiresIn: config.token.expairsIn,
   });
+  if (newUser) {
+    res.status(200).json({ email, token });
+  } else {
+    res.status(400).json({ error: "Error creating user" });
+  }
 }
 
 const loginUser = (req, res) => {
@@ -141,8 +147,8 @@ const getVerificationMail = async (req, res) => {
     const result = await sendMail(email, "Your verification link for KnowYourKOL", body);
     const tries = codeData ? codeData.tries + 1 : 1;
     await codeModel.deleteOne({ email })
-    await codeModel.create({ email, code,  tries});
-    res.status(200).json({message:"success",...result, tries});
+    await codeModel.create({ email, code, tries });
+    res.status(200).json({ message: "success", ...result, tries });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -199,9 +205,9 @@ const callback = async (accessToken, refreshToken, data, done) => {
   }
   else {
     // create new user
-    const newUser = await userModel.create({ username:displayName, email: emails[0].value, verificationStatus: true })
+    const newUser = await userModel.create({ username: displayName, email: emails[0].value, verificationStatus: true })
     done(null, newUser);
   }
 }
 
-module.exports = { registerUser, loginUser, getVerificationMail, verifyUser,  callback};
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, callback };

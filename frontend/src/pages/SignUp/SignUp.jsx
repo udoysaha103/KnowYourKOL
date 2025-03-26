@@ -13,8 +13,8 @@ const SignUp = () => {
   const { signup, isLoading, error } = useSignup();
   const navigate = useNavigate();
   const handleSignup = async () => {
-    await signup(username, email, password);
-    if (error === null) {
+    const isError = await signup(username, email, password);
+    if (!isError) {
         setShowVerification(true);
         const response = await fetch(`${import.meta.env.VITE_API_URL}/user/getVerificationMail`, {
             method: "POST",
