@@ -2,17 +2,20 @@ const SOLconversionmodel = require('../models/SOLconversionModel.js');
 const axios = require('axios');
 
 const updateSolanaRate = async () => {
-    const BirdEye_API_SOL_2_USD = "https://public-api.birdeye.so/defi/price?address=So11111111111111111111111111111111111111112";
-    const BirdEye_REQUEST_HEADER = {
-        "accept": "application/json",
-        "x-chain": "solana",
-        "X-API-KEY": process.env.BirdEye_API_key
-    };
+    // const BirdEye_API_SOL_2_USD = "https://public-api.birdeye.so/defi/price?address=So11111111111111111111111111111111111111112";
+    // const BirdEye_REQUEST_HEADER = {
+    //     "accept": "application/json",
+    //     "x-chain": "solana",
+    //     "X-API-KEY": process.env.BirdEye_API_key
+    // };
+    const URL = "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd";
 
     let SOL2USD_conversion_rate = 1;
     try {
-        const BirdEye_response = await axios.get(BirdEye_API_SOL_2_USD, { headers: BirdEye_REQUEST_HEADER });
-        SOL2USD_conversion_rate = BirdEye_response.data.data.value;
+        // const BirdEye_response = await axios.get(BirdEye_API_SOL_2_USD, { headers: BirdEye_REQUEST_HEADER });
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => SOL2USD_conversion_rate = data.solana.usd);
     } catch (error) {
         console.error(`Failed to fetch SOL to USD conversion rate: ${error.message}`);
     }
