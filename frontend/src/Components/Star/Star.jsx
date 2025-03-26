@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Star.module.css";
 import { useNavigate } from "react-router-dom";
+import { truncateText } from "../../utils/textUtils";
 
 const Star = ({ pic_path, name, roi, pnl, id, buy, sell }) => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Star = ({ pic_path, name, roi, pnl, id, buy, sell }) => {
       </div>
       <div className={styles.column}>
         <div className={styles.description}>
-          <div id={styles.name}>{name}</div>
+          <div id={styles.name}>{truncateText(name, "2", 5)}</div>
           <div>
             ROI: <span className={roi >= 0 ? styles.green : styles.red }>{(roi*100).toFixed(2)}%</span>
           </div>

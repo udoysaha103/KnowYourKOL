@@ -43,21 +43,20 @@ const scrapData = async (accountAddress) => {
 
         // Extract relevant data
         const user_data = jsonData.props.pageProps.addressInfo;
+        console.log(user_data);
         let { pnl_1d, pnl_7d, pnl_30d, realized_profit_1d, realized_profit_7d, realized_profit_30d, balance, avg_holding_peroid, buy_1d, buy_7d, buy_30d, sell_1d, sell_7d, sell_30d, total_value } = user_data;
 
         // Fetch SOL to USD conversion rate
-        // let SOL2USD_conversion_rate = null;
-        // const SOLconversion = await SOLconversionModel.findOne();
-        // if (SOLconversion) {
-        //     SOL2USD_conversion_rate = SOLconversion.sol2usdRate;
-        // }
+        let SOL2USD_conversion_rate = null;
+        const SOLconversion = await SOLconversionModel.findOne();
+        if (SOLconversion) {
+            SOL2USD_conversion_rate = SOLconversion.sol2usdRate;
+        }
 
-        // if (!SOL2USD_conversion_rate) {
-        //     console.error("Failed to fetch SOL to USD conversion rate.");
-        //     return null;
-        // }
-        SOL2USD_conversion_rate = total_value / balance;
-
+        if (!SOL2USD_conversion_rate) {
+            console.error("Failed to fetch SOL to USD conversion rate.");
+            return null;
+        }
         // Convert PnL total values from USD to SOL
         const pnl_total_1d = realized_profit_1d / SOL2USD_conversion_rate;
         const pnl_total_7d = realized_profit_7d / SOL2USD_conversion_rate;
@@ -86,5 +85,5 @@ const scrapData = async (accountAddress) => {
         if (browser) await browser.close();
     }
 }
-
+scrapData('BTf4A2exGK9BCVDNzy65b9dUzXgMqB4weVkvTMFQsadd')
 module.exports = { scrapData };

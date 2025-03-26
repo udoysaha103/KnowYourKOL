@@ -13,6 +13,7 @@ const updateSolanaRate = async () => {
     try {
         const BirdEye_response = await axios.get(BirdEye_API_SOL_2_USD, { headers: BirdEye_REQUEST_HEADER });
         SOL2USD_conversion_rate = BirdEye_response.data.data.value;
+        console.log(`SOL to USD conversion rate: ${SOL2USD_conversion_rate}`);
     } catch (error) {
         console.error(`Failed to fetch SOL to USD conversion rate: ${error.message}`);
     }

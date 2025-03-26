@@ -42,7 +42,7 @@
 }
 
 #KingIcon {
-  width: 18%;
+  width: 20%;
   margin: auto 0px;
 }
 
@@ -109,6 +109,7 @@
   font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   font-size: 20px;
+  margin: 0;
 }
 #KingAddr img {
   height: 24px;
@@ -126,7 +127,9 @@
   padding: 10px;
   width: 28%;
   background-color: #1e1f26;
-  border-radius: 26px;
+  box-shadow: -1px 10px 20px #0f8d07;
+  border-radius: 8px;
+  border: 0.1px solid #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;

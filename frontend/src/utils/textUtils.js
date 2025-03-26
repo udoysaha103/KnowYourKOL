@@ -9,7 +9,7 @@ export const truncateText = (text, type = "1", maxLength = 10) => {
     if (type === "1") {
         return `${text.slice(0, 3)}...${text.slice(-3)}`;
     } else if (type === "2") {
-        return `${text.slice(0, maxLength)}...`;
+        return `${text.slice(0, maxLength)}..`;
     } else {
         return text;
     }

@@ -52,6 +52,7 @@ function Navbar({changeRequest}) {
           aria-label="Search"
           id="SearchInput"
           onChange={(e) => handleSearch(e)}
+          onBlur={() => setSearch([])}
         />
         <div className={styles.navButtons}>
           <div>

@@ -153,7 +153,7 @@ const Canvas = ({data, topGap, ...rest}) => {
             const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
             const i = Math.cos(angle) * force;
             const j = Math.sin(angle) * force;
-            this.applyForce(i/10, j/10);
+            this.applyForce(i/8, j/8);
         } else {
           const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
           const force = 0.001;
@@ -222,7 +222,7 @@ const Canvas = ({data, topGap, ...rest}) => {
     const min = Math.min(...contents);
     data.map((e) => {
       const minRadius = window.innerWidth * 0.02;
-      const maxRadius = window.innerWidth * 0.04;
+      const maxRadius = window.innerWidth * 0.05;
       const radius = ((Math.abs(e.content) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
