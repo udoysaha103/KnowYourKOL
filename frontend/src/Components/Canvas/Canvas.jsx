@@ -162,10 +162,6 @@ const Canvas = ({data, topGap, ...rest}) => {
           this.applyForce(-i, -j);
         }
       }else{
-        if(this.selected){
-          this.dx = mouse.dx;
-          this.dy = mouse.dy;
-        }
         this.selected = false;
       }
       circles.forEach((otherCircle) => {
@@ -183,7 +179,7 @@ const Canvas = ({data, topGap, ...rest}) => {
             otherCircle.y - this.y,
             otherCircle.x - this.x
           );
-          const force = 0.01;
+          const force = 0.005;
           const i = Math.cos(angle) * force;
           const j = Math.sin(angle) * force;
           this.applyForce(-i, -j);
