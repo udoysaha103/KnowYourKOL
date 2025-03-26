@@ -44,7 +44,8 @@ app.use(express.json());
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [process.env.JWT_SECRET],
-  httpOnly: false
+  httpOnly: false,
+  domain: '.knowyourkol.io'
 }));
 // register regenerate & save after the cookieSession middleware initialization
 app.use((req, res, next) => {
