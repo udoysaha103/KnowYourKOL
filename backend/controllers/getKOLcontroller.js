@@ -91,7 +91,7 @@ const searchKOL = async (req, res) => {
         const KOLs = await verifiedKOLmodel.find({
             $or: [
                 { twitterName: { $regex: searchQuery, $options: "i" } },
-                { walletAddress: { $regex: searchQuery, $options: "i" } },
+                { walletAddress: { $eq: searchQuery } },
                 { IRLname: { $regex: searchQuery, $options: "i" } }
             ]
         });

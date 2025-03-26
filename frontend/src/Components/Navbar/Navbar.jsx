@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -9,6 +10,7 @@ import styles from "./Navbar.module.css";
 function Navbar({ changeRequest }) {
   const [search, setSearch] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const [isMouseOnElement, setIsMouseOnElement] = useState(false);
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
@@ -53,7 +55,13 @@ function Navbar({ changeRequest }) {
           placeholder="Search"
           aria-label="Search"
           id="SearchInput"
+          autoComplete="off"
           onChange={(e) => handleSearch(e)}
+          onBlur={() => {
+            if (!isMouseOnElement) {
+              setSearch([]);
+            }
+          }}
         />
         <div className={styles.navButtons}>
           <div>
@@ -83,7 +91,7 @@ function Navbar({ changeRequest }) {
         </div>
       </nav>
       {search.length > 0 && (
-        <div className={styles.searchResult} onMouseLeave={() => setSearch([])}>
+        <div className={styles.searchResult} onMouseEnter={() => setIsMouseOnElement(true)} onMouseLeave={() => setIsMouseOnElement(false)}>
           {search.map((searchItem, idx) => (
             <div
               key={idx}

@@ -9,7 +9,6 @@ const updateSolanaRate = async () => {
     //     "X-API-KEY": process.env.BirdEye_API_key
     // };
     const URL = "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd";
-    console.log("updateSolana called");
 
     let SOL2USD_conversion_rate = 1;
     try {
