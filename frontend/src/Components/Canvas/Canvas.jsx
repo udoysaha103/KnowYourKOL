@@ -225,8 +225,8 @@ const Canvas = ({data, topGap, ...rest}) => {
     const max = Math.max(...contents);
     const min = Math.min(...contents);
     data.map((e) => {
-      const minRadius = window.innerWidth * 0.03;
-      const maxRadius = window.innerWidth * 0.06;
+      const minRadius = window.innerWidth * 0.02;
+      const maxRadius = window.innerWidth * 0.04;
       const radius = ((Math.abs(e.content) - min) / (max - min)) * (maxRadius - minRadius) + minRadius;
       const x = Math.random() * (canvas.width - radius * 2) + radius;
       const y = Math.random() * (canvas.height - radius * 2) + radius;
