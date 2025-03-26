@@ -1,6 +1,6 @@
 const ids = require('./ids.json');
 const axios = require('axios');
-const url = "http://localhost:5000"
+const url = "http://localhost:5000";
 
 const postData = async (id) => {
     try {

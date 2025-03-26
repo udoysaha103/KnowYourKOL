@@ -240,7 +240,7 @@ const Profile = () => {
     fetchData(id);
   }, [showSuccessMessage]);
 
-  document.title = "KOL Profile";
+  document.title = `${kol.twitterName} | Know Your KOL`;
 
   return (
     <>

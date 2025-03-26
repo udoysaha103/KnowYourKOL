@@ -39,6 +39,7 @@ const loadImage = (e) =>
         priceChange7D: e.priceChange7D,
         priceChange24H: e.priceChange24H,
         priceChange1H: e.priceChange1H,
+        priceChange30D: e.priceChange30D,
       });
     i.src = e.photoURL;
   });
@@ -59,7 +60,7 @@ const MemeBubble = () => {
     };
     fetchData();
   }, []);
-
+  document.title = "Meme Bubbles";
   return (
     <>
       <Navbar />

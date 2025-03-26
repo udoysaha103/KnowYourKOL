@@ -5,7 +5,7 @@ const path = require('path');
 const csvFilePath = path.join(__dirname, 'Trial 30 for wesbite.csv');
 const csvData = fs.readFileSync(csvFilePath, 'utf8');
 const data = csvData.split('\n').map(line => line.split(',').slice(1).map(item => item.trim()));
-const url = "http://localhost:5000";
+const url = "https://api.knowyourkol.io";
 
 const postRequest = async (twitterName, IRLname, country, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink) => {
     const imageRootPath = 'C:\\Users\\CaptainFaisal\\Documents\\drive-download\\';

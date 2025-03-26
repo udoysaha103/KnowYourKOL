@@ -2,18 +2,20 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useLogout } from "../../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 import Icon from "../Icon";
 import styles from "./Navbar.module.css";
 
-function Navbar({changeRequest}) {
+function Navbar({ changeRequest }) {
   const [search, setSearch] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const { user } = useAuthContext();
   const { logout } = useLogout();
+  const navigate = useNavigate();
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       setSearch([]);
-      if(changeRequest) changeRequest(false);
+      if (changeRequest) changeRequest(false);
     }
   };
   useEffect(() => {
@@ -52,7 +54,6 @@ function Navbar({changeRequest}) {
           aria-label="Search"
           id="SearchInput"
           onChange={(e) => handleSearch(e)}
-          onBlur={() => setSearch([])}
         />
         <div className={styles.navButtons}>
           <div>
@@ -82,21 +83,23 @@ function Navbar({changeRequest}) {
         </div>
       </nav>
       {search.length > 0 && (
-        <div className={styles.searchResult}>
+        <div className={styles.searchResult} onMouseLeave={() => setSearch([])}>
           {search.map((searchItem, idx) => (
-            <Link key={idx} to={`/profile/${searchItem._id}`}>
-              <div key={idx} className={styles.searchResultItem}>
-                <img
-                  src={searchItem.photoPath}
-                  className={styles.searchResultImg}
-                />
-                <div className={styles.searchResultText}>
-                  <span className={styles.searchResultTitle}>
-                    {searchItem.twitterName}
-                  </span>
-                </div>
+            <div
+              key={idx}
+              className={styles.searchResultItem}
+              onClick={() => navigate(`/profile/${searchItem._id}`)}
+            >
+              <img
+                src={searchItem.photoPath}
+                className={styles.searchResultImg}
+              />
+              <div className={styles.searchResultText}>
+                <span className={styles.searchResultTitle}>
+                  {searchItem.twitterName}
+                </span>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
