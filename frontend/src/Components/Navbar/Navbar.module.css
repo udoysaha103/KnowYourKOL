@@ -40,9 +40,6 @@
   margin-top: 17px;
 }
 .searchBar {
-  position: absolute;
-  left: 0;
-  right: 0;
   margin-inline: auto;
   width: 296px;
   height: 40px;
@@ -89,9 +86,7 @@
 }
 .searchResult {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 70px;
+  top: 60px;
   margin-inline: auto;
   height: auto;
   width: 296px;
@@ -161,4 +156,10 @@
 .menuItem:hover{
   background-color: #3e3e3f;
   border-radius: 6px;
+}
+
+@media (max-width: 1012px){
+  .searchResult{
+    top: 110px;
+  }
 }

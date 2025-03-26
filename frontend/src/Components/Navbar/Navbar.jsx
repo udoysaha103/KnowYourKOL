@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -48,21 +47,47 @@ function Navbar({ changeRequest }) {
             <span className={styles.header}>Know Your KOL</span>
           </div>
         </Link>
-
-        <input
-          className={styles.searchBar}
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          id="SearchInput"
-          autoComplete="off"
-          onChange={(e) => handleSearch(e)}
-          onBlur={() => {
-            if (!isMouseOnElement) {
-              setSearch([]);
-            }
-          }}
-        />
+        <div>
+          <input
+            className={styles.searchBar}
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            id="SearchInput"
+            autoComplete="off"
+            onChange={(e) => handleSearch(e)}
+            onBlur={() => {
+              if (!isMouseOnElement) {
+                setSearch([]);
+              }
+            }}
+          />
+          {search.length > 0 && (
+            <div
+              className={styles.searchResult}
+              onMouseEnter={() => setIsMouseOnElement(true)}
+              onMouseLeave={() => setIsMouseOnElement(false)}
+            >
+              {search.map((searchItem, idx) => (
+                <div
+                  key={idx}
+                  className={styles.searchResultItem}
+                  onClick={() => navigate(`/profile/${searchItem._id}`)}
+                >
+                  <img
+                    src={searchItem.photoPath}
+                    className={styles.searchResultImg}
+                  />
+                  <div className={styles.searchResultText}>
+                    <span className={styles.searchResultTitle}>
+                      {searchItem.twitterName}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
         <div className={styles.navButtons}>
           <div>
             <Link to="/memebubbles" className={styles.link}>
@@ -90,27 +115,7 @@ function Navbar({ changeRequest }) {
           </div>
         </div>
       </nav>
-      {search.length > 0 && (
-        <div className={styles.searchResult} onMouseEnter={() => setIsMouseOnElement(true)} onMouseLeave={() => setIsMouseOnElement(false)}>
-          {search.map((searchItem, idx) => (
-            <div
-              key={idx}
-              className={styles.searchResultItem}
-              onClick={() => navigate(`/profile/${searchItem._id}`)}
-            >
-              <img
-                src={searchItem.photoPath}
-                className={styles.searchResultImg}
-              />
-              <div className={styles.searchResultText}>
-                <span className={styles.searchResultTitle}>
-                  {searchItem.twitterName}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+
       {showMenu && (
         <div className={styles.menu}>
           <div className={styles.menuItem} onClick={() => logout()}>
