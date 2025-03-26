@@ -3,6 +3,7 @@ import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { copyText } from "../../utils/textUtils";
 
 const ListKOL = ({ KOLlist, setKOLlist }) => {
   const copyRefs = useRef([]);
@@ -27,45 +28,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
       setPaginatedKOLlist([]);
     }
   }, [KOLlist]);
-  const copyText = (event, idx, text) => {
-    event.preventDefault();
-    // navigator.clipboard.writeText(kol.walletAddress);
-    const copyToClipboard = async (text) => {
-      try {
-        // Try modern Clipboard API first
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
 
-        // Fallback for older browsers
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed"; // Avoid scrolling to bottom
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-          const successful = document.execCommand("copy");
-          document.body.removeChild(textArea);
-          return successful;
-        } catch (err) {
-          document.body.removeChild(textArea);
-          return false;
-        }
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        return false;
-      }
-    };
-
-    copyToClipboard(text);
-    document.getElementById(`${idx}text`).innerText = "Copied!";
-    setTimeout(() => {
-      document.getElementById(`${idx}text`).innerText = truncateText(text);
-    }, 1000);
-  };
   const handleDuration = (duration) => {
     setDuration(duration);
     if (sortMethod === "Sentiment") {
@@ -256,10 +219,15 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                     {kol.walletAddress !== "Hidden" ? (
                       <div
                         className={styles.addrContainer}
-                        ref={(e) => copyRefs.current.push(e)}
-                        onClick={(e) => copyText(e, index, kol.walletAddress)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          copyText(
+                            copyRefs.current[index],
+                            kol.walletAddress
+                          );
+                        }}
                       >
-                        <span id={index + "text"}>
+                        <span ref={(e) => copyRefs.current.push(e)}>
                           {truncateText(kol.walletAddress)}&nbsp;
                         </span>
                         <Icon name="Copy" color="#f8f8f8" height="24px" />

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Star from "../../Components/Star/Star";
 import ListKOL from "../../Components/ListKOL/ListKOL";
 import Footer from "../../Components/Footer/Footer";
+import { copyText } from "../../utils/textUtils";
 
 function Home() {
   document.title = "Know Your KOL";
@@ -50,45 +51,6 @@ function Home() {
     }
   };
 
-  const copyAddress = (event) => {
-    // navigator.clipboard.writeText(kol.walletAddress);
-    event.preventDefault();
-    const copyToClipboard = async (text) => {
-      try {
-        // Try modern Clipboard API first
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
-
-        // Fallback for older browsers
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed"; // Avoid scrolling to bottom
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-          const successful = document.execCommand("copy");
-          document.body.removeChild(textArea);
-          return successful;
-        } catch (err) {
-          document.body.removeChild(textArea);
-          return false;
-        }
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        return false;
-      }
-    };
-
-    copyToClipboard(firstUser.walletAddress);
-    copyRef.current.innerText = "Copied!";
-    setTimeout(() => {
-      copyRef.current.innerText = truncateText(firstUser.walletAddress);
-    }, 1000);
-  };
   const [KOLlist, setKOLlist] = useState(null);
   const [risingStars, setRisingStars] = useState(null);
   const [firstUser, setFirstUser] = useState(null);
@@ -121,7 +83,7 @@ function Home() {
           <Link
             id="King"
             to={"/profile/" + (firstUser && firstUser._id)}
-            className={(loading || kingImgLoading) ? "loading" : ""}
+            className={loading || kingImgLoading ? "loading" : ""}
           >
             {firstUser && (
               <>
@@ -147,8 +109,14 @@ function Home() {
                     </div>
                   </div>
                   {firstUser.walletAddress !== "Hidden" ? (
-                    <p id="KingAddr" onClick={(e) => copyAddress(e)}>
-                      <span id="addr4cpy" ref={copyRef}>
+                    <p
+                      id="KingAddr"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        copyText(copyRef.current, firstUser.walletAddress);
+                      }}
+                    >
+                      <span ref={copyRef}>
                         {truncateText(firstUser.walletAddress)}
                       </span>
                       <img src="content_copy.svg" alt="copy" />

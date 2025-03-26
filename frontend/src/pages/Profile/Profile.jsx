@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { data, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Icon from "../../Components/Icon";
 import Review from "../../Components/Review/Review";
 import Footer from "../../Components/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { copyText } from "../../utils/textUtils";
 
 const Profile = () => {
   useEffect(() => {
@@ -111,44 +112,6 @@ const Profile = () => {
       return (duration / 3600).toFixed(1) + "h";
     }
     return (duration / 86400).toFixed(1) + "d";
-  };
-  const copyAddress = () => {
-    // navigator.clipboard.writeText(kol.walletAddress);
-    const copyToClipboard = async (text) => {
-      try {
-        // Try modern Clipboard API first
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
-
-        // Fallback for older browsers
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed"; // Avoid scrolling to bottom
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-
-        try {
-          const successful = document.execCommand("copy");
-          document.body.removeChild(textArea);
-          return successful;
-        } catch (err) {
-          document.body.removeChild(textArea);
-          return false;
-        }
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        return false;
-      }
-    };
-
-    copyToClipboard(kol.walletAddress);
-    copyRef.current.children[0].innerText = "Copied!";
-    setTimeout(() => {
-      copyRef.current.children[0].innerText = truncateText(kol.walletAddress);
-    }, 1000);
   };
   const formatSOL = (sol) => {
     let sign = "";
@@ -317,15 +280,15 @@ const Profile = () => {
             )}
           </div>
           {kol.walletAddress && (
-            <div className={styles.addr} ref={copyRef}>
-              <div style={{ margin: "0 10px" }}>
+            <div className={styles.addr}>
+              <div style={{ margin: "0 10px" }} ref={copyRef}>
                 {truncateText(kol.walletAddress)}
               </div>
               <Icon
                 name="Copy"
                 color="#f8f8f8"
                 height="24px"
-                onClick={copyAddress}
+                onClick={() => copyText(copyRef.current, kol.walletAddress)}
               />
             </div>
           )}
