@@ -10,8 +10,8 @@ export const useLogout = () => {
     setError(null);
     try {
       localStorage.removeItem("user");
-      Cookie.remove("session");
-      Cookie.remove("session.sig");
+      Cookie.remove("session", { domain: ".knowyourkol.io" });
+      Cookie.remove("session.sig", { domain: ".knowyourkol.io" });
       dispatch({ type: "LOGOUT" });
       window.location.reload();
     } catch (err) {
