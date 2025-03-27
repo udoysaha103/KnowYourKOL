@@ -8,30 +8,31 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-  if (password.length < 12) {
-    return res.status(400).json({ error: "Password must be at least 12 characters long" });
-  }
-  if (!validator.isEmail(email)) {
-    return res.status(400).json({ error: "Invalid email" });
-  }
-  const existingUser = await userModel.findOne({ email })
-  if (existingUser) {
-    return res.status(400).json({ error: "Email already in use" });
-  }
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  const newUser = userModel.create({ username, email, password: hashedPassword, verificationStatus: false });
-  const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
-    expiresIn: config.token.expairsIn,
-  });
-  if (newUser) {
+  try {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      throw Error("All fields are required");
+    }
+    if (password.length < 8) {
+      throw Error("Password must be at least 8 characters long");
+    }
+    if (!validator.isEmail(email)) {
+      throw Error("Invalid email address");
+    }
+    const existingUser = await userModel.findOne({ email })
+    if (existingUser) {
+      throw Error("User already exists with this email");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = await userModel.create({ username, email, password: hashedPassword, verificationStatus: false });
+    const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: config.token.expairsIn,
+    });
     res.status(200).json({ email, token });
-  } else {
-    res.status(400).json({ error: "Error creating user" });
+  }
+  catch (err) {
+    res.status(400).json({ error: err.code === 11000 ? "The username is already taken." : err.message });
   }
 }
 
