@@ -138,7 +138,7 @@ function Navbar({ changeRequest }) {
         </div>
       </nav>
 
-      {showMenu && (
+      {user && showMenu && (
         <div className={styles.menu}>
           {user && (
             <div className={styles.name}>

@@ -14,6 +14,8 @@ import FAQ from "./pages/FAQ/FAQ";
 import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
 import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
 import MemeBubble from "./pages/MemeBubble/MemeBubble";
+import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import EmailInput from "./pages/EmailInput/EmailInput";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
@@ -66,6 +68,14 @@ const App = () => {
         <Route
           path="/privacypolicies"
           element={<PrivacyPolicies />}
+        ></Route>
+        <Route
+          path="/forgetpassword"
+          element={<EmailInput />}
+        ></Route>
+        <Route
+          path="/forgetpassword/:token"
+          element={<ForgetPassword />}
         ></Route>
       </Routes>
     </>

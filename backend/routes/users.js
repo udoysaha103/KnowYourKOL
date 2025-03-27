@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, getVerificationMail, verifyUser, getVerificationStatus} = require("../controllers/userControllers");
+const { registerUser, loginUser, getVerificationMail, verifyUser, getVerificationStatus, getPasswordResetMail, resetPassword} = require("../controllers/userControllers");
 
 // signup route
 router.post("/register", registerUser);
@@ -18,6 +18,12 @@ router.post("/getVerificationMail", getVerificationMail);
 
 // verify user
 router.get("/verify/:token", verifyUser);
+
+// get password reset mail with token
+router.get("/getPasswordResetMail/:email", getPasswordResetMail);
+
+// reset password with token
+router.post("/reset", resetPassword);
 
 
 
