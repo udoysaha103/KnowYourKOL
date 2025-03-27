@@ -73,8 +73,8 @@ const getKOLoverall = async (req, res) => {
         });
 
         const sortedKOLs = KOLs.sort((a, b) => {
-            const avgA = 0.7*a[`PnLtotal${duration}D`] + 0.3*a.sentimentScore;
-            const avgB = 0.7*b[`PnLtotal${duration}D`] + 0.3*b.sentimentScore;
+            const avgA = 0.6*a[`PnLtotal${duration}D`] + 0.4*a.sentimentScore;
+            const avgB = 0.6*b[`PnLtotal${duration}D`] + 0.4*b.sentimentScore;
             return avgB - avgA;
         });
         res.status(200).json(sortedKOLs);
