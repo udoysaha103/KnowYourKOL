@@ -55,7 +55,7 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-.loading {
+.msg {
   position: absolute;
   font-size: 2rem;
   color: #ffff;
