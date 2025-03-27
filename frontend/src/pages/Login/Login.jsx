@@ -7,7 +7,7 @@ import styles from './Login.module.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {login, error} = useLogin();  //isLoading is not used here
+    const {login, isLoading, error} = useLogin();
     const navigate = useNavigate();
     const handleLogin = async () => {
         await login(email, password)
@@ -26,7 +26,7 @@ const Login = () => {
                 <input className={styles.input} type="password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)}/>
                 <div className={styles.buttonContainer}>
                     <button className={styles.buttonFade} onClick={() => navigate('/signup')}>Sign Up</button>
-                    <button className={styles.button} onClick={handleLogin}>Login</button>
+                    <button className={styles.button} onClick={handleLogin}>{isLoading ? 'Loading...' : 'Login'}</button>
                 </div>
                 <div className={styles.error}>{error}</div>
                 <div className={styles.text}>Or</div>
