@@ -150,8 +150,24 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-
   cursor: pointer;
+}
+.name{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.resendLink{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: grey;
+  cursor: pointer;
+}
+.resendLink:hover{
+  text-decoration: underline;
 }
 .menuItem:hover{
   background-color: #3e3e3f;

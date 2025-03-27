@@ -9,10 +9,32 @@ import styles from "./Navbar.module.css";
 function Navbar({ changeRequest }) {
   const [search, setSearch] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const [sending, setSending] = useState(false);
   const [isMouseOnElement, setIsMouseOnElement] = useState(false);
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
+  const handleResend = async () => {
+    if(sending) return;
+    setSending(true);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/user/getVerificationMail`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email }),
+      }
+    );
+    const json = await response.json();
+    setSending(false);
+    if (response.ok) {
+      alert("Verification email sent successfully");
+    } else {
+      alert(json.error);
+    }
+  };
+
+
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       setSearch([]);
@@ -118,6 +140,19 @@ function Navbar({ changeRequest }) {
 
       {showMenu && (
         <div className={styles.menu}>
+          {user && (
+            <div className={styles.name}>
+              {user.username}&nbsp;
+              <small style={{ color: "GrayText" }}>
+                {user.verificationStatus ? "(verified)" : "(Not verified)"}
+              </small>
+            </div>
+          )}
+          {user && !user.verificationStatus && (
+            <div className={styles.resendLink} onClick={handleResend}>
+              {sending? "Sending..." : "Resend Verification Email"}
+            </div>
+          )}
           <div className={styles.menuItem} onClick={() => logout()}>
             <Icon name="Login" color="#f8f8f8" height="32px" />
             &nbsp; Logout

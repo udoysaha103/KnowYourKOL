@@ -8,7 +8,7 @@ import { copyText } from "../../utils/textUtils";
 const ListKOL = ({ KOLlist, setKOLlist }) => {
   const copyRefs = useRef([]);
   const [duration, setDuration] = useState(1);
-  const [sortMethod, setSortMethod] = useState("Overall");
+  const [sortMethod, setSortMethod] = useState("PnL");
   const [paginatedKOLlist, setPaginatedKOLlist] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 100; // Number of items to display per page

@@ -29,16 +29,17 @@ const registerUser = async (req, res) => {
     const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: config.token.expairsIn,
     });
-    res.status(200).json({ email, token });
+    res.status(200).json({ username, email, token, verificationStatus: false });
   }
   catch (err) {
     res.status(400).json({ error: err.code === 11000 ? "The username is already taken." : err.message });
   }
 }
 
-const loginUser = (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  userModel.findOne({ email }).then(async (user) => {
+  try {
+    const user = await userModel.findOne({ email })
     if (!user) {
       throw Error("Incorrect email");
     }
@@ -48,10 +49,10 @@ const loginUser = (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: config.token.expairsIn,
     });
-    res.status(200).json({ email, token });
-  }).catch((err) => {
+    res.status(200).json({ username: user.username, email, token, verificationStatus: user.verificationStatus });
+  } catch (err) {
     res.status(400).json({ error: err.message });
-  })
+  }
 }
 
 const getVerificationMail = async (req, res) => {
@@ -66,7 +67,8 @@ const getVerificationMail = async (req, res) => {
       throw Error("Already verified");
     }
     if (codeData && (Date.now() - codeData.timestamp) < config.code.waitTimeInMinutes * 60000) {
-      throw Error("Wait for some time to get another mail");
+      const remainingTime = Math.ceil((config.code.waitTimeInMinutes * 60000 - (Date.now() - codeData.timestamp)) / 60000);
+      throw Error(`Wait for ${remainingTime} minutes to get another mail`);
     }
     // 8 digit random code
     const code = generateRandom(8);
@@ -166,9 +168,9 @@ const getVerificationMail = async (req, res) => {
 
 const verifyUser = async (req, res) => {
   const token = req.params.token;
-  const { email, code } = jwt.verify(token, process.env.JWT_SECRET);
-  const user = await userModel.findOne({ email });
   try {
+    const { email, code } = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await userModel.findOne({ email });
     if (!user) {
       throw Error("No user is associeted with this email");
     }
@@ -197,6 +199,19 @@ const verifyUser = async (req, res) => {
   }
 }
 
+const getVerificationStatus = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            throw Error("No user is associated with this email");
+        }
+        res.status(200).json({ verificationStatus: user.verificationStatus });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+}
+
 const callback = async (accessToken, refreshToken, data, done) => {
   // passport callback function
   console.log("callback", data);
@@ -212,4 +227,4 @@ const callback = async (accessToken, refreshToken, data, done) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, callback };
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, callback, getVerificationStatus };

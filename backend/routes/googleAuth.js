@@ -19,7 +19,7 @@ router.get("/login", (req, res) => {
         const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
             expiresIn: config.token.expairsIn,
         });
-        res.status(200).json({ email: req.user.email, token });
+        res.status(200).json({ username: req.user.username, email: req.user.email, token, verificationStatus: req.user.verificationStatus });
     } 
 })
 router.get("/failure", (req, res) => {

@@ -29,11 +29,10 @@ export const useSignup = () => {
       localStorage.setItem("user", JSON.stringify(json));
       // update the auth context
       dispatch({ type: "LOGIN", payload: json });
-      return false;
     } else {
       setError(json.error);
-      return true;
     }
+    return !response.ok;
   };
 
   return { signup, isLoading, error };
