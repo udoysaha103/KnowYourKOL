@@ -60,7 +60,7 @@ POST http://localhost:5000/KOLregister/verifyKOL
 Content-Type: application/json
 
 {
-    "KOL_id" : "67e3d88a2b398198a28cc3b8"
+    "KOL_id" : "67e49e1233a1fc5b31aec7fc"
 }
 
 ###
