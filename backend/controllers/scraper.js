@@ -9,7 +9,7 @@ const scrapData = async (accountAddress) => {
     try {
         browser = await puppeteer.launch({
             headless: true, // Run with UI for debugging
-            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+            args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
             executablePath: process.env.CHROME_EXECUTABLE_PATH, // Path to Chrome executable
         });
 
