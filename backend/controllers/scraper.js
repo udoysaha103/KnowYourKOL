@@ -62,6 +62,7 @@ const scrapData = async (accountAddress) => {
         const pnl_total_7d = realized_profit_7d / SOL2USD_conversion_rate;
         const pnl_total_30d = realized_profit_30d / SOL2USD_conversion_rate;
 
+        await page.close();
         return {
             ROI1D: pnl_1d,
             ROI7D: pnl_7d,
