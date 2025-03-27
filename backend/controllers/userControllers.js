@@ -181,7 +181,7 @@ const resetPassword = async (req, res) => {
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    await userModel.updateOne({ email }, { password: hashedPassword });
+    await userModel.updateOne({ email }, { password: hashedPassword }, { verificationStatus: user.verificationStatus });
     res.status(200).json({ message: "Password reset successful" });
   } catch (err) {
     res.status(400).json({ error: err.message });

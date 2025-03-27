@@ -50,8 +50,8 @@
 }
 .forgetLink{
   color: grey;
-  align-self: flex-start;
   font-size: 0.8rem;
+  text-align: center;
   cursor: pointer;
 }
 .forgetLink:hover {
