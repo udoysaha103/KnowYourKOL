@@ -138,12 +138,13 @@
 }
 .menu{
   position: fixed;
+  top: 80px;
   background-color: #1e1f26;
   right: 0;
   border: 1px solid #ffffff;
   border-radius: 6px;
   margin-inline: 30px;
-  margin-top: 6px;
+  z-index: 10;
 }
 .menuItem{
   display: flex;
@@ -177,5 +178,8 @@
 @media (max-width: 1012px){
   .searchResult{
     top: 110px;
+  }
+  .menu{
+    top: 100px;
   }
 }
