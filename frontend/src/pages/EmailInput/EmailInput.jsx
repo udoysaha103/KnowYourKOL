@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./EmailInput.module.css";
 
-const ForgetPassword = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const handleGetEmail = async () => {
-    if(sending) return;
+    if (sending) return;
     if (!email) {
       setError("Please enter your email address");
       return;
@@ -16,16 +16,20 @@ const ForgetPassword = () => {
       return;
     }
     setSending(true);
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/user/getPasswordResetMail/${email}`);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/user/getPasswordResetMail/${email}`
+    );
     setSending(false);
     const data = await response.json();
     if (!response.ok) {
       setError(data.error);
     }
     if (response.ok) {
-      alert("Email sent successfully. Please check your email to reset your password.");
+      alert(
+        "Email sent successfully. Please check your email to reset your password."
+      );
     }
-  }
+  };
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
@@ -63,4 +67,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ForgotPassword;

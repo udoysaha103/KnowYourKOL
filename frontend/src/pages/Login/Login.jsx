@@ -46,10 +46,10 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div
-            className={styles.forgetLink}
-            onClick={() => navigate("/forgetpassword")}
+            className={styles.forgotLink}
+            onClick={() => navigate("/forgotpassword")}
           >
-            forget password?
+            forgot password?
           </div>
         </div>
         <div className={styles.buttonContainer}>

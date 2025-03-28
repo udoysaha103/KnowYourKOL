@@ -145,7 +145,7 @@ const getPasswordResetMail = async (req, res) => {
             <img src="https://assets.api.uizard.io/api/cdn/stream/c2ac1e01-964e-431a-b068-47421fdc98ae.png" alt="Logo" class="logo">
             <h1>Password change requested</h1>
             <p>To change your password click the button below and input your new password</p>
-            <a href="${process.env.CLIENT_URL}/forgetpassword/${token}" class="button" style="color: #fff;">Change Password</a>
+            <a href="${process.env.CLIENT_URL}/forgotpassword/${token}" class="button" style="color: #fff;">Change Password</a>
             <p>This request will expire in <strong>${config.password.resetLinkExpiryTimeInMinutes} minutes</strong>. If you did not request this, please ignore this email.</p>
             <p class="footer">Need help? Contact us at <a href="mailto:info@knowyourkol.io" style="color: #fff;">info@knowyourkol.io</a></p>
         </div>

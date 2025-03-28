@@ -24,7 +24,7 @@
   border-radius: 4px;
   z-index: 1;
 }
-.inputContainer{
+.inputContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,13 +48,13 @@
   font-weight: 500;
   line-height: 18px;
 }
-.forgetLink{
+.forgotLink {
   color: grey;
   font-size: 0.8rem;
   text-align: center;
   cursor: pointer;
 }
-.forgetLink:hover {
+.forgotLink:hover {
   text-decoration: underline;
 }
 .logo {
