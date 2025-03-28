@@ -23,7 +23,7 @@ require("./cron/memeCron"); // start the cron job to update the meme coin data
 
 
 // middlewares
-const allowedOrigins = ["http://knowyourkol.io", "http://localhost:5173", "https://knowyourkol.io", "http://www.knowyourkol.io", "https://www.knowyourkol.io"];
+const allowedOrigins = ["http://localhost:5173", "http://knowyourkol.io", "https://knowyourkol.io", "http://www.knowyourkol.io", "https://www.knowyourkol.io"];
 
 app.use(cors({
     origin: (origin, callback) => {
