@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useLogout } from "../../hooks/useLogout";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,17 @@ import styles from "./Navbar.module.css";
 
 function Navbar({ changeRequest }) {
   const [search, setSearch] = useState([]);
+  const [query, setQuery] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const [sending, setSending] = useState(false);
   const [isMouseOnElement, setIsMouseOnElement] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const abortController = useRef(null);
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
   const handleResend = async () => {
-    if(sending) return;
+    if (sending) return;
     setSending(true);
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/user/getVerificationMail`,
@@ -34,7 +37,6 @@ function Navbar({ changeRequest }) {
     }
   };
 
-
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       setSearch([]);
@@ -47,17 +49,41 @@ function Navbar({ changeRequest }) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  const handleSearch = (e) => {
-    const searchValue = e.target.value;
-    if (searchValue.length > 0) {
-      fetch(`${import.meta.env.VITE_API_URL}/getKOL/search/${searchValue}`)
-        .then((res) => res.json())
-        .then((data) => {
+  const fetchSearchResult = async (query) => {
+    if (query.length > 0) {
+      if (abortController.current) {
+        abortController.current.abort(); // Abort the previous request if it exists
+      }
+      abortController.current = new AbortController(); // Create a new AbortController for the new request
+      try {
+        setSearching(true);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/getKOL/search/${query}`,
+          {
+            signal: abortController.current.signal, // Pass the signal to the fetch request
+          }
+        );
+        const data = await response.json();
+        setSearching(false);
+        if (response.ok) {
           setSearch(data);
-        });
+          console.log(data)
+        } else {
+          console.log("Error fetching search results");
+        }
+      } catch (err) {
+        console.log(err);
+        setSearching(false);
+        setSearch([]);
+      } 
     } else {
       setSearch([]);
     }
+  };
+  const handleSearch = async (e) => {
+    const value = e.target.value.trim();
+    setQuery(value);
+    fetchSearchResult(value);
   };
   return (
     <>
@@ -77,6 +103,7 @@ function Navbar({ changeRequest }) {
             aria-label="Search"
             id="SearchInput"
             autoComplete="off"
+            value={query}
             onChange={(e) => handleSearch(e)}
             onBlur={() => {
               if (!isMouseOnElement) {
@@ -150,7 +177,7 @@ function Navbar({ changeRequest }) {
           )}
           {user && !user.verificationStatus && (
             <div className={styles.resendLink} onClick={handleResend}>
-              {sending? "Sending..." : "Resend Verification Email"}
+              {sending ? "Sending..." : "Resend Verification Email"}
             </div>
           )}
           <div className={styles.menuItem} onClick={() => logout()}>
