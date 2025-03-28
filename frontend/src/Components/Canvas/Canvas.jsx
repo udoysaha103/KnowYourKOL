@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
 const Canvas = ({ data, topGap, ...rest }) => {
   const canvasRef = useRef(null);
-  const footerHeight = 40;
+  const footerHeight = 0;
   const colors = ["255, 0, 0", "0, 255, 0"];
   const circles = [];
   const mouse = {

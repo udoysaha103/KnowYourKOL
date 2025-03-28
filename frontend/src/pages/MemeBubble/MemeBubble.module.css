@@ -1,3 +1,5 @@
+.container {
+}
 .blur {
   position: absolute;
   backdrop-filter: blur(10px);
@@ -63,6 +65,28 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
+}
+.bubbleInfo {
+  width: 100%;
+}
+.bubbleInfoHeader,
+.bubbleInfoCell {
+  text-align: center;
+  padding: 10px 5px;
+  border-bottom: 1px solid #858594;
+}
+.link {
+  min-width: 200px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: 24px;
+}
+.fullScreen {
+  width: 100%;
+  height: 100vh;
 }
 @keyframes timer {
   from {
