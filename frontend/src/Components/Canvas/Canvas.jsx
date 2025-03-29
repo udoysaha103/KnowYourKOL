@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
+import {formatMcap} from "../../utils/priceFormat";
 const Canvas = ({ data, ...rest }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -128,14 +129,7 @@ const Canvas = ({ data, ...rest }) => {
         this.content < 0 ? "rgb(255, 0, 0)" : "rgb(0, 255, 0)"
       );
       this.top += this.currentRadius / 32;
-      const mcapText =
-        this.mcap >= Math.pow(10, 9)
-          ? Math.floor(this.mcap / Math.pow(10, 9)) + "B"
-          : this.mcap >= Math.pow(10, 6)
-          ? Math.floor(this.mcap / Math.pow(10, 6)) + "M"
-          : this.mcap >= Math.pow(10, 3)
-          ? Math.floor(this.mcap / Math.pow(10, 3)) + "K"
-          : this.mcap;
+      const mcapText = formatMcap(this.mcap);
       this.drawText(`Mcap: ${mcapText}`, 0.2, "Arial", "white");
       // content - end
 

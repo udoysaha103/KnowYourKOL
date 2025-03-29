@@ -4,6 +4,7 @@ import Footer from "../../Components/Footer/Footer";
 import styles from "./MemeBubble.module.css";
 import Canvas from "../../Components/Canvas/Canvas";
 import { formatAge } from "../../utils/timeConvert";
+import { formatMcap } from "../../utils/priceFormat";
 const digit = 1;
 const loadImage = (e) =>
   new Promise((r) => {
@@ -17,6 +18,7 @@ const loadImage = (e) =>
         priceChange24H: e.priceChange24H,
         priceChange1H: e.priceChange1H,
         priceChange30D: e.priceChange30D,
+        ...e,
       });
     i.src = e.photoURL;
   });
@@ -30,7 +32,6 @@ const MemeBubble = () => {
       setLoading(true);
       const response = await fetch(`${import.meta.env.VITE_API_URL}/bubble/getBubblesData`);
       const jsonData = await response.json();
-      console.log("jsonData", jsonData);
       const loadedImages = await Promise.all(jsonData.map((e) => loadImage(e)));
       setData(loadedImages);
       setLoading(false);
@@ -122,14 +123,14 @@ const MemeBubble = () => {
             <tr key={i}>
               <td className={styles.bubbleInfoCell}>{i + 1}</td>
               <td className={styles.bubbleInfoCell}>{e.name}</td>
-              <td className={styles.bubbleInfoCell}></td>
-              <td className={styles.bubbleInfoCell}>{e.mcap}</td>
-              <td className={styles.bubbleInfoCell}></td>
+              <td className={styles.bubbleInfoCell}>{e.currentPrice}</td>
+              <td className={styles.bubbleInfoCell}>{formatMcap(e.mcap)}</td>
+              <td className={styles.bubbleInfoCell}>{formatMcap(e.FDV)}</td>
               <td className={styles.bubbleInfoCell}>{formatAge(e.createdAt)}</td>
               <td className={styles.bubbleInfoCell}>
                 {e.priceChange1H.toFixed(digit)}%
               </td>
-              <td className={styles.bubbleInfoCell}></td>
+              <td className={styles.bubbleInfoCell}>{e.priceChange6H.toFixed(digit)}%</td>
               <td className={styles.bubbleInfoCell}>
                 {e.priceChange24H.toFixed(digit)}%
               </td>
@@ -140,19 +141,19 @@ const MemeBubble = () => {
                 {e.priceChange30D.toFixed(digit)}%
               </td>
               <td className={styles.bubbleInfoCell}>
-                <a href={`https://dexscreener.com/solana/${e.pairAddress}`}>
+                <a href={`https://dexscreener.com/solana/${e.pairAddress}`} target="_blank">
                   <img src="/dex.svg" />
                 </a>
-                <a href={`https://axiom.trade/t/${e.contractAddress}/@kykol`}>
+                <a href={`https://axiom.trade/t/${e.coinAddress}/@kykol`} target="_blank">
                   <img src="/axiom.svg" />
                 </a>
-                <a href={`https://neo.bullx.io/terminal?chainId=1399811149&address=${e.contractAddress}`}>
+                <a href={`https://neo.bullx.io/terminal?chainId=1399811149&address=${e.coinAddress}`} target="_blank">
                   <img src="/bullX.svg" />
                 </a>
-                <a href={`https://gmgn.ai/sol/token/${e.contractAddress}`}>
+                <a href={`https://gmgn.ai/sol/token/${e.coinAddress}`} target="_blank">
                   <img src="/gmgn.svg" />
                 </a>
-                <a href={`https://photon-sol.tinyastro.io/en/lp/${e.pairAddress}`}>
+                <a href={`https://photon-sol.tinyastro.io/en/lp/${e.pairAddress}`} target="_blank">
                   <img src="/photon.svg" />
                 </a>
               </td>

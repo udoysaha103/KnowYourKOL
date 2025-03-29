@@ -10,18 +10,18 @@ export const formatAge = (creationTimestamp) => {
 
     if (diffInMilliseconds < millisecondsInDay) {
         const hours = Math.floor(diffInMilliseconds / millisecondsInHour);
-        return `${hours} hour${hours !== 1 ? 's' : ''}`;
+        return `${hours}h`;
     } else if (diffInMilliseconds < millisecondsInMonth) {
         const days = Math.floor(diffInMilliseconds / millisecondsInDay);
-        return `${days} day${days !== 1 ? 's' : ''}`;
+        return `${days}d`;
     } else if (diffInMilliseconds < millisecondsInYear) {
         const months = Math.floor(diffInMilliseconds / millisecondsInMonth);
         const days = Math.floor((diffInMilliseconds % millisecondsInMonth) / millisecondsInDay);
-        return `${months} month${months !== 1 ? 's' : ''} ${days} day${days !== 1 ? 's' : ''}`;
+        return `${months}m ${days}d`;
     } else {
         const years = Math.floor(diffInMilliseconds / millisecondsInYear);
         const months = Math.floor((diffInMilliseconds % millisecondsInYear) / millisecondsInMonth);
-        return `${years} year${years !== 1 ? 's' : ''} ${months} month${months !== 1 ? 's' : ''}`;
+        return `${years}y ${months}m`;
     }
 }
 
