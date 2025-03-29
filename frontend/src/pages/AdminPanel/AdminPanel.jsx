@@ -12,6 +12,7 @@ function AdminPanel() {
   const [contentNo, setContentNo] = useState(0);
   const [unverifiedKOLs, setUnverifiedKOLs] = useState([]);
   const [verifying, setVerifying] = useState(false);
+  const [checking, setChecking] = useState(false);
   const [verifiedKOLs, setVerifiedKOLs] = useState([]);
   const [reviews, setReviews] = useState([]);
 
@@ -19,6 +20,7 @@ function AdminPanel() {
     if (!user) return;
 
     const fetchAdminStatus = async () => {
+      setChecking(true);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/verifyAdmin`,
         {
@@ -29,6 +31,7 @@ function AdminPanel() {
           },
         }
       );
+      setChecking(false);
       const data = await response.json();
       if (response.ok) {
         setIsAdmin(true);
@@ -523,7 +526,11 @@ function AdminPanel() {
           </div>
         </div>
       ) : (
-        <p>Verifying user...</p>
+        <p>
+          {checking
+            ? "Checking admin status..."
+            : "You are not authorized to access this page."}
+        </p>
       )}
     </>
   );
