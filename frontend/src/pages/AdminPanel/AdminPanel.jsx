@@ -13,6 +13,7 @@ function AdminPanel() {
   const [unverifiedKOLs, setUnverifiedKOLs] = useState([]);
   const [verifying, setVerifying] = useState(false);
   const [verifiedKOLs, setVerifiedKOLs] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     if (!user) return;
@@ -242,6 +243,25 @@ function AdminPanel() {
     }
   }
 
+  const getReviews = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/getAllReviews`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
+      setReviews(data);
+    } else {
+      console.error(data.message || data.error);
+    }
+  }
+
   return (
     <>
       {isAdmin ? (
@@ -271,6 +291,14 @@ function AdminPanel() {
             >
               Verified KOLs
             </button>
+            <button
+              className={`${styles.menuButton} ${
+                contentNo === 3 ? styles.selected : ""
+              }`}
+              onClick={() => {
+                setContentNo(3);
+                getReviews();
+              }}>Reviews</button>
           </div>
           <hr />
 
@@ -460,6 +488,23 @@ function AdminPanel() {
                         </button>
                       </div>
                     </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
+
+            {contentNo === 3 && reviews ? (
+              <div className={styles.reviews}>
+                {reviews.map((review) => (
+                  <div key={review._id} className={styles.reviewCard}>
+                    <h4>Review ID: {review._id}</h4>
+                    <p>Reviewer: {review.reviewer}</p>
+                    <p>Receiver: {review.receiver}</p>
+                    <p>Rating: {review.rating}</p>
+                    <p>Comment: {review.comment}</p>
+                    <p>Date: {new Date(review.date).toLocaleString()}</p>
                   </div>
                 ))}
               </div>

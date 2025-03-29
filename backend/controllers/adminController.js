@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel.js");
 const unverifiedKOLModel = require("../models/unverifiedKOLmodel.js");
 const verifiedKOLModel = require("../models/verifiedKOLmodel.js");
-const { verifyKOL } = require("./KOLregistration.js");
+const reviewModel = require("../models/reviewModel");
 
 const verifyAdmin = async (req, res) => {
     userModel.findById(req.user._id)
@@ -111,4 +111,42 @@ const deleteVerifiedKOL = async (req, res) => {
     }
 }
 
-module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL };
+const getReviews = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+    
+    // fetch all reviews and join the review giver and receiver data
+    // _id
+    // 67e413c0cfd916e12b9a1603
+    // reviewDescription
+    // ""
+    // reviewType
+    // true
+    // reviewGiver
+    // 67e413accfd916e12b9a15cd
+    // reviewReceiver
+    // 67e3d717e311df947fd249f9
+
+    // likedBy
+    // Array (empty)
+
+    // dislikedBy
+    // Array (empty)
+    // datePosted
+    // 2025-03-26T14:48:32.838+00:00
+
+    try{
+        const reviews = await reviewModel.find({}).populate("reviewGiver").populate("reviewReceiver");
+        if (!reviews) {
+            return res.status(404).json({ message: "Reviews not found" });
+        }
+        res.status(200).json(reviews);
+    }
+    catch (error) {
+        console.error("Error verifying KOL:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL, getReviews };
