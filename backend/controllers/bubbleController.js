@@ -71,7 +71,7 @@ const scrapMemeCoins = async () => {
     for (let i = 0; i < memeCoins.length; i++) {
       // check if the coin is already in the database
       const coin = await memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
-      // console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
+      console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
 
       // if the coin is not in the database, fetch the coin address and insert it into the database
       if (coin === null) {
@@ -118,12 +118,8 @@ const scrapMemeCoins = async () => {
     // console.log(memeCoins);
 
     // make the bubbleModel collection empty
-    bubbleModel
-      .deleteMany({})
-      .then(() => {
-        console.log("✅ bubbleModel collection is empty!");
-      })
-      .catch((err) => console.error(err));
+    await bubbleModel.deleteMany({})
+    console.log("✅ bubbleModel collection is empty!");
 
     // insert the top 100 meme coins based on Market Cap into the bubbleModel collection
     memeCoins.map((coin) => {
@@ -138,12 +134,8 @@ const scrapMemeCoins = async () => {
       )
         console.log(coin);
     });
-    bubbleModel
-      .insertMany(memeCoins.slice(0, 100))
-      .then(() => {
-        console.log("✅ memeCoins inserted into bubbleModel!");
-      })
-      .catch((err) => console.error(err));
+    await bubbleModel.insertMany(memeCoins.slice(0, 100))
+    console.log("✅ memeCoins inserted into bubbleModel!");
   } catch (err) {
     console.error("❌ Error in scrapMemeCoins: ", err);
   }
@@ -152,14 +144,15 @@ const scrapMemeCoins = async () => {
 
 // get the top 100 meme coins sorted by market cap
 const getMemeCoins = async (req, res) => {
-  bubbleModel
-    .find()
-    .sort({ mCap: -1 })
-    .limit(100)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => console.log(err));
+  try{
+    const data = await bubbleModel.find().sort({ mCap: -1 }).limit(100)
+    console.log(data);
+    res.status(200).json(data);
+  }
+  catch(err) {
+    console.error("❌ Error in getMemeCoins: ", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 module.exports = { scrapMemeCoins, getMemeCoins };
