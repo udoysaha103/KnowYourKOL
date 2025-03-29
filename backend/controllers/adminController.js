@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel.js");
 const unverifiedKOLModel = require("../models/unverifiedKOLmodel.js");
 const verifiedKOLModel = require("../models/verifiedKOLmodel.js");
+const reviewModel = require("../models/reviewModel.js");
 const { verifyKOL } = require("./KOLregistration.js");
 
 const verifyAdmin = async (req, res) => {
@@ -153,15 +154,27 @@ const getReviews = async (req, res) => {
                 }
             },
             {
+                $lookup: {
+                    from: "verifiedkols",
+                    localField: "reviewReceiver",
+                    foreignField: "_id",
+                    as: "reviewReceiverDetails"
+                }
+            },
+            {
                 $unwind: "$reviewGiverDetails"
+            },
+            {
+                $unwind: "$reviewReceiverDetails"
             },
             {
                 $project: {
                     reviewId: "$_id",
-                    reviewReceiver: "$reviewReceiver.twitterName",
+                    reviewReceiver: "$reviewReceiverDetails.twitterName",
                     username: "$reviewGiverDetails.username",
                     review: "$reviewType",
                     text: "$reviewDescription",
+                    type: "$reviewType",
                     date: {
                         $dateToString: { format: "%b %d, %Y", date: "$datePosted" }
                     },
@@ -177,5 +190,36 @@ const getReviews = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 }
+const deleteReview = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
 
-module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL, rejectUnverifiedKOL };
+    const { _id } = req.body;
+
+    // delete the unverified KOL
+    try{
+        const review = await reviewModel.findOne({_id});
+        let reviewWeight = (review.likedBy.length - review.dislikedBy.length + 1) * ((review.likedBy.length + 1) / (review.likedBy.length + review.dislikedBy.length + 1));
+        const reciever = await verifiedKOLModel.findById(review.reviewReceiver);
+        if (!review.reviewType) {
+            reviewWeight = -reviewWeight;
+            reciever.farmerCount -= 1;
+        }else{
+            reciever.cookerCount -= 1;
+        }
+
+        if(review.reviewDescription.length > 0){
+            reciever.reviewCount -= 1;
+        }
+        reciever.sentimentScore -= reviewWeight;
+        await reciever.save();
+        await reviewModel.findByIdAndDelete(_id);
+        res.status(200).json({ message: "Review deleted successfully" });
+    }
+    catch (error) {
+        console.error("Error deleting review:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL, rejectUnverifiedKOL, getReviews, deleteReview };

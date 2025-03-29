@@ -231,10 +231,27 @@ function AdminPanel() {
     const data = await response.json();
     if (response.ok) {
       setReviews(data);
-      console.log(data);
     } else {
       console.error(data.message || data.error);
     }
+  }
+
+  const deleteReview = async (review_id) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/deleteReview`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ _id: review_id }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setReviews(reviews.filter((review) => review._id !== review_id));
+    } else {
+      console.error(data.message || data.error);
+    }
+  }
 
   return (
     <>
@@ -487,8 +504,16 @@ function AdminPanel() {
               <div className={styles.reviews}>
                 {reviews.map((review) => (
                   <div key={review._id} className={styles.reviewCard}>
-                    <p>Given by: {review.username}</p>
+                    <p className={styles.buttonContainer} style={{justifyContent: "space-between", marginTop: 0}}>Given by: {review.username}
+                      <button onClick={() => deleteReview(review._id)}
+                      >Delete</button>
+                    </p>
                     <p>Received by: {review.reviewReceiver}</p>
+                    <p>Text: {review.text}</p>
+                    <p>Like Count: {review.likeCount}</p>
+                    <p>Dislike Count: {review.dislikeCount}</p>
+                    <p>Type: {review.type ? "Cooker" : "Farmer"}</p>
+                    <p>Date: {review.date}</p>
                   </div>
                 ))}
               </div>

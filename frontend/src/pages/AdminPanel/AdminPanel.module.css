@@ -30,7 +30,7 @@ hr{
     padding: 10px;
 }
 
-.kolCard, .reviewCard{
+.kolCard{
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px 20px 0px 20px;
@@ -38,6 +38,16 @@ hr{
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 30px;
+}
+.reviewCard{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px 20px 0px 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
 }
 
 .unverifiedKOLsLeft{
