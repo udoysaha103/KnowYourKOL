@@ -91,7 +91,6 @@
   line-height: 52px;
   grid-area: header;
   margin-bottom: 50px;
-  margin-top: 70px;
 }
 .header2 {
   composes: header from "./AddKOL.common.css";

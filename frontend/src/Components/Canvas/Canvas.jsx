@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
-const Canvas = ({ data, topGap, ...rest }) => {
+const Canvas = ({ data, ...rest }) => {
   const canvasRef = useRef(null);
-  const footerHeight = 0;
+  const containerRef = useRef(null);
   const colors = ["255, 0, 0", "0, 255, 0"];
   const circles = [];
   const mouse = {
@@ -106,15 +106,14 @@ const Canvas = ({ data, topGap, ...rest }) => {
     }
     update() {
       if (Math.abs(this.dx) < 0.05 && Math.abs(this.dy) < 0.05) {
-        this.dx = (Math.random() - 0.5)*0.2;
-        this.dy = (Math.random() - 0.5)*0.2;
+        this.dx = (Math.random() - 0.5) * 0.2;
+        this.dy = (Math.random() - 0.5) * 0.2;
       }
       this.x += this.dx; // velocity x
       this.y += this.dy; // velocity y
       this.top = this.y - this.currentRadius; // top of the circle's inner elements (initially it's top of the circle)
       this.dx *= 0.98;
       this.dy *= 0.98;
-
 
       this.showBorder = false;
       // content - start
@@ -232,12 +231,12 @@ const Canvas = ({ data, topGap, ...rest }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - topGap - footerHeight;
+    canvas.width = containerRef.current.clientWidth;
+    canvas.height = containerRef.current.clientHeight;
     // Event Listeners
     window.addEventListener("mousemove", (event) => {
       mouse.x = event.clientX;
-      mouse.y = event.clientY - topGap;
+      mouse.y = event.clientY;
       mouse.dx = event.movementX;
       mouse.dy = event.movementY;
     });
@@ -246,8 +245,8 @@ const Canvas = ({ data, topGap, ...rest }) => {
     window.addEventListener("mouseup", () => (mouse.onPress = false));
 
     window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight - topGap - footerHeight;
+      canvas.width = containerRef.current.clientWidth;
+      canvas.height = containerRef.current.clientHeight;
     });
     if (!data) return;
     const contents = data.map((e) => Math.abs(e.content));
@@ -298,7 +297,11 @@ const Canvas = ({ data, topGap, ...rest }) => {
     };
   }, [data]);
 
-  return <canvas className={styles.canvas} ref={canvasRef} {...rest} />;
+  return (
+    <div ref={containerRef}>
+      <canvas className={styles.canvas} ref={canvasRef} {...rest} />
+    </div>
+  );
 };
 
 export default Canvas;

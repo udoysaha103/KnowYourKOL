@@ -67,7 +67,6 @@ function Navbar({ changeRequest }) {
         setSearching(false);
         if (response.ok) {
           setSearch(data);
-          console.log(data)
         } else {
           console.log("Error fetching search results");
         }

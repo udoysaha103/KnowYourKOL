@@ -3,29 +3,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import styles from "./MemeBubble.module.css";
 import Canvas from "../../Components/Canvas/Canvas";
-const topGap = 66;
 const digit = 1;
-const canvasStyle = {
-  position: "absolute",
-  top: topGap,
-  left: 0,
-  zIndex: 1,
-};
-const footerStyle = {
-  width: "100%",
-};
-const timerStyle = {
-  position: "absolute",
-  top: topGap - 4,
-  width: "100%",
-  height: "4px",
-  backgroundColor: "#c2c2c2",
-  borderRadius: "2px",
-};
-
-const selectorStyle = {
-  top: topGap,
-};
 const loadImage = (e) =>
   new Promise((r) => {
     let i = new Image();
@@ -72,12 +50,11 @@ const MemeBubble = () => {
           No data available now, refresh this page after some time.
         </div>
       )}
-      <div style={timerStyle} />
+      <div/>
       <div
-        style={{ position: "absolute", top: topGap - 4 }}
         className={styles.timerCompleted}
       />
-      <div className={styles.selectorContainer} style={selectorStyle}>
+      <div className={styles.selectorContainer}>
         <div
           className={`${styles.selector} ${
             duration === "1H" && styles.selected
@@ -112,8 +89,6 @@ const MemeBubble = () => {
         </div>
       </div>
       <Canvas
-        style={canvasStyle}
-        topGap={topGap}
         data={data.map((e) => {
           return {
             image: e.image,
@@ -123,7 +98,6 @@ const MemeBubble = () => {
           };
         })}
       />
-      <div className={styles.fullScreen} />
       <table className={styles.bubbleInfo}>
         <thead>
           <tr>
@@ -186,7 +160,7 @@ const MemeBubble = () => {
           ))}
         </tbody>
       </table>
-      <Footer style={footerStyle} />
+      <Footer/>
     </div>
   );
 };
