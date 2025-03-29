@@ -16,6 +16,7 @@ import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
 import MemeBubble from "./pages/MemeBubble/MemeBubble";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import EmailInput from "./pages/EmailInput/EmailInput";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
@@ -50,6 +51,7 @@ const App = () => {
           path="/forgotpassword/:token"
           element={<ForgotPassword />}
         ></Route>
+        <Route path="/edit" element={<AdminPanel />}></Route>
       </Routes>
     </>
   );

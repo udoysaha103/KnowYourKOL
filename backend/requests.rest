@@ -143,3 +143,8 @@ Content-Type: application/json
     "password": "12345678",
     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXNhbGhhd2xhZGVyMDRAZ21haWwuY29tIiwiaWF0IjoxNzQzMDg5Nzk4LCJleHAiOjE3NDMwOTAwOTh9.P7lYc3VrSMZ_HAfLyI7mYnK3aL2WCwn1e_Cbw0THBnI"
 }
+
+###
+GET http://localhost:5000/admin/verifyAdmin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UzMWUwM2I5NDJkZTFmNDQ5NGFmYzMiLCJpYXQiOjE3NDMyNDUwMjYsImV4cCI6MTc0MzY3NzAyNn0.IZ-lM5ffYgaZHVnsQEEDyzs9IE8Xq92vO9WWZ1U2z2s

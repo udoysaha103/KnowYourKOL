@@ -1,5 +1,6 @@
 const unverifiedKOLmodel = require("../models/unverifiedKOLmodel.js");
 const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
+const userModel = require("../models/userModel.js");
 const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
@@ -18,6 +19,12 @@ const submitVerificationRequest = async (req, res) => {
 };
 
 const verifyKOL = async (req, res) => {
+    const user = await userModel.findById(req.user._id);
+    // check if the user is an admin
+    if (!user || !user.isAdmin) {
+        return res.status(403).json({ message: "You are not authorized to verify KOLs" });
+    }
+    
     // get the id of the KOL to be verified
     const { KOL_id } = req.body;
 
