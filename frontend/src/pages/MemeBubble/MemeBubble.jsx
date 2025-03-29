@@ -67,6 +67,14 @@ const MemeBubble = () => {
         </div>
         <div
           className={`${styles.selector} ${
+            duration === "6H" && styles.selected
+          }`}
+          onClick={() => setDuration("6H")}
+        >
+          6H
+        </div>
+        <div
+          className={`${styles.selector} ${
             duration === "24H" && styles.selected
           }`}
           onClick={() => setDuration("24H")}
