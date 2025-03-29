@@ -70,4 +70,46 @@ const editUnverifiedKOL = async (req, res) => {
     }
 }
 
-module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL };
+const editVerifiedKOL = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+    
+    const { _id, twitterName, IRLname, country, walletAddress, showAddress, photoPath, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, blueTick } = req.body;
+
+    // edit the verified KOL
+    try{
+        const verifiedKOL = await verifiedKOLModel.findByIdAndUpdate(_id, { twitterName, IRLname, country, walletAddress, showAddress, photoPath, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, verifiedByAdmin: blueTick }, { new: true });
+        if (!verifiedKOL) {
+            return res.status(404).json({ message: "Verified KOL not found" });
+        }
+        res.status(200).json(verifiedKOL);
+    }
+    catch (error) {
+        console.error("Error verifying KOL:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+const deleteVerifiedKOL = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+    
+    const { _id } = req.body;
+
+    // delete the verified KOL
+    try{
+        const verifiedKOL = await verifiedKOLModel.findByIdAndDelete(_id);
+        if (!verifiedKOL) {
+            return res.status(404).json({ message: "Verified KOL not found" });
+        }
+        res.status(200).json(verifiedKOL);
+    }
+    catch (error) {
+        console.error("Error verifying KOL:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL };
