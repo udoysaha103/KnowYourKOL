@@ -2,85 +2,72 @@ const bubbleModel = require("../models/bubbleModel");
 const memeCoinModel = require("../models/memeCoinModel");
 
 // scrapMemeCoins function
+const setTimoutPromise = (ms => new Promise(resolve => setTimeout(resolve, ms)));
 const scrapMemeCoins = async () => {
   const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=solana-meme-coins&order=market_cap_desc&per_page=200&page=1&sparkline=false&price_change_percentage=1h,24h,7d,30d`;
+  try {
+    const res = await fetch(URL);
+    const data = Array.from(await res.json());
+    console.log(`✅ Fetched ${data.length} meme coins from CoinGecko!`);
+    if (data.length === 0) {
+      throw new Error("No data found!");
+    }
+    let memeCoins = data.map((coin) => {
+      return {
+        bubbleName: coin.name,
+        photoURL: coin.image,
+        currentPrice: coin.current_price,
+        mCap: coin.market_cap,
+        FDV: coin.fully_diluted_valuation,
+        // createdAt: null,
+        // priceChange5M: null,
+        priceChange1H: coin.price_change_percentage_1h_in_currency,
+        // priceChnage6H: null,
+        priceChange24H: coin.price_change_percentage_24h_in_currency,
+        priceChange7D: coin.price_change_percentage_7d_in_currency,
+        priceChange30D: coin.price_change_percentage_30d_in_currency,
+        // coinAddress: null,
+        coinID: coin.id
+      };
+    });
+    console.log(`✅ ${memeCoins.length} meme coins fetched!`);
+    // 1. delete all the coins that are not valid.
+    memeCoins = memeCoins.filter(coin => Object.keys(coin).every(key => coin[key] !== null && coin[key] !== undefined && coin[key] !== ""));
+    // 2. if any duplicate, delete the first one.
+    console.log(`✅ ${memeCoins.length} meme coins after filter`);
+    memeCoins = memeCoins.filter((coin, index, self) =>
+      index === self.findIndex((t) =>
+        t.bubbleName === coin.bubbleName
+      ));
 
-  fetch(URL)
-    .then((res) => res.json())
-    .then((data) => {
-      let memeCoins = data.map((coin) => {
-        return {
-          bubbleName: coin.name,
-          photoURL: coin.image,
-          currentPrice: coin.current_price,
-          mCap: coin.market_cap,
-          FDV: coin.fully_diluted_valuation,
-          createdAt: null,
-          priceChange5M: null,
-          priceChange1H: coin.price_change_percentage_1h_in_currency,
-          priceChnage6H: null,
-          priceChange24H: coin.price_change_percentage_24h_in_currency,
-          priceChange7D: coin.price_change_percentage_7d_in_currency,
-          priceChange30D: coin.price_change_percentage_30d_in_currency,
-          coinAddress: null,
-          coinID: coin.id
-        };
-      });
-
-      // 1. delete all the coins that do not have a photoURL
-      memeCoins = memeCoins.filter((coin) => coin.photoURL !== null || coin.photoURL !== "");
-      // 2. if any duplicate coins, keep the first one
-      memeCoins = memeCoins.filter(
-        (coin, index, self) =>
-          index === self.findIndex((t) => t.bubbleName === coin.bubbleName)
-      );
-      //   there should be a vali name
-      memeCoins = memeCoins.filter((coin) => coin.bubbleName !== null);
-      // there should be a valid market cap
-      memeCoins = memeCoins.filter((coin) => coin.mCap !== null);
-      // there should be a valid price change 1H
-      memeCoins = memeCoins.filter((coin) => coin.priceChange1H !== null);
-      // there should be a valid price change 24H
-      memeCoins = memeCoins.filter((coin) => coin.priceChange24H !== null);
-      // there should be a valid price change 7D
-      memeCoins = memeCoins.filter((coin) => coin.priceChange7D !== null);
-      // there should be a valid price change 30D
-      memeCoins = memeCoins.filter((coin) => coin.priceChange30D !== null);
-
-
-      // for the first time only
-      for (let i = 0; i < memeCoins.length; i++) {
-        // check if the coin is already in the database
-        const coin = memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
-        // if the coin is not in the database, insert it
-        if (!coin) {
-          const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
-          fetch(addressFetchingURL)
-            .then((res) => res.json())
-            .then((data) => {
-              memeCoins[i].coinAddress = data?.platforms?.solana;
-              const newCoin = new memeCoinModel(memeCoins[i]);
-              newCoin.save()
-                .then(() => {
-                  console.log(`✅ Coin ${coin.bubbleName} saved to database!`);
-                })
-                .catch((err) => console.log(err));
-            })
-            .catch((err) => console.log(err));
+    // for the first time only
+    for (let i = 0; i < memeCoins.length; i++) {
+      // check if the coin is already in the database
+      console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
+      const coin = await memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
+      // if the coin is not in the database, insert it
+      if (coin === null) {
+        const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
+        const res = await fetch(addressFetchingURL)
+        const data = await res.json();
+        memeCoins[i].coinAddress = data?.contract_address;
+        try{
+          const newCoin = await memeCoinModel.insertOne(memeCoins[i]);
+        }catch(err) {
+          console.log("❌ Error inserting coin: ", err);
+          console.log(data);
         }
-        // wait for 5 seconds before the next request
-        setTimeout(() => {
-          console.log("Waiting for 5 seconds...");
-        }
-        , 5000);
+      // wait for 5 seconds before the next request
+        await setTimoutPromise(10000);
       }
+    }
 
 
       // // for each coin
       // for (let i = 0; i < memeCoins.length; i++) {
       //   // check if the coin is already in the database
       //   const coin = memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
-        
+
       //   // if the coin is not in the database, fetch the coin address and insert it into the database
       //   if (!coin) {
       //     const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
@@ -164,10 +151,10 @@ const scrapMemeCoins = async () => {
       //     console.log("✅ memeCoins inserted into bubbleModel!");
       //   })
       //   .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
-};
-
+  } catch (err) {
+    console.log("❌ Error in scrapMemeCoins: ", err);
+  }
+}
 // get the top 100 meme coins sorted by market cap
 const getMemeCoins = async (req, res) => {
   bubbleModel
@@ -180,6 +167,5 @@ const getMemeCoins = async (req, res) => {
     .catch((err) => console.log(err));
 };
 
-scrapMemeCoins();
 
 module.exports = { scrapMemeCoins, getMemeCoins };

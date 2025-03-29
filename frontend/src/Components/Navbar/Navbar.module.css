@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  position: fixed;
+  position: sticky;
   left: 0;
   top: 0;
   justify-content: space-between;
@@ -177,7 +177,7 @@
 
 @media (max-width: 1012px){
   .searchResult{
-    top: 110px;
+    top: 90px;
   }
   .menu{
     top: 100px;

@@ -60,14 +60,14 @@ POST http://localhost:5000/KOLregister/verifyKOL
 Content-Type: application/json
 
 {
-    "KOL_id" : "67e49e1233a1fc5b31aec7fc"
+    "KOL_id" : "67e60f6a41eab46b61383ca1"
 }
 
 ###
 GET http://localhost:5000/getKOL/67e384e6ad026cec46d6cf68
 
 ###
-GET http://localhost:5000/getKOL/search/p
+GET http://localhost:5000/getKOL/search/rock
 
 ###
 GET http://localhost:5000/review/getReviews/67d358b644a502c24a2bee27
