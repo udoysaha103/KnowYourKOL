@@ -137,11 +137,37 @@ const getReviews = async (req, res) => {
     // 2025-03-26T14:48:32.838+00:00
 
     try{
-        const reviews = await reviewModel.find({}).populate("reviewGiver").populate("reviewReceiver");
-        if (!reviews) {
-            return res.status(404).json({ message: "Reviews not found" });
-        }
-        res.status(200).json(reviews);
+        const reviewsWithUsers = await reviewModel.aggregate([
+            {
+                $match: {  }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "reviewGiver",
+                    foreignField: "_id",
+                    as: "reviewGiverDetails"
+                }
+            },
+            {
+                $unwind: "$reviewGiverDetails"
+            },
+            {
+                $project: {
+                    reviewId: "$_id",
+                    reviewReceiver: "$reviewReceiver.twitterName",
+                    username: "$reviewGiverDetails.username",
+                    review: "$reviewType",
+                    text: "$reviewDescription",
+                    date: {
+                        $dateToString: { format: "%b %d, %Y", date: "$datePosted" }
+                    },
+                    likeCount: { $size: "$likedBy" },
+                    disslikeCount: { $size: "$dislikedBy" }
+                }
+            }
+        ]);
+        res.status(200).json(reviewsWithUsers);
     }
     catch (error) {
         console.error("Error verifying KOL:", error);

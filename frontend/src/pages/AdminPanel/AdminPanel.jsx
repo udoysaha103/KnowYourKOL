@@ -257,6 +257,7 @@ function AdminPanel() {
     const data = await response.json();
     if (response.ok) {
       setReviews(data);
+      console.log(data);
     } else {
       console.error(data.message || data.error);
     }
@@ -499,12 +500,8 @@ function AdminPanel() {
               <div className={styles.reviews}>
                 {reviews.map((review) => (
                   <div key={review._id} className={styles.reviewCard}>
-                    <h4>Review ID: {review._id}</h4>
-                    <p>Reviewer: {review.reviewer}</p>
-                    <p>Receiver: {review.receiver}</p>
-                    <p>Rating: {review.rating}</p>
-                    <p>Comment: {review.comment}</p>
-                    <p>Date: {new Date(review.date).toLocaleString()}</p>
+                    <p>Given by: {review.username}</p>
+                    <p>Received by: {review.reviewReceiver}</p>
                   </div>
                 ))}
               </div>
