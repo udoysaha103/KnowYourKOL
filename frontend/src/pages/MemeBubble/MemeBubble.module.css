@@ -1,5 +1,6 @@
 .container {
   display: block;
+  width: 99.9%;
   height: 100vh;
   /* overflow: hidden; */
 }
@@ -63,20 +64,48 @@
 .bubbleInfo {
   width: 100%;
 }
-.bubbleInfoHeader,
-.bubbleInfoCell {
-  text-align: center;
-  padding: 10px 5px;
-  border-bottom: 1px solid #858594;
+
+.bubbleInfoHeader{
+  background-color: #363f43;
+  font-size: 14px;
+  padding: 10px 2px;
 }
+
+.bubbleInfoCell{
+  font-size: 14px;
+  padding: 6px 2px;
+}
+
+.bubbleInfoHeader, .bubbleInfoCell{
+  text-align: center;
+}
+
+.specialCell{
+  text-align: left;
+  min-width: 5vw;
+}
+
+.red{
+  background-color: #dc0101;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.green{
+  background-color: #06d43d;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
 .link {
   min-width: 200px;
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-family: "Roboto";
-  font-weight: 500;
-  line-height: 24px;
+}
+
+.linkContent a{
+  text-align: center;
+  vertical-align: middle;
+}
+.linkContent a img{
+  margin: 0 3%;
+  height: 25px;
 }
 @keyframes timer {
   from {

@@ -105,11 +105,11 @@ const MemeBubble = () => {
         <thead>
           <tr>
             <th className={styles.bubbleInfoHeader}>Rank #</th>
-            <th className={styles.bubbleInfoHeader}>Name</th>
-            <th className={styles.bubbleInfoHeader}>Price</th>
-            <th className={styles.bubbleInfoHeader}>Mcap</th>
-            <th className={styles.bubbleInfoHeader}>FDV</th>
-            <th className={styles.bubbleInfoHeader}>Age</th>
+            <th className={`${styles.bubbleInfoHeader} ${styles.specialCell}`}>Name</th>
+            <th className={`${styles.bubbleInfoHeader} ${styles.specialCell}`}>Price</th>
+            <th className={`${styles.bubbleInfoHeader} ${styles.specialCell}`}>Mcap</th>
+            <th className={`${styles.bubbleInfoHeader} ${styles.specialCell}`}>FDV</th>
+            <th className={`${styles.bubbleInfoHeader} ${styles.specialCell}`}>Age</th>
             <th className={styles.bubbleInfoHeader}>1H</th>
             <th className={styles.bubbleInfoHeader}>6H</th>
             <th className={styles.bubbleInfoHeader}>1D</th>
@@ -122,25 +122,25 @@ const MemeBubble = () => {
           {data.map((e, i) => (
             <tr key={i}>
               <td className={styles.bubbleInfoCell}>{i + 1}</td>
-              <td className={styles.bubbleInfoCell}>{e.name}</td>
-              <td className={styles.bubbleInfoCell}>{e.currentPrice}</td>
-              <td className={styles.bubbleInfoCell}>{formatMcap(e.mcap)}</td>
-              <td className={styles.bubbleInfoCell}>{formatMcap(e.FDV)}</td>
-              <td className={styles.bubbleInfoCell}>{formatAge(e.createdAt)}</td>
-              <td className={styles.bubbleInfoCell}>
+              <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>{e.name.length > 10? (e.name.slice(0, 10) + "...") : e.name}</td>
+              <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>${e.currentPrice}</td>
+              <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>{formatMcap(e.mcap)}</td>
+              <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>{formatMcap(e.FDV)}</td>
+              <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>{formatAge(e.createdAt)}</td>
+              <td className={`${styles.bubbleInfoCell} ${e.priceChange1H < 0 ? styles.red : styles.green}`}>
                 {e.priceChange1H.toFixed(digit)}%
               </td>
-              <td className={styles.bubbleInfoCell}>{e.priceChange6H.toFixed(digit)}%</td>
-              <td className={styles.bubbleInfoCell}>
+              <td className={`${styles.bubbleInfoCell} ${e.priceChange6H < 0 ? styles.red : styles.green}`}>{e.priceChange6H.toFixed(digit)}%</td>
+              <td className={`${styles.bubbleInfoCell} ${e.priceChange24H < 0 ? styles.red : styles.green}`}>
                 {e.priceChange24H.toFixed(digit)}%
               </td>
-              <td className={styles.bubbleInfoCell}>
+              <td className={`${styles.bubbleInfoCell} ${e.priceChange7D < 0 ? styles.red : styles.green}`}>
                 {e.priceChange7D.toFixed(digit)}%
               </td>
-              <td className={styles.bubbleInfoCell}>
+              <td className={`${styles.bubbleInfoCell} ${e.priceChange30D < 0 ? styles.red : styles.green}`}>
                 {e.priceChange30D.toFixed(digit)}%
               </td>
-              <td className={styles.bubbleInfoCell}>
+              <td className={`${styles.bubbleInfoCell} ${styles.linkContent}`}>
                 <a href={`https://dexscreener.com/solana/${e.pairAddress}`} target="_blank">
                   <img src="/dex.svg" />
                 </a>
