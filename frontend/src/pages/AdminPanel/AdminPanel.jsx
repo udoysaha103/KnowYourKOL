@@ -156,6 +156,92 @@ function AdminPanel() {
     }
   };
 
+  const handleSubmitVerifiedKOLedit = async (kol_id) => {
+    const _id = kol_id;
+    const twitterName = document.getElementById(
+      kol_id + "twitterName"
+    ).innerHTML;
+    const IRLname = document.getElementById(kol_id + "IRLname").innerHTML;
+    const country = document.getElementById(kol_id + "country").innerHTML;
+    const walletAddress = document.getElementById(
+      kol_id + "walletAddress"
+    ).innerHTML;
+    const showAddress = document.getElementById(kol_id + "showAddress").children[0].checked;
+    const photoPath = document.getElementById(kol_id + "photoPath").src;
+    const twitterLink = document.getElementById(
+      kol_id + "twitterLink"
+    ).innerHTML;
+    const discordLink = document.getElementById(
+      kol_id + "discordLink"
+    ).innerHTML;
+    const telegramLink = document.getElementById(
+      kol_id + "telegramLink"
+    ).innerHTML;
+    const youtubeLink = document.getElementById(
+      kol_id + "youtubeLink"
+    ).innerHTML;
+    const streamLink = document.getElementById(kol_id + "streamLink").innerHTML;
+    const blueTick = document.getElementById(kol_id + "blueTick").children[0].checked;
+
+    const editedKOL = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/editVerifiedKOL`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          _id,
+          twitterName,
+          IRLname,
+          country,
+          walletAddress,
+          showAddress,
+          photoPath,
+          twitterLink,
+          discordLink,
+          telegramLink,
+          youtubeLink,
+          streamLink,
+          blueTick
+        }),
+      }
+    );
+
+    const data = await editedKOL.json();
+    if (editedKOL.ok) {
+      getVerifiedKOLs();
+    }
+    else {
+      console.error(data.message || data.error);
+    }
+  }
+
+  const deleteVerifiedKOL = async (kol_id) => {
+    const _id = kol_id;
+    const deletedKOL = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/deleteVerifiedKOL`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          _id,
+        }),
+      }
+    );
+
+    const data = await deletedKOL.json();
+    if (deletedKOL.ok) {
+      getVerifiedKOLs();
+    } else {
+      console.error(data.message || data.error);
+    }
+  }
+
   return (
     <>
       {isAdmin ? (
@@ -220,7 +306,7 @@ function AdminPanel() {
                       </p>
                       <p>
                         Show Address:{" "}
-                        <span contentEditable id={kol._id + "showAddress"}>
+                        <span id={kol._id + "showAddress"}>
                           <input
                             type="checkbox"
                             id={kol._id + "showAddress"}
@@ -322,16 +408,34 @@ function AdminPanel() {
                 {verifiedKOLs.map((kol) => (
                   <div key={kol._id} className={styles.kolCard}>
                     <div className={styles.verifiedKOLsLeft}>
-                      <h4>Twitter Name: {kol.twitterName}</h4>
-                      <p>IRL Name: {kol.IRLname}</p>
-                      <p>Country: {kol.country}</p>
-                      <p>Wallet Address: {kol.walletAddress}</p>
-                      <p>Show Address: {kol.showAddress}</p>
-                      <p>Twitter Link: {kol.twitterLink}</p>
-                      <p>Discord Link: {kol.discordLink}</p>
-                      <p>Telegram Link: {kol.telegramLink}</p>
-                      <p>YouTube Link: {kol.youtubeLink}</p>
-                      <p>Stream Link: {kol.streamLink}</p>
+                      <h4>Twitter Name: <span contentEditable id={kol._id + "twitterName"}>{kol.twitterName}</span></h4>
+                      <p>IRL Name: <span contentEditable id={kol._id + "IRLname"}>{kol.IRLname}</span></p>
+                      <p>Country: <span contentEditable id={kol._id + "country"}>{kol.country}</span></p>
+                      <p>Wallet Address: <span contentEditable id={kol._id + "walletAddress"}>{kol.walletAddress}</span></p>
+                      <p>Show Address: 
+                        <span id={kol._id + "showAddress"}>
+                          <input
+                            type="checkbox"
+                            id={kol._id + "showAddress"}
+                            defaultChecked={kol.showAddress}
+                          />
+                        </span>
+                      </p>
+                      <p>Twitter Link: <span contentEditable id={kol._id + "twitterLink"}>{kol.twitterLink}</span></p>
+                      <p>Discord Link: <span contentEditable id={kol._id + "discordLink"}>{kol.discordLink}</span></p>
+                      <p>Telegram Link: <span contentEditable id={kol._id + "telegramLink"}>{kol.telegramLink}</span></p>
+                      <p>YouTube Link: <span contentEditable id={kol._id + "youtubeLink"}>{kol.youtubeLink}</span></p>
+                      <p>Stream Link: <span contentEditable id={kol._id + "streamLink"}>{kol.streamLink}</span></p>
+                      <p>Blue Tick:
+                        <span id={kol._id + "blueTick"}>
+                          <input
+                            type="checkbox"
+                            id={kol._id + "blueTick"}
+                            defaultChecked={kol.blueTick}
+                          />
+                        </span>
+                      </p>
+                      <p>Submitted at: {kol.timestamp}</p>
                     </div>
                     <div className={styles.verifiedKOLsRight}>
                       <div className={styles.imageContainer}>
@@ -339,19 +443,18 @@ function AdminPanel() {
                           src={kol.photoPath}
                           alt="KOL"
                           className={styles.kolImage}
-                          id={kol._id + "photoPath"}
                         />
                       </div>
                       <div className={styles.buttonContainer}>
                         <button
-                          className={styles.blueTickButton}
-                          onClick={() => {}}
+                          className={styles.editButton}
+                          onClick={() => {handleSubmitVerifiedKOLedit(kol._id)}}
                         >
-                          {kol.verifiedByAdmin ? "Remove Tick" : "Add Tick"}
+                          Submit Edit
                         </button>
                         <button
                           className={styles.deleteButton}
-                          onClick={() => {}}
+                          onClick={() => {deleteVerifiedKOL(kol._id)}}
                         >
                           Delete
                         </button>
