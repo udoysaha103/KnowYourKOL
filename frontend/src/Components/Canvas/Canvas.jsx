@@ -231,8 +231,14 @@ const Canvas = ({ data, ...rest }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    canvas.width = containerRef.current.clientWidth;
-    canvas.height = containerRef.current.clientHeight;
+    const fillContainer = () => {
+      const parentHeight = containerRef.current.clientHeight;
+      const parentWidth = containerRef.current.clientWidth;
+      canvas.height = parentHeight;
+      canvas.width = parentWidth;
+    };
+    fillContainer();
+
     // Event Listeners
     window.addEventListener("mousemove", (event) => {
       mouse.x = event.clientX;
@@ -245,8 +251,7 @@ const Canvas = ({ data, ...rest }) => {
     window.addEventListener("mouseup", () => (mouse.onPress = false));
 
     window.addEventListener("resize", () => {
-      canvas.width = containerRef.current.clientWidth;
-      canvas.height = containerRef.current.clientHeight;
+      fillContainer();
     });
     if (!data) return;
     const contents = data.map((e) => Math.abs(e.content));
@@ -298,7 +303,7 @@ const Canvas = ({ data, ...rest }) => {
   }, [data]);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} style={{height: "86%", width: "100%"}}>
       <canvas className={styles.canvas} ref={canvasRef} {...rest} />
     </div>
   );

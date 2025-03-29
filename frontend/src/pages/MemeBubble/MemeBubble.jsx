@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
 import styles from "./MemeBubble.module.css";
 import Canvas from "../../Components/Canvas/Canvas";
+import { formatAge } from "../../utils/timeConvert";
 const digit = 1;
 const loadImage = (e) =>
   new Promise((r) => {
@@ -23,13 +24,13 @@ const MemeBubble = () => {
   const [data, setData] = useState([]);
   const [duration, setDuration] = useState("24H");
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/bubble/getBubblesData`
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/bubble/getBubblesData`);
       const jsonData = await response.json();
+      console.log("jsonData", jsonData);
       const loadedImages = await Promise.all(jsonData.map((e) => loadImage(e)));
       setData(loadedImages);
       setLoading(false);
@@ -41,7 +42,7 @@ const MemeBubble = () => {
     return () => clearInterval(fetchDataInterval);
   }, []);
   document.title = "Meme Bubbles";
-  return (
+  return (<>
     <div className={styles.container}>
       <Navbar />
       {loading && <div className={styles.msg}>Loading...</div>}
@@ -98,6 +99,7 @@ const MemeBubble = () => {
           };
         })}
       />
+
       <table className={styles.bubbleInfo}>
         <thead>
           <tr>
@@ -107,7 +109,6 @@ const MemeBubble = () => {
             <th className={styles.bubbleInfoHeader}>Mcap</th>
             <th className={styles.bubbleInfoHeader}>FDV</th>
             <th className={styles.bubbleInfoHeader}>Age</th>
-            <th className={styles.bubbleInfoHeader}>5m</th>
             <th className={styles.bubbleInfoHeader}>1H</th>
             <th className={styles.bubbleInfoHeader}>6H</th>
             <th className={styles.bubbleInfoHeader}>1D</th>
@@ -124,8 +125,7 @@ const MemeBubble = () => {
               <td className={styles.bubbleInfoCell}></td>
               <td className={styles.bubbleInfoCell}>{e.mcap}</td>
               <td className={styles.bubbleInfoCell}></td>
-              <td className={styles.bubbleInfoCell}></td>
-              <td className={styles.bubbleInfoCell}></td>
+              <td className={styles.bubbleInfoCell}>{formatAge(e.createdAt)}</td>
               <td className={styles.bubbleInfoCell}>
                 {e.priceChange1H.toFixed(digit)}%
               </td>
@@ -162,6 +162,7 @@ const MemeBubble = () => {
       </table>
       <Footer/>
     </div>
+      </>
   );
 };
 

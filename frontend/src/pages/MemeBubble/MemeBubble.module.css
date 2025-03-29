@@ -1,4 +1,7 @@
 .container {
+  display: block;
+  height: 100vh;
+  /* overflow: hidden; */
 }
 .blur {
   position: absolute;
