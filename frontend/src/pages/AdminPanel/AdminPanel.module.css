@@ -1,0 +1,92 @@
+.adminPanel{
+    width: 100%;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.menuButton{
+    background-color: transparent;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.selected{
+    background-color: #ccc;
+    color: black;
+}
+
+hr{
+    margin: 2px;
+}
+
+.unverifiedKOLs{
+    padding: 10px;
+}
+
+.kolCard{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px 20px 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.unverifiedKOLsLeft{
+    width: 50%;
+}
+
+.special{
+    color: rgb(44, 234, 44);
+}
+
+.unverifiedKOLsRight{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.imageContainer{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.kolImage{
+    width: 250px;
+    height: 250px;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.buttonContainer button{
+    background-color: #ccc;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 5px;
+    color: #000;
+    font-weight: bolder;
+    margin-left: 5%;
+}

@@ -107,6 +107,7 @@ const KOLregistrationRouter = require("./routes/KOLregistration");
 const getKOLRouter = require("./routes/getKOL");
 const reviewRouter = require("./routes/review");
 const bubbleRouter = require("./routes/getBubblesData");
+const adminRouter = require("./routes/admin");
 app.use("/user", userRouter);
 app.use("/twitter", twitterAuthRouter);
 app.use("/google", googleAuthRouter);
@@ -115,6 +116,7 @@ app.use("/getKOL", getKOLRouter);
 app.use("/review", reviewRouter);
 app.post("/request-bio-update", requestBioController);
 app.use("/bubble", bubbleRouter);
+app.use("/admin", adminRouter);
 app.use("/uploads",express.static(path.join(__dirname, "./uploads/")));
 
 
