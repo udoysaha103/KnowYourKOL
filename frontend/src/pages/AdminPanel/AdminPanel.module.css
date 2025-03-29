@@ -26,7 +26,7 @@ hr{
     margin: 2px;
 }
 
-.unverifiedKOLs{
+.unverifiedKOLs, .verifiedKOLs{
     padding: 10px;
 }
 

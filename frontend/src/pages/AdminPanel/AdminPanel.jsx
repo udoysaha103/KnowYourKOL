@@ -122,7 +122,7 @@ function AdminPanel() {
           <hr />
           <div className={styles.menu}>
             <button className={`${styles.menuButton} ${contentNo === 1? styles.selected : ""}`} onClick={() => {setContentNo(1); getUnverifiedKOLs();}}>Unverified KOLs</button>
-            <button className={`${styles.menuButton} ${contentNo === 2? styles.selected : ""}`} onClick={() => {setContentNo(2); getUnverifiedKOLs();}}>Verified KOLs</button>
+            <button className={`${styles.menuButton} ${contentNo === 2? styles.selected : ""}`} onClick={() => {setContentNo(2); getVerifiedKOLs();}}>Verified KOLs</button>
           </div>
           <hr />
 
@@ -176,11 +176,14 @@ function AdminPanel() {
                       <p>Telegram Link: {kol.telegramLink}</p>
                       <p>YouTube Link: {kol.youtubeLink}</p>
                       <p>Stream Link: {kol.streamLink}</p>
-                      <p className={styles.special}>Sign ID: {kol.signID}</p>
                     </div>
                     <div className={styles.verifiedKOLsRight}>
                       <div className={styles.imageContainer}>
                           <img src={kol.photoPath} alt="KOL" className={styles.kolImage} id={kol._id + "photoPath"} />
+                      </div>
+                      <div className={styles.buttonContainer}>
+                        <button className={styles.blueTickButton} onClick={() => {}}>{kol.verifiedByAdmin ? "Remove Tick" : "Add Tick"}</button>
+                        <button className={styles.deleteButton} onClick={() => {}}>Delete</button>
                       </div>
                     </div>
                   </div>
