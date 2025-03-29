@@ -134,4 +134,48 @@ const rejectUnverifiedKOL = async (req, res) => {
     }
 }
 
+const getReviews = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+
+    try{
+        const reviewsWithUsers = await reviewModel.aggregate([
+            {
+                $match: {  }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "reviewGiver",
+                    foreignField: "_id",
+                    as: "reviewGiverDetails"
+                }
+            },
+            {
+                $unwind: "$reviewGiverDetails"
+            },
+            {
+                $project: {
+                    reviewId: "$_id",
+                    reviewReceiver: "$reviewReceiver.twitterName",
+                    username: "$reviewGiverDetails.username",
+                    review: "$reviewType",
+                    text: "$reviewDescription",
+                    date: {
+                        $dateToString: { format: "%b %d, %Y", date: "$datePosted" }
+                    },
+                    likeCount: { $size: "$likedBy" },
+                    disslikeCount: { $size: "$dislikedBy" }
+                }
+            }
+        ]);
+        res.status(200).json(reviewsWithUsers);
+    }
+    catch (error) {
+        console.error("Error verifying KOL:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL, rejectUnverifiedKOL };
