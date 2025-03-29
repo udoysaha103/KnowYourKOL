@@ -75,7 +75,9 @@ const editVerifiedKOL = async (req, res) => {
         return res.status(403).json({ message: "You are not authorized to access this resource" });
     }
     
-    const { _id, twitterName, IRLname, country, walletAddress, showAddress, photoPath, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, blueTick } = req.body;
+    const { _id, twitterName, IRLname, country, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, blueTick } = req.body;
+    
+    const photoPath = req.file ? `${process.env.SERVER_URL}/uploads/${req.file.filename}` : req.body.photoPath;
 
     // edit the verified KOL
     try{
@@ -112,4 +114,24 @@ const deleteVerifiedKOL = async (req, res) => {
     }
 }
 
-module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL };
+const rejectUnverifiedKOL = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+    
+    const { _id } = req.body;
+
+    // delete the unverified KOL
+    try{
+        const unverifiedKOL = await unverifiedKOLModel.findByIdAndDelete(_id);
+        if (!unverifiedKOL) {
+            return res.status(404).json({ message: "Unverified KOL not found" });
+        }
+        res.status(200).json(unverifiedKOL);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+module.exports = { verifyAdmin, getUnverifiedKOLs, getVerifiedKOLs, editUnverifiedKOL, editVerifiedKOL, deleteVerifiedKOL, rejectUnverifiedKOL };
