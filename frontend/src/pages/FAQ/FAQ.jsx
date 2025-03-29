@@ -23,6 +23,18 @@ const faqs = [
     question: "I’m a KOL—how do I get a bad review taken down?",
     answer: "We typically don’t remove reviews, but if you believe one is a false acquisation and you have proof of that, please DM us with evidence."
   },
+  {
+    question: "Who is the \"King of KOLs\"",
+    answer: `The King of KOLs is the top-performing crypto influencer crowned periodically based on:
+<br/>- Highest PnL (Highest weight).
+<br/>- Best Follower Sentiment Score based on the community reviews and upvotes (Lower Weight).`
+  },
+  {
+    question: "What are \"Rising Stars\"",
+    answer: `Rising Stars are breakout KOLs gaining momentum rapidly. They’re also spotlighted periodically based on:
+<br/> - High ROI ratio in a short duration (Return on Investment).
+<br/>- Recent PnL spikes.`
+  }
 ];
 
 function FAQ() {
@@ -60,7 +72,7 @@ function FAQ() {
                   <img src="/plus_sign.png" alt="Expand" />
                 </button>
               </div>
-              {openIndex === index && <p className="faqAnswer">{faq.answer}</p>}
+              {openIndex === index && <p className="faqAnswer" dangerouslySetInnerHTML={{ __html: faq.answer }}/>}
             </div>
           ))}
         </div>

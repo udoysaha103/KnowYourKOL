@@ -1,9 +1,15 @@
 {
     "code": {
-        "waitTimeInMinuits": 1,
+        "waitTimeInMinutes": 1,
         "expiryTimeInMinuits": 5
     },
-    "token": {
+    "user": {
         "expairsIn": "5d"
+    },
+    "password": {
+        "minLength": 8,
+        "maxLength": 20,
+        "resetLinkExpiryTimeInMinutes": 5,
+        "resetLinkWaitTimeInMinutes": 1
     }
 }

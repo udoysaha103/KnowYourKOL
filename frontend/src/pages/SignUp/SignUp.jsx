@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
@@ -33,6 +33,17 @@ const SignUp = () => {
   const handleGoogleLogin = () => {
     window.open(`${import.meta.env.VITE_API_URL}/google/googleLogin`, "_self");
   };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        handleSignup();
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [username, email, password]);
   return (
     <>
       <div className={styles.logo}></div>

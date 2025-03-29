@@ -8,19 +8,19 @@ const jwt = require("jsonwebtoken");
 
 router.get('/logout', (req, res, next) => {
     req.logout(err => {
-      if (err) { return next(err); }
-      res.redirect('/');
+        if (err) { return next(err); }
+        res.redirect('/');
     });
-  });
-  
+});
+
 
 router.get("/login", (req, res) => {
     if (req.user) {
         const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, {
-            expiresIn: config.token.expairsIn,
+            expiresIn: config.user.expairsIn,
         });
         res.status(200).json({ email: req.user.email, token });
-    } 
+    }
 })
 router.get("/failure", (req, res) => {
     res.send("Failed to login");
@@ -28,7 +28,7 @@ router.get("/failure", (req, res) => {
 
 // login with twitter
 router.get("/twitterLogin", passport.authenticate('twitter', {
- scope: ['users.read']
+    scope: ['users.read']
 }));
 
 // twitter callback

@@ -14,6 +14,8 @@ import FAQ from "./pages/FAQ/FAQ";
 import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
 import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
 import MemeBubble from "./pages/MemeBubble/MemeBubble";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import EmailInput from "./pages/EmailInput/EmailInput";
 
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useGoogleLogin } from "./hooks/useGoogleLogin";
@@ -31,41 +33,22 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        ></Route>
-        <Route
-          path="/profile/:id"
-          element={<Profile />}
-        ></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/profile/:id" element={<Profile />}></Route>
         <Route
           path="/login"
           element={user ? <Navigate to="/" /> : <Login />}
         ></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/add-kol" element={<AddKOL />}></Route>
+        <Route path="/memebubbles" element={<MemeBubble />}></Route>
+        <Route path="/FAQ" element={<FAQ />}></Route>
+        <Route path="/termsofuse" element={<TermsOfUse />}></Route>
+        <Route path="/privacypolicies" element={<PrivacyPolicies />}></Route>
+        <Route path="/forgotpassword" element={<EmailInput />}></Route>
         <Route
-          path="/signup"
-          element={<SignUp />}
-        ></Route>
-        <Route
-          path="/add-kol"
-          element={<AddKOL />}
-        ></Route>
-        <Route
-          path="/memebubbles"
-          element={<MemeBubble />}
-        ></Route>
-        <Route
-          path="/FAQ"
-          element={<FAQ />}
-        ></Route>
-        <Route
-          path="/termsofuse"
-          element={<TermsOfUse />}
-        ></Route>
-        <Route
-          path="/privacypolicies"
-          element={<PrivacyPolicies />}
+          path="/forgotpassword/:token"
+          element={<ForgotPassword />}
         ></Route>
       </Routes>
     </>

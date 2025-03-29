@@ -47,6 +47,9 @@ function TermsOfUse() {
           <p>7. Access Termination</p>
           <p>We retain the authority to revoke your access to Know Your KOL if you breach these Terms or for any other reason we deem necessary.</p>
 <p className="emptyLine"></p>
+          <p>8. Get in Touch</p>
+          <p>Have questions about these Terms? We’d love to hear from you—please send us a DM at https://x.com/KnowYourKOL.</p>
+<p className="emptyLine"></p>
           <p>9. Leaderboard Discretion</p>
           <p>We reserve the right to determine which KOLs are featured on the leaderboard at our sole discretion.</p>
 <p className="emptyLine"></p>
@@ -55,9 +58,6 @@ function TermsOfUse() {
 <p className="emptyLine"></p>
           <p>11. Non-Refundable Donations</p>
           <p>Any payments or donations made to Know Your KOL are non-refundable, as they support the ongoing development and maintenance of the platform.</p>
-<p className="emptyLine"></p>
-          <p>8. Get in Touch</p>
-          <p>Have questions about these Terms? We’d love to hear from you—please send us a DM at https://x.com/KnowYourKOL.</p>
 <p className="emptyLine"></p>
           <p>Updated as of: Feb 15th, 2025</p>
         </div>

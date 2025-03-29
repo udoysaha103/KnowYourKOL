@@ -59,12 +59,19 @@ const MemeBubble = () => {
       setLoading(false);
     };
     fetchData();
+    const fetchDataInterval = setInterval(() => {
+      fetchData();
+    }, 60000);
+    return () => clearInterval(fetchDataInterval);
   }, []);
   document.title = "Meme Bubbles";
   return (
     <>
       <Navbar />
-      {loading && <div className={styles.loading}>Loading...</div>}
+      {loading && <div className={styles.msg}>Loading...</div>}
+      {data.length === 0 && !loading && (
+        <div className={styles.msg}>No data available now, refresh this page after some time.</div>
+      )}
       <div style={timerStyle} />
       <div
         style={{ position: "absolute", top: topGap - 4 }}
