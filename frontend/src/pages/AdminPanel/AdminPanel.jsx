@@ -77,31 +77,20 @@ function AdminPanel() {
   };
 
   const verifyKOL = async (kol_id) => {
-    const _id = kol_id;
-    const twitterName = document.getElementById(
-      kol_id + "twitterName"
-    ).innerHTML;
-    const IRLname = document.getElementById(kol_id + "IRLname").innerHTML;
-    const country = document.getElementById(kol_id + "country").innerHTML;
-    const walletAddress = document.getElementById(
-      kol_id + "walletAddress"
-    ).innerHTML;
-    const showAddress = document.getElementById(kol_id + "showAddress")
-      .children[0].checked;
-    const photoPath = document.getElementById(kol_id + "photoPath").src;
-    const twitterLink = document.getElementById(
-      kol_id + "twitterLink"
-    ).innerHTML;
-    const discordLink = document.getElementById(
-      kol_id + "discordLink"
-    ).innerHTML;
-    const telegramLink = document.getElementById(
-      kol_id + "telegramLink"
-    ).innerHTML;
-    const youtubeLink = document.getElementById(
-      kol_id + "youtubeLink"
-    ).innerHTML;
-    const streamLink = document.getElementById(kol_id + "streamLink").innerHTML;
+    const formData = new FormData();
+    formData.append("_id", kol_id);
+    formData.append("twitterName", document.getElementById(kol_id + "twitterName").innerText);
+    formData.append("IRLname", document.getElementById(kol_id + "IRLname").innerText);
+    formData.append("country", document.getElementById(kol_id + "country").innerText);
+    formData.append("walletAddress", document.getElementById(kol_id + "walletAddress").innerText);
+    formData.append("showAddress", document.getElementById(kol_id + "showAddress").children[0].checked);
+    formData.append("photoPath", document.getElementById(kol_id + "photoPath").src);
+    formData.append("imageFile", document.getElementById(kol_id + "photoInput").files[0]);
+    formData.append("twitterLink", document.getElementById(kol_id + "twitterLink").innerText);
+    formData.append("discordLink", document.getElementById(kol_id + "discordLink").innerText);
+    formData.append("telegramLink", document.getElementById(kol_id + "telegramLink").innerText);
+    formData.append("youtubeLink", document.getElementById(kol_id + "youtubeLink").innerText);
+    formData.append("streamLink", document.getElementById(kol_id + "streamLink").innerText);
 
     setVerifying(true);
     const editedKOL = await fetch(
@@ -109,23 +98,9 @@ function AdminPanel() {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
-        body: JSON.stringify({
-          _id,
-          twitterName,
-          IRLname,
-          country,
-          walletAddress,
-          showAddress,
-          photoPath,
-          twitterLink,
-          discordLink,
-          telegramLink,
-          youtubeLink,
-          streamLink,
-        }),
+        body: formData
       }
     );
 
@@ -285,6 +260,7 @@ function AdminPanel() {
                       <input
                         type="file"
                         accept="image/*"
+                        id = {kol._id + "photoInput"}
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file) {

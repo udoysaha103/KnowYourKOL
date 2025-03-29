@@ -54,7 +54,8 @@ const editUnverifiedKOL = async (req, res) => {
         return res.status(403).json({ message: "You are not authorized to access this resource" });
     }
 
-    const { _id, twitterName, IRLname, country, walletAddress, showAddress, photoPath, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
+    const { _id, twitterName, IRLname, country, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
+    const photoPath = req.file ? `${process.env.SERVER_URL}/uploads/${req.file.filename}` : req.body.photoPath;
 
     // edit the unverified KOL
     try {
