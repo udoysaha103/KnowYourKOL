@@ -43,6 +43,9 @@
 .selected {
   background-color: #a8bba5;
 }
+.selectedRow {
+    background-color: #06d43d;
+}
 .timerCompleted {
   height: 4px;
   background-color: #07ce07;
@@ -64,6 +67,9 @@
 .bubbleInfo {
   width: 100%;
 }
+.bubbleInfo > tr {
+  transition: background-color 0.5s ease-in-out;
+}
 
 .bubbleInfoHeader{
   background-color: #363f43;
@@ -84,7 +90,9 @@
   text-align: left;
   min-width: 5vw;
 }
-
+tr{
+    transition: background-color 0.5s ease-in-out;
+}
 .red{
   background-color: #dc0101;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

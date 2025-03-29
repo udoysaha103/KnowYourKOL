@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./Canvas.module.css";
-import {formatMcap} from "../../utils/priceFormat";
-const Canvas = ({ data, ...rest }) => {
+import { formatMcap } from "../../utils/priceFormat";
+const Canvas = ({ data, selectedRowClass, ...rest }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const colors = ["255, 0, 0", "0, 255, 0"];
@@ -192,6 +192,14 @@ const Canvas = ({ data, ...rest }) => {
           this.applyForce(-i, -j);
         }
       } else {
+        if (this.selected) {
+          const row = document.getElementById(`${this.name}`);
+          row.scrollIntoView({ behavior: "smooth", block: "center" });
+          row.classList.add(selectedRowClass);
+          setTimeout(() => {
+            row.classList.remove(selectedRowClass);
+          }, 1000);
+        }
         this.selected = false;
       }
 
@@ -221,32 +229,40 @@ const Canvas = ({ data, ...rest }) => {
       this.draw();
     }
   }
-
+  let top;
+  const fillContainer = () => {
+    const containerHeight = window.innerHeight - top;
+    containerRef.current.style.height = `${containerHeight}px`;
+    canvasRef.current.height = containerRef.current.clientHeight;
+    canvasRef.current.width = containerRef.current.clientWidth;
+  };
+  useEffect(() => {
+    top = containerRef.current.getBoundingClientRect().top;
+    window.scrollTo(0, 0);
+    fillContainer();
+    // Event Listeners
+    window.addEventListener("resize", fillContainer);
+    return  () => {
+      window.removeEventListener("resize", fillContainer);
+    };
+  }, []);
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const fillContainer = () => {
-      const parentHeight = containerRef.current.clientHeight;
-      const parentWidth = containerRef.current.clientWidth;
-      canvas.height = parentHeight;
-      canvas.width = parentWidth;
-    };
-    fillContainer();
-
-    // Event Listeners
-    window.addEventListener("mousemove", (event) => {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
+    const handleMouseMove = (event) => {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
       mouse.dx = event.movementX;
       mouse.dy = event.movementY;
-    });
+    }
+    const handleMouseDown = () => mouse.onPress = true;
+    const handleMouseUp = () => mouse.onPress = false;
+    window.addEventListener("mousemove", handleMouseMove);
 
-    window.addEventListener("mousedown", () => (mouse.onPress = true));
-    window.addEventListener("mouseup", () => (mouse.onPress = false));
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
-    window.addEventListener("resize", () => {
-      fillContainer();
-    });
     if (!data) return;
     const contents = data.map((e) => Math.abs(e.content));
     const max = Math.max(...contents);
@@ -293,11 +309,14 @@ const Canvas = ({ data, ...rest }) => {
 
     return () => {
       window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [data]);
 
   return (
-    <div ref={containerRef} style={{height: "86%", width: "100%"}}>
+    <div ref={containerRef}>
       <canvas className={styles.canvas} ref={canvasRef} {...rest} />
     </div>
   );

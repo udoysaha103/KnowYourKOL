@@ -83,7 +83,6 @@ const scrapMemeCoins = async () => {
           await memeCoinModel.create(memeCoins[i]);
         } catch (err) {
           console.error("❌ Error inserting coin: ", err);
-          console.error(data);
         }
         // wait for 7 seconds before the next request
         await setTimoutPromise(7000);
@@ -146,7 +145,6 @@ const scrapMemeCoins = async () => {
 const getMemeCoins = async (req, res) => {
   try{
     const data = await bubbleModel.find().sort({ mCap: -1 }).limit(100)
-    console.log(data);
     res.status(200).json(data);
   }
   catch(err) {

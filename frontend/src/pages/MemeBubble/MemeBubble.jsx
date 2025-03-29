@@ -91,6 +91,7 @@ const MemeBubble = () => {
         </div>
       </div>
       <Canvas
+        selectedRowClass={styles.selectedRow}
         data={data.map((e) => {
           return {
             image: e.image,
@@ -120,7 +121,7 @@ const MemeBubble = () => {
         </thead>
         <tbody>
           {data.map((e, i) => (
-            <tr key={i}>
+            <tr key={i} id={`${e.name}`}>
               <td className={styles.bubbleInfoCell}>{i + 1}</td>
               <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>{e.name.length > 10? (e.name.slice(0, 10) + "...") : e.name}</td>
               <td className={`${styles.bubbleInfoCell} ${styles.specialCell}`}>${e.currentPrice}</td>
