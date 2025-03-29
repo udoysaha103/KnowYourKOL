@@ -22,6 +22,9 @@ const verifyAdmin = async (req, res) => {
 }
 
 const getUnverifiedKOLs = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
     try {
         const unverifiedKOLs = await unverifiedKOLModel.find({});
         res.status(200).json(unverifiedKOLs);
@@ -33,6 +36,9 @@ const getUnverifiedKOLs = async (req, res) => {
 }
 
 const getVerifiedKOLs = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
     try {
         const verifiedKOLs = await verifiedKOLModel.find({});
         res.status(200).json(verifiedKOLs);
@@ -44,6 +50,10 @@ const getVerifiedKOLs = async (req, res) => {
 }
 
 const editUnverifiedKOL = async (req, res) => {
+    if(!req.user || req.user._doc.isAdmin === false) {
+        return res.status(403).json({ message: "You are not authorized to access this resource" });
+    }
+
     const { _id, twitterName, IRLname, country, walletAddress, showAddress, photoPath, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
 
     // edit the unverified KOL

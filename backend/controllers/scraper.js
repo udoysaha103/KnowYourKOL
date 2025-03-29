@@ -10,8 +10,6 @@ const scrapData = async (accountAddress) => {
         browser = await puppeteer.launch({
             headless: true, // Run with UI for debugging
             args: ["--no-sandbox", "--disable-setuid-sandbox"],
-            executablePath: process.env.CHROME_EXECUTABLE_PATH, // Path to Chrome executable
-            userDataDir: '/dev/null', // Path to user data directory
         });
 
         const page = await browser.newPage();

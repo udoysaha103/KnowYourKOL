@@ -19,14 +19,15 @@ const submitVerificationRequest = async (req, res) => {
 };
 
 const verifyKOL = async (req, res) => {
-    const user = await userModel.findById(req.user._id);
+    const user = req.user;
     // check if the user is an admin
-    if (!user || !user.isAdmin) {
+    if (!user || !user._doc.isAdmin) {
         return res.status(403).json({ message: "You are not authorized to verify KOLs" });
     }
     
     // get the id of the KOL to be verified
     const { KOL_id } = req.body;
+    console.log(KOL_id);
 
     try {
         // find the KOL to be verified

@@ -35,7 +35,6 @@ const AddKOL = () => {
   };
 
   const copyAddress = (addr) => {
-    event.preventDefault();
     navigator.clipboard.writeText(addr);
     document.getElementById("addr4cpy").innerHTML = "Copied!";
     setTimeout(() => {
