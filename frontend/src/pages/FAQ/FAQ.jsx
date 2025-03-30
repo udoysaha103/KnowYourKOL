@@ -5,7 +5,7 @@ import Footer from "../../Components/Footer/Footer";
 const faqs = [
   {
     question: "What are the criteria to be a KOL?",
-    answer: "Minimum 3,000 followers and P&L of $50K (30 days) or $20K (7 days). May vary by market—DM us for updates."
+    answer: "Minimum 1,000 followers or/and PnL of $20K (30 days) or $10K (7 days). May vary by market—DM us for updates."
   },
   {
     question: "Can I give feedback on any KOL?",
