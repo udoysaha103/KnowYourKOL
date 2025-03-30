@@ -24,7 +24,7 @@ const updatePnLdata = async () => {
         // Now save the scrapped data and the derived PnLscore to the verifiedKOL collection
         try {
             await verifiedKOLmodel.updateOne({ _id: KOL._id }, { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration, PnLscore1D, PnLscore7D, PnLscore30D, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D,  updatedAt: Date.now() });
-            // console.log(`Updated KOL with wallet address: ${walletAddress}`);
+            console.log(`Updated KOL with wallet address: ${walletAddress}`);
         } catch (error) {
             console.error(`Failed to update KOL with wallet address: ${walletAddress}`);
         }
