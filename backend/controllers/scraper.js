@@ -11,7 +11,6 @@ const scrapData = async (accountAddress) => {
             headless: true, // Run with UI for debugging
             args: ["--no-sandbox", "--disable-setuid-sandbox"],
             executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined, // Use the default executable path if not set
-            userDataDir: "/dev/null", // Use a temporary user data directory
         });
 
         const page = await browser.newPage();

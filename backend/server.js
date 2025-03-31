@@ -86,7 +86,7 @@ passport.use(
 passport.use(
   new TwitterStrategy(
     {
-      clientType: "public",
+      clientType: "confidential",
       clientID: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
       callbackURL: `${process.env.SERVER_URL}/twitter/redirect`,
