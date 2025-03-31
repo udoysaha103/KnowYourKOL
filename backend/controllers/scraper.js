@@ -89,11 +89,7 @@ const scrapData = async (accountAddress) => {
         const files = await readdir(tempPath, { withFileTypes: true });
         for (const file of files) {
             const filePath = `${tempPath}/${file.name}`;
-            if (file.isDirectory()) {
-                await rm(filePath, { recursive: true, force: true });
-            } else {
-                await rmdir(filePath, { recursive: true, force: true });
-            }
+            await rm(filePath, { recursive: true, force: true });
         }
         try {
         } catch (err) {
