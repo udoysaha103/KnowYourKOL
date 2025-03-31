@@ -15,13 +15,15 @@ export const truncateText = (text, type = "1", maxLength = 10) => {
     }
 };
 
-export const copyText = (element, text) => {
+export const copyText = async (element, text) => {
     //@param element: the element to copy text from
     //@param text: text to copy to clipboard
+    let msg = "";
     const copyToClipboard = async (text) => {
         try {
             if (navigator.clipboard) {
                 await navigator.clipboard.writeText(text);
+                msg = "Copied!";
                 return true;
             }
 
@@ -35,20 +37,27 @@ export const copyText = (element, text) => {
             try {
                 const successful = document.execCommand("copy");
                 document.body.removeChild(textArea);
+                msg = "Copied!";
                 return successful;
             } catch (err) {
                 document.body.removeChild(textArea);
+                msg = "Failed to copy!";
                 return false;
             }
         } catch (err) {
             console.error("Failed to copy:", err);
+            msg = "Failed to copy!";
             return false;
         }
     };
-    copyToClipboard(text);
+    await copyToClipboard(text);
     const originalText = element.innerText;
-    element.innerText = "Copied!";
-    setTimeout(() => {
-        element.innerText = originalText;
-    }, 1000);
+    element.innerText = msg;
+    const wait = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    })
+    await wait;
+    element.innerText = originalText;
 }
