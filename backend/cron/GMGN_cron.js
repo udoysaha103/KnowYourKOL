@@ -1,4 +1,4 @@
-const {updatePnLdata} = require("../controllers/updatePnLdata");
+const { updatePnLdata } = require("../controllers/updatePnLdata");
 updatePnLdata();
 setInterval(updatePnLdata, 300000);
 
