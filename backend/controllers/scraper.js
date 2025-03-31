@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const { rm, rmdir, readdir } = require('fs/promises');
 
 const SOLconversionModel = require('../models/SOLconversionModel.js');
 
@@ -84,6 +85,20 @@ const scrapData = async (accountAddress) => {
         return null;
     } finally {
         if (browser) await browser.close();
+        const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
+        const files = await readdir(tempPath, { withFileTypes: true });
+        for (const file of files) {
+            const filePath = `${tempPath}/${file.name}`;
+            if (file.isDirectory()) {
+                await rm(filePath, { recursive: true, force: true });
+            } else {
+                await rmdir(filePath, { recursive: true, force: true });
+            }
+        }
+        try {
+        } catch (err) {
+            console.error(`Error removing temporary directory: ${err.message}`);
+        }
     }
 }
 module.exports = { scrapData };
