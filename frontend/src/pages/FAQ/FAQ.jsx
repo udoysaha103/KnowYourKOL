@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import "./FAQ.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
+import {ReactDOM} from "react-dom/client";
 const faqs = [
   {
     question: "What are the criteria to be a KOL?",
-    answer: "Minimum 3,000 followers and P&L of $50K (30 days) or $20K (7 days). May vary by market—DM us for updates."
+    answer: "Minimum 1,000 followers or/and PnL of $20K (30 days) or $10K (7 days). May vary by market—DM us for updates."
   },
   {
     question: "Can I give feedback on any KOL?",
@@ -25,15 +26,15 @@ const faqs = [
   },
   {
     question: "Who is the \"King of KOLs\"",
-    answer: `The King of KOLs is the top-performing crypto influencer crowned periodically based on:
+    answer: <>The King of KOLs is the top-performing crypto influencer crowned periodically based on:
 <br/>- Highest PnL (Highest weight).
-<br/>- Best Follower Sentiment Score based on the community reviews and upvotes (Lower Weight).`
+<br/>- Best Follower Sentiment Score based on the community reviews and upvotes (Lower Weight).</>
   },
   {
     question: "What are \"Rising Stars\"",
-    answer: `Rising Stars are breakout KOLs gaining momentum rapidly. They’re also spotlighted periodically based on:
+    answer: <>Rising Stars are breakout KOLs gaining momentum rapidly. They’re also spotlighted periodically based on:
 <br/> - High ROI ratio in a short duration (Return on Investment).
-<br/>- Recent PnL spikes.`
+<br/>- Recent PnL spikes.</>
   }
 ];
 
@@ -72,7 +73,7 @@ function FAQ() {
                   <img src="/plus_sign.png" alt="Expand" />
                 </button>
               </div>
-              {openIndex === index && <p className="faqAnswer" dangerouslySetInnerHTML={{ __html: faq.answer }}/>}
+              {openIndex === index && <p className="faqAnswer">{faq.answer}</p>}
             </div>
           ))}
         </div>

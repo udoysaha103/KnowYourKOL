@@ -17,9 +17,9 @@ const mongoose = require("mongoose");
 const app = express();
 
 // start the cron jobs
-// require("./cron/SolanaCron"); // start the cron job to update the SOL to USD rate
-// require("./cron/GMGN_cron"); // start the cron job to update the PnL data
-// require("./cron/memeCron"); // start the cron job to update the meme coin data
+require("./cron/SolanaCron"); // start the cron job to update the SOL to USD rate
+require("./cron/GMGN_cron"); // start the cron job to update the PnL data
+require("./cron/memeCron"); // start the cron job to update the meme coin data
 
 
 // middlewares
@@ -86,7 +86,7 @@ passport.use(
 passport.use(
   new TwitterStrategy(
     {
-      clientType: "public",
+      clientType: "confidential",
       clientID: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
       callbackURL: `${process.env.SERVER_URL}/twitter/redirect`,
