@@ -300,6 +300,10 @@ const Profile = () => {
             }`}
             src={kol.photoPath}
             alt=""
+            onError={e => {
+              e.target.onerror = null;
+              e.target.src = "/profile-default.svg";
+            }}
           />
         </div>
         <div className={styles.link}>
