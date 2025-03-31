@@ -96,6 +96,10 @@ function Home() {
                     alt="KING OF KOLS"
                     id="avatar"
                     onLoad={() => setKingImgLaoading(false)}
+                    onError={() => {
+                      firstUser.photoPath = "/default_avatar.png";
+                      setKingImgLaoading(false);
+                    }}
                   />
                 </div>
 
