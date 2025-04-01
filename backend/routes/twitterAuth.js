@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const config = require("../utils/config");
+const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
 
@@ -35,7 +36,7 @@ const codeChallenge = 'challenge'; // Replace with a proper PKCE challenge in pr
 const codeVerifier = 'verifier';  // Replace with a proper PKCE verifier
 
 // Step 1: Redirect to Twitter login
-app.get('/twitterLogin', (req, res) => {
+router.get('/twitterLogin', (req, res) => {
     const params = new URLSearchParams({
         response_type: 'code',
         client_id: process.env.TWITTER_CLIENT_ID,
@@ -49,7 +50,7 @@ app.get('/twitterLogin', (req, res) => {
 });
 
 // Step 2: Handle callback and exchange code for token
-app.get('/twitter/redirect', async (req, res) => {
+router.get('/redirect', async (req, res) => {
     const { code, state } = req.query;
 
     try {
