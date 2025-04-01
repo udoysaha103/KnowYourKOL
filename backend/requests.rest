@@ -148,3 +148,7 @@ Content-Type: application/json
 GET http://localhost:5000/admin/verifyAdmin
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UzMWUwM2I5NDJkZTFmNDQ5NGFmYzMiLCJpYXQiOjE3NDMyNDUwMjYsImV4cCI6MTc0MzY3NzAyNn0.IZ-lM5ffYgaZHVnsQEEDyzs9IE8Xq92vO9WWZ1U2z2s
+
+###
+GET https://api.x.com/2/users/me?user.fields=username
+Authorization: Bearer ckJZSVJzT1d4WWlkSE1ydFBXb0pfaUtKM0NMLW1tOUFIcXhDNzZLcldtY2xoOjE3NDM1MDgwNDcxMjI6MTowOmF0OjE

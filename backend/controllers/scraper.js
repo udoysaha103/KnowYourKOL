@@ -22,14 +22,14 @@ const scrapData = async (accountAddress) => {
         // console.log("Navigating to GMGN...");
         await page.goto(GMGN_API_URL, {
             waitUntil: "domcontentloaded", // Faster load detection
-            timeout: 60000 // Increase timeout to 60 seconds
+            timeout: 300000 // Increase timeout to 60 seconds
         });
 
         // output page content to console
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 120000 });
+        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 300000 });
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
@@ -84,14 +84,14 @@ const scrapData = async (accountAddress) => {
         console.error(`Error during scraping: ${error.message}`);
         return null;
     } finally {
-        if (browser) await browser.close();
-        const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
-        const files = await readdir(tempPath, { withFileTypes: true });
-        for (const file of files) {
-            const filePath = `${tempPath}/${file.name}`;
-            await rm(filePath, { recursive: true, force: true });
-        }
         try {
+            if (browser) await browser.close();
+            const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
+            const files = await readdir(tempPath, { withFileTypes: true });
+            for (const file of files) {
+                const filePath = `${tempPath}/${file.name}`;
+                await rm(filePath, { recursive: true, force: true });
+            }
         } catch (err) {
             console.error(`Error removing temporary directory: ${err.message}`);
         }
