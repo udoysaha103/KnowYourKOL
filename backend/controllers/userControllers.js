@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
     const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: config.user.expairsIn,
     });
-    res.status(200).json({ username, token, verificationStatus: false });
+    res.status(200).json({ username, email, token, verificationStatus: false });
   }
   catch (err) {
     res.status(400).json({ error: err.code === 11000 ? "The username is already taken." : err.message });
@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: config.user.expairsIn,
     });
-    res.status(200).json({ username: user.username, token, verificationStatus: user.verificationStatus });
+    res.status(200).json({ username: user.username,email: user.email, token, verificationStatus: user.verificationStatus });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
