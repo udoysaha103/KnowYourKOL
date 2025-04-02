@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
     const token = jwt.sign({ email, _id: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: config.user.expairsIn,
     });
-    res.status(200).json({ username, email, token, verificationStatus: false });
+    res.status(200).json({ username, token, verificationStatus: false });
   }
   catch (err) {
     res.status(400).json({ error: err.code === 11000 ? "The username is already taken." : err.message });
@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: config.user.expairsIn,
     });
-    res.status(200).json({ username: user.username, email, token, verificationStatus: user.verificationStatus });
+    res.status(200).json({ username: user.username, token, verificationStatus: user.verificationStatus });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -347,7 +347,7 @@ const getVerificationStatus = async (req, res) => {
   }
 }
 
-const callback = async (accessToken, refreshToken, data, done) => {
+const googleCallback = async (accessToken, refreshToken, data, done) => {
   // passport callback function
   const { displayName, emails } = data;
   const user = await userModel.findOne({ email: emails[0].value });
@@ -361,4 +361,9 @@ const callback = async (accessToken, refreshToken, data, done) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, callback, getVerificationStatus, getPasswordResetMail, resetPassword };
+const twitterCallback = async (accessToken, refreshToken, data, done) => {
+  const { id, name, username, profile_image_url } = data.data;
+  res.send({ id, name, username, profile_image_url });
+}
+
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, googleCallback,twitterCallback, getVerificationStatus, getPasswordResetMail, resetPassword };

@@ -10,7 +10,7 @@ const cookieSession = require('cookie-session');
 const userModel = require("./models/userModel");
 const path = require("path");
 const requestBioController = require("./controllers/requestBioController");
-const { callback } = require("./controllers/userControllers");
+const { googleCallback, twitterCallback } = require("./controllers/userControllers");
 
 const mongoose = require("mongoose");
 
@@ -81,7 +81,7 @@ passport.use(
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: `${process.env.SERVER_URL}/google/redirect`
-  }, callback)
+  }, googleCallback)
 );
 passport.use(
   new TwitterStrategy(
@@ -90,7 +90,7 @@ passport.use(
       clientID: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET,
       callbackURL: `${process.env.SERVER_URL}/twitter/redirect`,
-    }, callback)
+    }, twitterCallback)
 );
 
 

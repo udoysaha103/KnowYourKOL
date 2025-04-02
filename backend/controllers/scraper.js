@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { rm, rmdir, readdir } = require('fs/promises');
+const { rm, readdir } = require('fs/promises');
 
 const SOLconversionModel = require('../models/SOLconversionModel.js');
 
