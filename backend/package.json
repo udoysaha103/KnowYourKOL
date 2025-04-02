@@ -12,7 +12,7 @@
   "description": "",
   "dependencies": {
     "@superfaceai/passport-twitter-oauth2": "^1.2.4",
-    "axios": "^1.8.2",
+    "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",

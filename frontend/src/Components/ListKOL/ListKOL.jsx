@@ -195,6 +195,10 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                         }`}
                         src={kol.photoPath}
                         alt="avatar"
+                        onError={e => {
+                          e.target.onerror = null;
+                          e.target.src = "/profile-default.svg";
+                        }}
                       />
                       <div className={styles.nameContainer}>
                         <div className={styles.name}>

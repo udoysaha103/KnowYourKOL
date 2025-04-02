@@ -96,6 +96,11 @@ function Home() {
                     alt="KING OF KOLS"
                     id="avatar"
                     onLoad={() => setKingImgLaoading(false)}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/profile-default.svg";
+                      setKingImgLaoading(false);
+                    }}
                   />
                 </div>
 
