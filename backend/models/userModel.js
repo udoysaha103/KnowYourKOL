@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 // the basic schema
 const userSchema = new mongoose.Schema({
+    twitterId: { type: String, required: false, unique: true },
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: false },

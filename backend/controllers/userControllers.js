@@ -362,8 +362,15 @@ const googleCallback = async (accessToken, refreshToken, data, done) => {
 }
 
 const twitterCallback = async (accessToken, refreshToken, data, done) => {
-  const { id, name, username, profile_image_url } = data.data;
-  res.send({ id, name, username, profile_image_url });
+  const { username, id } = data;
+  const user = await userModel.findOne({ twitterId: id });
+  if(user){
+    done(null, user);
+  }
+  else{
+    const newUser = await userModel.create({ username, email:`${username}@twitter.com` ,twitterId: id, verificationStatus: true })
+    done(null, newUser);
+  }
 }
 
-module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, googleCallback,twitterCallback, getVerificationStatus, getPasswordResetMail, resetPassword };
+module.exports = { registerUser, loginUser, getVerificationMail, verifyUser, googleCallback, twitterCallback, getVerificationStatus, getPasswordResetMail, resetPassword };
