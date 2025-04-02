@@ -153,24 +153,32 @@ function Navbar({ changeRequest }) {
               </button>
             </Link>
           </div>
-
-          <Icon
-            name="Donation"
-            color="#f8f8f8"
-            height="51px"
+          <button
             onClick={() => setShowDonation(!showDonation)}
-            style={{ cursor: "pointer" }}
-          />
-          <Icon
-            name="AccountBox"
-            color="#f8f8f8"
-            height="51px"
+            style={{ background: "none", border: "none" }}
+          >
+            <Icon
+              name="Donation"
+              color="#f8f8f8"
+              height="51px"
+              onClick={() => setShowDonation(!showDonation)}
+              style={{ cursor: "pointer" }}
+            />
+          </button>
+          <button
+            style={{ background: "none", border: "none" }}
             onClick={() => {
               if (user) setShowMenu(!showMenu);
               else navigate("/login");
             }}
-            style={{ cursor: "pointer" }}
-          />
+          >
+            <Icon
+              name="AccountBox"
+              color="#f8f8f8"
+              height="51px"
+              style={{ cursor: "pointer" }}
+            />
+          </button>
         </div>
       </nav>
 
@@ -199,20 +207,28 @@ function Navbar({ changeRequest }) {
         <div className={styles.donation}>
           <div className={styles.donationText}>
             We’re committed to keep KnowYourKOL a Not-For-Profit platform and
-            won't implement any payment wall for end users. <br/><br/>In return, we kindly
-            request your donation to sustain and operate it.
-            <br/><br/>
+            won't implement any payment wall for end users. <br />
+            <br />
+            In return, we kindly request your donation to sustain and operate
+            it.
+            <br />
+            <br />
           </div>
           <div className={styles.addressHeader}>Solana Donation Wallet</div>
           <div className={styles.address}>
-            <text ref={copyRef} style={{wordWrap: "break-word"}}>
-            7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3{" "}
+            <text ref={copyRef} style={{ wordWrap: "break-word" }}>
+              7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3{" "}
             </text>
             <Icon
               name="Copy"
               color="#f8f8f8"
               height="20px"
-              onClick={() => copyElementText(copyRef.current, "7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3")}
+              onClick={() =>
+                copyElementText(
+                  copyRef.current,
+                  "7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3"
+                )
+              }
             />
           </div>
         </div>
