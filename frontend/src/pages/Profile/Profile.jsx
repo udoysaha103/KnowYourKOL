@@ -6,7 +6,7 @@ import Icon from "../../Components/Icon";
 import Review from "../../Components/Review/Review";
 import Footer from "../../Components/Footer/Footer";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { copyText } from "../../utils/textUtils";
+import { copyElementText } from "../../utils/textUtils";
 
 const Profile = () => {
   useEffect(() => {
@@ -288,7 +288,9 @@ const Profile = () => {
                 name="Copy"
                 color="#f8f8f8"
                 height="24px"
-                onClick={() => copyText(copyRef.current, kol.walletAddress)}
+                onClick={() =>
+                  copyElementText(copyRef.current, kol.walletAddress)
+                }
               />
             </div>
           )}
@@ -300,7 +302,7 @@ const Profile = () => {
             }`}
             src={kol.photoPath}
             alt=""
-            onError={e => {
+            onError={(e) => {
               e.target.onerror = null;
               e.target.src = "/profile-default.svg";
             }}

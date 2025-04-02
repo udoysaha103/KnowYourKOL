@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import Icon from "../../Components/Icon";
 import styles from "./Login.module.css";
 
 const Login = () => {
@@ -14,6 +15,9 @@ const Login = () => {
   const handleGoogleLogin = () => {
     window.open(`${import.meta.env.VITE_API_URL}/google/googleLogin`, "_self");
   };
+  const handleTwitterLogin = () => {
+    window.open(`${import.meta.env.VITE_API_URL}/twitter/twitterLogin`, "_self");
+  }
   useEffect(() => {
     const handleKeyDown = async (e) => {
       if (e.key === "Enter") {
@@ -66,10 +70,16 @@ const Login = () => {
         <div className={styles.error}>{error}</div>
         <div className={styles.text}>Or</div>
         <br />
-        <button className={styles.googleButton} onClick={handleGoogleLogin}>
-          <div className={styles.googleText}>Sign in with Google</div>
-          <div className={styles.googleLogo}></div>
-        </button>
+        <div className={styles.ssoContainer}>
+          <button className={styles.ssoBtn} onClick={handleTwitterLogin}>
+            <div className={styles.ssoText}>Sign in with Twitter (X)</div>
+            <Icon name="X" width="10%"/>
+          </button>
+          <button className={styles.ssoBtn} onClick={handleGoogleLogin}>
+            <div className={styles.ssoText}>Sign in with Google</div>
+            <Icon name="Google" width="10%"/>
+          </button>
+        </div>
       </div>
     </>
   );

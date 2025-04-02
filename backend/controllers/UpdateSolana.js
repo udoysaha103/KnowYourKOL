@@ -1,5 +1,4 @@
 const SOLconversionmodel = require('../models/SOLconversionModel.js');
-const axios = require('axios');
 
 const updateSolanaRate = async () => {
     // const BirdEye_API_SOL_2_USD = "https://public-api.birdeye.so/defi/price?address=So11111111111111111111111111111111111111112";
@@ -12,7 +11,6 @@ const updateSolanaRate = async () => {
 
     let SOL2USD_conversion_rate = 1;
     try {
-        // const BirdEye_response = await axios.get(BirdEye_API_SOL_2_USD, { headers: BirdEye_REQUEST_HEADER });
         const response = await fetch(URL);
         const data = await response.json();
         SOL2USD_conversion_rate = data.solana.usd;

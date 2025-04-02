@@ -158,6 +158,42 @@ const X = ({ color, width, height, style, ...props }) => (
     <path d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66" />
   </svg>
 );
+const Google = ({ width, height, style, ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    style={{ maxWidth: width, height, ...style }}
+    {...props}
+  >
+    <path
+      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+      fill="#4285F4"
+    />
+    <path
+      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+      fill="#34A853"
+    />
+    <path
+      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+      fill="#FBBC05"
+    />
+    <path
+      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+      fill="#EA4335"
+    />
+    <path d="M1 1h22v22H1z" fill="none" />
+  </svg>
+);
+const Donation = ({ color, width, height, style, ...props }) => (
+  <svg
+    style={{ color, fill: color, maxWidth: width, height, ...style }}
+    {...props}
+    viewBox="0 0 24 24"
+  >
+    <path fill="none" d="M0 0h24v24H0z"></path>
+    <path d="M1 11h4v11H1zm15-7.75C16.65 2.49 17.66 2 18.7 2 20.55 2 22 3.45 22 5.3c0 2.27-2.91 4.9-6 7.7-3.09-2.81-6-5.44-6-7.7C10 3.45 11.45 2 13.3 2c1.04 0 2.05.49 2.7 1.25zM20 17h-7l-2.09-.73.33-.94L13 16h2.82c.65 0 1.18-.53 1.18-1.18 0-.49-.31-.93-.77-1.11L8.97 11H7v9.02L14 22l8.01-3c-.01-1.1-.9-2-2.01-2z"/>
+  </svg>
+);
 const KOLlogo = ({ color, width, height }) => <svg />;
 const Copy = ({ color, width, height, style, ...props }) => (
   <svg
@@ -313,6 +349,12 @@ const Icon = ({ name, color, width, height, ...props }) => {
       return <Login color={color} width={width} height={height} {...props} />;
     case "Mail":
       return <Mail color={color} width={width} height={height} {...props} />;
+    case "Google":
+      return <Google width={width} height={height} {...props} />;
+    case "Donation":
+      return (
+        <Donation color={color} width={width} height={height} {...props} />
+      );
     default:
       return null;
   }

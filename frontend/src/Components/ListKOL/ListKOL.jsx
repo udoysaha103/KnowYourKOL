@@ -3,7 +3,7 @@ import styles from "./ListKOL.module.css";
 import Icon from "../Icon";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { copyText } from "../../utils/textUtils";
+import { copyElementText } from "../../utils/textUtils";
 
 const ListKOL = ({ KOLlist, setKOLlist }) => {
   const copyRefs = useRef([]);
@@ -195,7 +195,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                         }`}
                         src={kol.photoPath}
                         alt="avatar"
-                        onError={e => {
+                        onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = "/profile-default.svg";
                         }}
@@ -225,7 +225,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                         className={styles.addrContainer}
                         onClick={(e) => {
                           e.preventDefault();
-                          copyText(
+                          copyElementText(
                             copyRefs.current[index],
                             kol.walletAddress
                           );

@@ -15,44 +15,40 @@ export const truncateText = (text, type = "1", maxLength = 10) => {
     }
 };
 
-export const copyText = async (element, text) => {
-    //@param element: the element to copy text from
-    //@param text: text to copy to clipboard
-    let msg = "";
-    const copyToClipboard = async (text) => {
+export const copyToClipboard = async (text) => {
+    try {
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(text);
+            return true;
+        }
+
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
         try {
-            if (navigator.clipboard) {
-                await navigator.clipboard.writeText(text);
-                msg = "Copied!";
-                return true;
-            }
-
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                const successful = document.execCommand("copy");
-                document.body.removeChild(textArea);
-                msg = "Copied!";
-                return successful;
-            } catch (err) {
-                document.body.removeChild(textArea);
-                msg = "Failed to copy!";
-                return false;
-            }
+            const successful = document.execCommand("copy");
+            document.body.removeChild(textArea);
+            return successful;
         } catch (err) {
-            console.error("Failed to copy:", err);
-            msg = "Failed to copy!";
+            document.body.removeChild(textArea);
             return false;
         }
-    };
-    await copyToClipboard(text);
+    } catch (err) {
+        console.error("Failed to copy:", err);
+        return false;
+    }
+};
+
+export const copyElementText = async (element, text) => {
+    //@param element: the element to copy text from
+    //@param text: text to copy to clipboard
+    const successful = await copyToClipboard(text);
     const originalText = element.innerText;
-    element.innerText = msg;
+    element.innerText = successful ? "Copied!" : "Failed to copy!";
     const wait = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve();

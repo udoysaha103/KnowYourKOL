@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Star from "../../Components/Star/Star";
 import ListKOL from "../../Components/ListKOL/ListKOL";
 import Footer from "../../Components/Footer/Footer";
-import { copyText } from "../../utils/textUtils";
+import { copyElementText } from "../../utils/textUtils";
 
 function Home() {
   document.title = "Know Your KOL";
@@ -118,7 +118,10 @@ function Home() {
                       id="KingAddr"
                       onClick={(e) => {
                         e.preventDefault();
-                        copyText(copyRef.current, firstUser.walletAddress);
+                        copyElementText(
+                          copyRef.current,
+                          firstUser.walletAddress
+                        );
                       }}
                     >
                       <span ref={copyRef}>

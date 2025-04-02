@@ -4,6 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useLogout } from "../../hooks/useLogout";
 import { useNavigate } from "react-router-dom";
 import Icon from "../Icon";
+import { copyElementText } from "../../utils/textUtils";
 import styles from "./Navbar.module.css";
 
 function Navbar({ changeRequest }) {
@@ -12,8 +13,10 @@ function Navbar({ changeRequest }) {
   const [showMenu, setShowMenu] = useState(false);
   const [sending, setSending] = useState(false);
   const [isMouseOnElement, setIsMouseOnElement] = useState(false);
+  const [showDonation, setShowDonation] = useState(false);
   const [searching, setSearching] = useState(false);
   const abortController = useRef(null);
+  const copyRef = useRef(null);
   const { user } = useAuthContext();
   const { logout } = useLogout();
   const navigate = useNavigate();
@@ -74,7 +77,7 @@ function Navbar({ changeRequest }) {
         console.log(err);
         setSearching(false);
         setSearch([]);
-      } 
+      }
     } else {
       setSearch([]);
     }
@@ -151,16 +154,23 @@ function Navbar({ changeRequest }) {
             </Link>
           </div>
 
-          <div
+          <Icon
+            name="Donation"
+            color="#f8f8f8"
+            height="51px"
+            onClick={() => setShowDonation(!showDonation)}
+            style={{ cursor: "pointer" }}
+          />
+          <Icon
+            name="AccountBox"
+            color="#f8f8f8"
+            height="51px"
             onClick={() => {
               if (user) setShowMenu(!showMenu);
+              else navigate("/login");
             }}
-          >
-            <Link to={user ? "" : "/login"} className={styles.link}>
-              <Icon name="AccountBox" color="#f8f8f8" height="51px" />
-              &nbsp;
-            </Link>
-          </div>
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </nav>
 
@@ -182,6 +192,28 @@ function Navbar({ changeRequest }) {
           <div className={styles.menuItem} onClick={() => logout()}>
             <Icon name="Login" color="#f8f8f8" height="32px" />
             &nbsp; Logout
+          </div>
+        </div>
+      )}
+      {showDonation && (
+        <div className={styles.donation}>
+          <div className={styles.donationText}>
+            We’re committed to keep KnowYourKOL a Not-For-Profit platform and
+            won't implement any payment wall for end users. <br/><br/>In return, we kindly
+            request your donation to sustain and operate it.
+            <br/><br/>
+          </div>
+          <div className={styles.addressHeader}>Solana Donation Wallet</div>
+          <div className={styles.address}>
+            <text ref={copyRef} style={{wordWrap: "break-word"}}>
+            7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3{" "}
+            </text>
+            <Icon
+              name="Copy"
+              color="#f8f8f8"
+              height="20px"
+              onClick={() => copyElementText(copyRef.current, "7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3")}
+            />
           </div>
         </div>
       )}

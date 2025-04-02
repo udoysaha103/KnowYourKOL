@@ -126,7 +126,7 @@
   line-height: 28px;
   z-index: 1;
 }
-.googleButton {
+.ssoBtn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,19 +141,7 @@
   outline: none;
   z-index: 1;
 }
-.googleLogo {
-  top: 490px;
-  left: 883px;
-  width: 25px;
-  height: 27px;
-  border-radius: 8px;
-  background-image: url(../../assets/google.png);
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: 1;
-}
-.googleText {
+.ssoText {
   color: #000000;
   margin: 0px 8px;
   font-size: 14px;
@@ -177,4 +165,13 @@
   font-weight: 500;
   line-height: 22px;
   z-index: 2;
+}
+.ssoContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.ssoContainer > button{
+  margin: 0 5px;
 }
