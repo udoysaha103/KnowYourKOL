@@ -140,10 +140,10 @@ function Navbar({ changeRequest }) {
           )}
         </div>
         <div className={styles.navButtons}>
-          <button className={styles.btn} onClick={() => navigate("/kol")}>
+          <button className={styles.btn} onClick={() => navigate("/memebubbles")}>
             Meme Bubbles
           </button>
-          <button className={styles.btn} onClick={() => navigate("/addKOL")}>
+          <button className={styles.btn} onClick={() => navigate("/add-kol")}>
             <Icon name="AddKOL" color="#f8f8f8" height="100%" />
             &nbsp;Add KOL
           </button>
