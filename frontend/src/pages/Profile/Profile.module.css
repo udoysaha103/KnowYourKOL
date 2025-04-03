@@ -69,8 +69,8 @@
   font-size: 0.875em;
 }
 .avatar {
-  width: 171px;
-  height: 171px;
+  width: 100%;
+  min-width: 100px;
   background-color: #c2c2c2;
   box-sizing: border-box;
   border-radius: 50%;
@@ -94,6 +94,7 @@
     "sentimentHeader sentimentHeader sentimentValue";
   grid-template-columns: 5fr 10fr 1fr;
   text-align: left;
+  align-items: center;
   gap: 5px;
   composes: card from "./Profile.common.css";
   grid-area: card1;
@@ -210,14 +211,10 @@
 }
 
 .value {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   color: #f8f8f8;
   font-size: 1.5em;
   text-wrap: nowrap;
   font-weight: 400;
-  line-height: 28px;
 }
 .value_1 {
   color: #06c022;
@@ -368,4 +365,20 @@ input[type="radio"] {
 }
 .negative {
   color: #be0215;
+}
+
+@media (max-width: 888px){
+  .container{
+    font-size: 1vw;
+  }
+
+}
+@media (max-width: 600px){
+  .info1, .info2, .info3{
+    max-height: 10px;
+    padding: 0px 5px;
+  }
+  .card1, .card2, .card3{
+    padding: 5px;
+  }
 }

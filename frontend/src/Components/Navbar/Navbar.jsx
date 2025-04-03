@@ -90,13 +90,11 @@ function Navbar({ changeRequest }) {
   return (
     <>
       <nav className={styles.navbar}>
-        <Link className={styles.link} to="/">
-          <div className={styles.logoMenu}>
-            <img src="/KOL logo.png" alt="Logo" />
-            <div className={styles.dividerVertical}></div>
-            <span className={styles.header}>Know Your KOL</span>
-          </div>
-        </Link>
+        <div className={styles.logoMenu} onClick={() => navigate("/")}>
+          <img src="/KOL logo.png" alt="Logo" />
+          <div className={styles.dividerVertical}></div>
+          <span className={styles.header}>Know Your KOL</span>
+        </div>
         <div className={styles.searchContainer}>
           <input
             className={styles.searchBar}
@@ -140,7 +138,10 @@ function Navbar({ changeRequest }) {
           )}
         </div>
         <div className={styles.navButtons}>
-          <button className={styles.btn} onClick={() => navigate("/memebubbles")}>
+          <button
+            className={styles.btn}
+            onClick={() => navigate("/memebubbles")}
+          >
             Meme Bubbles
           </button>
           <button className={styles.btn} onClick={() => navigate("/add-kol")}>
@@ -151,13 +152,14 @@ function Navbar({ changeRequest }) {
             onClick={() => setShowDonation(!showDonation)}
             style={{ background: "none", border: "none" }}
           >
-            <Icon
-              name="Donation"
-              color="#f8f8f8"
+            <img
+              src="/Donation.png"
+              alt="Donation"
               height="100%"
-              onClick={() => setShowDonation(!showDonation)}
-              style={{ cursor: "pointer" }}
-            />
+              width="auto"
+              style={{ borderRadius: "10%" }}
+              className={styles.donationIcon}
+              />
           </button>
           <button
             style={{ background: "none", border: "none" }}
