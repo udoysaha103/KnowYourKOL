@@ -131,7 +131,7 @@ const Error = ({ color, width, height, style, ...props }) => (
 const AccountBox = ({ color, width, height, style, ...props }) => (
   <svg
     style={{ color, fill: color, maxWidth: width, height, ...style }}
-    viewBox="0 0 24 24"
+    viewBox="3 3 18 18"
     {...props}
   >
     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -142,7 +142,7 @@ const AccountBox = ({ color, width, height, style, ...props }) => (
 const AddKOL = ({ color, width, height, style, ...props }) => (
   <svg
     style={{ color, fill: color, maxWidth: width, height, ...style }}
-    viewBox="0 0 24 24"
+    viewBox="3 3 18 18"
     {...props}
   >
     <path fill="none" d="M0 0h24v24H0z"></path>

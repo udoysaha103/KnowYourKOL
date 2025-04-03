@@ -97,7 +97,7 @@ function Navbar({ changeRequest }) {
             <span className={styles.header}>Know Your KOL</span>
           </div>
         </Link>
-        <div>
+        <div className={styles.searchContainer}>
           <input
             className={styles.searchBar}
             type="search"
@@ -140,19 +140,13 @@ function Navbar({ changeRequest }) {
           )}
         </div>
         <div className={styles.navButtons}>
-          <div>
-            <Link to="/memebubbles" className={styles.link}>
-              <button className={styles.btn}>Meme Bubbles</button>
-            </Link>
-          </div>
-          <div>
-            <Link to="/add-kol" className={styles.link}>
-              <button className={styles.btn}>
-                <Icon name="AddKOL" color="#f8f8f8" height="32px" />
-                <span style={{ marginLeft: "10px" }}>Add KOL</span>
-              </button>
-            </Link>
-          </div>
+          <button className={styles.btn} onClick={() => navigate("/kol")}>
+            Meme Bubbles
+          </button>
+          <button className={styles.btn} onClick={() => navigate("/addKOL")}>
+            <Icon name="AddKOL" color="#f8f8f8" height="100%" />
+            &nbsp;Add KOL
+          </button>
           <button
             onClick={() => setShowDonation(!showDonation)}
             style={{ background: "none", border: "none" }}
@@ -160,7 +154,7 @@ function Navbar({ changeRequest }) {
             <Icon
               name="Donation"
               color="#f8f8f8"
-              height="51px"
+              height="100%"
               onClick={() => setShowDonation(!showDonation)}
               style={{ cursor: "pointer" }}
             />
@@ -175,7 +169,7 @@ function Navbar({ changeRequest }) {
             <Icon
               name="AccountBox"
               color="#f8f8f8"
-              height="51px"
+              height="100%"
               style={{ cursor: "pointer" }}
             />
           </button>
@@ -216,9 +210,9 @@ function Navbar({ changeRequest }) {
           </div>
           <div className={styles.addressHeader}>Solana Donation Wallet</div>
           <div className={styles.address}>
-            <text ref={copyRef} style={{ wordWrap: "break-word" }}>
+            <div ref={copyRef} style={{ wordWrap: "break-word" }}>
               7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3{" "}
-            </text>
+            </div>
             <Icon
               name="Copy"
               color="#f8f8f8"

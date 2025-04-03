@@ -12,7 +12,8 @@ function AdminPanel() {
   const [contentNo, setContentNo] = useState(0);
   const [unverifiedKOLs, setUnverifiedKOLs] = useState([]);
   const [verifying, setVerifying] = useState(false);
-  const [checking, setChecking] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const [rejecting, setRejecting] = useState(false);
   const [verifiedKOLs, setVerifiedKOLs] = useState([]);
   const [reviews, setReviews] = useState([]);
 
@@ -124,15 +125,16 @@ function AdminPanel() {
       );
 
       const data = await response.json();
-      setVerifying(false);
       if (response.ok) {
         setUnverifiedKOLs(unverifiedKOLs.filter((kol) => kol._id !== kol_id));
+        alert("KOL verified successfully");
       } else {
         console.error(data.message || data.error);
       }
     } else {
       console.error(data.message || data.error);
     }
+    setVerifying(false);
   };
 
   const handleSubmitVerifiedKOLedit = async (kol_id) => {
@@ -199,6 +201,7 @@ function AdminPanel() {
 
   const handleRejectKOL = async (kol_id) => {
     const _id = kol_id;
+    setRejecting(true);
     const rejectedKOL = await fetch(
       `${import.meta.env.VITE_API_URL}/admin/rejectUnverifiedKOL`,
       {
@@ -237,6 +240,7 @@ function AdminPanel() {
     } else {
       console.error(data.message || data.error);
     }
+    setRejecting(false);
   }
 
   const deleteReview = async (review_id) => {
@@ -415,7 +419,7 @@ function AdminPanel() {
                           className={styles.rejectButton}
                           onClick={() => handleRejectKOL(kol._id)}
                         >
-                          Reject
+                          {rejecting ? "Rejecting..." : "Reject"}
                         </button>
                       </div>
                     </div>

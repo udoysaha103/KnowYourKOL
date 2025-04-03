@@ -386,70 +386,67 @@ const Profile = () => {
           </button> */}
         </div>
         <div className={`${styles.card1} ${dataLoading && "loading"}`}>
-          <div style={{ display: "flex" }}>
-            {kol.IRLname && (
-              <>
-                <div
-                  className={`${styles.info1} ${styles.request} ${styles.info1_prime}`}
-                  onClick={() => {
-                    if (request)
-                      setIrlNameRequest(prompt("Enter new IRL Name"));
-                  }}
-                >
-                  Real Name:
-                </div>
-                <div
-                  className={`${styles.info1} ${styles.request} ${styles.value1}`}
-                  onClick={() => {
-                    if (request)
-                      setIrlNameRequest(prompt("Enter new IRL Name"));
-                  }}
-                >
-                  {!irlNameRequest ? kol.IRLname : irlNameRequest}
-                </div>
-              </>
-            )}
-          </div>
-          <div
-            style={{ display: "flex" }}
-            onClick={() => {
-              if (request) setLocationRequest(prompt("Enter new Location"));
-            }}
-          >
-            {kol.country && (
-              <>
-                <div
-                  className={`${styles.info1} ${styles.request} ${styles.info1_prime}`}
-                >
-                  Location:
-                </div>
-                <div
-                  className={`${styles.info1} ${styles.request} ${styles.value1}`}
-                >
-                  {!locationRequst ? kol.country : locationRequst}
-                </div>
-              </>
-            )}
-          </div>
+          {kol.IRLname && (
+            <>
+              <div
+                className={`${styles.info1} ${styles.request} ${styles.nameHeader}`}
+                onClick={() => {
+                  if (request) setIrlNameRequest(prompt("Enter new IRL Name"));
+                }}
+              >
+                Real Name:
+              </div>
+              <div
+                className={`${styles.info1} ${styles.request} ${styles.nameValue}`}
+                onClick={() => {
+                  if (request) setIrlNameRequest(prompt("Enter new IRL Name"));
+                }}
+              >
+                {!irlNameRequest ? kol.IRLname : irlNameRequest}
+              </div>
+            </>
+          )}
+          {kol.country && (
+            <>
+              <div
+                className={`${styles.info1} ${styles.request} ${styles.locationHeader}`}
+                onClick = {() => {
+                  if (request)
+                    setLocationRequest(prompt("Enter new Location"));
+                }}
+              >
+                Location:
+              </div>
+              <div
+                className={`${styles.info1} ${styles.request} ${styles.locationValue}`}
+                onClick = {() => {
+                  if (request)
+                    setLocationRequest(prompt("Enter new Location"));
+                }}
+              >
+                {!locationRequst ? kol.country : locationRequst}
+              </div>
+            </>
+          )}
           {PnLRank !== null && (
-            <div className={styles.infoValue}>
-              <p className={styles.info1}>PnL Ranking:</p>
-              <div className={`${styles.value} ${pnlLoading ? "loading" : ""}`}>
+            <>
+              <p className={`${styles.info1} ${styles.pnlHeader}`}>PnL Ranking:</p>
+              <div className={`${styles.value} ${styles.pnlValue} ${pnlLoading ? "loading" : ""}`}>
                 # {PnLRank}
               </div>
-            </div>
+            </>
           )}
           {sentimentRank !== null && (
-            <div className={styles.infoValue}>
-              <p className={styles.info1}>Follower's Sentiment Ranking:</p>
+            <>
+              <p className={`${styles.info1} ${styles.sentimentHeader}`}>Follower's Sentiment Ranking:</p>
               <div
-                className={`${styles.value} ${
+                className={`${styles.value} ${styles.sentimentValue} ${
                   sentimentLoading ? "loading" : ""
                 }`}
               >
                 # {sentimentRank}
               </div>
-            </div>
+            </>
           )}
         </div>
         <div className={`${styles.card2} ${dataLoading && "loading"}`}>

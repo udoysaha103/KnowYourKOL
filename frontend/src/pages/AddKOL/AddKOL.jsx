@@ -10,6 +10,7 @@ const AddKOL = () => {
   // const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [code, setCode] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const [showAddress, setShowAddress] = useState(true);
   const twitterNameRef = useRef();
   const irlNameRef = useRef();
@@ -43,6 +44,7 @@ const AddKOL = () => {
   };
 
   const handleSubmit = async () => {
+    if(submitting) return;
     if (!twitterNameRef.current.value) {
       alert("Twitter Name is required");
       return;
@@ -91,7 +93,7 @@ const AddKOL = () => {
       alert("Please upload a profile photo");
       return;
     }
-
+    setSubmitting(true);
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/KOLregister/submitVerificationRequest`,
       {
@@ -99,6 +101,7 @@ const AddKOL = () => {
         body: formData,
       }
     );
+    setSubmitting(false); 
     const data = await response.json();
     if (response.ok) {
       alert("Verification request submitted successfully");
@@ -287,7 +290,7 @@ const AddKOL = () => {
         </div>
         <div className={styles.btn2_container}>
           <button className={styles.btn2} onClick={handleSubmit}>
-            Submit
+            {submitting ? "Submitting..." : "Submit"}
           </button>
         </div>
         <div className={styles.msg2}>

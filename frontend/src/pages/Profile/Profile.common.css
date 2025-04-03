@@ -1,7 +1,6 @@
 .info {
   cursor: pointer;
-  margin: 5px 0;
-  min-height: 30px;
+  max-height: 30px;
   padding: 0px 8px;
   border: 1px solid #858594;
   box-sizing: border-box;
@@ -9,8 +8,8 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #212327;
   color: #ffffff;
-  font-size: 14px;
-
+  font-size: 0.875em;
+  text-wrap: nowrap;
   line-height: 24px;
   outline: none;
 }
