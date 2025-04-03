@@ -130,6 +130,7 @@ function AdminPanel() {
         alert("KOL verified successfully");
       } else {
         console.error(data.message || data.error);
+        alert("KOL verification failed");
       }
     } else {
       console.error(data.message || data.error);
