@@ -222,7 +222,7 @@ const AddKOL = () => {
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
-          Send $1 of SOL and submit signature ID or URL here to verify ownership.
+          Send 0.5 SOL and submit signature ID or URL here.
         </div>
         <div className={styles.input6}>
           <div
