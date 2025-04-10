@@ -9,7 +9,7 @@
     "review review review review";
   grid-template-columns: 1fr 2fr 2fr 2fr;
   gap: 10px;
-  font-size: 1.2vw;
+  font-size: 20px;
   padding: 30px 5%;
 }
 .background {
@@ -137,7 +137,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
 }
 .bio {
   display: flex;

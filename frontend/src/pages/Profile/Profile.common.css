@@ -1,7 +1,7 @@
 .info {
   cursor: pointer;
-  max-height: 30px;
-  padding: 0px 8px;
+  padding: 8px;
+  margin: 5px 0;
   border: 1px solid #858594;
   box-sizing: border-box;
   border-radius: 4px;
@@ -14,6 +14,9 @@
   outline: none;
 }
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
   background-color: #363f43;
   border-radius: 10px;

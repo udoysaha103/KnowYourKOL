@@ -12,8 +12,8 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "udoysaha103@gmail.com",
-    "password": "Test@321"
+    "email": "faisalhawlader04@gmail.com",
+    "password": "12345678"
 }
 
 ###
@@ -58,9 +58,10 @@ Content-Type: application/json
 
 POST http://localhost:5000/KOLregister/verifyKOL
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UyOWRmYTFmNDBmNTNlYWI5NDAxODAiLCJpYXQiOjE3NDQyNTgxMzIsImV4cCI6MTc0NDY5MDEzMn0.SYUOhFQgClqVUR0Ir4w_gC7rTZw7YQSEU1RhIWIOVM4
 
 {
-    "KOL_id" : "67e7c2f11f9a902452088160"
+    "KOL_id" : "67f52b0b7e1b977b255748d6"
 }
 
 ###
