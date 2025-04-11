@@ -196,8 +196,8 @@
 }
 .switch {
   cursor: pointer;
-  padding: 0px 5px;
-  margin: 0 5px;
+  padding: 0px 2%;
+  margin: 0 1%;
   border: 1px solid #858594;
   box-sizing: border-box;
   border-radius: 4px;
