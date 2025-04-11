@@ -333,7 +333,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="Discord" color="#f8f8f8" height="40px" />
+              <Icon name="Discord" color="#f8f8f8"/>
             </a>
           )}
           {kol.telegramLink && (
@@ -347,7 +347,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="Telegram" color="#f8f8f8" height="40px" />
+              <Icon name="Telegram" color="#f8f8f8"/>
             </a>
           )}
           {kol.youtubeLink && (
