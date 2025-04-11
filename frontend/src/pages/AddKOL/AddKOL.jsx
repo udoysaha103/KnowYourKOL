@@ -187,7 +187,7 @@ const AddKOL = () => {
           className={`${styles.input3} ${isDragActive && styles.active}`}
           {...getRootProps()}
         >
-          <Icon name="FolderUpload" color="#3164f4" height="40px" />
+          <Icon name="FolderUpload" color="#3164f4"/>
           <input {...getInputProps()} accept="image/*" multiple={false} />
           <div className={styles.dropzoneText}>
             {file
@@ -217,8 +217,8 @@ const AddKOL = () => {
           Do you want to make your wallet public?
         </div>
         <div className={styles.input5}>
-          <button onClick={() => setShowAddress(true)} className={showAddress && styles.selected}> Yes</button>
-          <button onClick={() => setShowAddress(false)} className={!showAddress && styles.selected}> No</button>
+          <button onClick={() => setShowAddress(true)} className={showAddress ? styles.selected : ""}> Yes</button>
+          <button onClick={() => setShowAddress(false)} className={!showAddress ? styles.selected : ""}> No</button>
         </div>
         <div className={styles.info5}>*Required</div>
         <div className={styles.key6}>
@@ -234,7 +234,7 @@ const AddKOL = () => {
             <span id="addr4cpy">
               7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3
             </span>
-            <img src="content_copy.svg" alt="copy" />
+            <Icon name="Copy" color="#ffffff" />
           </div>
           <input
             className={styles.inputSign}

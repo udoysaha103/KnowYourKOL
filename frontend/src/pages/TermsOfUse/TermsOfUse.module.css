@@ -1,0 +1,28 @@
+.container {
+  padding: 5%;
+  width: 100%;
+  font-size: 1vw;
+  margin: 0;
+}
+
+.header {
+  color: #f8f8f8;
+  font-size: 1.5em;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.emptyLine {
+  height: 1em;
+}
+
+.content {
+  color: #f8f8f8;
+  font-size: 1.125em;
+  font-family: "Source Code Pro", "Roboto";
+  font-weight: 400;
+}
+.content > p {
+  margin: 0;
+}
