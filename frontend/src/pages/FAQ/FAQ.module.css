@@ -64,15 +64,21 @@
 
 @media (max-width: 768px) {
   .header {
-    font-size: 4em;
+    font-size: 5em;
   }
   .headerP {
-    font-size: 0.7em;
+    font-size: 4em;
   }
   .faqList {
     margin-inline: 2em;
   }
   .faqItem {
     padding: 1em;
+  }
+  .question{
+    font-size: 2em;
+  }
+  .answer {
+    font-size: 1.8em;
   }
 }
