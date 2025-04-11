@@ -4,7 +4,10 @@ const userModel = require("../models/userModel.js");
 const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
-    const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
+    const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = Object.fromEntries(
+        Object.entries(req.body).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value])
+    );
+
     const photoPath = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
     const generatedCode = Math.floor(100000 + Math.random() * 900000);
 

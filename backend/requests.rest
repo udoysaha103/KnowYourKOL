@@ -61,7 +61,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UyOWRmYTFmNDBmNTNlYWI5NDAxODAiLCJpYXQiOjE3NDQyNTgxMzIsImV4cCI6MTc0NDY5MDEzMn0.SYUOhFQgClqVUR0Ir4w_gC7rTZw7YQSEU1RhIWIOVM4
 
 {
-    "KOL_id" : "67f52b0b7e1b977b255748d6"
+    "KOL_id" : "67f7d9ec7e1b977b255dedcc"
 }
 
 ###
