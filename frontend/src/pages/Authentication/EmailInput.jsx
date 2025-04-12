@@ -43,7 +43,7 @@ const ForgotPassword = () => {
   }, [email]);
   return (
     <>
-      <div className={styles.logo}></div>
+      <img src="/logo.png" className={styles.logo}></img>
       <div className={styles.container}>
         <div className={styles.header}>Input Your Email</div>
         <div className={styles.dividerHorizontal}></div>

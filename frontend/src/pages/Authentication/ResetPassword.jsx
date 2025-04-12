@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -53,7 +53,7 @@ const ForgotPassword = () => {
   }, [password, confirmPassword]);
   return (
     <>
-      <div className={styles.logo}></div>
+      <img src="/logo.png" className={styles.logo}></img>
       <div className={styles.container}>
         <div className={styles.header}>Change Your Password</div>
         <div className={styles.dividerHorizontal}></div>
@@ -83,4 +83,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

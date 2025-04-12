@@ -31,7 +31,7 @@ const Login = () => {
   }, [email, password]);
   return (
     <>
-      <div className={styles.logo}></div>
+      <img src="/logo.png" className={styles.logo}></img>
       <div className={styles.container}>
         <div className={styles.header}>Login to KnowYourKOL</div>
         <div className={styles.dividerHorizontal}></div>
@@ -73,11 +73,11 @@ const Login = () => {
         <div className={styles.ssoContainer}>
           <button className={styles.ssoBtn} onClick={handleTwitterLogin}>
             <div className={styles.ssoText}>Sign in with Twitter (X)</div>
-            <Icon name="X" width="10%"/>
+            <Icon name="X"/>
           </button>
           <button className={styles.ssoBtn} onClick={handleGoogleLogin}>
             <div className={styles.ssoText}>Sign in with Google</div>
-            <Icon name="Google" width="10%"/>
+            <Icon name="Google"/>
           </button>
         </div>
       </div>
