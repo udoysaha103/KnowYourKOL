@@ -129,11 +129,13 @@ const scrapData = async (accountAddress) => {
             } catch (error) {
                 console.error(`Error killing firefox processes: ${error.message}`);
             }
-            const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
+            const tempPath = '/tmp/';
             const files = await readdir(tempPath, { withFileTypes: true });
             for (const file of files) {
-                const filePath = `${tempPath}/${file.name}`;
-                await rm(filePath, { recursive: true, force: true });
+                if (file.name.startsWith('playwright') || file.name.startsWith('puppeteer')) {
+                    const filePath = `${tempPath}/${file.name}`;
+                    await rm(filePath, { recursive: true, force: true });
+                }
             }
         } catch (err) {
             console.error(`Error removing temporary directory: ${err.message}`);
