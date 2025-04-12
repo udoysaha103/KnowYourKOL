@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
-import styles from "./SignUp.module.css";
+import styles from "./Auth.module.css";
 import Icon from "../../Components/Icon";
 
 

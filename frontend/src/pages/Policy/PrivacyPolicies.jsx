@@ -1,6 +1,6 @@
 import Navbar from "../../Components/Navbar/Navbar"
 import Footer from "../../Components/Footer/Footer"
-import styles from "./PrivacyPolicies.module.css"
+import styles from "./Policy.module.css"
 
 function PrivacyPolicies() {
   // first, scroll to the top of the page

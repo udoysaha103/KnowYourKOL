@@ -139,7 +139,6 @@ const AddKOL = () => {
             <Icon
               name="Copy"
               color="#111315"
-              height="32px"
               className={styles.icon}
               onClick={handleCopy}
             />

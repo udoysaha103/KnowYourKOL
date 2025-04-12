@@ -255,6 +255,10 @@ function AdminPanel() {
   };
 
   const deleteVerifiedKOL = async (kol_id) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this KOL? This action cannot be undone."
+    );
+    if (!confirmation) return;
     const _id = kol_id;
     const deletedKOL = await fetch(
       `${import.meta.env.VITE_API_URL}/admin/deleteVerifiedKOL`,
@@ -323,6 +327,10 @@ function AdminPanel() {
   };
 
   const deleteReview = async (review_id) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this review?"
+    );
+    if (!confirmation) return;
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/admin/deleteReview`,
       {
@@ -660,7 +668,7 @@ function AdminPanel() {
                         }}
                       >
                         Given by: {review.username}
-                        <button onClick={() => deleteReview(review._id)}>
+                        <button className={styles.deleteButton} onClick={() => deleteReview(review._id)}>
                           Delete
                         </button>
                       </p>

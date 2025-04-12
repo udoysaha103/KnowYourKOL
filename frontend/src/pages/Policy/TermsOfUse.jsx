@@ -1,6 +1,6 @@
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
-import styles from "./TermsOfUse.module.css";
+import styles from "./Policy.module.css";
 
 function TermsOfUse() {
   // first, scroll to the top of the page
