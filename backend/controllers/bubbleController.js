@@ -36,7 +36,7 @@ const scrapMemeCoins = async () => {
 
     // 1. delete all the coins that are not valid.
     memeCoins = memeCoins.filter((coin) => Object.keys(coin).every((key) => coin[key] !== null && coin[key] !== undefined && coin[key] !== ""));
-    
+
     // 2. if any duplicate, delete the first one.
     memeCoins = memeCoins.filter(
       (coin, index, self) =>
@@ -44,66 +44,48 @@ const scrapMemeCoins = async () => {
     );
     console.log(`✅ ${memeCoins.length} meme coins after filter`);
 
-    // // for the first time only
-    // for (let i = 0; i < memeCoins.length; i++) {
-    //   // check if the coin is already in the database
-    //   console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
-    //   const coin = await memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
-    //   // if the coin is not in the database, insert it
-    //   if (coin === null) {
-    //     const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
-
-    //     const res = await fetch(addressFetchingURL)
-    //     const data = await res.json();
-    //     memeCoins[i].coinAddress = data?.contract_address;
-    //     try{
-    //       const newCoin = await memeCoinModel.insertOne(memeCoins[i]);
-    //     }catch(err) {
-    //       console.log("❌ Error inserting coin: ", err);
-    //       console.log(data);
-    //     }
-    //   // wait for 5 seconds before the next request
-    //     await setTimoutPromise(10000);
-    //   }
-    // }
 
     // for each coin
     for (let i = 0; i < memeCoins.length; i++) {
-      // check if the coin is already in the database
-      const coin = await memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
-      console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
+      try {
+        // check if the coin is already in the database
+        const coin = await memeCoinModel.findOne({ coinID: memeCoins[i].coinID });
+        // console.log(`Checking coin ${i + 1} of ${memeCoins.length}...`);
 
-      // if the coin is not in the database, fetch the coin address and insert it into the database
-      if (coin === null) {
-        const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
-        const res = await fetch(addressFetchingURL);
-        const data = await res.json();
-        memeCoins[i].coinAddress = data?.contract_address;
-        try {
-          await memeCoinModel.create(memeCoins[i]);
-        } catch (err) {
-          console.error("❌ Error inserting coin: ", err);
+        // if the coin is not in the database, fetch the coin address and insert it into the database
+        if (coin === null) {
+          const addressFetchingURL = `https://api.coingecko.com/api/v3/coins/${memeCoins[i].coinID}`;
+          const res = await fetch(addressFetchingURL);
+          const data = await res.json();
+          memeCoins[i].coinAddress = data?.contract_address;
+          try {
+            await memeCoinModel.create(memeCoins[i]);
+          } catch (err) {
+            throw new Error("Error inserting coin into database: ", err);
+          }
+          // wait for 7 seconds before the next request
+          await setTimoutPromise(7000);
         }
-        // wait for 7 seconds before the next request
-        await setTimoutPromise(7000);
-      } 
-      else {
-        // address already exists, transfering the data to the memeCoins array
-        memeCoins[i].coinAddress = coin.coinAddress;
-      }
+        else {
+          // address already exists, transfering the data to the memeCoins array
+          memeCoins[i].coinAddress = coin.coinAddress;
+        }
 
-      // go to dexscreener and get the age, price change 5M and price change 6H
-      const dexscreenerURL = `https://api.dexscreener.com/token-pairs/v1/solana/${memeCoins[i].coinAddress}`;
-      const res = await fetch(dexscreenerURL);
-      const data = await res.json();
-      // if the data is not empty, get the age, price change 5M and price change 6H, pair address
-      if (data) {
-        // take the forst object in the data array
-        const firstObject = data[0];
-        memeCoins[i].pairAddress = firstObject?.pairAddress;
-        memeCoins[i].createdAt = firstObject?.pairCreatedAt;
-        // memeCoins[i].priceChange5M = firstObject?.priceChange?.m5;
-        memeCoins[i].priceChange6H = firstObject?.priceChange?.h6;
+        // go to dexscreener and get the age, price change 5M and price change 6H
+        const dexscreenerURL = `https://api.dexscreener.com/token-pairs/v1/solana/${memeCoins[i].coinAddress}`;
+        const res = await fetch(dexscreenerURL);
+        const data = await res.json();
+        // if the data is not empty, get the age, price change 5M and price change 6H, pair address
+        if (data) {
+          // take the forst object in the data array
+          const firstObject = data[0];
+          memeCoins[i].pairAddress = firstObject?.pairAddress;
+          memeCoins[i].createdAt = firstObject?.pairCreatedAt;
+          // memeCoins[i].priceChange5M = firstObject?.priceChange?.m5;
+          memeCoins[i].priceChange6H = firstObject?.priceChange?.h6;
+        }
+      } catch (err) {
+        console.error("❌ Error fetching coin data: ", err);
       }
     }
 
@@ -111,7 +93,7 @@ const scrapMemeCoins = async () => {
 
     // delete all the coins that are not valid.
     memeCoins = memeCoins.filter((coin) => Object.keys(coin).every((key) => coin[key] !== null && coin[key] !== undefined && coin[key] !== ""));
-    
+
     console.log(`✅ ${memeCoins.length} meme coins after filter`);
 
     // console.log(memeCoins);
@@ -143,11 +125,11 @@ const scrapMemeCoins = async () => {
 
 // get the top 100 meme coins sorted by market cap
 const getMemeCoins = async (req, res) => {
-  try{
+  try {
     const data = await bubbleModel.find().sort({ mCap: -1 }).limit(100)
     res.status(200).json(data);
   }
-  catch(err) {
+  catch (err) {
     console.error("❌ Error in getMemeCoins: ", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
