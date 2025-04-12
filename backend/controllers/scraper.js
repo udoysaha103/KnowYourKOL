@@ -44,18 +44,6 @@ const scrapData = async (accountAddress) => {
     try {
         browser = await firefox.launch({
             headless: true,
-            args: [
-                "--disable-gpu",
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-accelerated-2d-canvas",
-                "--no-first-run",
-                "--no-zygote",
-                "--single-process",
-                "--disable-extensions"
-            ]
-            // executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined, // Use the default executable path if not set
         });
 
         context = await browser.newContext({
@@ -74,8 +62,7 @@ const scrapData = async (accountAddress) => {
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { state: "attached", timeout: 5000 });
-        // await page.locator('script#__NEXT_DATA__', { timeout: 5000 }).waitFor();
+        await page.waitForSelector('script#__NEXT_DATA__', { state: "attached", timeout: 300000 }); // wait for 5 minutes
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
@@ -140,7 +127,7 @@ const scrapData = async (accountAddress) => {
                     }
                 }
             } catch (error) {
-                console.error(`Error killing chrome processes: ${error.message}`);
+                console.error(`Error killing firefox processes: ${error.message}`);
             }
             const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
             const files = await readdir(tempPath, { withFileTypes: true });
