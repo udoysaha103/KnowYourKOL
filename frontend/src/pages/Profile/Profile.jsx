@@ -276,7 +276,7 @@ const Profile = () => {
           >
             {!twitterNameRequest ? kol.twitterName : twitterNameRequest}{" "}
             {kol.verifiedByAdmin && (
-              <Icon name="Verified" color="#f8f8f8" height="24px" />
+              <Icon name="Verified" color="#f8f8f8"/>
             )}
           </div>
           {kol.walletAddress && (
@@ -287,7 +287,6 @@ const Profile = () => {
               <Icon
                 name="Copy"
                 color="#f8f8f8"
-                height="24px"
                 onClick={() =>
                   copyElementText(copyRef.current, kol.walletAddress)
                 }
@@ -320,7 +319,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="Twitter" color="#f8f8f8" height="40px" />
+              <Icon name="Twitter" color="#f8f8f8"/>
             </a>
           )}
           {kol.discordLink && (
@@ -334,7 +333,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="Discord" color="#f8f8f8" height="40px" />
+              <Icon name="Discord" color="#f8f8f8"/>
             </a>
           )}
           {kol.telegramLink && (
@@ -348,7 +347,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="Telegram" color="#f8f8f8" height="40px" />
+              <Icon name="Telegram" color="#f8f8f8"/>
             </a>
           )}
           {kol.youtubeLink && (
@@ -362,7 +361,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="YouTube" color="#f8f8f8" height="40px" />
+              <Icon name="YouTube" color="#f8f8f8"/>
             </a>
           )}
           {kol.streamLink && (
@@ -376,7 +375,7 @@ const Profile = () => {
                 }
               }}
             >
-              <Icon name="VideoCamera" color="#f8f8f8" height="40px" />
+              <Icon name="VideoCamera" color="#f8f8f8"/>
             </a>
           )}
         </div>
@@ -571,7 +570,7 @@ Your feedback empowers others and reclaims power for followers."
                     value="cooker"
                     onClick={(e) => handleRadio(e)}
                   />
-                  <Icon name="ThumbsUp" color="#3ebf3b" height="24px" /> &nbsp;
+                  <Icon name="ThumbsUp" color="#3ebf3b"/>
                   <div>Cooker</div>
                 </label>
                 <label
@@ -585,8 +584,7 @@ Your feedback empowers others and reclaims power for followers."
                     value="farmer"
                     onClick={(e) => handleRadio(e)}
                   />
-                  <Icon name="ThumbsDown" color="#d41e27" height="24px" />
-                  &nbsp;
+                  <Icon name="ThumbsDown" color="#d41e27"/>
                   <div>Farmer</div>
                 </label>
                 <button className={styles.btn} onClick={(e) => handleSubmit(e)}>

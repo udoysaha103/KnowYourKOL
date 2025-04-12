@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import styles from "./Canvas.module.css";
 import { formatMcap } from "../../utils/priceFormat";
 const Canvas = ({ data, selectedRowClass, ...rest }) => {
   const canvasRef = useRef(null);
@@ -229,21 +228,20 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
       this.draw();
     }
   }
-  let top;
-  const fillContainer = () => {
+  const fillContainer = (top) => {
     const containerHeight = window.innerHeight - top;
     containerRef.current.style.height = `${containerHeight}px`;
     canvasRef.current.height = containerRef.current.clientHeight;
     canvasRef.current.width = containerRef.current.clientWidth;
   };
   useEffect(() => {
-    top = containerRef.current.getBoundingClientRect().top;
+    const top = containerRef.current.getBoundingClientRect().top;
     window.scrollTo(0, 0);
     fillContainer();
     // Event Listeners
-    window.addEventListener("resize", fillContainer);
+    window.addEventListener("resize", () => fillContainer(top));
     return  () => {
-      window.removeEventListener("resize", fillContainer);
+      window.removeEventListener("resize", () => fillContainer(top));
     };
   }, []);
   useEffect(() => {
@@ -262,6 +260,8 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
 
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("touchstart", handleMouseDown);
+    window.addEventListener("touchend", handleMouseUp);
 
     if (!data) return;
     const contents = data.map((e) => Math.abs(e.content));
@@ -316,8 +316,8 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
   }, [data]);
 
   return (
-    <div ref={containerRef}>
-      <canvas className={styles.canvas} ref={canvasRef} {...rest} />
+    <div ref={containerRef} style={{ height: "70vh" }}>
+      <canvas ref={canvasRef} {...rest} />
     </div>
   );
 };

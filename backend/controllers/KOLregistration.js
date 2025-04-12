@@ -4,7 +4,10 @@ const userModel = require("../models/userModel.js");
 const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {
-    const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = req.body;
+    const { twitterName, IRLname, country, walletAddress, showAddress, signID, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = Object.fromEntries(
+        Object.entries(req.body).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : value])
+    );
+
     const photoPath = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
     const generatedCode = Math.floor(100000 + Math.random() * 900000);
 
@@ -58,15 +61,17 @@ const verifyKOL = async (req, res) => {
         const verifiedByAdmin = false;
 
         // create a new verifiedKOL document
-        const verifiedKOL = new verifiedKOLmodel({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, reviewCount, PnLscore1D, PnLscore7D, PnLscore30D, sentimentScore, verifiedByAdmin, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D });
+        try{
+            await verifiedKOLmodel.create({ twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink, ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, reviewCount, PnLscore1D, PnLscore7D, PnLscore30D, sentimentScore, verifiedByAdmin, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D });
+        } catch (error) {
+            throw new Error(`Failed to create verified KOL: ${error.message}`);
+        }
 
 
         // if the KOL exists, delete the KOL from the unverifiedKOL collection
         await unverifiedKOLmodel.findByIdAndDelete(KOL_id);
 
 
-        // save the verifiedKOL document
-        await verifiedKOL.save();
 
         // return a message to the frontend
         res.status(200).json({ message: "KOL verified successfully" });

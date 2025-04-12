@@ -41,7 +41,7 @@ const Review = ({
 
       if (response.ok) {
         if (data.message === "liked" || data.message === "disliked") {
-          setUReview(data.message==="liked");
+          setUReview(data.message === "liked");
           setCookerCount(data.cookerCount);
           setFarmerCount(data.farmerCount);
         } else if (
@@ -52,7 +52,7 @@ const Review = ({
           setCookerCount(data.cookerCount);
           setFarmerCount(data.farmerCount);
         }
-      }else{
+      } else {
         setShowErrorMsg(true);
         setErrorMsg(data.message || data.error);
         setTimeout(() => {
@@ -73,9 +73,9 @@ const Review = ({
           <div className={styles.review}>
             Reviewed:&nbsp;
             {review ? (
-              <Icon name="ThumbsUp" color="#3ebf3b" height="16px" />
+              <Icon name="ThumbsUp" color="#3ebf3b" />
             ) : (
-              <Icon name="ThumbsDown" color="#d41e27" height="16px" />
+              <Icon name="ThumbsDown" color="#d41e27" />
             )}
             &nbsp;{review ? "Cooker" : "Farmer"}
           </div>
@@ -84,15 +84,9 @@ const Review = ({
         <p className={styles.text}>{text}</p>
       </div>
       <div className={styles.reviewCounts}>
-        {/* <div className={`${styles.count} ${u_review === "cooker" && styles.selected}`}>
-          <Icon name="ThumbsUp" color="#3ebf3b" height="24px" /> {cookerCount}
-        </div>
-        <div className={`${styles.count} ${u_review === "farmer" && styles.selected}`}>
-          <Icon name="ThumbsDown" color="#d41e27" height="24px" /> {farmerCount}
-        </div> */}
         <label
-          className={`${user ? styles.count : styles.count_disabled} ${
-            user && ureview === true && styles.selected
+          className={`${styles.count} ${user ? "" : styles.count_disabled} ${
+            user && ureview === false ? styles.selected : ""
           }`}
         >
           <input
@@ -101,11 +95,11 @@ const Review = ({
             value="cooker"
             onClick={(e) => handleChange(e)}
           />
-          <Icon name="ThumbsUp" color="#3ebf3b" height="24px" /> {cookerCountLive}
+          <Icon name="ThumbsUp" color="#3ebf3b" /> {cookerCountLive}
         </label>
         <label
-          className={`${user ? styles.count : styles.count_disabled} ${
-            user && ureview === false && styles.selected
+          className={`${styles.count} ${user ? "" : styles.count_disabled} ${
+            user && ureview === false ? styles.selected : ""
           }`}
         >
           <input
@@ -114,7 +108,7 @@ const Review = ({
             value="farmer"
             onClick={(e) => handleChange(e)}
           />
-          <Icon name="ThumbsDown" color="#d41e27" height="24px" /> {farmerCountLive}
+          <Icon name="ThumbsDown" color="#d41e27" /> {farmerCountLive}
         </label>
       </div>
     </>

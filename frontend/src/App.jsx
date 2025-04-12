@@ -6,16 +6,16 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp";
+import Login from "./pages/Authentication/Login";
+import SignUp from "./pages/Authentication/SignUp";
 import Profile from "./pages/Profile/Profile";
 import AddKOL from "./pages/AddKOL/AddKOL";
 import FAQ from "./pages/FAQ/FAQ";
-import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
-import PrivacyPolicies from "./pages/PrivacyPolicies/PrivacyPolicies";
+import TermsOfUse from "./pages/Policy/TermsOfUse";
+import PrivacyPolicies from "./pages/Policy/PrivacyPolicies";
 import MemeBubble from "./pages/MemeBubble/MemeBubble";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import EmailInput from "./pages/EmailInput/EmailInput";
+import ForgotPassword from "./pages/Authentication/ForgotPassword";
+import EmailInput from "./pages/Authentication/EmailInput";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 
 import { useAuthContext } from "./hooks/useAuthContext";

@@ -34,9 +34,10 @@
     "key input button info"; */
   grid-template-columns: 2fr 3fr 1fr 1fr;
   align-items: center;
+  font-size: 1vw;
   /* justify-items: center; */
-  gap: 10px;
-  padding: 30px 10%;
+  gap: 1vw;
+  padding: 2% 10%;
 }
 .codeContainer {
   position: fixed;
@@ -46,60 +47,54 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+  font-size: 1vw;
   backdrop-filter: blur(10px);
 }
 .code {
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
-  width: 504px;
-  height: 102px;
   background-color: #d9d9d9;
-  border-radius: 26px;
-  margin: 65px;
+  border-radius: 1.625em;
+  padding: 1em 5em;
+  gap: 2em;
+  margin: 4em;
 }
 .code > div {
   color: #000000;
-  font-size: 48px;
+  font-size: 3em;
   font-weight: 500;
-  line-height: 62px;
 }
-.icon {
-  position: absolute;
-  right: 0;
-  margin-inline: 57px;
-}
+
 .codeContainer p {
   color: #f8f8f8;
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: 700;
-  line-height: 33px;
 }
 .codeContainer > p > small {
   float: right;
   color: #f8f8f8;
-  font-size: 18px;
+  font-size: 0.5em;
   font-weight: 400;
-  line-height: 22px;
+}
+.code > svg{
+  height: 4em;
 }
 .header {
   width: 100%;
   color: #f8f8f8;
-  font-size: 40px;
+  font-size: 2.5em;
   font-weight: 700;
-  line-height: 52px;
   grid-area: header;
-  margin-bottom: 50px;
+  margin-bottom: 2em;
 }
 .header2 {
   composes: header from "./AddKOL.common.css";
   grid-area: header2;
 }
 .dividerHorizontal {
-  left: 90px;
   width: 100%;
-  height: 4px;
+  height: 0.1em;
   background-color: #c2c2c2;
   border-radius: 2px;
 }
@@ -181,20 +176,22 @@
   cursor: pointer;
   grid-area: input3;
 }
+.input3 > svg{
+  height: 3em;
+}
 .active {
   border: 2px dashed #3164f4;
 }
 .btn1 {
   cursor: pointer;
   border: 0;
-  height: 38px;
   box-sizing: border-box;
-  border-radius: 100px;
+  height: 2.5em;
+  border-radius: 2em;
   background-color: #04247d;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 0.8em;
   font-weight: 500;
-  line-height: 18px;
   outline: none;
   grid-area: button1;
 }
@@ -250,9 +247,8 @@
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   background-color: #212327;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 0.8em;
   font-family: "Roboto";
-  line-height: 24px;
   outline: none;
 }
 .selected {
@@ -271,8 +267,7 @@
   cursor: pointer;
   padding: 10px 20px;
   color: #f8f8f8;
-  font-size: 16px;
-  line-height: 21px;
+  font-size: 1em;
   text-align: right;
 }
 .info5 {
@@ -296,8 +291,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1em;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 0.8em;
   /* padding: 10px 0px; */
 
   width: 100%;
@@ -310,18 +306,17 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
   background-color: #1e1f26;
   color: #f8f8f8;
-  font-size: 13px;
+  font-size: 0.8em;
   font-weight: 500;
-  line-height: 18px;
   outline: none;
 }
-.recipientAddress img{
-  height: 18px;
-  margin-left: 10px;
+
+.recipientAddress > svg{
+  height: 1em;
 }
 .inputSign{
   width: 100%;
-  height: 42px;
+  height: 2.5em;
   padding: 0px 8px;
   border: 0;
   box-sizing: border-box;
@@ -329,9 +324,8 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
   background-color: #1e1f26;
   color: #f8f8f8;
-  font-size: 13px;
+  font-size: 0.8em;
   font-weight: 500;
-  line-height: 18px;
   outline: none;
 }
 .info6 {
@@ -410,18 +404,14 @@
 }
 .btn2 {
   cursor: pointer;
-  height: 42px;
-  padding: 0px 8px;
-  width: 146px;
-  height: 42px;
+  padding: 5% 10%;
   border: 0;
   box-sizing: border-box;
-  border-radius: 100px;
+  border-radius: 2em;
   background-color: #3164f4;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 1.25em;
   font-weight: 500;
-  line-height: 26px;
   outline: none;
 }
 .btn2:hover {
@@ -432,9 +422,8 @@
   justify-content: flex-end;
   align-items: center;
   color: #f8f8f8;
-  font-size: 14px;
+  font-size: 0.9em;
 
-  line-height: 16px;
   grid-area: msg;
 }
 .msg2 {
@@ -442,8 +431,22 @@
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-size: 14px;
-
-  line-height: 16px;
+  font-size: 0.9em;
   grid-area: msg2;
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 0.5em;
+    padding: 5% 2%;
+  }
+  .codeContainer{
+    font-size: 2vw;
+  }
+  .header {
+    font-size: 2em;
+  }
+  .header2 {
+    font-size: 1.5em;
+  }
 }

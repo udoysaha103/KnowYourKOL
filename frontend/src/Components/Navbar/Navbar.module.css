@@ -135,7 +135,7 @@
 }
 .menu {
   position: fixed;
-  top: 15%;
+  top: 10%;
   background-color: #1e1f26;
   right: 0;
   border: 1px solid #ffffff;
@@ -173,18 +173,32 @@
 }
 .donation {
   position: fixed;
-  width: 268px;
-  top: 15%;
+  width: 20em;
+  top: 10%;
   right: 0;
-  margin-inline: 10px;
-  padding: 30px 10px;
+  margin-inline: 0.625em;
+  padding: 1.875em 0.625em;
   background-color: #1e1f26;
-  border-radius: 26px;
+  border-radius: 1.625em;
   border: 2px solid #f8f8f8;
   box-sizing: border-box;
   box-shadow: -1px 1px 5px #ffffff;
   text-align: center;
+  font-size: 1vw;
   z-index: 100;
+}
+.address{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+.address > div{
+  word-wrap: break-word;
+  width: 15em;
+}
+.address > svg{
+  height: 1.5em;
 }
 
 .addressHeader {
@@ -192,7 +206,6 @@
   font-size: 1.125em;
   font-family: "Roboto";
   font-weight: 500;
-  line-height: 23px;
   text-decoration: underline;
 }
 
@@ -201,7 +214,7 @@
   font-size: 0.875em;
   font-family: "Roboto";
   font-weight: 700;
-  line-height: 18px;
+  line-height: 1.125em;
 }
 .navButtons > * {
   height: 40px;
@@ -216,6 +229,11 @@
   margin: 0px 10px;
 }
 
+@media (max-width: 768px){
+  .donation{
+    font-size: 2vw;
+  }
+}
 @media (max-width: 800px) {
   .navButtons > * {
     height: 30px;
@@ -249,6 +267,12 @@
   }
   .searchContainer{
     flex-grow: 1;
+  }
+  .donation{
+    top: 5%;
+  }
+  .menu{
+    top: 5%;
   }
 }
 

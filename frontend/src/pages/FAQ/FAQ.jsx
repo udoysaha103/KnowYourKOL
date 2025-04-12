@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./FAQ.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
-import {ReactDOM} from "react-dom/client";
+import styles from "./FAQ.module.css";
+
 const faqs = [
   {
     question: "What are the criteria to be a KOL?",
@@ -56,24 +56,24 @@ function FAQ() {
   };
 
   return (
-    <div className="FAQwrapper">
+    <div>
       <Navbar />
-      <div className="container">
-        <h1>Frequently Asked Questions</h1>
-        <p className="headerP">Find answers to common questions about KnowYourKOL.</p>
-        <p className="headerP">For further help, please DM us on our Twitter (X) page.</p>
+      <div className={styles.container}>
+        <h1 className={styles.header}>Frequently Asked Questions</h1>
+        <p className={styles.headerP}>Find answers to common questions about KnowYourKOL.</p>
+        <p className={styles.headerP}>For further help, please DM us on our Twitter (X) page.</p>
 
-        <div className="faqList">
+        <div className={styles.faqList}>
           {faqs.map((faq, index) => (
-            <div key={index} className="faqItem">
-              <div className="faqQuestion" onClick={() => toggleAnswer(index)}>
+            <div key={index} className={styles.faqItem}>
+              <div className={styles.question} onClick={() => toggleAnswer(index)}>
                 {faq.question}
-                <button className="faqToggleBtn" onClick={() => toggleAnswer(index)}>
+                <button className={styles.faqToggleBtn} onClick={() => toggleAnswer(index)}>
                   {/* {openIndex === index ? "Hide Answer" : <img src="/plus_sign.png" alt="Expand" />} */}
                   <img src="/plus_sign.png" alt="Expand" />
                 </button>
               </div>
-              {openIndex === index && <p className="faqAnswer">{faq.answer}</p>}
+              {openIndex === index && <p className={styles.answer}>{faq.answer}</p>}
             </div>
           ))}
         </div>

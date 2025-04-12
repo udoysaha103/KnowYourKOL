@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./ForgotPassword.module.css";
+import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {

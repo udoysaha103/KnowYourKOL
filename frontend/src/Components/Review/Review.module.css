@@ -1,8 +1,7 @@
 .name {
   color: #f8f8f8;
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: 700;
-  line-height: 18px;
 }
 .container {
   width: 100%;
@@ -18,22 +17,24 @@
   display: flex;
   align-items: center;
   color: #f8f8f8;
-  font-size: 18px;
+  font-size: 1.125em;
   font-weight: 500;
-  line-height: 23px;
+}
+.review > svg{
+  height: 1em;
 }
 .date {
   color: #f8f8f8;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 500;
   line-height: 21px;
 }
 .text {
   color: #f8f8f8;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 500;
-  line-height: 19px;
-  padding: 20px;
+  line-height: 2em;
+  padding: 2%;
 }
 
 .reviewCounts {
@@ -42,32 +43,28 @@
 }
 .count {
   background-color: #2c2c2f;
-  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1em;
   border: 1px dotted #505050;
   box-sizing: border-box;
-  padding: 5px 10px;
+  padding: 0.1em 1.5em;
   margin: 5px;
   color: #f8f8f8;
-  font-size: 16px;
+  font-size: 1em;
+  gap: 0.5em;
   font-weight: 500;
-  line-height: 19px;
   cursor: pointer;
 }
 .count_disabled{
-  background-color: #2c2c2f;
-  border-radius: 26px;
-  border: 1px dotted #505050;
-  box-sizing: border-box;
-  padding: 5px 10px;
-  margin: 5px;
-  color: #f8f8f8;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 19px;
   cursor: not-allowed;
 }
 .count:hover {
   background-color: #505050;
+}
+.count > svg{
+  height: 1em;
 }
 .selected{
   background-color: #3164f4;
@@ -89,7 +86,7 @@ input[type="radio"]{
   background-color: #2c2c2f;
   padding: 10px;
   color: red;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 500;
   line-height: 19px;
 }

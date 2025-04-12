@@ -212,13 +212,12 @@ function Navbar({ changeRequest }) {
           </div>
           <div className={styles.addressHeader}>Solana Donation Wallet</div>
           <div className={styles.address}>
-            <div ref={copyRef} style={{ wordWrap: "break-word" }}>
+            <div ref={copyRef}>
               7FD1SXXe8YaD1VxyCLmb41tzkUSfwNP4mFN9NUxPbZt3{" "}
             </div>
             <Icon
               name="Copy"
               color="#f8f8f8"
-              height="20px"
               onClick={() =>
                 copyElementText(
                   copyRef.current,
