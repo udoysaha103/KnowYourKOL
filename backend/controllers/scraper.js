@@ -127,9 +127,17 @@ const scrapData = async (accountAddress) => {
     } finally {
         try {
             if (browser) await browser.close();
+            try{
             const processes = await getProcessesByName('chrome');
-            for (const process of processes) {
-                await killProcess(process.pid);
+                for (const process of processes) {
+                    try{
+                        await killProcess(process.pid);
+                    } catch(error) {
+                        throw new Error(`Error killing process with PID ${process.pid}: ${error.message}`);
+                    }
+                }
+            }catch(error) {
+                console.error(`Error killing chrome processes: ${error.message}`);
             }
             const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
             const files = await readdir(tempPath, { withFileTypes: true });
