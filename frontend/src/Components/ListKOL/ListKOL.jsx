@@ -128,7 +128,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
           </div>
         </div>
         <div id={styles.filter}>
-          <div>Sort by</div>
+          <div>Sort by &nbsp;</div>
           <div className={styles.filterButtons}>
             <div
               className={duration === 1 ? styles.active : ""}
@@ -165,17 +165,17 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                 <Icon
                   name="ThumbsUp"
                   color="#3ebf3b"
-                  height="24px"
-                  style={{ marginBottom: "5px" }}
+                  height="1.5em"
+                  style={{ marginBottom: "0.25em" }}
                 />
                 &nbsp;Cooker
               </th>
               <th>
-                <Icon name="ThumbsDown" color="#d41e27" height="24px" />
+                <Icon name="ThumbsDown" color="#d41e27" height="1.5em" />
                 &nbsp;Farmer
               </th>
               <th>
-                <Icon name="RateReview" color="#f8f8f8" height="24px" />
+                <Icon name="RateReview" color="#f8f8f8" height="1.5em" />
               </th>
               <th />
             </tr>
@@ -200,26 +200,27 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                           e.target.src = "/profile-default.svg";
                         }}
                       />
+
                       <div className={styles.nameContainer}>
                         <div className={styles.name}>
                           <p style={{ textDecoration: "none" }}>
-                            {index + 1}. {kol.twitterName}
+                            {index + 1}. {kol.twitterName.length > 9 ? kol.twitterName.slice(0, 9) + "..." : kol.twitterName}
                           </p>
                         </div>
                         <div className={styles.icon}>
                           {index === 0 ? (
-                            <Icon name="Crown" color="#fcb434" height="24px" />
+                            <Icon name="Crown" color="#fcb434" height="1.5em" />
                           ) : index === 1 ? (
-                            <Icon name="Crown" color="#c0c0c0" height="24px" />
+                            <Icon name="Crown" color="#c0c0c0" height="1.5em" />
                           ) : index === 2 ? (
-                            <Icon name="Crown" color="#a77044" height="24px" />
+                            <Icon name="Crown" color="#a77044" height="1.5em" />
                           ) : null}
                         </div>
                       </div>
                     </div>
                   </td>
 
-                  <td>
+                  <td className={styles.addrField}>
                     {kol.walletAddress !== "Hidden" ? (
                       <div
                         className={styles.addrContainer}
@@ -234,7 +235,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                         <span ref={(e) => copyRefs.current.push(e)}>
                           {truncateText(kol.walletAddress)}&nbsp;
                         </span>
-                        <Icon name="Copy" color="#f8f8f8" height="24px" />
+                        <Icon name="Copy" color="#f8f8f8" height="1em" width="auto" />
                       </div>
                     ) : (
                       <div
@@ -251,7 +252,7 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
 
                   <td className={styles.emptySpace}></td>
 
-                  <td>
+                  <td className={styles.roiField}>
                     <div
                       className={`${styles.roiContainer} ${
                         kol[`ROI${duration}D`] < 0 ? styles.negative : ""
@@ -261,7 +262,8 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                       {(kol[`ROI${duration}D`] * 100).toFixed(2)}%
                     </div>
                   </td>
-                  <td>
+
+                  <td className={styles.pnlField}>
                     <div
                       className={`${styles.pnlContainer} ${
                         kol[`PnLtotal${duration}D`] < 0 ? styles.negative : ""
@@ -270,25 +272,30 @@ const ListKOL = ({ KOLlist, setKOLlist }) => {
                       {formatSOL(kol[`PnLtotal${duration}D`])} Sol
                     </div>
                   </td>
+
                   <td className={styles.emptySpace}></td>
-                  <td>
+
+                  <td className={styles.cookerField}>
                     <div className={styles.cookerContainer}>
-                      <Icon name="RocketLaunch" color="#f8f8f8" height="24px" />{" "}
+                      <Icon name="RocketLaunch" color="#f8f8f8" height="1.5em" />{" "}
                       &nbsp;
                       {kol.cookerCount}
                     </div>
                   </td>
-                  <td>
+
+                  <td className={styles.farmerField}>
                     <div className={styles.farmerContainer}>
-                      <Icon name="Skull" color="#f8f8f8" height="21px" /> &nbsp;
+                      <Icon name="Skull" color="#f8f8f8" height="1.35em" /> &nbsp;
                       {kol.farmerCount}
                     </div>
                   </td>
-                  <td>
+
+                  <td className={styles.reviewField}>
                     <div className={styles.reviewContainer}>
                       {kol.reviewCount}
                     </div>
                   </td>
+
                   <td className={styles.reviewDomain}>
                     <button
                       className={styles.review}

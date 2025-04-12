@@ -2,12 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 56px;
+  height: 3rem;
   background-color: #363f43;
-  margin: 20px 2px;
+  margin: 1em 2px;
 }
-.text {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 28px;
+
+@media (max-width: 900px) {
+  .domainContainer {
+    height: 2.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .domainContainer {
+    height: 2rem;
+  }
 }

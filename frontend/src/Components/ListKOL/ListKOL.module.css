@@ -1,16 +1,18 @@
 .InfoWrapper {
   width: 90%;
   font-family: "Source Code Pro", "Roboto";
+  text-wrap: nowrap;
+  font-size: 1vw;
 }
 
 #options {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 5vh;
 }
 
 #sortBy {
-  font-size: "24px";
+  font-size: 1.2em;
   font-family: "Source Code Pro", "Roboto";
   font-weight: 500;
   display: flex;
@@ -18,20 +20,20 @@
 }
 
 #sortButton {
-  margin: 0px 10px;
+  margin: 0rem 1rem;
 }
 
 .sortOverall {
   cursor: pointer;
-  width: 200px;
-  height: 30px;
-  padding: 0px 8px;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.3rem 1rem;
   border: 1px solid #858594;
-  border-radius: 8px;
+  border-radius: 0.7rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #212327;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 0.7em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,15 +41,15 @@
 
 .sortPnL {
   cursor: pointer;
-  width: 158px;
-  height: 30px;
-  padding: 0px 8px;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.3rem 1rem;
   border: 1px solid #858594;
-  border-radius: 8px;
+  border-radius: 0.7rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #212327;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 0.7em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,39 +61,41 @@
 }
 
 #filter {
-  width: 230px;
-  height: 36px;
+  width: fit-content;
+  height: fit-content;
   background-color: #272b2f;
-  border-radius: 6px;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px;
+  padding: 0.3rem 1rem;
   font-family: "Source Code Pro", "Roboto";
-  font-size: 16px;
+  font-size: 1em;
+  line-height: 70%;
 }
 
 .filterButtons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 0.5rem;
 }
 
 .filterButtons div {
   cursor: pointer;
-  width: 39px;
-  height: 21px;
-  padding: 0px 8px;
+  width: 2.5em;
+  height: fit-content;
+  padding: 0.5rem 1rem;
   border: 1px solid #858594;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   background-color: #212327;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 1em;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 70%;
 }
 
 .active {
@@ -99,55 +103,68 @@
   font-weight: bold;
 }
 
-.tableWrapper > table {
+@media (max-width: 700px){
+  #options{
+    display: none;
+  }
+}
+
+.tableWrapper {
   width: 100%;
 }
 
-.tableWrapper > th > tr > td {
-  height: fit-content;
+.tableWrapper table{
+  width: 100%;
 }
 
-.tableWrapper > th {
+.tableWrapper th {
   color: #f8f8f8;
-  font-size: 16px;
+  font-size: 1em;
   font-family: "Source Code Pro", "Roboto";
   font-weight: 400;
-  line-height: 22px;
+  line-height: 70%;
   text-align: center;
 }
 
 .emptySpace {
-  width: 15px;
+  width: 1.2%;
   background-color: transparent;
   margin: 0px;
   padding: 0px;
 }
 
 .nameContainer {
-  width: 100%;
-  padding: 0 20px;
-  justify-content: space-between;
+  width: 95%;
+  padding: 0 2em 0 1em;
   composes: domainContainer from "./ListKOL.common.css";
+  justify-content: space-between;
+  border-radius: 50em 0 0 50em;
 }
 .name {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #f8f8f8;
-  font-size: 25px;
+  font-size: 1.2em;
   font-family: "Source Code Pro", "Roboto";
-  line-height: 38px;
-  margin-left: 40px;
-  letter-spacing: -2px;
+  line-height: 70%;
+  margin-left: 2.5em;
+  letter-spacing: -2%;
 }
 .name p {
   margin: 0;
+}
+
+.icon{
+  width: 1em;
+  height: auto;
 }
 
 .nameField {
   /* display: flex; */
   align-items: center;
   cursor: pointer;
+  /* width: 25%; */
 }
 .nameField:hover,
 .nameField:visited,
@@ -158,38 +175,47 @@
 .avatarContainer {
   z-index: -100;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-decoration: none;
 }
 .avatar {
-  width: 82px;
-  height: 82px;
+  width: 3.25em;
+  height: 3.25em;
   background-color: #f8f8f8;
-  border: 4px solid #000;
+  border: 0.25em solid #000;
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: -50px;
   z-index: 1000;
 }
 .avatar_0 {
-  border: 4px solid #fcb434;
+  border: 0.25em solid #fcb434;
 }
 .avatar_1 {
-  border: 4px solid #c0c0c0;
+  border: 0.25em solid #c0c0c0;
 }
 .avatar_2 {
-  border: 4px solid #a77044;
+  border: 0.25em solid #a77044;
 }
+
+.addrField{
+  width: 12%;
+}
+
 .addrContainer {
   width: 100%;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
   cursor: pointer;
   color: #f8f8f8;
-  font-size: 18px;
+  font-size: 1em;
   font-family: "Source Code Pro", "Roboto";
   letter-spacing: -1px;
+}
+
+.roiField{
+  width: 10%;
 }
 
 .roiContainer {
@@ -199,16 +225,21 @@
   composes: domainContainer from "./ListKOL.common.css";
   margin: 0px;
   padding: 0px;
-  font-size: 18px;
+  font-size: 1em;
   font-family: "Source Code Pro", "Roboto";
   font-weight: bold;
 }
+
+.pnlField{
+  width: 10%;
+}
+
 .pnlContainer {
   width: 100%;
   color: #06c022;
   composes: text from "./ListKOL.common.css";
   composes: domainContainer from "./ListKOL.common.css";
-  font-size: 18px;
+  font-size: 1em;
   font-weight: bold;
   font-family: "Source Code Pro", "Roboto";
 }
@@ -216,43 +247,59 @@
   color: #be0215;
 }
 
+.cookerField{
+  width: 10%;
+}
+
 .cookerContainer {
   width: 100%;
   background-color: #0c6906;
   color: #f8f8f8;
-  composes: text from "./ListKOL.common.css";
+  font-size: 1em;
   composes: domainContainer from "./ListKOL.common.css";
 }
+
+.farmerField{
+  width: 10%;
+}
+
 .farmerContainer {
   width: 100%;
   background-color: #c10004;
   color: #f8f8f8;
-  composes: text from "./ListKOL.common.css";
+  font-size: 1em;
   composes: domainContainer from "./ListKOL.common.css";
 }
+
+.reviewField{
+  width: 6%;
+}
+
 .reviewContainer {
   width: 100%;
   padding: 0 10px;
-  border-radius: 0 45% 45% 0;
+  border-radius: 0 6em 6em 0;
   color: #f7f8f8;
-  composes: text from "./ListKOL.common.css";
+  font-size: 1em;
   composes: domainContainer from "./ListKOL.common.css";
 }
 
 .review {
   background-color: #919ba1;
-  border-radius: 26px;
+  border-radius: 3em;
   border: 2px solid #505050;
   box-sizing: border-box;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 500;
   color: #111315;
-  padding: 13px 20px;
-  margin-left: 5px;
+  margin-left: 1%;
+  width: 100%;
+  composes: domainContainer from "./ListKOL.common.css";
+  padding: 1em 1.5em;
 }
 .reviewDomain {
-  width: 5%;
+  width: 7%;
 }
 .pagination {
   display: flex;
@@ -270,4 +317,74 @@
   border-radius: 2.56px;
   cursor: pointer;
   margin-inline: 5px;
+}
+
+@media (max-width: 1400px){
+  .name{
+    margin-left:3em;
+  }
+}
+
+
+@media (max-width: 1200px){
+  .name{
+    margin-left:4em;
+  }
+
+  .nameContainer{
+    padding-right: 2.75em;
+  }
+
+  .avatar{
+    width: 4em;
+    height: 4em;
+  }
+
+  
+}
+
+
+@media (max-width: 900px){
+  .InfoWrapper{
+    font-size: 1.25vw;
+  }
+
+  .icon{
+    width: 0.5em;
+    height: auto;
+  }
+
+  .roiField, .pnlField{
+    width: 15%;
+  }
+}
+
+@media (max-width: 700px){
+  .avatar{
+    width: 4.5em;
+    height: 4.5em;
+  }
+
+  .InfoWrapper{
+    font-size: 1.3vw;
+  }
+
+  .roiField, .pnlField{
+    width: 18%;
+  }
+
+  .reviewDomain{
+    width: 3%;
+  }
+}
+
+@media (max-width: 400px){
+  .avatar{
+    width: 6em;
+    height: 6em;
+  }
+
+  .roiField, .pnlField{
+    width: 20%;
+  }
 }
