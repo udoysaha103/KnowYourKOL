@@ -73,7 +73,7 @@ const scrapData = async (accountAddress) => {
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 60000 });
+        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 300000 });
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
