@@ -7,7 +7,8 @@
   text-wrap: nowrap;
   border-radius: 10px;
   box-shadow: 2px 2px 2px #06c022;
-  margin: 10px 0 10px 10px;
+  font-size: 1vw;
+  margin: 0.625em 0 0.625em 0.625em;
 }
 .container:after{
   content: "";
@@ -20,11 +21,11 @@
   margin-right: 15%;
 }
 .image{
-  width: 60px;
-  height: 60px;
+  width: 3.75em;
+  height: 3.75em;
   /* margin-left: 225%; */
   background-color: #f8f8f8;
-  border: 4px solid #b4b4b4;
+  border: 0.25em solid #b4b4b4;
   box-sizing: border-box;
   border-radius: 50%;
   cursor: pointer;
@@ -38,26 +39,31 @@
 }
 .column > div{
   color: #f8f8f8;
-  font-size: 10px;
+  font-size: 0.625em;
   font-family: "Roboto";
   font-weight: 500;
-  line-height: 13px;
   margin: 5px;
 }
 .description > div{
-  margin: 5px;
-  margin-left: 3px;
+  line-height: 1.5em;
 }
 #name{
   color: #f8f8f8;
-  font-size: 16px;
+  font-size: 1.5em;
   font-family: "Roboto";
   font-weight: 500;
-  line-height: 13px;
 }
 .green{
   color: #06c022;
 }
 .red{
   color: #be0215;
+}
+@media screen and (max-width: 768px){
+  .container{
+    font-size: 1.5vw;
+  }
+  .description > div{
+    line-height: 2em;
+  }
 }

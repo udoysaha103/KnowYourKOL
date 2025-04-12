@@ -87,31 +87,32 @@ function Home() {
           >
             {firstUser && (
               <>
-                <img src="/king.png" alt="KING" id="KingIcon" />
-
-                <div id="KingImg" className={!kingImgLoading ? "fire" : ""}>
-                  {/* <img src="/King_of_KOLs.gif" alt="KING OF KOLS" id="KingImgSvg" /> */}
-                  <img
-                    src={firstUser.photoPath}
-                    alt="KING OF KOLS"
-                    id="avatar"
-                    onLoad={() => setKingImgLaoading(false)}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "/profile-default.svg";
-                      setKingImgLaoading(false);
-                    }}
-                  />
+                <div className="KingLeft">
+                  <img src="/king.png" alt="KING" id="KingIcon" />
+                  <div id="KingImg">
+                    <img
+                      src="/King_of_KOLs.gif"
+                      alt="KING OF KOLS"
+                      id="KingImgGif"
+                    />
+                    <img
+                      src="https://picsum.photos/200"
+                      alt="KING OF KOLS"
+                      id="avatar"
+                      onLoad={() => setKingImgLaoading(false)}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/profile-default.svg";
+                        setKingImgLaoading(false);
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div id="KingInfo">
-                  <div id="KingName">
-                    <div id="KingCrown">
-                      <img src="/king_crown.png" alt="King Crown" />
-                    </div>
-                    <div id="nameOfKing">
-                      {truncateName(firstUser.twitterName)}
-                    </div>
+                  <img src="/king_crown.png" alt="King Crown" id="KingCrown" />
+                  <div id="nameOfKing">
+                    {truncateName(firstUser.twitterName)}
                   </div>
                   {firstUser.walletAddress !== "Hidden" ? (
                     <p
@@ -138,53 +139,54 @@ function Home() {
                     <p id="verificationText">Verified KOL</p>
                   )}
                 </div>
+                <div className="KingRight">
+                  <div className="KingStats">
+                    {firstUser.ROI1D !== 0 && (
+                      <p>
+                        ROI:{" "}
+                        <span className={firstUser.ROI1D < 0 ? "negative" : ""}>
+                          {(firstUser.ROI1D * 100).toFixed(1)}%
+                        </span>
+                      </p>
+                    )}
+                    {firstUser.PnLtotal1D !== 0 && (
+                      <p>
+                        PnL:{" "}
+                        <span
+                          className={firstUser.PnLtotal7D < 0 ? "negative" : ""}
+                        >
+                          {formatSOL(firstUser.PnLtotal7D, 1)} Sol
+                        </span>
+                      </p>
+                    )}
+                    {firstUser.buy1D !== 0 && firstUser.sell1D !== 0 && (
+                      <p>
+                        TXs: <span>{firstUser.buy1D}</span>/
+                        <span className="negative">{firstUser.sell1D}</span>
+                      </p>
+                    )}
+                  </div>
 
-                <div className="KingStats">
-                  {firstUser.ROI1D !== 0 && (
-                    <p>
-                      ROI:{" "}
-                      <span className={firstUser.ROI1D < 0 ? "negative" : ""}>
-                        {(firstUser.ROI1D * 100).toFixed(1)}%
-                      </span>
-                    </p>
-                  )}
-                  {firstUser.PnLtotal1D !== 0 && (
-                    <p>
-                      PnL:{" "}
-                      <span
-                        className={firstUser.PnLtotal7D < 0 ? "negative" : ""}
-                      >
-                        {formatSOL(firstUser.PnLtotal7D, 1)} Sol
-                      </span>
-                    </p>
-                  )}
-                  {firstUser.buy1D !== 0 && firstUser.sell1D !== 0 && (
-                    <p>
-                      TXs: <span>{firstUser.buy1D}</span>/
-                      <span className="negative">{firstUser.sell1D}</span>
-                    </p>
-                  )}
-                </div>
-
-                <div className="KingStats KingStats2">
-                  {firstUser.cookerCount !== undefined && (
-                    <p>
-                      Upvotes: <strong>{firstUser.cookerCount}</strong>
-                    </p>
-                  )}
-                  {firstUser.reviewCount !== undefined && (
-                    <p>
-                      Reviews: <strong>{firstUser.reviewCount}</strong>
-                    </p>
-                  )}
-                  {firstUser.avgHoldingDuration !== undefined && (
-                    <p style={{ fontSize: "13px", display: "inline" }}>
-                      Avg. Held:{" "}
-                      <strong>
-                        {timeConvert(firstUser.avgHoldingDuration)}
-                      </strong>
-                    </p>
-                  )}
+                  <div className="KingStats">
+                    {firstUser.cookerCount !== undefined && (
+                      <p>
+                        Upvotes: <strong>{firstUser.cookerCount}</strong>
+                      </p>
+                    )}
+                    {firstUser.reviewCount !== undefined && (
+                      <p>
+                        Reviews: <strong>{firstUser.reviewCount}</strong>
+                      </p>
+                    )}
+                    {firstUser.avgHoldingDuration !== undefined && (
+                      <p>
+                        Avg. Held:{" "}
+                        <strong>
+                          {timeConvert(firstUser.avgHoldingDuration)}
+                        </strong>
+                      </p>
+                    )}
+                  </div>
                 </div>
               </>
             )}

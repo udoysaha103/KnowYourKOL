@@ -47,7 +47,10 @@ const scrapData = async (accountAddress) => {
         });
 
         context = await browser.newContext({
-            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0'
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0',
+            args: [
+                "--disable-extensions"
+            ]
         });
 
         page = await context.newPage();

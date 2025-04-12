@@ -45,11 +45,11 @@ const verifyKOL = async (req, res) => {
         // Need to add these info -> ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, avgHoldingDuration, walletBalance, cookerCount, farmerCount, PnLscore, sentimentScore
         // Need to add a timestamp
         const { twitterName, IRLname, country, photoPath, walletAddress, showAddress, twitterLink, discordLink, telegramLink, youtubeLink, streamLink } = KOL;
-        const scrapedData = await scrapData(walletAddress);
-        if (!scrapedData) {
-            return res.status(404).json({ message: "Failed to scrape data" });
-        }
-        const { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D } = scrapedData;
+        // const scrapedData = await scrapData(walletAddress);
+        // if (!scrapedData) {
+        //     return res.status(404).json({ message: "Failed to scrape data" });
+        // }
+        // const { ROI1D, ROI7D, ROI30D, PnLtotal1D, PnLtotal7D, PnLtotal30D, walletBalance, avgHoldingDuration, buy1D, sell1D, buy7D, sell7D, buy30D, sell30D } = scrapedData;
 
         const cookerCount = 0;
         const farmerCount = 0;
@@ -59,6 +59,21 @@ const verifyKOL = async (req, res) => {
         const PnLscore30D = 0;
         const sentimentScore = 0;
         const verifiedByAdmin = false;
+        const ROI1D = 0;
+        const ROI7D = 0;
+        const ROI30D = 0;
+        const PnLtotal1D = 0;
+        const PnLtotal7D = 0;
+        const PnLtotal30D = 0;
+        const walletBalance = 0;
+        const avgHoldingDuration = 0;
+        const buy1D = 0;
+        const sell1D = 0;
+        const buy7D = 0;
+        const sell7D = 0;
+        const buy30D = 0;
+        const sell30D = 0;
+
 
         // create a new verifiedKOL document
         try{

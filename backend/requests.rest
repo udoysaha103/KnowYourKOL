@@ -153,3 +153,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UzMWUwM
 ###
 GET https://api.x.com/2/users/me?user.fields=username
 Authorization: Bearer ckJZSVJzT1d4WWlkSE1ydFBXb0pfaUtKM0NMLW1tOUFIcXhDNzZLcldtY2xoOjE3NDM1MDgwNDcxMjI6MTowOmF0OjE
+###
+
+GET https://gmgn.ai/sol/address/Gv7CnRo2L2SJ583XEfoKHKbmWK3wNoBDxVoJqMKJR4Nu
