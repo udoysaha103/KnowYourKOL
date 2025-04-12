@@ -237,10 +237,11 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
   useEffect(() => {
     const top = containerRef.current.getBoundingClientRect().top;
     window.scrollTo(0, 0);
-    fillContainer();
     // Event Listeners
+    window.addEventListener("load", () => fillContainer(top));
     window.addEventListener("resize", () => fillContainer(top));
     return  () => {
+      window.removeEventListener("load", () => fillContainer(top));
       window.removeEventListener("resize", () => fillContainer(top));
     };
   }, []);
@@ -316,7 +317,7 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
   }, [data]);
 
   return (
-    <div ref={containerRef} style={{ height: "70vh" }}>
+    <div ref={containerRef}>
       <canvas ref={canvasRef} {...rest} />
     </div>
   );
