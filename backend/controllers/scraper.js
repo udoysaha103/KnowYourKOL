@@ -43,7 +43,7 @@ const scrapData = async (accountAddress) => {
     let browser, context, page;
     try {
         browser = await firefox.launch({
-            headless: false,
+            headless: true,
             args: [
                 "--disable-gpu",
                 "--no-sandbox",
