@@ -96,7 +96,7 @@ function Home() {
                       id="KingImgGif"
                     />
                     <img
-                      src="https://picsum.photos/200"
+                      src={firstUser.photoPath}
                       alt="KING OF KOLS"
                       id="avatar"
                       onLoad={() => setKingImgLaoading(false)}
