@@ -66,14 +66,14 @@ const scrapData = async (accountAddress) => {
         // console.log("Navigating to GMGN...");
         await page.goto(GMGN_API_URL, {
             waitUntil: "domcontentloaded", // Faster load detection
-            timeout: 300000 // Increase timeout to 60 seconds
+            timeout: 300000
         });
 
         // output page content to console
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 30000 });
+        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 60000 });
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
