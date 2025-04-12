@@ -14,7 +14,7 @@ import FAQ from "./pages/FAQ/FAQ";
 import TermsOfUse from "./pages/Policy/TermsOfUse";
 import PrivacyPolicies from "./pages/Policy/PrivacyPolicies";
 import MemeBubble from "./pages/MemeBubble/MemeBubble";
-import ForgotPassword from "./pages/Authentication/ForgotPassword";
+import ResetPassword from "./pages/Authentication/ResetPassword";
 import EmailInput from "./pages/Authentication/EmailInput";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 
@@ -49,7 +49,7 @@ const App = () => {
         <Route path="/forgotpassword" element={<EmailInput />}></Route>
         <Route
           path="/forgotpassword/:token"
-          element={<ForgotPassword />}
+          element={<ResetPassword />}
         ></Route>
         <Route path="/edit" element={<AdminPanel />}></Route>
       </Routes>

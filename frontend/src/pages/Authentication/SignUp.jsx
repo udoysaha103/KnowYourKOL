@@ -49,7 +49,7 @@ const SignUp = () => {
   }, [username, email, password]);
   return (
     <>
-      <div className={styles.logo}></div>
+      <img src="/logo.png" className={styles.logo}></img>
       {showVerification && (
         <div className={styles.verificationMsg}>
           <Icon name="Mail" height="40px" color="#f8f8f8" />A verification email
