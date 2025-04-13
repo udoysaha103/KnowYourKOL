@@ -2,29 +2,6 @@ const { chromium } = require('playwright');
 const { rm, readdir } = require('fs/promises');
 const { exec } = require('child_process');
 
-function getProcessesByName(name) {
-    return new Promise((resolve, reject) => {
-        exec(`ps aux | grep ${name} | grep -v grep`, (error, stdout, stderr) => {
-            if (error) {
-                // Ignore grep's exit code 1 when no processes are found
-                if (error.code === 1) return resolve([]);
-                return reject(error);
-            }
-
-            const processes = stdout.trim().split('\n')
-                .filter(line => line.trim() !== '')
-                .map(line => {
-                    const parts = line.trim().split(/\s+/);
-                    return {
-                        pid: parseInt(parts[1]),  // PID is the second column in ps aux
-                        command: parts.slice(10).join(' '),  // The command is everything after column 10
-                    };
-                });
-
-            resolve(processes);
-        });
-    });
-}
 const killProcess = (pid) => {
     return new Promise((resolve, reject) => {
         exec(`kill -9 ${pid}`, (error, stdout, stderr) => {
@@ -44,6 +21,7 @@ const scrapData = async (accountAddress) => {
     try {
         browser = await chromium.launch({
             headless: true,
+            channel: 'chrome',
             args: [
                 '--disable-gpu',
                 '--disable-dev-shm-usage',
@@ -130,27 +108,12 @@ const scrapData = async (accountAddress) => {
             if (context) await context.close();
             if (browser) await browser.close();
             try {
-                const processes = await getProcessesByName('chrome');
-                for (const process of processes) {
-                    try {
-                        await killProcess(process.pid);
-                    } catch (error) {
-                        throw new Error(`Error killing process with PID ${process.pid}: ${error.message}`);
-                    }
-                }
+                await killProcess(browser.process().pid); 
             } catch (error) {
                 console.error(`Error killing chrome processes: ${error.message}`);
             }
-            const tempPath = '/tmp/';
-            const files = await readdir(tempPath, { withFileTypes: true });
-            for (const file of files) {
-                if (file.name.startsWith('playwright') || file.name.startsWith('puppeteer')) {
-                    const filePath = `${tempPath}/${file.name}`;
-                    await rm(filePath, { recursive: true, force: true });
-                }
-            }
         } catch (err) {
-            console.error(`Error closing browser or cleaning up temp: ${err.message}`);
+            console.error(`Error closing browser: ${err.message}`);
         }
     }
 }
