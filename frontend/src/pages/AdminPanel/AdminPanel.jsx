@@ -87,6 +87,7 @@ function AdminPanel() {
   };
 
   const verifyKOL = async (kol_id) => {
+    if(verifying) return;
     const formData = new FormData();
     formData.append("_id", kol_id);
     formData.append(
@@ -139,44 +140,50 @@ function AdminPanel() {
     );
 
     setVerifying(true);
-    const editedKOL = await fetch(
-      `${import.meta.env.VITE_API_URL}/admin/editUnverifiedKOL`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: formData,
-      }
-    );
-
-    const data = await editedKOL.json();
-    if (editedKOL.ok) {
-      // verify the KOL
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/KOLregister/verifyKOL`,
+    try {
+      const editedKOL = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/editUnverifiedKOL`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-          body: JSON.stringify({ KOL_id: kol_id }),
+          body: formData,
         }
       );
 
-      const data = await response.json();
-      if (response.ok) {
-        setUnverifiedKOLs(unverifiedKOLs.filter((kol) => kol._id !== kol_id));
-        alert("KOL verified successfully");
+      const data = await editedKOL.json();
+      if (editedKOL.ok) {
+        // verify the KOL
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/KOLregister/verifyKOL`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+            body: JSON.stringify({ KOL_id: kol_id }),
+          }
+        );
+
+        const data = await response.json();
+        if (response.ok) {
+          setUnverifiedKOLs(unverifiedKOLs.filter((kol) => kol._id !== kol_id));
+          alert("KOL verified successfully");
+        } else {
+          console.error(data.message || data.error);
+          alert("KOL verification failed");
+        }
       } else {
         console.error(data.message || data.error);
-        alert("KOL verification failed");
       }
-    } else {
-      console.error(data.message || data.error);
+    } catch (error) {
+      alert("An error occurred while verifying the KOL.");
+      console.error("Error verifying KOL:", error);
+    } finally {
+      setVerifying(false);
     }
-    setVerifying(false);
   };
 
   const handleSubmitVerifiedKOLedit = async (kol_id) => {
@@ -283,6 +290,7 @@ function AdminPanel() {
   };
 
   const handleRejectKOL = async (kol_id) => {
+    if (rejecting) return;
     const _id = kol_id;
     setRejecting(true);
     const rejectedKOL = await fetch(
@@ -668,7 +676,10 @@ function AdminPanel() {
                         }}
                       >
                         Given by: {review.username}
-                        <button className={styles.deleteButton} onClick={() => deleteReview(review._id)}>
+                        <button
+                          className={styles.deleteButton}
+                          onClick={() => deleteReview(review._id)}
+                        >
                           Delete
                         </button>
                       </p>
