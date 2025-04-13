@@ -11,6 +11,7 @@ const updatePnLdata = async () => {
     for (let KOL of KOLs) {
         const { walletAddress } = KOL;
         try {
+            console.log(`Scraping data for wallet address: ${walletAddress}`);
             const scrapedData = await scrapData(walletAddress);
             if (!scrapedData) {
                 throw new Error("No data found!");

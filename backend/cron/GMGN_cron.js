@@ -8,7 +8,7 @@ const { updatePnLdata } = require("../controllers/updatePnLdata");
     }
 })();
 setInterval(async () => {
-    console.log("Updating PnL data...");
+    console.log("Updating PnL data... (interval loop)");
     try{
         await updatePnLdata();
     }catch(error){
