@@ -1,30 +1,30 @@
-const { firefox } = require('playwright');
+const puppeteer = require('puppeteer');
 const { rm, readdir } = require('fs/promises');
 const { exec } = require('child_process');
 
 function getProcessesByName(name) {
     return new Promise((resolve, reject) => {
-        exec(`ps aux | grep ${name} | grep -v grep`, (error, stdout, stderr) => {
-            if (error) {
-                // Ignore grep's exit code 1 when no processes are found
-                if (error.code === 1) return resolve([]);
-                return reject(error);
-            }
-
-            const processes = stdout.trim().split('\n')
-                .filter(line => line.trim() !== '')
-                .map(line => {
-                    const parts = line.trim().split(/\s+/);
-                    return {
-                        pid: parseInt(parts[1]),  // PID is the second column in ps aux
-                        command: parts.slice(10).join(' '),  // The command is everything after column 10
-                    };
-                });
-
-            resolve(processes);
-        });
+      exec(`ps aux | grep ${name} | grep -v grep`, (error, stdout, stderr) => {
+        if (error) {
+          // Ignore grep's exit code 1 when no processes are found
+          if (error.code === 1) return resolve([]);
+          return reject(error);
+        }
+        
+        const processes = stdout.trim().split('\n')
+          .filter(line => line.trim() !== '')
+          .map(line => {
+            const parts = line.trim().split(/\s+/);
+            return {
+              pid: parseInt(parts[1]),  // PID is the second column in ps aux
+              command: parts.slice(10).join(' '),  // The command is everything after column 10
+            };
+          });
+        
+        resolve(processes);
+      });
     });
-}
+  }
 const killProcess = (pid) => {
     return new Promise((resolve, reject) => {
         exec(`kill -9 ${pid}`, (error, stdout, stderr) => {
@@ -40,20 +40,28 @@ const SOLconversionModel = require('../models/SOLconversionModel.js');
 const scrapData = async (accountAddress) => {
     const GMGN_API_URL = `https://gmgn.ai/sol/address/${accountAddress}`;
 
-    let browser, context, page;
+    let browser;
     try {
-        browser = await firefox.launch({
-            headless: true,
-        });
-
-        context = await browser.newContext({
-            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0',
+        browser = await puppeteer.launch({
+            headless: 'new',
             args: [
+                "--disable-gpu",
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-accelerated-2d-canvas",
+                "--no-first-run",
+                "--no-zygote",
+                "--single-process",
                 "--disable-extensions"
-            ]
+            ],
+            executablePath: process.env.CHROME_EXECUTABLE_PATH || undefined, // Use the default executable path if not set
         });
 
-        page = await context.newPage();
+        const page = await browser.newPage();
+        await page.setUserAgent(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        );
 
         // console.log("Navigating to GMGN...");
         await page.goto(GMGN_API_URL, {
@@ -65,7 +73,7 @@ const scrapData = async (accountAddress) => {
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { state: "attached", timeout: 300000 }); // wait for 5 minutes
+        await page.waitForSelector('script#__NEXT_DATA__', { timeout: 300000 });
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
@@ -97,6 +105,7 @@ const scrapData = async (accountAddress) => {
         const pnl_total_7d = realized_profit_7d / SOL2USD_conversion_rate;
         const pnl_total_30d = realized_profit_30d / SOL2USD_conversion_rate;
 
+        await page.close();
         return {
             ROI1D: pnl_1d,
             ROI7D: pnl_7d,
@@ -117,28 +126,24 @@ const scrapData = async (accountAddress) => {
         throw new Error(`Error during scraping: ${error.message}`);
     } finally {
         try {
-            if (page) await page.close();
-            if (context) await context.close();
             if (browser) await browser.close();
-            try {
-                const processes = await getProcessesByName('firefox');
+            try{
+            const processes = await getProcessesByName('chrome');
                 for (const process of processes) {
-                    try {
+                    try{
                         await killProcess(process.pid);
-                    } catch (error) {
+                    } catch(error) {
                         throw new Error(`Error killing process with PID ${process.pid}: ${error.message}`);
                     }
                 }
-            } catch (error) {
-                console.error(`Error killing firefox processes: ${error.message}`);
+            }catch(error) {
+                console.error(`Error killing chrome processes: ${error.message}`);
             }
-            const tempPath = '/tmp/';
+            const tempPath = '/tmp/snap-private-tmp/snap.chromium/tmp';
             const files = await readdir(tempPath, { withFileTypes: true });
             for (const file of files) {
-                if (file.name.startsWith('playwright') || file.name.startsWith('puppeteer')) {
-                    const filePath = `${tempPath}/${file.name}`;
-                    await rm(filePath, { recursive: true, force: true });
-                }
+                const filePath = `${tempPath}/${file.name}`;
+                await rm(filePath, { recursive: true, force: true });
             }
         } catch (err) {
             console.error(`Error removing temporary directory: ${err.message}`);
