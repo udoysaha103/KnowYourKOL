@@ -1,16 +1,4 @@
 const { chromium } = require('playwright');
-const { rm, readdir } = require('fs/promises');
-const { exec } = require('child_process');
-
-const killProcess = (pid) => {
-    return new Promise((resolve, reject) => {
-        exec(`kill -9 ${pid}`, (error, stdout, stderr) => {
-            if (error) return reject(error);
-            resolve(stdout.trim());
-        });
-    }
-    );
-}
 
 const SOLconversionModel = require('../models/SOLconversionModel.js');
 
@@ -107,11 +95,6 @@ const scrapData = async (accountAddress) => {
             if (page) await page.close();
             if (context) await context.close();
             if (browser) await browser.close();
-            try {
-                await killProcess(browser.process().pid); 
-            } catch (error) {
-                console.error(`Error killing chrome processes: ${error.message}`);
-            }
         } catch (err) {
             console.error(`Error closing browser: ${err.message}`);
         }
