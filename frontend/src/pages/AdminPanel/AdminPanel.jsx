@@ -13,8 +13,10 @@ function AdminPanel() {
   const [unverifiedKOLs, setUnverifiedKOLs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [verifying, setVerifying] = useState(false);
+  const [verifyingID, setVerifyingID] = useState("");
   const [checking, setChecking] = useState(true);
   const [rejecting, setRejecting] = useState(false);
+  const [rejectingID, setRejectingID] = useState("");
   const [verifiedKOLs, setVerifiedKOLs] = useState([]);
   const [reviews, setReviews] = useState([]);
 
@@ -140,6 +142,7 @@ function AdminPanel() {
     );
 
     setVerifying(true);
+    setVerifyingID(kol_id);
     try {
       const editedKOL = await fetch(
         `${import.meta.env.VITE_API_URL}/admin/editUnverifiedKOL`,
@@ -173,14 +176,14 @@ function AdminPanel() {
           alert("KOL verified successfully");
         } else {
           console.error(data.message || data.error);
-          alert("KOL verification failed");
+          alert(`KOL verification failed: ${data.message || data.error}`);
         }
       } else {
         console.error(data.message || data.error);
+        alert(`KOL edition failed: ${data.message || data.error}`);
       }
     } catch (error) {
       alert("An error occurred while verifying the KOL.");
-      console.error("Error verifying KOL:", error);
     } finally {
       setVerifying(false);
     }
@@ -293,6 +296,7 @@ function AdminPanel() {
     if (rejecting) return;
     const _id = kol_id;
     setRejecting(true);
+    setRejectingID(kol_id);
     const rejectedKOL = await fetch(
       `${import.meta.env.VITE_API_URL}/admin/rejectUnverifiedKOL`,
       {
@@ -519,13 +523,13 @@ function AdminPanel() {
                               verifyKOL(kol._id);
                             }}
                           >
-                            {verifying ? "Verifying..." : "Verify"}
+                            {verifying && verifyingID === kol._id ? "Verifying..." : "Verify"}
                           </button>
                           <button
                             className={styles.rejectButton}
                             onClick={() => handleRejectKOL(kol._id)}
                           >
-                            {rejecting ? "Rejecting..." : "Reject"}
+                            {rejecting && rejectingID === kol._id ? "Rejecting..." : "Reject"}
                           </button>
                         </div>
                       </div>
