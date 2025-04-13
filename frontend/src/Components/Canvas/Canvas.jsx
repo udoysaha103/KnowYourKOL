@@ -238,7 +238,7 @@ const Canvas = ({ data, selectedRowClass, ...rest }) => {
     const top = containerRef.current.getBoundingClientRect().top;
     window.scrollTo(0, 0);
     // Event Listeners
-    fillContainer();
+    fillContainer(top);
     window.addEventListener("load", () => fillContainer(top));
     window.addEventListener("resize", () => fillContainer(top));
     return  () => {
