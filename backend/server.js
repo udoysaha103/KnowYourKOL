@@ -129,10 +129,10 @@ mongoose
     app.listen(process.env.PORT, () => {
       console.log("connected to db & listening on port", process.env.PORT);
       // start the cron jobs
+      require("./cron/deleteTempCron"); // start the cron job to delete temp files
       require("./cron/SolanaCron"); // start the cron job to update the SOL to USD rate
       require("./cron/GMGN_cron"); // start the cron job to update the PnL data
       require("./cron/memeCron"); // start the cron job to update the meme coin data
-      require("./cron/deleteTempCron"); // start the cron job to delete temp files
     });
   })
   .catch((error) => {
