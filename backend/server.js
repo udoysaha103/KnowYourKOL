@@ -102,6 +102,7 @@ app.use((req, res, next) => {
 const userRouter = require("./routes/users");
 const twitterAuthRouter = require("./routes/twitterAuth");
 const googleAuthRouter = require("./routes/googleAuth"); 
+const ssoAuthRouter = require("./routes/ssoAuth");
 const KOLregistrationRouter = require("./routes/KOLregistration");
 const getKOLRouter = require("./routes/getKOL");
 const reviewRouter = require("./routes/review");
@@ -110,6 +111,7 @@ const adminRouter = require("./routes/admin");
 app.use("/user", userRouter);
 app.use("/twitter", twitterAuthRouter);
 app.use("/google", googleAuthRouter);
+app.use("/sso", ssoAuthRouter);
 app.use("/KOLregister", KOLregistrationRouter);
 app.use("/getKOL", getKOLRouter);
 app.use("/review", reviewRouter);

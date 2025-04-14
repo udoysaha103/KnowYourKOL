@@ -19,16 +19,16 @@ import EmailInput from "./pages/Authentication/EmailInput";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 
 import { useAuthContext } from "./hooks/useAuthContext";
-import { useGoogleLogin } from "./hooks/useGoogleLogin";
+import { useSSOLogin } from "./hooks/useSSOLogin";
 import Cookies from "js-cookie";
 import "./App.css";
 
 const App = () => {
   const { user } = useAuthContext();
-  const { googleLogin, isLoading, error } = useGoogleLogin();
+  const { ssoLogin, isLoading, error } = useSSOLogin();
   useEffect(() => {
     if (Cookies.get("session") && Cookies.get("session.sig")) {
-      googleLogin();
+      ssoLogin();
     }
   }, []);
   return (

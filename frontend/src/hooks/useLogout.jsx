@@ -9,6 +9,11 @@ export const useLogout = () => {
   const logout = async () => {
     setError(null);
     try {
+      await fetch(`${import.meta.env.VITE_API_URL}/sso/logout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
       localStorage.removeItem("user");
       Cookie.remove("session", { domain: ".knowyourkol.io" });
       Cookie.remove("session.sig", { domain: ".knowyourkol.io" });
