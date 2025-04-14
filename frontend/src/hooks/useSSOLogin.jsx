@@ -35,7 +35,7 @@ export const useSSOLogin = () => {
       }
     } catch (err) {
       setIsLoading(false);
-      setError("An unexpected error occurred");
+      setError("An unexpected error occurred", err);
       return true;
     }
   };
