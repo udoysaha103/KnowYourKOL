@@ -27,7 +27,7 @@ const App = () => {
   const { user } = useAuthContext();
   const { ssoLogin, isLoading, error } = useSSOLogin();
   useEffect(() => {
-    if (Cookies.get("session").length > 6 && Cookies.get("session.sig")) {
+    if (Cookies.get("session") && Cookies.get("session").length > 6 && Cookies.get("session.sig")) {
       ssoLogin();
     }
   }, []);
