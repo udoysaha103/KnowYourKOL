@@ -9,24 +9,33 @@ export const useSSOLogin = () => {
   const ssoLogin = async () => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/sso/login`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
-    const json = await response.json();
-    setIsLoading(false);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/sso/login`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+      const json = await response.json();
+      setIsLoading(false);
 
-    if (response.ok) {
-      // save the user to local storage
-      localStorage.setItem("user", JSON.stringify(json));
+      if (response.ok) {
+        // save the user to local storage
+        localStorage.setItem("user", JSON.stringify(json));
 
-      // update the auth context
-      dispatch({ type: "LOGIN", payload: json });
+        // update the auth context
+        dispatch({ type: "LOGIN", payload: json });
 
-      return false;
-    } else {
-      setError(json.error);
+        return false;
+      } else {
+        setError(json.error);
+        return true;
+      }
+    } catch (err) {
+      setIsLoading(false);
+      setError("An unexpected error occurred");
       return true;
     }
   };
