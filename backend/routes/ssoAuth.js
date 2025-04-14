@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 router.get('/logout', (req, res, next) => {
     req.logout(err => {
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect(process.env.CLIENT_URL);
     });
 });
 
