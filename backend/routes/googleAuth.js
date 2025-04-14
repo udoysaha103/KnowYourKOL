@@ -20,6 +20,8 @@ router.get("/login", (req, res) => {
             expiresIn: config.user.expairsIn,
         });
         res.status(200).json({ username: req.user.username, email: req.user.email, token, verificationStatus: req.user.verificationStatus });
+    }else{
+        res.status(401).json({ error: "User not authenticated" });
     }
 })
 router.get("/failure", (req, res) => {
