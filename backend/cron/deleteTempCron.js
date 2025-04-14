@@ -1,22 +1,32 @@
-const { exec } = require('child_process');
-const cron = require('node-cron');
+const fs = require('fs');
+const path = require('path');
 
-// Schedule a task to run every 10 minutes
-cron.schedule('*/10 * * * *', () => {
-    console.log('Running cron job to delete temporary Playwright files...');
-    
-    // Command to remove all files starting with "playwright" in /tmp folder
-    const command = 'rm -rf /tmp/playwright*';
-
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing command: ${error.message}`);
+// Function to delete files starting with "playwright" in /tmp folder
+const deletePlaywrightFiles = () => {
+    const tmpDir = '/tmp';
+    fs.readdir(tmpDir, (err, files) => {
+        if (err) {
+            console.error(`Error reading directory: ${err.message}`);
             return;
         }
-        if (stderr) {
-            console.error(`Error: ${stderr}`);
-            return;
-        }
-        console.log('Temporary Playwright files deleted successfully.');
+
+        files.forEach(file => {
+            if (file.startsWith('playwright')) {
+                const filePath = path.join(tmpDir, file);
+                fs.rm(filePath, { recursive: true, force: true }, err => {
+                    if (err) {
+                        console.error(`Error deleting ${filePath}: ${err.message}`);
+                    } else {
+                        console.log(`Deleted: ${filePath}`);
+                    }
+                });
+            }
+        });
     });
-});
+}
+
+// Run the function every 10 minutes
+setInterval(deletePlaywrightFiles, 10 * 60 * 1000);
+
+// Initial run
+deletePlaywrightFiles();
