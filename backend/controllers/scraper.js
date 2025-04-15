@@ -2,6 +2,34 @@ const { chromium } = require('playwright');
 
 const SOLconversionModel = require('../models/SOLconversionModel.js');
 
+const waitForEitherSelector = async (page, selector1, selector2, timeout = 30000) => {
+    return page.evaluate(async ({ selector1, selector2, timeout }) => {
+        return new Promise((resolve, reject) => {
+            const observer = new MutationObserver(() => {
+                if (document.querySelector(selector1)) {
+                    resolve({ found: selector1 });
+                } else if (document.querySelector(selector2)) {
+                    resolve({ found: selector2 });
+                }
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
+
+            // Timeout fallback
+            setTimeout(() => {
+                observer.disconnect();
+                reject(new Error(`Timeout waiting for ${selector1} or ${selector2}`));
+            }, timeout);
+
+            // Initial check in case elements already exist
+            if (document.querySelector(selector1)) {
+                resolve({ found: selector1 });
+            } else if (document.querySelector(selector2)) {
+                resolve({ found: selector2 });
+            }
+        });
+    }, { selector1, selector2, timeout });
+}
 const scrapData = async (accountAddress) => {
     const GMGN_API_URL = `https://gmgn.ai/sol/address/${accountAddress}`;
 
@@ -40,7 +68,11 @@ const scrapData = async (accountAddress) => {
         // console.log(await page.content());
 
         // Wait for script tag to appear (adjust timeout if necessary)
-        await page.waitForSelector('script#__NEXT_DATA__', { state: "attached", timeout: 300000 }); // wait for 5 minutes
+        // await page.waitForSelector('script#__NEXT_DATA__', { state: "attached", timeout: 300000 }); // wait for 5 minutes
+        const result = await waitForEitherSelector(page, 'script#__NEXT_DATA__', 'p#WSnl4', 300000);
+        if (result.found === 'p#WSnl4') {
+            throw new Error("Human verification required.");
+        }
 
         // Extract JSON data
         const jsonData = await page.evaluate(() => {
