@@ -5,8 +5,7 @@ const memeCoinModel = require("../models/memeCoinModel");
 const scrapMemeCoins = async () => {
   const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=solana-meme-coins&order=market_cap_desc&per_page=200&page=1&sparkline=false&price_change_percentage=1h,24h,7d,30d`;
   const res = await fetch(URL);
-  const data = Array.from(await res.json())
-    .filter((coin, index, self) => index === self.findIndex((t) => t.name === coin.name)); // filter out duplicates
+  const data = Array.from(await res.json());
 
   if (data.length === 0) {
     throw new Error("No data found!");
@@ -18,20 +17,22 @@ const scrapMemeCoins = async () => {
     currentPrice: coin.current_price,
     mCap: coin.market_cap,
     FDV: coin.fully_diluted_valuation,
-    createdAt: null,
-    priceChange5M: null,
     priceChange1H: coin.price_change_percentage_1h_in_currency,
-    priceChange6H: null,
     priceChange24H: coin.price_change_percentage_24h_in_currency,
     priceChange7D: coin.price_change_percentage_7d_in_currency,
     priceChange30D: coin.price_change_percentage_30d_in_currency,
-    coinAddress: null,
-    pairAddress: null,
     coinID: coin.id,
   }));
 
   console.log(`✅ ${memeCoins.length} meme coins fetched!`);
+  // 1. delete all the coins that are not valid.
+  memeCoins = memeCoins.filter((coin) => Object.keys(coin).every((key) => coin[key] !== null && coin[key] !== undefined && coin[key] !== ""));
 
+  // 2. if any duplicate, delete the first one.
+  memeCoins = memeCoins.filter(
+    (coin, index, self) =>
+      index === self.findIndex((t) => t.bubbleName === coin.bubbleName)
+  );
   // for each coin fetch coinAddress from coingecko
   for (let i = 0; i < memeCoins.length; i++) {
     try {
@@ -76,7 +77,7 @@ const scrapMemeCoins = async () => {
           } else {
             throw new Error(`Not every value is present for the coin ${memeCoins[i].bubbleName}`);
           }
-        }else{
+        } else {
           throw new Error(`No data found for the coin ${memeCoins[i].bubbleName}`);
         }
         console.log(`✅ Data for coin ${memeCoins[i].bubbleName} fetched!`);
@@ -96,7 +97,7 @@ const scrapMemeCoins = async () => {
   console.log(`✅ ${memeCoins.length} meme coins after filter`);
 
   // console.log(memeCoins);
-  if(memeCoins.length >= 100){
+  if (memeCoins.length >= 100) {
     // make the bubbleModel collection empty
     await bubbleModel.deleteMany({})
     console.log("✅ bubbleModel collection is empty!");
