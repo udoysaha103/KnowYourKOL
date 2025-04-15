@@ -1,6 +1,5 @@
 const unverifiedKOLmodel = require("../models/unverifiedKOLmodel.js");
 const verifiedKOLmodel = require("../models/verifiedKOLmodel.js");
-const userModel = require("../models/userModel.js");
 const { scrapData } = require("./scraper.js");
 
 const submitVerificationRequest = async (req, res) => {

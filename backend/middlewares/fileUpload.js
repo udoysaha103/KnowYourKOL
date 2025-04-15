@@ -23,6 +23,37 @@ const upload = multer({
   fileFilter: imageFilter,
   limits: { fileSize: 1000000 },
 }).single("imageFile");
+// Wrapper middleware to handle errors properly
+const uploadMiddleware = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      // Handle different types of errors
+      if (err instanceof multer.MulterError) {
+        // Multer errors (like file size limit exceeded)
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res.status(413).send({
+            success: false,
+            message: "File size too large. Maximum 1MB allowed."
+          });
+        }
+        return res.status(400).send({
+          success: false,
+          message: err.message || "File upload error"
+        });
+      } 
+      else {
+        // Other unexpected errors
+        console.error("File upload error:", err);
+        return res.status(500).send({
+          success: false,
+          message: err
+        });
+      }
+    }
+    
+    // No errors, proceed to next middleware
+    next();
+  });
+};
 
-
-module.exports = upload;
+module.exports = uploadMiddleware;
