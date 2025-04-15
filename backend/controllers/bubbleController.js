@@ -76,6 +76,8 @@ const scrapMemeCoins = async () => {
           } else {
             throw new Error(`Not every value is present for the coin ${memeCoins[i].bubbleName}`);
           }
+        }else{
+          throw new Error(`No data found for the coin ${memeCoins[i].bubbleName}`);
         }
         console.log(`✅ Data for coin ${memeCoins[i].bubbleName} fetched!`);
       } catch (err) {
